@@ -1,10 +1,14 @@
 import Image from "next/image";
 import styles from "./styles/page.module.css";
+import { Typography } from "@mui/material";
 
 export default function Home() {
   return (
     <main className={styles.main}>
       <div className={styles.description}>
+        <Typography sx={{fontWeight:800}}>
+          HELLOOASDJASLKDNAWSNJ
+        </Typography>
         <p>
           Get started by editing&nbsp;
           <code className={styles.code}>app/page.tsx</code>

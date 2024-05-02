@@ -4,6 +4,7 @@ import { NotionRenderer } from 'react-notion-x'
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import Link from 'next/link'
+import {NotionPageHeader} from './NotionPageHeader'
 
 import 'react-notion-x/src/styles.css'
 import 'prismjs/themes/prism-tomorrow.css'
@@ -42,9 +43,16 @@ export default function NotionPage({recordMap, rootDomain, rootPageId, user} : {
           rootDomain={rootDomain} 
           rootPageId={rootPageId}
           mapPageUrl={(pageId) => `/${user}/${pageId}`}
+          disableHeader={true}
           components={{
             nextImage: Image,
-            nextLink: Link
+            nextLink: Link,
+            Code,
+            Equation,
+            Pdf,
+            Modal,
+            Collection,
+            Header: NotionPageHeader
           }}
           fullPage={true} 
           darkMode={false} 
