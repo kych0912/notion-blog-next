@@ -4,12 +4,15 @@ import { ExtendedRecordMap } from "notion-types";
 import NotionPage from "@/app/components/NotionPage";
 
 
-async function Post({params}: {params:{id:string}}){    
-    const recordMap = await getPage('067dd719a912471ea9a3ac10710e7fdf');
+async function Post({params}: {params:{id:string,user:string}}){    
+    const id = params.id;
+    const rootDomain = `localhost:3000/${params.user}/`
+
+    const recordMap = await getPage(id);
 
     return(
         <>
-            <NotionPage recordMap={recordMap} rootId={'067dd719a912471ea9a3ac10710e7fdf'}/>
+            <NotionPage recordMap={recordMap} rootDomain={rootDomain} rootPageId={id} user={params.user}/>
         </>
     )
 }

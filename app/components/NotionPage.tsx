@@ -2,11 +2,14 @@
 import * as React from 'react'
 import { NotionRenderer } from 'react-notion-x'
 import dynamic from 'next/dynamic'
+import Image from 'next/image'
+import Link from 'next/link'
+
 import 'react-notion-x/src/styles.css'
 import 'prismjs/themes/prism-tomorrow.css'
 import 'katex/dist/katex.min.css'
 
-export default function NotionPage({recordMap, rootId} : {recordMap: any,rootId: string}){
+export default function NotionPage({recordMap, rootDomain, rootPageId, user} : {recordMap: any,rootDomain: string,rootPageId:string,user:string}){
   const Code = dynamic(() =>
     import('react-notion-x/build/third-party/code').then((m) => m.Code)
   )
@@ -31,9 +34,22 @@ export default function NotionPage({recordMap, rootId} : {recordMap: any,rootId:
     }
   )
 
+  console.log(user)
   return(
     <div>
-        <NotionRenderer recordMap={recordMap} rootPageId={rootId} fullPage={true} darkMode={false} previewImages/>
+        <NotionRenderer 
+          recordMap={recordMap} 
+          rootDomain={rootDomain} 
+          rootPageId={rootPageId}
+          mapPageUrl={(pageId) => `/${user}/${pageId}`}
+          components={{
+            nextImage: Image,
+            nextLink: Link
+          }}
+          fullPage={true} 
+          darkMode={false} 
+          previewImages
+        />
     </div>
   )
 }
