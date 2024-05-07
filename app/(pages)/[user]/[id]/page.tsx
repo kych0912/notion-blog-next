@@ -6,9 +6,10 @@ import NotionPage from "@/app/components/NotionPage";
 
 async function Post({params}: {params:{id:string,user:string}}){    
     const id = params.id;
-    const rootDomain = `localhost:3000/${params.user}/`
+    const rootDomain = `/${params.user}/${id}`
 
     const recordMap = await getPage(id);
+    
 
     return(
         <>
