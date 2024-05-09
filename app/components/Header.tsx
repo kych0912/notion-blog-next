@@ -16,6 +16,8 @@ export default function Header(){
                 flexDirection:"row",
                 justifyContent:"space-between",
                 alignItems:"center",
+                px:"2rem",
+
                 }} >
                     <AcUnitIcon sx={{color:'black'}}/>
                     <Avatar alt="Remy Sharp"/>

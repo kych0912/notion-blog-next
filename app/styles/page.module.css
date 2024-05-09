@@ -4,5 +4,5 @@
   justify-content: start;
   align-items: center;
   min-height: 100vh;
-  padding: 0 10rem;
+  background: var(--background-color-0);
 }
