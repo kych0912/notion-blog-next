@@ -16,17 +16,24 @@ export default function NotionPageHeader({ block }:{block: types.CollectionViewP
                 boxShadow:'none',
                 backdropFilter:"blur(30px)",
                 backgroundColor:"hsla(0, 0%, 100%, .8)",
-                height:"4rem",
-                display:'flex',
-                flexDirection:"row",
-                justifyContent:"space-between",
-                alignItems:"center",
-                px:'24px'
+                py:'0.5rem',
+                width:"100%"
                 }} >
+                    <Box sx={{
+                        maxWidth:"1280px",
+                        m:'0px auto',                
+                        display:'flex',
+                        flexDirection:"row",
+                        justifyContent:"space-between",
+                        alignItems:"center",
+                        width:"100%",
+                        px:2
+                }}>
                     <Breadcrumbs block={block} rootOnly={false} />
                     <Typography>
                         1234
                     </Typography>
+                </Box>
             </AppBar>
     )
 }

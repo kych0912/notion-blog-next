@@ -64,7 +64,6 @@ async function Feed(){
 
         // console.log(recordMap?.block?.[keys[1]].value.properties?.title[0][0])
         const description = getPageBlockContent(recordMap.recordMap, keys);
-        console.log(description)
 
         let coverImg = recordMap.recordMap?.block?.[keys[0]].value.format?.page_cover;
 
@@ -88,7 +87,7 @@ async function Feed(){
 
     return (
         <>
-            <Grid container spacing={'32px'} columns={16} sx={{px:4}}>
+            <Grid container spacing={'32px'} columns={16} sx={{px:'auto',maxWidth:{md:'1024px',lg:"1400px"}}}>
                 {PostCardArr.map((item, index) => {
                     return (
                         <Grid item xs={16} md={8} lg={4} key={index}>
