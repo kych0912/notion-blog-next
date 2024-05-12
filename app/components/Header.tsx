@@ -52,7 +52,7 @@ export default function Header(){
                 width:"100%"
                 }} >
                     <Box sx={{
-                        maxWidth:"1280px",
+                        maxWidth:{md:'1024px',lg:"1400px"},
                         m:'0px auto',                
                         display:'flex',
                         flexDirection:"row",
