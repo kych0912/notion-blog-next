@@ -1,8 +1,9 @@
 'use client';
 import * as React from 'react'
-import { Avatar,AppBar,Box,Button} from "@mui/material";
+import { Avatar,AppBar,Box,Button, Typography} from "@mui/material";
 import {styled} from '@mui/material/styles';
 import AcUnitIcon from '@mui/icons-material/AcUnit';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 const StyledButton = styled(Button)({
     border:'2px solid',
@@ -18,29 +19,63 @@ const StyledButton = styled(Button)({
   });
 
 const MenuItem = styled(Box)({
-    color: '#000',
-    p: '.75rem 1rem',
-    fontWeight: 500,
-    cursor: 'pointer',
     '&:hover':{
-        backgroundColor:''
+        borderLeft:'4px solid #96C2F7',
     }
 })
 
+
+
 const UserMenu = () =>{
     return(
-        <Box sx={{display:"flex",flexDirection:"column",position:"absolute",top:'70px',right:'30px'}}>
-            <MenuItem>내 정보</MenuItem>
-            <MenuItem>로그아웃</MenuItem>
+        <Box sx={{display:"flex",
+            flexDirection:"column",
+            position:"absolute",
+            top:'100%',
+            right:'0px',
+            mt:1
+        }}>
+            <Box sx={{
+                width:"12rem",
+                backgroundColor:"#fff",
+            }}>
+                <MenuItem>
+                    <Typography variant="body1" sx={{
+                        color: '#000',
+                        p: '.75rem 1rem',
+                        fontWeight: 500,
+                        cursor: 'pointer',
+                    }}>
+                        내 정보
+                    </Typography>
+                </MenuItem>
+                <MenuItem>
+                    <Typography variant="body1" sx={{
+                        color: '#000',
+                        p: '.75rem 1rem',
+                        fontWeight: 500,
+                        cursor: 'pointer',
+                    }}>
+                        로그아웃
+                    </Typography>
+                </MenuItem>
+            </Box>
         </Box>
     )
 }
 
+
+
 export default function Header(){
     const [open,setOpen] = React.useState(false);
+    const [ishover,setIshover] = React.useState(false);
 
     const handleMenu = () =>{
         setOpen(!open);
+    }
+
+    const handleHover = (bool:boolean) =>{
+        setIshover(bool);
     }
     
     return (
@@ -60,20 +95,27 @@ export default function Header(){
                         alignItems:"center",
                         width:"100%",
                         px:2
-                }}>
+                    }}>
                         {
                             open && <Box onClick={()=>{handleMenu()}} sx={{position:"fixed",inset:0,backgroundColor:"transparent",height:"100vh",zIndex:-1}}/> 
                         }
                         <AcUnitIcon sx={{color:'black'}}/>
 
-                        <Box sx={{display:"flex"}}>
+                        <Box sx={{display:"flex",
+                            position:"relative",
+                            alignItems:"center",
+                            }}
+                            onMouseEnter={()=>{handleHover(true)}}
+                            onMouseLeave={()=>{handleHover(false)}}
+                        >
                             <StyledButton variant="outlined" sx={{mr:3}}>
                                 새 글 쓰기
                             </StyledButton>
-                            <Avatar onClick={()=>{handleMenu()}} alt="Remy Sharp" sx={{position:"relative"}}/>
+                            <Avatar onClick={()=>{handleMenu()}} alt="Remy Sharp"/>
                             {
                                 open && <UserMenu/>
                             }
+                            <ArrowDropDownIcon color={ishover ? "primary" : "disabled"} sx={{transition:"all .25s ease-in"}}/>
                         </Box>
                     </Box>
             </AppBar>
