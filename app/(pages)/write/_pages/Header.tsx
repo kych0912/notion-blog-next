@@ -1,25 +1,20 @@
-"use client";
-
-import { usePathname } from "next/navigation";
 import * as React from 'react'
-import * as types from 'notion-types'
-import { Breadcrumbs, Header, Search, useNotionContext } from 'react-notion-x'
-import { Box,Typography,AppBar} from "@mui/material";
+import { Avatar,AppBar,Box,IconButton, Typography} from "@mui/material";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
-import styles from './styles.module.css'
-
-export default function NotionPageHeader({ block }:{block: types.CollectionViewPageBlock | types.PageBlock}){
-    const path = usePathname()
-    const { components, rootPageId  } = useNotionContext()
+export default function Header({onBack}:{
+        onBack:()=>void
+    }){
+    
     return (
-            <AppBar component="header" position="sticky" sx={{
+            <AppBar component="header" position='sticky' sx={{
                 boxShadow:'none',
                 backdropFilter:"blur(30px)",
                 backgroundColor:"hsla(0, 0%, 100%, .8)",
                 py:'0.5rem',
                 width:"100%"
                 }} >
-                    <Box sx={{
+                <Box sx={{
                         maxWidth:{md:'1024px',lg:"1400px"},
                         m:'0px auto',                
                         display:'flex',
@@ -30,10 +25,9 @@ export default function NotionPageHeader({ block }:{block: types.CollectionViewP
                         px:2,
                         height:'42px'
                 }}>
-                    <Breadcrumbs block={block} rootOnly={false} />
-                    <Typography>
-                        1234
-                    </Typography>
+                    <IconButton onClick={()=>onBack()}>
+                        <ArrowBackIcon onClick={()=>onBack}/>
+                    </IconButton>
                 </Box>
             </AppBar>
     )

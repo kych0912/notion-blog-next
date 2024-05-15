@@ -4,6 +4,7 @@ import { Avatar,AppBar,Box,Button, Typography} from "@mui/material";
 import {styled} from '@mui/material/styles';
 import AcUnitIcon from '@mui/icons-material/AcUnit';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import Link from 'next/link';
 
 const StyledButton = styled(Button)({
     border:'2px solid',
@@ -21,6 +22,7 @@ const StyledButton = styled(Button)({
 const MenuItem = styled(Box)({
     '&:hover':{
         borderLeft:'4px solid #96C2F7',
+        backgroundColor:'#f9f9f9'
     }
 })
 
@@ -88,34 +90,49 @@ export default function Header(){
                 }} >
                     <Box sx={{
                         maxWidth:{md:'1024px',lg:"1400px"},
-                        m:'0px auto',                
+                        margin:'auto',                
                         display:'flex',
                         flexDirection:"row",
                         justifyContent:"space-between",
                         alignItems:"center",
                         width:"100%",
-                        px:2
+                        px:2,
+                        height:'42px'
                     }}>
                         {
                             open && <Box onClick={()=>{handleMenu()}} sx={{position:"fixed",inset:0,backgroundColor:"transparent",height:"100vh",zIndex:-1}}/> 
                         }
+
+
                         <AcUnitIcon sx={{color:'black'}}/>
 
                         <Box sx={{display:"flex",
                             position:"relative",
                             alignItems:"center",
                             }}
-                            onMouseEnter={()=>{handleHover(true)}}
-                            onMouseLeave={()=>{handleHover(false)}}
                         >
-                            <StyledButton variant="outlined" sx={{mr:3}}>
-                                새 글 쓰기
-                            </StyledButton>
-                            <Avatar onClick={()=>{handleMenu()}} alt="Remy Sharp"/>
-                            {
-                                open && <UserMenu/>
-                            }
-                            <ArrowDropDownIcon color={ishover ? "primary" : "disabled"} sx={{transition:"all .25s ease-in"}}/>
+                            <Link href="/write" passHref>
+                                <StyledButton variant="outlined" sx={{mr:3}}>
+                                    새 글 쓰기
+                                </StyledButton>
+                            </Link>
+                            <Box
+                            sx={{
+                                display:"flex",
+                                alignItems:"center",
+                                cursor:"pointer",
+                                position:"relative"
+                            }}
+                                onMouseEnter={()=>{handleHover(true)}}
+                                onMouseLeave={()=>{handleHover(false)}}
+                            >
+                                <Avatar onClick={()=>{handleMenu()}} alt="Remy Sharp"/>
+                                {
+                                    open && <UserMenu/>
+                                }
+                                <ArrowDropDownIcon color={ishover ? "primary" : "disabled"} sx={{transition:"all .25s ease-in"}}/>
+                                
+                            </Box>
                         </Box>
                     </Box>
             </AppBar>
