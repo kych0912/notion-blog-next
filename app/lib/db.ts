@@ -17,6 +17,7 @@ pool.getConnection((err, conn) => {
 const executeQuery = (query:string, arrParams:any) => {
     return new Promise((resolve, reject) => {
         try {
+            console.log(query)
             pool.query(query, arrParams, (err, data) => {
                 if (err) {
                     console.log('Error in executing the query')

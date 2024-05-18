@@ -8,9 +8,10 @@ import {
 import Link from 'next/link'
 import {SetStateAction} from 'react'
 
-export default function NewPost({onNext,nextStep}:{
+export default function NewPost({onNext,nextStep,setUrl}:{
         onNext:()=>void,
-        nextStep:string
+        nextStep:string,
+        setUrl:React.Dispatch<SetStateAction<string|undefined>>
     }){
 
     return(
@@ -28,6 +29,7 @@ export default function NewPost({onNext,nextStep}:{
                         pt:5
                     }}>
                         <TextField variant="outlined"
+                        onChange={(e)=>setUrl(e.target.value)}
                         placeholder="https://www.notion.so/..."
                         sx={{
                             color:"primary.main",

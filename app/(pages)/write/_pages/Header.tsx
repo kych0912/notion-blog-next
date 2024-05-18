@@ -14,18 +14,20 @@ export default function Header({onBack}:{
                 py:'0.5rem',
                 width:"100%"
                 }} >
-                <Box sx={{
-                        maxWidth:{md:'1024px',lg:"1400px"},
-                        m:'0px auto',                
+                <Box sx={{             
                         display:'flex',
                         flexDirection:"row",
                         justifyContent:"space-between",
                         alignItems:"center",
                         width:"100%",
-                        px:2,
+                        px:'2rem',
                         height:'42px'
                 }}>
-                    <IconButton onClick={()=>onBack()}>
+                    <IconButton onClick={()=>onBack()}
+                        sx={{
+                            p:0
+                        }}
+                    >
                         <ArrowBackIcon onClick={()=>onBack}/>
                     </IconButton>
                 </Box>

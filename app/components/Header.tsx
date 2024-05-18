@@ -26,7 +26,17 @@ const MenuItem = styled(Box)({
     }
 })
 
+const MenuOption = [
+    {
+        title:"내 정보",
+        link:"/user"
+    },
+    {
+        title:"로그아웃",
+        link:"/logout"
+    }
 
+]
 
 const UserMenu = () =>{
     return(
@@ -41,26 +51,24 @@ const UserMenu = () =>{
                 width:"12rem",
                 backgroundColor:"#fff",
             }}>
-                <MenuItem>
-                    <Typography variant="body1" sx={{
-                        color: '#000',
-                        p: '.75rem 1rem',
-                        fontWeight: 500,
-                        cursor: 'pointer',
-                    }}>
-                        내 정보
-                    </Typography>
-                </MenuItem>
-                <MenuItem>
-                    <Typography variant="body1" sx={{
-                        color: '#000',
-                        p: '.75rem 1rem',
-                        fontWeight: 500,
-                        cursor: 'pointer',
-                    }}>
-                        로그아웃
-                    </Typography>
-                </MenuItem>
+                {
+                    MenuOption.map((item,index)=>(
+                        <MenuItem key={index}>
+                            <Link href={item.link} passHref style={{
+                                textDecoration: 'none'
+                            }}>
+                                <Typography variant="body1" sx={{
+                                    color: '#000',
+                                    p: '.75rem 1rem',
+                                    fontWeight: 500,
+                                    cursor: 'pointer',
+                                }}>
+                                    {item.title}
+                                </Typography>
+                            </Link>
+                        </MenuItem>
+                    ))
+                }
             </Box>
         </Box>
     )
@@ -106,12 +114,14 @@ export default function Header(){
 
                         <AcUnitIcon sx={{color:'black'}}/>
 
+                        
+
                         <Box sx={{display:"flex",
                             position:"relative",
                             alignItems:"center",
                             }}
                         >
-                            <Link href="/write" passHref>
+                            <Link href="/write?step=write" passHref>
                                 <StyledButton variant="outlined" sx={{mr:3}}>
                                     새 글 쓰기
                                 </StyledButton>

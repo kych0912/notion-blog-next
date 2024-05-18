@@ -1,11 +1,16 @@
 import React from 'react';
-import {CircularProgress} from '@mui/material';
+import {CircularProgress,Box} from '@mui/material';
 
 const LoadingPage: React.FC = () => {
     return (
-        <div>
+        <Box sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height:"calc(100vh - 58px)",
+        }}>
             <CircularProgress />
-        </div>
+        </Box>
     );
 };
 

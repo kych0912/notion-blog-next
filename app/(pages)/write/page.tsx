@@ -1,10 +1,10 @@
 'use client'
 
-import React from "react";
+import React, { useEffect } from "react";
 import NewPost from "./_pages/NewPost";
 import Header from "./_pages/Header"
 import LoadingPage from "./_pages/LoadingPage";
-import { useParams } from "next/navigation";
+import { useSearchParams } from 'next/navigation'
 import { useRouter } from "next/navigation";
 
 const PathArr = [
@@ -14,9 +14,15 @@ const PathArr = [
 
 export default function Page(){
 
-    const [params,setParams] = useParams();
+    const params = useSearchParams();
     const router = useRouter();
     const [step,setStep] = React.useState<"write"|"loading">();
+    const [url,setUrl] = React.useState<string|undefined>();
+
+    useEffect(()=>{
+        const step = params.get("step");
+        setStep(step as "write"|"loading");
+    },[params.get("step")])
 
     return(
         <>
@@ -26,6 +32,7 @@ export default function Page(){
                 step === "write" && <NewPost 
                     onNext={()=>setStep("loading")}
                     nextStep="loading"
+                    setUrl={setUrl}
                 />
             }
 
