@@ -13,6 +13,8 @@ export function getNotionImage(url:string,keys:string[], block:types.Block){
             url.startsWith('/image') ? url : `/image/${encodeURIComponent(url)}`
         }`
 
+
+        console.log(url)
         const notionImageUrlV2 = new URL(url)
         let table = block.parent_table === 'space' ? 'block' : block.parent_table
         if (table === 'collection' || table === 'team') {

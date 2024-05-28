@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { getPage } from "@/app/lib/notion-api";
 import { ExtendedRecordMap } from "notion-types";
-import NotionPage from "@/app/components/NotionPage";
+import { Box } from "@mui/material";
+import NotionPage from "@/app/components/PostDetail/Post";
 
 
 async function Post({params}: {params:{id:string,user:string}}){    

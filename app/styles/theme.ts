@@ -7,6 +7,10 @@ const theme = createTheme({
             primary: {
                 main: "#96C2F7",
             },
+            secondary: {
+                main: "#f8f9fa",
+                dark:'#ebebeb'
+            },
         },
         typography: {
             fontFamily: 'Pretendard Variable',

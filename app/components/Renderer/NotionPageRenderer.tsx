@@ -5,11 +5,8 @@ import { NotionRenderer } from 'react-notion-x'
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import Link from 'next/link'
-import NotionPageHeader from './NotionPageHeader'
-import { useRouter } from 'next/navigation'
-import { Loading } from './Loading'
 
-import "../styles/notion.css"
+import "../../styles/notion.css"
 
 // -----------------------------------------------------------------------------
 // dynamic imports for optional components
@@ -39,19 +36,14 @@ const Modal = dynamic(
   }
 )
 
-export default function NotionPage({recordMap, rootDomain, rootPageId, user} : {recordMap: any,rootDomain: string,rootPageId:string,user:string}){
-
-  const router = useRouter()
-
+export default function NotionPage({recordMap, user} : {recordMap: any,user:string}){
     if (!recordMap) {
       return null
     }
   return(
-    <div>
+    <>
         <NotionRenderer 
           recordMap={recordMap} 
-          rootDomain={rootDomain} 
-          rootPageId={rootPageId}
           mapPageUrl={(pageId) => `/${user}/${pageId}`}
           components={{
             nextImage: Image,
@@ -60,13 +52,11 @@ export default function NotionPage({recordMap, rootDomain, rootPageId, user} : {
             Collection,
             Equation,
             Pdf,
-            Modal,
-            Header: NotionPageHeader,
+            Modal,  
           }}
-          fullPage={true} 
+
           darkMode={false} 
-          previewImages={true}
         />
-    </div>
+    </>
   )
 }

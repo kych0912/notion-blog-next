@@ -26,7 +26,6 @@ export default function Page(){
 
     return(
         <>
-            <Header onBack={()=>router.back()}/>
 
             {
                 step === "write" && <NewPost 

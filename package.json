@@ -14,6 +14,7 @@
     "@mui/icons-material": "^5.15.16",
     "@mui/material": "^5.15.15",
     "@mui/material-nextjs": "^5.15.11",
+    "@tanstack/react-query": "^5.37.1",
     "axios": "^1.6.8",
     "bcrypt": "^5.1.1",
     "jsonwebtoken": "^9.0.2",
@@ -23,8 +24,8 @@
     "notion-utils": "^6.16.0",
     "react": "^18",
     "react-dom": "^18",
+    "react-hook-form": "^7.51.5",
     "react-notion-x": "^6.16.0",
-    "react-query": "^3.39.3",
     "react-router-dom": "^6.23.0"
   },
   "devDependencies": {

@@ -3,11 +3,14 @@ import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import theme from "./styles/theme";
+import Header from './components/header/Header'
 import "./styles/global.css";
 
 import 'react-notion-x/src/styles.css'
 import 'prismjs/themes/prism-tomorrow.css'
 import 'katex/dist/katex.min.css'
+
+import Provider from "./utils/Provier";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -19,15 +22,20 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+
   return (
     <html lang="en">
       <body>
-        <AppRouterCacheProvider options={{ enableCssLayer: true }}>
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
-              {children}
-            </ThemeProvider>
-        </AppRouterCacheProvider>
+            <AppRouterCacheProvider options={{ enableCssLayer: true }}>
+              <ThemeProvider theme={theme}>
+                <CssBaseline />
+                <Provider>
+                  <Header/>
+                  {children}
+                </Provider>
+                </ThemeProvider>
+            </AppRouterCacheProvider>
       </body>
     </html>
   );

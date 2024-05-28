@@ -42,16 +42,6 @@ export async function generateToken(id:string){
     return token;
 }   
 
-export async function verifyToken(token:string){
-    try{
-        const decoded = jwt.verify(token, 'SECRET_KEY');
-        return decoded;
-    }
-    catch(err){
-        throw err;
-    }
-}
-
 export async function createUser(id:string,password:string){
     const salt = await bcrypt.genSalt(saltRounds);
     const hashedPassword:string = await bcrypt.hash(password, salt);

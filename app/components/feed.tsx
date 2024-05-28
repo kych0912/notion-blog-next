@@ -3,8 +3,6 @@ import {Grid} from '@mui/material'
 import PostCard from "./PostCard";
 import {Box} from '@mui/material'
 import { getPageTitle,
-        getPageContentBlockIds ,
-        getBlockCollectionId
     } from "notion-utils";
 import * as types from 'notion-types'
 
