@@ -14,6 +14,8 @@ export default function NewPost({onNext,nextStep,setUrl}:{
         setUrl:React.Dispatch<SetStateAction<string|undefined>>
     }){
 
+        
+
     return(
         <FunnelContainer>
             <ContentContainer>
@@ -44,8 +46,7 @@ export default function NewPost({onNext,nextStep,setUrl}:{
                         />
                     </Box>
                 </InputContainer>
-                
-                <Link href={`write/?step=${nextStep}`} shallow passHref>
+                <Link href={`write/?step=${nextStep}`} shallow={true} passHref>
                     <CustomButton onClick={()=>onNext()} variant="contained">
                         작성
                     </CustomButton>

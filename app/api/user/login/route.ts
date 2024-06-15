@@ -6,7 +6,7 @@ import {
  } from "@/app/lib/UserData/UserDB";
  import { cookies } from "next/headers";
 
-export async function POST(req:Request) {
+export async function POST(req:NextRequest) {
   const userData:UserLogin = await req.json();
 
   try{
@@ -19,7 +19,7 @@ export async function POST(req:Request) {
       const isMatch = await comparePassword(userData.password, password);
 
       if (!isMatch) {
-        return NextResponse.json({ message: "Invalid Credentials" });
+        return NextResponse.json({ message: "Invalid Credentials" },{status:401});
       }
 
       const token = await generateToken(id);
@@ -33,14 +33,14 @@ export async function POST(req:Request) {
         secure: true,
         httpOnly: true
       });
-      return NextResponse.json({ message: "Login Success", status: 200,isSuccess:true});
+      return NextResponse.json({ message: "Login Success",isSuccess:true},{status:200});
     }
     else{
-      return NextResponse.json({ message: "Invalid Credentials" });
+      return NextResponse.json({ message: "Invalid Credentials" },{status:401});
     }
   }
   catch(err)
   {
-    return NextResponse.json({ message: "Server Error" });
+    return NextResponse.json({ message: "Server Error" }, { status: 500 });
   }
 }

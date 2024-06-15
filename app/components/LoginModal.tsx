@@ -1,8 +1,10 @@
 'use client';
-import { useForm } from "react-hook-form"
-import {Box,Modal,Typography,Input,Button,styled} from "@mui/material"
-import { useState } from "react";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form"
+import {Box,Modal,Typography,Input,Button,styled,CircularProgress} from "@mui/material"
+import { useMutation } from "@tanstack/react-query";
 import CloseIcon from '@mui/icons-material/Close';
+import { useLogin } from "../react-query/user/mutations";
+import { useRouter } from "next/navigation";
 
 const ModalStyled={
     position: 'absolute' as 'absolute',
@@ -10,10 +12,11 @@ const ModalStyled={
     left: '50%',
     transform: 'translate(-50%, -50%)',
     bgcolor: 'background.paper',
-    border: '2px solid #000',
+    border: '0px',
     width:{sm:"500px",xs:"100%"},
     height:{sm:"530px",xs:'100%'},
     boxShadow: 24,
+    borderRadius:{sm:'1rem',xs:'0px'},
     p: 4,
 }
 
@@ -30,19 +33,28 @@ export default function LoginModal({open,setOpen}:{
     open:boolean,
     setOpen:React.Dispatch<React.SetStateAction<boolean>>
 }){
-    
+    const router = useRouter();
+
+    const {
+        mutate,
+        isPending,
+        isError,
+    } = useLogin();
 
     const {
         register,
         handleSubmit
-      } = useForm()
+    } = useForm()
 
     const handleClose = () => {
         setOpen(false)
     }
 
-    const onSubmit = (data:any) => {
-        console.log(data)
+    const onSubmit = (data: {
+        id: string,
+        password: string
+    }) => {
+        mutate(data);
     }
 
     return( 
@@ -54,7 +66,7 @@ export default function LoginModal({open,setOpen}:{
             >  
                 <Box sx={ModalStyled}>
 
-                    <Form onSubmit={handleSubmit(onSubmit)}>
+                    <Form onSubmit={handleSubmit(onSubmit as SubmitHandler<FieldValues>)}>
                         <Box sx={{display:"flex",flexDirection:"column",width:"100%"}}>
                             <Box sx={{width:"100%",display:"flex",justifyContent:"end"}}>   
                                 <CloseIcon onClick={handleClose} sx={{cursor:'pointer'}}/>
@@ -70,12 +82,19 @@ export default function LoginModal({open,setOpen}:{
 
 
                             <Input {...register("id",{ required: true })} sx={{width:'100%',fontFamily:'Pretendard Variable',fontWeight:'500',fontSize:'15px'}}/> 
-                            <Input {...register("password",{ required: true })} sx={{width:'100%',fontFamily:'Pretendard Variable',fontWeight:'500',fontSize:'15px',mt:2}}/> 
+                            <Input type="password" {...register("password",{ required: true })} sx={{width:'100%',fontFamily:'Pretendard Variable',fontWeight:'500',fontSize:'15px',mt:2}}/> 
                         </Box>
 
-                        <CustomButton variant="contained">
-                            로그인
-                        </CustomButton>
+                        <Box sx={{width:"100%",display:'flex',justifyContent:"center",alignItems:"center"}}>
+                        {
+                            isPending?
+                            <CircularProgress color="primary"/>:
+                            <CustomButton type="submit" variant="contained">
+                                로그인
+                            </CustomButton>
+                        }
+                        </Box>
+
                     </Form>  
 
                 </Box>

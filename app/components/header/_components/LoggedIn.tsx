@@ -1,16 +1,20 @@
+'use client'
 import {Box,Avatar,Button} from "@mui/material"
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import Link from 'next/link';
 import {styled} from '@mui/material/styles';
 import UserMenu from "./UserMenu";
 import React from 'react';
+import { useRouter } from "next/navigation";
+import { useLogout } from "@/app/react-query/user/mutations";
 
 const StyledButton = styled(Button)({
     border:'2px solid',
-    fontSize:'1rem',
+    fontSize:'1.2rem',
     fontWeight:700,
     borderRadius:'1rem',
-    px:'2rem',
+    paddingLeft:'16px',
+    paddingRight:'16px',
     '&:hover': {
         border:'2px solid #96C2F7',
         backgroundColor: '#96C2F7',
@@ -18,21 +22,32 @@ const StyledButton = styled(Button)({
     },
   });
 
-const MenuOption = [
-    {
-        title:"내 정보",
-        link:"/user"
-    },
-    {
-        title:"로그아웃",
-        link:"/logout"
-    }
 
-]
 
 export default function LoggedIn(){
     const [open,setOpen] = React.useState(false);
     const [ishover,setIshover] = React.useState(false);
+    const router = useRouter();
+    const mutation = useLogout();
+
+    const handleLogout = () =>{
+        mutation.mutate(undefined);
+    }
+
+
+    const MenuOption = [
+        {
+            title:"내 정보",
+            link:"/user",
+            handleClick:()=>{router.push("/user")}
+        },
+        {
+            title:"로그아웃",
+            link:"/logout",
+            handleClick:handleLogout
+        }
+    
+    ]
 
     const handleMenu = () =>{
         setOpen(!open);
@@ -57,6 +72,7 @@ export default function LoggedIn(){
                         새 글 쓰기
                     </StyledButton>
                 </Link>
+
                 <Box
                 sx={{
                     display:"flex",
@@ -66,8 +82,9 @@ export default function LoggedIn(){
                 }}
                     onMouseEnter={()=>{handleHover(true)}}
                     onMouseLeave={()=>{handleHover(false)}}
+                    onClick={()=>{handleMenu()}} 
                 >
-                    <Avatar onClick={()=>{handleMenu()}} alt="Remy Sharp"/>
+                    {/* <Avatar alt="Remy Sharp" width={20} height={20} component="div"/> */}
                     {
                         open && <UserMenu MenuOption = {MenuOption}/>
                     }

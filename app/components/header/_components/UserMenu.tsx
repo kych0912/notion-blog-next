@@ -13,7 +13,8 @@ const MenuItem = styled(Box)({
 const UserMenu = ({MenuOption}:{
     MenuOption:{
         title:string,
-        link:string
+        link:string,
+        handleClick:()=>void
     }[]
 }) =>{
     return(
@@ -30,19 +31,15 @@ const UserMenu = ({MenuOption}:{
             }}>
                 {
                     MenuOption.map((item,index)=>(
-                        <MenuItem key={index}>
-                            <Link href={item.link} passHref style={{
-                                textDecoration: 'none'
+                        <MenuItem onClick={item.handleClick} key={index}>
+                            <Typography variant="body1" sx={{
+                                color: '#000',
+                                p: '.75rem 1rem',
+                                fontWeight: 500,
+                                cursor: 'pointer',
                             }}>
-                                <Typography variant="body1" sx={{
-                                    color: '#000',
-                                    p: '.75rem 1rem',
-                                    fontWeight: 500,
-                                    cursor: 'pointer',
-                                }}>
-                                    {item.title}
-                                </Typography>
-                            </Link>
+                                {item.title}
+                            </Typography>
                         </MenuItem>
                     ))
                 }

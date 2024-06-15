@@ -26,7 +26,7 @@ export async function POST(req:Request) {
         const isExist = await isUserExist(id);
 
         if(isExist){
-            return NextResponse.json({ message: "User Already Exists", status: 409});
+            return NextResponse.json({ message: "User Already Exists"},{status: 400});
         }
 
         const _response = await createUser(id,password);

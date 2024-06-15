@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 const saltRounds = 10;
 
 export async function findUserByName(id:string){
-    const query = `SELECT * FROM user WHERE id=${id}`;
+    const query = `SELECT * FROM user WHERE id="${id}"`;
 
     try {
         const data = await executeQuery(query, []);
@@ -17,7 +17,7 @@ export async function findUserByName(id:string){
             return null;
         }
 
-        return data[0];
+        return (data as any[])[0];
     } catch (err) {
         console.log(err);
         throw err;

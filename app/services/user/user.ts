@@ -20,3 +20,23 @@ export const login = async (data:{
         throw err;
     }
 }
+
+const writeData = {
+    id: "writeData",
+    password: "writeData"
+}
+
+
+export const logout = async () => {
+    try {
+
+        await axios.post("/write",{
+            data:writeData
+        })
+
+        const res = await axios.get(`/api/user/logout`);
+        return res;
+    } catch (err) {
+        throw err;
+    }
+}

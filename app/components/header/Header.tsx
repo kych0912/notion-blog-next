@@ -1,6 +1,6 @@
 'use client';
 import * as React from 'react'
-import { Avatar,AppBar,Box,Button, Typography} from "@mui/material";
+import { Avatar,AppBar,Box,Skeleton, Typography} from "@mui/material";
 import {styled} from '@mui/material/styles';
 import AcUnitIcon from '@mui/icons-material/AcUnit';
 import LoggedIn from './_components/LoggedIn';
@@ -13,6 +13,7 @@ export default function Header(){
     const {data,isLoading,isError}= useQuery({
         queryKey: ['auth'],
         queryFn: ()=>getAuth(),
+        retry:false,
     });
 
 
@@ -21,7 +22,7 @@ export default function Header(){
                 boxShadow:'none',
                 backdropFilter:"blur(30px)",
                 backgroundColor:"hsla(0, 0%, 100%, .8)",
-                py:'0.5rem',
+                py:'12px',
                 width:"100%"
                 }} >
                     <Box sx={{
@@ -33,16 +34,26 @@ export default function Header(){
                         alignItems:"center",
                         width:"100%",
                         px:2,
-                        height:'32px'
+                        height:'40px'
                     }}>
 
                         <AcUnitIcon sx={{color:'black'}}/>
 
+
                         {
-                            data?.data.isLogged?
-                            <LoggedIn/>
+                            isLoading?
+                            <Box sx={{display:"flex",gap:2}}>
+                                <Skeleton variant="rounded" width={100} height={40} />
+                            </Box>
                             :
-                            <NotLoggedIn/>
+                            <>
+                            {
+                                data?.data.isLogged?
+                                <LoggedIn/>
+                                :
+                                <NotLoggedIn/>
+                            }
+                            </>
                         }
 
                     </Box>

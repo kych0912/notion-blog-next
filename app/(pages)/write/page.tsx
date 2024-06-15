@@ -7,10 +7,6 @@ import LoadingPage from "./_pages/LoadingPage";
 import { useSearchParams } from 'next/navigation'
 import { useRouter } from "next/navigation";
 
-const PathArr = [
-    "wrtie",
-    "loading"
-]
 
 export default function Page(){
 
