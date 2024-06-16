@@ -85,7 +85,7 @@ async function Feed(){
 
     return (
         <>
-            <Grid container spacing={'32px'} columns={16} sx={{px:'auto',maxWidth:{md:'1024px',lg:"1400px"}}}>
+            <Grid container spacing={'32px'} columns={16} sx={{px:'auto',maxWidth:{md:'1024px',lg:"1700px"}}}>
                 {PostCardArr.map((item, index) => {
                     return (
                         <Grid item xs={16} md={8} lg={4} key={index}>

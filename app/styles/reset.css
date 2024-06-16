@@ -15,6 +15,7 @@ time, mark, audio, video {
 	padding: 0;
 	border: 0;
 	font-size: 100%;
+	font: inherit;
 	vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
@@ -43,7 +44,7 @@ table {
 
 @font-face {
 	font-family: 'Pretendard Variable';
-  font-weight: 100 300 900;
+  	font-weight: 100 300 900;
 	font-style: normal;
 	font-display: swap;
 	src: url('../../public/fonts/woff2/PretendardVariable.woff2') format('woff2-variations');

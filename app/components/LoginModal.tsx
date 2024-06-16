@@ -5,6 +5,9 @@ import { useMutation } from "@tanstack/react-query";
 import CloseIcon from '@mui/icons-material/Close';
 import { useLogin } from "../react-query/user/mutations";
 import { useRouter } from "next/navigation";
+import ErrorSnackbar from "./Error/Error";
+import React from "react";
+import { AxiosError } from "axios";
 
 const ModalStyled={
     position: 'absolute' as 'absolute',
@@ -27,18 +30,23 @@ export const CustomButton = styled(Button)({
     width:"100%",
     fontWeight:700,
     fontSize:"1rem",
+    boxShadow:'none',
+    ":hover":{
+        boxShadow:'none'
+    }
 })
 
 export default function LoginModal({open,setOpen}:{
     open:boolean,
     setOpen:React.Dispatch<React.SetStateAction<boolean>>
 }){
-    const router = useRouter();
+    const [erroMessage,setErrorMessage] = React.useState<string>("")    
 
     const {
         mutate,
         isPending,
         isError,
+        error
     } = useLogin();
 
     const {
@@ -56,6 +64,20 @@ export default function LoginModal({open,setOpen}:{
     }) => {
         mutate(data);
     }
+
+    React.useEffect(()=>{
+        switch((error as AxiosError)?.response?.status){
+            case 401:
+                setErrorMessage("아이디 혹은 비밀번호가 일치하지 않습니다.")
+                break;
+            case 500:
+                setErrorMessage("서버 에러가 발생했습니다.")
+                break;
+            default:
+                setErrorMessage("알 수 없는 에러가 발생했습니다.")
+                break;
+        }
+    },[isError])
 
     return( 
         <>   
@@ -80,9 +102,9 @@ export default function LoginModal({open,setOpen}:{
                                 아이디로 로그인
                             </Typography>
 
+                            <Input {...register("id",{ required: true })} sx={{width:'100%',fontFamily:'Pretendard Variable',fontWeight:'500'}}/> 
+                            <Input type="password" {...register("password",{ required: true })} sx={{width:'100%',fontFamily:'Pretendard Variable',fontWeight:'500',mt:2}}/> 
 
-                            <Input {...register("id",{ required: true })} sx={{width:'100%',fontFamily:'Pretendard Variable',fontWeight:'500',fontSize:'15px'}}/> 
-                            <Input type="password" {...register("password",{ required: true })} sx={{width:'100%',fontFamily:'Pretendard Variable',fontWeight:'500',fontSize:'15px',mt:2}}/> 
                         </Box>
 
                         <Box sx={{width:"100%",display:'flex',justifyContent:"center",alignItems:"center"}}>
@@ -93,13 +115,19 @@ export default function LoginModal({open,setOpen}:{
                                 로그인
                             </CustomButton>
                         }
+
+                        
                         </Box>
 
-                    </Form>  
+                    </Form> 
 
+                    {
+                        isError&&
+                        <ErrorSnackbar message={erroMessage}/>
+                    }
                 </Box>
-
             </Modal>
+
 
         </>
     )

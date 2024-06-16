@@ -26,7 +26,7 @@ export default function Header(){
                 width:"100%"
                 }} >
                     <Box sx={{
-                        maxWidth:{md:'1024px',lg:"1400px"},
+                        maxWidth:{md:'1024px',lg:"1700px"},
                         margin:'auto',                
                         display:'flex',
                         flexDirection:"row",
@@ -38,7 +38,7 @@ export default function Header(){
                     }}>
 
                         <Link href="/"  style={{ textDecoration: "none"}}>
-                            <Typography sx={{fontSize:"1.5rem",color:"black",fontWeight:700,pl:1}}>Notion Blog</Typography>
+                            <Typography sx={{fontSize:"21px",color:"black",fontWeight:700,pl:1}}>Notion Blog</Typography>
                         </Link>
 
 

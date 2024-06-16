@@ -11,7 +11,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 
 const StyledButton = styled(Button)({
     border:'2px solid',
-    fontSize:'1.2rem',
+    fontSize:'1rem',
     fontWeight:700,
     borderRadius:'1rem',
     paddingLeft:'16px',
@@ -47,7 +47,7 @@ export default function LoggedIn(){
         {
             title:"새 글 쓰기",
             link:"/write",
-            handleClick:()=>{router.push("/user/posts")},
+            handleClick:()=>{router.push("/write")},
             isVisible:isSmallScreen
         },
         {

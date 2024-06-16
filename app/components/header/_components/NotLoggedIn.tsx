@@ -8,7 +8,7 @@ import { Login } from "@mui/icons-material";
 
 const StyledButton = styled(Button)({
     border:'2px solid',
-    fontSize:'1.2rem',
+    fontSize:'1rem',
     fontWeight:700,
     borderRadius:'1rem',
     paddingLeft:'16px',
