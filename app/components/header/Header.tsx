@@ -7,7 +7,7 @@ import LoggedIn from './_components/LoggedIn';
 import NotLoggedIn from './_components/NotLoggedIn';
 import { useQuery } from '@tanstack/react-query';
 import { getAuth } from '@/app/services/user/user';
-
+import Link from "next/link";
 
 export default function Header(){
     const {data,isLoading,isError}= useQuery({
@@ -37,7 +37,9 @@ export default function Header(){
                         height:'40px'
                     }}>
 
-                        <AcUnitIcon sx={{color:'black'}}/>
+                        <Link href="/"  style={{ textDecoration: "none"}}>
+                            <Typography sx={{fontSize:"1.5rem",color:"black",fontWeight:700,pl:1}}>Notion Blog</Typography>
+                        </Link>
 
 
                         {

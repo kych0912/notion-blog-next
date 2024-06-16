@@ -7,6 +7,7 @@ import UserMenu from "./UserMenu";
 import React from 'react';
 import { useRouter } from "next/navigation";
 import { useLogout } from "@/app/react-query/user/mutations";
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const StyledButton = styled(Button)({
     border:'2px solid',
@@ -34,19 +35,27 @@ export default function LoggedIn(){
         mutation.mutate(undefined);
     }
 
+    const isSmallScreen = useMediaQuery('(max-width:600px)'); 
 
     const MenuOption = [
         {
             title:"내 정보",
             link:"/user",
-            handleClick:()=>{router.push("/user")}
+            handleClick:()=>{router.push("/user")},
+            isVisible:true
+        },
+        {
+            title:"새 글 쓰기",
+            link:"/write",
+            handleClick:()=>{router.push("/user/posts")},
+            isVisible:isSmallScreen
         },
         {
             title:"로그아웃",
             link:"/logout",
-            handleClick:handleLogout
+            handleClick:handleLogout,
+            isVisible:true
         }
-    
     ]
 
     const handleMenu = () =>{
@@ -62,16 +71,19 @@ export default function LoggedIn(){
             {
                 open && <Box onClick={()=>{handleMenu()}} sx={{position:"fixed",inset:0,backgroundColor:"transparent",height:"100vh",zIndex:-1}}/> 
             }
+
             <Box sx={{display:"flex",
             position:"relative",
             alignItems:"center",
             }}
             >
-                <Link href="/write?step=write" passHref>
-                    <StyledButton variant="outlined" sx={{mr:3}}>
-                        새 글 쓰기
-                    </StyledButton>
-                </Link>
+                <Box sx={{pr:3,display:{xs:"none",sm:'flex'}}}>
+                    <Link href="/write?step=write" passHref>
+                        <StyledButton variant="outlined">
+                            새 글 쓰기
+                        </StyledButton>
+                    </Link>
+                </Box>
 
                 <Box
                 sx={{
@@ -84,7 +96,7 @@ export default function LoggedIn(){
                     onMouseLeave={()=>{handleHover(false)}}
                     onClick={()=>{handleMenu()}} 
                 >
-                    {/* <Avatar alt="Remy Sharp" width={20} height={20} component="div"/> */}
+                    <Avatar alt="Remy Sharp" width={20} height={20} component="div"/>
                     {
                         open && <UserMenu MenuOption = {MenuOption}/>
                     }

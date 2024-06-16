@@ -14,7 +14,8 @@ const UserMenu = ({MenuOption}:{
     MenuOption:{
         title:string,
         link:string,
-        handleClick:()=>void
+        handleClick:()=>void,
+        isVisible?:boolean
     }[]
 }) =>{
     return(
@@ -30,7 +31,7 @@ const UserMenu = ({MenuOption}:{
                 backgroundColor:"#fff",
             }}>
                 {
-                    MenuOption.map((item,index)=>(
+                    MenuOption.filter((item)=>item.isVisible===true).map((item,index)=>(
                         <MenuItem onClick={item.handleClick} key={index}>
                             <Typography variant="body1" sx={{
                                 color: '#000',
