@@ -4,10 +4,11 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import Link from 'next/link';
 import {styled} from '@mui/material/styles';
 import UserMenu from "./UserMenu";
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useRouter } from "next/navigation";
 import { useLogout } from "@/app/react-query/user/mutations";
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { JwtPayload } from "jsonwebtoken";
 
 const StyledButton = styled(Button)({
     border:'2px solid',
@@ -23,9 +24,11 @@ const StyledButton = styled(Button)({
     },
   });
 
+interface UserDataProps{
+    data:AuthResponse
+}
 
-
-export default function LoggedIn(){
+export default function LoggedIn({data}:UserDataProps){
     const [open,setOpen] = React.useState(false);
     const [ishover,setIshover] = React.useState(false);
     const router = useRouter();
@@ -41,7 +44,7 @@ export default function LoggedIn(){
         {
             title:"내 정보",
             link:"/user",
-            handleClick:()=>{router.push("/user")},
+            handleClick:()=>{router.push(`/${data.id.id}`)},
             isVisible:true
         },
         {
@@ -96,7 +99,7 @@ export default function LoggedIn(){
                     onMouseLeave={()=>{handleHover(false)}}
                     onClick={()=>{handleMenu()}} 
                 >
-                    <Avatar alt="Remy Sharp" width={20} height={20} component="div"/>
+                    <Avatar alt="Remy Sharp" sx={{width:'40px',height:'40px'}} component="div"/>
                     {
                         open && <UserMenu MenuOption = {MenuOption}/>
                     }

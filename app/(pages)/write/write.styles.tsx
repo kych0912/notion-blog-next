@@ -7,7 +7,6 @@ export const FunnelContainer = styled('div')({
     display:"flex",
     flexDirection:"column",
     alignItems:"start", 
-    height:"calc(100vh - 58px)",
     position:"relative"
 })
 
@@ -17,7 +16,6 @@ export const ContentContainer = styled('div')({
     alignItems:"start",
     justifyContent:"space-between",
     width:"100%",
-    paddingTop:'2rem',
 })
 
 export const InputContainer = styled('div')({

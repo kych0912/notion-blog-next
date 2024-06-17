@@ -14,7 +14,7 @@ export async function GET(req: Request) {
         const decoded = verifyToken(token.value); // Pass the value of the token cookie
 
         if (decoded) {
-            return NextResponse.json({ message: 'Token Verified', isLogged: true}, { status: 200 });
+            return NextResponse.json({ message: 'Token Verified',id:decoded, isLogged: true}, { status: 200 });
         } else {
             return NextResponse.json({ message: 'Invalid Token', isLogged: false}, { status: 401 });
         }

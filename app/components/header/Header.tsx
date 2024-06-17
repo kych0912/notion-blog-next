@@ -16,7 +16,6 @@ export default function Header(){
         retry:false,
     });
 
-
     return (
             <AppBar component="header" position="sticky" sx={{
                 boxShadow:'none',
@@ -26,7 +25,7 @@ export default function Header(){
                 width:"100%"
                 }} >
                     <Box sx={{
-                        maxWidth:{md:'1024px',lg:"1700px"},
+                        maxWidth:{md:'1024px',lg:"1400px"},
                         margin:'auto',                
                         display:'flex',
                         flexDirection:"row",
@@ -43,18 +42,18 @@ export default function Header(){
 
 
                         {
-                            isLoading?
-                            <Box sx={{display:"flex",gap:2}}>
+                            isLoading ?
+                            <Box sx={{ display: "flex", gap: 2 }}>
                                 <Skeleton variant="rounded" width={100} height={40} />
                             </Box>
                             :
                             <>
-                            {
-                                data?.data.isLogged?
-                                <LoggedIn/>
-                                :
-                                <NotLoggedIn/>
-                            }
+                                {
+                                    data?.isLogged ?
+                                    <LoggedIn data={data} /> // Fixed the prop name here
+                                    :
+                                    <NotLoggedIn />
+                                }
                             </>
                         }
 

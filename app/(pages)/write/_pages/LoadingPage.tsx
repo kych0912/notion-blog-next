@@ -7,7 +7,6 @@ const LoadingPage: React.FC = () => {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            height:"calc(100vh - 58px)",
         }}>
             <CircularProgress />
         </Box>

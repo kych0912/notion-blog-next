@@ -2,8 +2,7 @@
 
 import React, { useEffect } from "react";
 import NewPost from "./_pages/NewPost";
-import Header from "./_pages/Header"
-import LoadingPage from "./_pages/LoadingPage";
+import Description from "./_pages/WriteDescription";
 import { useSearchParams } from 'next/navigation'
 import { useRouter } from "next/navigation";
 
@@ -12,12 +11,13 @@ export default function Page(){
 
     const params = useSearchParams();
     const router = useRouter();
-    const [step,setStep] = React.useState<"write"|"loading">();
+    const [step,setStep] = React.useState<"write"|"description">();
     const [url,setUrl] = React.useState<string|undefined>();
+    const [description,setDescription] = React.useState<string|undefined>();
 
     useEffect(()=>{
         const step = params.get("step");
-        setStep(step as "write"|"loading");
+        setStep(step as "write"|"description");
     },[params.get("step")])
 
     return(
@@ -25,17 +25,21 @@ export default function Page(){
 
             {
                 step === "write" && <NewPost 
-                    onNext={()=>setStep("loading")}
-                    nextStep="loading"
+                    nextStep="description"
                     setUrl={setUrl}
+                    url={url}
                 />
             }
 
             {
-                step === "loading" && <LoadingPage 
-                    
+                step === "description" && <Description 
+                    nextStep="loading"
+                    setDescription={setDescription}
+                    description={description}
                 />
             }
+
+
         </>
     )
 }

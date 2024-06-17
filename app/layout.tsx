@@ -26,7 +26,7 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <body>
+      <body style={{backgroundColor:"#f8f9fa"}}>
             <AppRouterCacheProvider options={{ enableCssLayer: true }}>
               <ThemeProvider theme={theme}>
                 <CssBaseline />

@@ -1,9 +1,13 @@
 import axios from 'axios';
 
-export const getAuth = async () => {    
+export const getAuth = async ():Promise<AuthReponse> => {    
     try {
         const res = await axios.get(`/api/user/auth`);
-        return res;
+        return {
+            id:res.data.id,
+            isLogged:res.data.isLogged,
+            message:res.data.message
+        };
     } catch (err) {
         throw err;
     }
