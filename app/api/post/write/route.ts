@@ -4,15 +4,20 @@ import { getPage } from '@/app/lib/notion-api';
 import { verifyToken } from '@/app/lib/jwt';
 import * as Types from 'notion-types';
 import { uploadPost } from '@/app/lib/postData/postDB';
+import { parsePageId } from 'notion-utils';
 
 
 export async function POST(req:NextRequest){
     const {notionUrl,description} = await req.json();
     const token = await cookies().get('x_auth');
 
+    const id = parsePageId(notionUrl);
     try{
         //notionUrl,description 유효성 검사
-        if(!notionUrl || !description){
+        if(!id){
+            return NextResponse.json({message:"Invalid Notion URL",isSuccess:false},{status:400})
+        }
+        if(!description){
             return NextResponse.json({message:"Invalid Input",isSuccess:false},{status:400})
         }
 
@@ -30,7 +35,7 @@ export async function POST(req:NextRequest){
         //노션 링크 유효성 검사
         let recordMap:Types.ExtendedRecordMap;
         try{
-            recordMap = await getPage(notionUrl);
+            recordMap = await getPage(id);
         }
         catch(err){
             return NextResponse.json({message:"Invalid Notion URL",isSuccess:false},{status:400})
@@ -41,7 +46,7 @@ export async function POST(req:NextRequest){
 
         //DB 저장
         const _response = await uploadPost({
-            id:notionUrl,
+            id:id,
             author:userId,
             description:description,
             date:date
@@ -56,6 +61,6 @@ export async function POST(req:NextRequest){
 
     }
     catch(err){
-        return NextResponse.json({message:"Server Error"},{status:500})
+        return NextResponse.json({message:"Internal Server Error",isSuccess:false},{status:500})
     }
 }

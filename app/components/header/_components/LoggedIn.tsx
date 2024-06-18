@@ -49,8 +49,8 @@ export default function LoggedIn({data}:UserDataProps){
         },
         {
             title:"새 글 쓰기",
-            link:"/write",
-            handleClick:()=>{router.push("/write")},
+            link:"/write?step=write",
+            handleClick:()=>{router.push("/write?step=write")},
             isVisible:isSmallScreen
         },
         {

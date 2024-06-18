@@ -43,7 +43,7 @@ export default function NewPost({nextStep,setUrl,url}:{
                         InputProps={{
                             sx:{
                                 borderRadius:'50px',
-                                pl:2
+                                pr:10,
                             }
                         }}
                         />

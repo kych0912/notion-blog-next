@@ -14,7 +14,18 @@ export async function uploadPost(data:Post){
     const date = data.date.toISOString().slice(0, 10);
 
 
-    const query = `INSERT INTO Post(id, description, author, date) VALUES('${id}', '${description}', '${author}', '${date}'`;
+    const query = `INSERT INTO Post(id, description, author, date) VALUES('${id}', '${description}', '${author}', '${date}')`;
+
+    try {
+        const data = await executeQuery(query, []);
+        return data;
+    } catch (err) {
+        throw err;
+    }
+}
+
+export async function getLatestPosts(){
+    const query = `SELECT * FROM Post ORDER BY date DESC`;
 
     try {
         const data = await executeQuery(query, []);

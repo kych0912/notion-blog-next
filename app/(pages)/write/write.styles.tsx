@@ -3,7 +3,7 @@ import styled from '@mui/material/styles/styled';
 import Button from '@mui/material/Button';
 
 export const FunnelContainer = styled('div')({
-    margin:'0 2rem 0 2rem',
+    margin:'0 1rem 0 1rem',
     display:"flex",
     flexDirection:"column",
     alignItems:"start", 

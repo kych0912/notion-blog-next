@@ -24,7 +24,7 @@ export async function POST(req:NextRequest) {
 
       const token = await generateToken(id);
 
-      const expires = new Date(Date.now() + 1000 * 60 * 60);
+      const expires = new Date(Date.now() + 1000 * 60 * 60 * 24 * 3);
 
       cookies().set("x_auth", token,{
         expires,

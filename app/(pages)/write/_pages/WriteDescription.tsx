@@ -8,11 +8,13 @@ import {
 import Link from 'next/link'
 import {SetStateAction} from 'react'
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import { MutateFunction } from "@tanstack/react-query";
 
-export default function Description({nextStep,setDescription,description}:{
+export default function Description({nextStep,setDescription,description,handlePost}:{
         nextStep:string,
         setDescription:React.Dispatch<SetStateAction<string|undefined>>,
-        description:string|undefined
+        description:string|undefined,
+        handlePost:()=>void
     }){
 
     function adjustHeight(textarea: EventTarget) {
@@ -59,19 +61,17 @@ export default function Description({nextStep,setDescription,description}:{
             }
                     
             <Box sx={{width:"100%",mt:2 }}>
-                <Link style={description?.length === 0 || (description?.length ?? 0) > 100 ? { pointerEvents: "none",width:"100%" } : {width:"100%"}} href={`write/?step=${nextStep}`} shallow={true} passHref>
-                    <Button disabled={!description?.length || (description?.length ?? 0) > 100} variant="contained" sx={{
-                        color: "white",
-                        height: "3rem",
-                        borderRadius: '50px',
-                        width: "100%",
-                        fontWeight: 700,
-                        fontSize: "1rem",
-                    }}
-                    >
-                        작성
-                    </Button>
-                </Link>
+                <Button onClick={handlePost} disabled={!description?.length || (description?.length ?? 0) > 100} variant="contained" sx={{
+                    color: "white",
+                    height: "3rem",
+                    borderRadius: '50px',
+                    width: "100%",
+                    fontWeight: 700,
+                    fontSize: "1rem",
+                }}
+                >
+                    작성
+                </Button>
             </Box>
         </FunnelContainer>
     )
