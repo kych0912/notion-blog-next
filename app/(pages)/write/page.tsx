@@ -55,6 +55,9 @@ export default function Page(){
                 case "Token Not Found":
                     setErrorMessage("로그인이 필요합니다.");
                     break;
+                case "Post Already Exists":
+                    setErrorMessage("이미 존재하는 게시글입니다.");
+                    break;
                 default:
                     setErrorMessage("알 수 없는 오류가 발생했습니다.");
                     break;   

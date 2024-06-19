@@ -3,9 +3,9 @@ import { cookies } from 'next/headers';
 import { getPage } from '@/app/lib/notion-api';
 import { verifyToken } from '@/app/lib/jwt';
 import * as Types from 'notion-types';
-import { uploadPost } from '@/app/lib/postData/postDB';
+import { uploadPost,getPostById } from '@/app/lib/postData/postDB';
 import { parsePageId } from 'notion-utils';
-
+import { RowDataPacket } from 'mysql2';
 
 export async function POST(req:NextRequest){
     const {notionUrl,description} = await req.json();
@@ -19,7 +19,7 @@ export async function POST(req:NextRequest){
         }
         if(!description){
             return NextResponse.json({message:"Invalid Input",isSuccess:false},{status:400})
-        }
+        } 
 
         //토큰 유효성 검사
         if (typeof token === 'undefined') {
@@ -40,6 +40,14 @@ export async function POST(req:NextRequest){
         catch(err){
             return NextResponse.json({message:"Invalid Notion URL",isSuccess:false},{status:400})
         }
+
+        //중복 검사
+        const post = await getPostById(id) as RowDataPacket[];
+
+        if(post.length !== 0){
+            return NextResponse.json({message:"Post Already Exists",isSuccess:false},{status:400})
+        }
+
 
         //작성 시간 설정
         const date = new Date();

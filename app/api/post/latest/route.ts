@@ -1,5 +1,5 @@
 import {NextResponse, NextRequest} from 'next/server';
-import { getLatestPosts } from '@/app/services/post/post';
+import { getLatestPosts } from '@/app/lib/postData/postDB';
 
 
 export async function GET(req:NextRequest){

@@ -1,10 +1,11 @@
-import Image from "next/image";
-import styles from "./styles/page.module.css";
 import { Box } from "@mui/material";
 import {Feed} from './components/feed'
 import HomeTab from "./components/HomeTab";
+import {getLatestPosts} from "@/app/services/post/post"
 
-export default function Home() {
+export default async function Home() {
+  const posts = await getLatestPosts();
+
   return (
     <Box sx={{
         display:"flex",
@@ -12,11 +13,11 @@ export default function Home() {
         justifyContent:"start",
         alignItems:"center",
         minHeight:"100vh",
-        backgroundColor:"#f9f9f9"
+        backgroundColor:"#f9f9f9",
       }}>
-        <Box sx={{ px:2 }}>
+        <Box sx={{ px:2. }}>
             <HomeTab/>
-            <Feed/>
+            <Feed posts={posts}/>
         </Box>
     </Box>
   );

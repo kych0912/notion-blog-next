@@ -4,6 +4,7 @@ import {  QueryClient,
     QueryClientProvider,
     dehydrate,
     HydrationBoundary,
+    hydrate
   } from "@tanstack/react-query"
 import React from "react";
 

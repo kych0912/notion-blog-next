@@ -37,7 +37,7 @@ export async function comparePassword(password:string,hash:string){
 }
 
 export async function generateToken(id:string){
-    const token = jwt.sign({id:id}, 'SECRET_KEY', {expiresIn: '1h'});
+    const token = jwt.sign({ id: id }, 'SECRET_KEY', { expiresIn: '3d' });
 
     return token;
 }   

@@ -10,7 +10,7 @@ export async function GET(req: Request) {
         if (typeof token === 'undefined') {
             return NextResponse.json({ message: 'Token Not Found', isLogged: false}, { status: 401 });
         }
-    
+        
         const decoded = verifyToken(token.value); // Pass the value of the token cookie
 
         if (decoded) {
@@ -21,6 +21,6 @@ export async function GET(req: Request) {
 
     } 
   catch (err) {
-    return NextResponse.json({ message: 'Server Error' });
+    return NextResponse.json({ message: 'Server Error' }, { status: 500 });
   }
 } 

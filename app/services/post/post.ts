@@ -25,7 +25,17 @@ export async function uploadPost(data:PostData){
 
 export async function getLatestPosts(){
     try{
-        const res = await axios.get("/api/post/latest");
+        const res = await axios.get("http://127.0.0.1:3000/api/post/latest");
+        return res.data;
+    }
+    catch(err){
+        throw err;
+    }
+}
+
+export async function getUserPosts(id:string){
+    try{
+        const res = await axios.get(`http://127.0.0.1:3000/api/post/${id}`);
         return res.data;
     }
     catch(err){

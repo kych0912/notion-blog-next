@@ -1,6 +1,6 @@
 import {Box,Typography,Avatar,Divider} from '@mui/material'
 
-export default async function User(){
+export default async function User({user}:{user:string}){
     return(
         <Box sx={{
             display:'flex',
@@ -23,7 +23,7 @@ export default async function User(){
                     fontWeight:700,
                     pl:{md:3,xs:0},
                     pt:{md:0,xs:2}
-                }}>User</Typography>
+                }}>{user}</Typography>
             </Box>
 
             <Divider sx={{width:"100%",mt:5,mb:3}}/>

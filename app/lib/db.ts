@@ -1,4 +1,5 @@
 import { createPool } from 'mysql2'
+import {QueryResult} from 'mysql2/promise'
 
 const pool = createPool({
     host: process.env.DB_HOST,
@@ -6,6 +7,9 @@ const pool = createPool({
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE,
     port: 3306,
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0
 })
 
 pool.getConnection((err, conn) => {
@@ -14,12 +18,12 @@ pool.getConnection((err, conn) => {
     conn.release()
 })
 
-const executeQuery = (query:string, arrParams:any) => {
+const executeQuery = (query:string, arrParams:any):Promise<QueryResult> => {
     return new Promise((resolve, reject) => {
         try {
-            console.log(query)
             pool.query(query, arrParams, (err, data) => {
                 if (err) {
+                    console.log(err)
                     console.log('Error in executing the query')
                     reject(err)
                 }

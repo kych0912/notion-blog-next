@@ -1,10 +1,37 @@
 import {Box, Typography, Avatar} from "@mui/material";
 import Link from 'next/link'
+import { getPageTitle } from "notion-utils";
+import { getPage, getNotionImage, getPageBlockContent } from "@/app/lib/notion-api";
+import * as types from 'notion-types'
 
+export default async function PostCard({id,user,caption,date}:{
+    id:string,
+    user:string,
+    caption:string,
+    date:Date
+}){
 
-export default function PostCard(props:any){
+    const recordMap: types.ExtendedRecordMap = await getPage(id);
 
-    const {title, coverImg, description,publishedTime,user,id} = props.content;
+    const keys = Object.keys(recordMap?.block || {});
+    const block = recordMap?.block?.[keys[0]]?.value;
+
+    //노션 페이지 글
+    //const description = getPageBlockContent(recordMap, keys);
+
+    //사용자가 작성한 description
+    const description = caption;
+
+    let coverImg = recordMap?.block?.[keys[0]].value.format?.page_cover;
+
+    coverImg = getNotionImage(coverImg, keys, block);
+
+    const title = getPageTitle(recordMap);
+
+    //notion 페이지 생성 시간
+    // const publishedTime = new Date(block?.created_time).toLocaleDateString();
+
+    const publishedTime = new Date(date).toLocaleDateString();
 
     return (
         <Box sx={{
@@ -24,25 +51,26 @@ export default function PostCard(props:any){
                     <img className="feedImg" src="https://via.placeholder.com/150" alt={title}/>
                 }
                 </Box>
-                <Box sx={{p:'1rem'}}>
-                    <Box>
+                <Box sx={{p:'1rem',width:"100%"}}>
+                    <Box sx={{}}>
                         <Typography sx={{fontSize:'1rem',fontWeight:700,color:"black"}}>{title}</Typography>
-                        <Typography 
-                            style={{WebkitLineClamp:3,WebkitBoxOrient:'vertical'} as any}
-                            sx={{
-                                fontSize:'0.875rem',
-                                display: '-webkit-box',
-                                overflow: 'hidden',
-                                textOverflow: 'ellipsis',
-                                height:'4rem',
-                                width:"100%",
-                                wordWrap:"break-word",
-                                wordBreak:"break-word",
-                                color:"black",
-                                mt:1
-                            }}>
-                            {description}
-                        </Typography>
+                        <Box>
+                            <Typography 
+                                style={{WebkitLineClamp:3,WebkitBoxOrient:'vertical'} as any}
+                                sx={{
+                                    fontSize:'0.875rem',
+                                    display: '-webkit-box',
+                                    overflow: 'hidden',
+                                    textOverflow: 'ellipsis',
+                                    height:'4rem',
+                                    wordWrap:"break-word",
+                                    wordBreak:"break-word",
+                                    color:"black",
+                                    mt:1
+                                }}>
+                                {description}
+                            </Typography>
+                        </Box>
                         <Typography sx={{fontSize:"0.75rem",color:"black"}}>{publishedTime}</Typography>
                     </Box>
                     <Box sx={{display:'flex',alignItems:"center",pt:1}}>
