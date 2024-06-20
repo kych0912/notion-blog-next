@@ -5,6 +5,9 @@ import {getLatestPosts} from "@/app/services/post/post"
 
 export default async function Home() {
   const posts = await getLatestPosts();
+  if(!process.env.NEXT_PUBLIC_BASE_API_URL){
+    return null;
+  }
 
   return (
     <Box sx={{

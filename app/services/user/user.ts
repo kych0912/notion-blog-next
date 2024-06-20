@@ -53,7 +53,7 @@ export const getAccessToken = async (code:string) => {
 
 export const getUserInfo = async (id:string) =>{
     try{
-        const res = await axios.get(`https://notion-blog-next-sigma.vercel.app/api/user/${id}`);
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/user/${id}`);
         return res.data;
     }
     catch(err){
