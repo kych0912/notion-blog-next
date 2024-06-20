@@ -54,12 +54,11 @@ export const GET = async (request: NextRequest, response: NextResponse) => {
     const expires = new Date(Date.now() + 1000 * 60 * 60 * 24 * 3);
 
     cookies().set("x_auth", token,{
-      expires,
-      path: "/",
-      sameSite: "strict",
-      secure: true,
-      httpOnly: true
-    });
+        httpOnly: true,
+        sameSite: 'none',
+        secure: true,
+        domain: 'https://notion-blog-next-j6nbqb54s-kych0912s-projects.vercel.app',
+      });
 
     return new NextResponse(JSON.stringify(json), {
       status: 200,
