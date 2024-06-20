@@ -2,9 +2,16 @@ import axios from 'axios';
 
 export const getAuth = async () => {    
     try {
-        const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/user/auth`,{
-            withCredentials:true
-        });
+        const headers = {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Credentials': 'true',
+            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With',
+            'cookie':'_vercel_jwt=writeData; path=/; domain=vercel.app; secure; httponly; samesite=lax; max-age=604800; expires=Thu, 01 Jan 1970 00:00:00 GMT;'
+        }
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/user/auth`,{headers});
         return {
             id:res.data.id,
             isLogged:res.data.isLogged,
