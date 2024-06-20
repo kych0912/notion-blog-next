@@ -6,7 +6,7 @@ import axios from 'axios';
 
 export async function GET(req: Request) {
 
-  const token = await cookies().get('x_auth');
+  const token = await cookies().get('_vercel_jwt');
  
     try {
         if (typeof token === 'undefined') {

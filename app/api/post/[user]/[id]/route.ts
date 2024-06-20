@@ -11,7 +11,7 @@ export async function GET(req:NextRequest , { params }: { params: { id: string, 
         const user = params.user;
 
         const headersList = headers();
-        const token = headersList.get('x_auth');
+        const token = headersList.get('_vercel_jwt');
 
         let isAuthor = false;
 
