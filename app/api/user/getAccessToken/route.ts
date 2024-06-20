@@ -53,22 +53,21 @@ export const GET = async (request: NextRequest, response: NextResponse) => {
 
     const expires = new Date(Date.now() + 1000 * 60 * 60 * 24 * 3);
 
-
     const response = NextResponse.json(json, {
-        status: 200,
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-        },
-      });
-  
-      // 쿠키 설정
-      response.cookies.set("x_auth", token, {
-        expires,
-        path: "/",
-        sameSite: "strict",
-        secure: true,
-        httpOnly: true
-      });
+            status: 200,
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+            },
+        });
+
+        // 쿠키 설정
+        response.cookies.set("x_auth", token, {
+            expires,
+            path: "/",
+            sameSite: "none",
+            secure: true,
+            httpOnly: true
+        });
 
     return response;
   } catch (error) {
