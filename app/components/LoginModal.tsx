@@ -46,7 +46,7 @@ export default function LoginModal({open,setOpen}:{
     setOpen:React.Dispatch<React.SetStateAction<boolean>>
 }){
     const [erroMessage,setErrorMessage] = React.useState<string>("")    
-    const AUTHORIZATION_CODE_URL = `https://github.com//login/oauth/authorize?client_id=Iv23liTtW0bz44YvmubS&redirect_url=http://localhost:3000/`;
+    const AUTHORIZATION_CODE_URL = `https://github.com//login/oauth/authorize?client_id=Iv23liTtW0bz44YvmubS&redirect_url=https://notion-blog-next-j6nbqb54s-kych0912s-projects.vercel.app/`;
 
     const fetchAuthCode = () => {
         window.location.assign(AUTHORIZATION_CODE_URL);
