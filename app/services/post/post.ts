@@ -26,7 +26,7 @@ export async function uploadPost(data:PostData){
 
 export async function getLatestPosts(){
     try{
-        const res = await axios.get("${process.env.NEXT_PUBLIC_BASE_API_URL}/api/post/latest");
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/post/latest`);
         return res.data;
     }
     catch(err){
