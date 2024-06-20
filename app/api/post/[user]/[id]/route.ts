@@ -5,7 +5,7 @@ import { verifyToken } from '@/app/lib/jwt';
 import { headers } from 'next/headers';
 import axios from 'axios';
 
-export async function GET(req:NextRequest , { params }: { params: { id: string, user:string } }){
+export async function GET(req:Request , { params }: { params: { id: string, user:string } }){
     try{
         const id = params.id;
         const user = params.user;
