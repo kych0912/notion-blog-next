@@ -26,7 +26,7 @@ export async function uploadPost(data:PostData){
 
 export async function getLatestPosts(){
     try{
-        const res = await axios.get("http://127.0.0.1:3000/api/post/latest");
+        const res = await axios.get("https://notion-blog-next-sigma.vercel.app/api/post/latest");
         return res.data;
     }
     catch(err){
@@ -36,7 +36,7 @@ export async function getLatestPosts(){
 
 export async function getUserPosts(id:string){
     try{
-        const res = await axios.get(`http://127.0.0.1:3000/api/post/user/${id}`);
+        const res = await axios.get(`https://notion-blog-next-sigma.vercel.app/api/post/user/${id}`);
         return res.data;
     }
     catch(err){
@@ -52,7 +52,7 @@ export async function getPostDetail(id:string,user:string,token:string){
             }
         }
 
-        const res = await axios.get(`http://127.0.0.1:3000/api/post/${user}/${id}`,headers);
+        const res = await axios.get(`https://notion-blog-next-sigma.vercel.app/api/post/${user}/${id}`,headers);
         return res.data;
     }
     catch(err){
