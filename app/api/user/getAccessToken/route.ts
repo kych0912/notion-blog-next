@@ -62,12 +62,11 @@ export const GET = async (request: NextRequest, response: NextResponse) => {
 
         // 쿠키 설정
         response.cookies.set("x_auth", token, {
-            expires,
-            path: "/",
-            sameSite: "strict",
-            secure: process.env.NODE_ENV === "production",
             httpOnly: true,
-        });
+            sameSite: 'none',
+            secure: true,
+            domain: 'https://notion-blog-next-j6nbqb54s-kych0912s-projects.vercel.app/',
+          });
 
     return response;
   } catch (error) {
