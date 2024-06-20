@@ -59,7 +59,9 @@ export const GET = async (request: NextRequest, response: NextResponse) => {
           'Access-Control-Allow-Origin': '*', // CORS 설정
         },
       });
-      
+
+      response.headers.set('Access-Control-Allow-Origin', 'https://notion-blog-next-j6nbqb54s-kych0912s-projects.vercel.app');
+      response.headers.set('Access-Control-Allow-Credentials', 'true');
 
         // 쿠키 설정
         response.cookies.set("x_auth", token, {
@@ -67,7 +69,7 @@ export const GET = async (request: NextRequest, response: NextResponse) => {
             value: token,
             expires,
             path: "/",
-            sameSite: "strict",
+            sameSite: "none",
             secure: process.env.NODE_ENV === "production",
             httpOnly: true,
           });
