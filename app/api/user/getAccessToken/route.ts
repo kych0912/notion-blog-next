@@ -62,9 +62,11 @@ export const GET = async (request: NextRequest, response: NextResponse) => {
 
         // 쿠키 설정
         response.cookies.set("x_auth", token, {
-            httpOnly: false,
-            sameSite:'none',
-            secure: true,
+            expires,
+            path: "/",
+            sameSite: "strict",
+            secure: process.env.NODE_ENV === "production",
+            httpOnly: true,
         });
 
     return response;
