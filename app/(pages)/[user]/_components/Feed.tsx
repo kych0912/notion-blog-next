@@ -12,6 +12,8 @@ async function Feed({posts}:{
         author: string;
         date: Date;
         description: string;
+        image:string;
+        title:string;
     }[]
 }){
 
@@ -40,6 +42,8 @@ async function Feed({posts}:{
                                     user={item.author}
                                     caption ={item.description}
                                     date={item.date}
+                                    image={item.image}
+                                    title={item.title}
                                 />
                             </Grid>
                         );

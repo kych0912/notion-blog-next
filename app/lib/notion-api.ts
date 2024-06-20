@@ -1,5 +1,6 @@
 import { NotionAPI } from 'notion-client'
 import * as types from 'notion-types'
+import { getPageTitle } from 'notion-utils'
 
 const notion = new NotionAPI()
 
@@ -46,4 +47,27 @@ export function getPageBlockContent(recordMap:types.RecordMap, keys:string[]){
             return block;
         }
     }
+}
+
+export async function getNotionPageContent(id:string):Promise<{
+    image:string,
+    title:string
+}>{
+    const recordMap: types.ExtendedRecordMap = await getPage(id);
+
+    const keys = Object.keys(recordMap?.block || {});
+    const block = recordMap?.block?.[keys[0]]?.value;
+
+    let coverImg = recordMap?.block?.[keys[0]].value.format?.page_cover;
+
+    coverImg = getNotionImage(coverImg, keys, block);
+
+    const title = getPageTitle(recordMap);
+
+
+    return{
+        image:coverImg,
+        title:title
+    }
+
 }

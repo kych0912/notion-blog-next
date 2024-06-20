@@ -5,7 +5,9 @@ interface Post {
     id:string,
     description:string,
     author:string,
-    date:Date
+    date:Date,
+    image:string,
+    title:string
 }
 
 export async function uploadPost(data:Post){
@@ -13,9 +15,11 @@ export async function uploadPost(data:Post){
     const description = data.description;
     const author = data.author;
     const date = data.date.toISOString().slice(0, 10);
+    const image = data.image;
+    const title = data.title;
 
 
-    const query = `INSERT INTO Post(id, description, author, date) VALUES('${id}', '${description}', '${author}', '${date}')`;
+    const query = `INSERT INTO Post(id, description, author, date, image, title) VALUES('${id}', '${description}', '${author}', '${date}', '${image}', '${title}')`;
 
     try {
         const data = await executeQuery(query, []);
@@ -49,6 +53,17 @@ export async function getLatestPosts(){
 
 export async function getUserPosts(id:string){
     const query = `SELECT * FROM Post WHERE author='${id}' ORDER BY date DESC`;
+
+    try {
+        const data = await executeQuery(query, []);
+        return data;
+    } catch (err) {
+        throw err;
+    }
+}
+
+export async function getPostDetail(id:string,user:string){
+    const query = `SELECT * FROM Post WHERE id='${id}' AND author='${user}'`;
 
     try {
         const data = await executeQuery(query, []);

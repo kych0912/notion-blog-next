@@ -6,6 +6,7 @@ import * as Types from 'notion-types';
 import { uploadPost,getPostById } from '@/app/lib/postData/postDB';
 import { parsePageId } from 'notion-utils';
 import { RowDataPacket } from 'mysql2';
+import {getNotionPageContent} from '@/app/lib/notion-api';
 
 export async function POST(req:NextRequest){
     const {notionUrl,description} = await req.json();
@@ -25,8 +26,16 @@ export async function POST(req:NextRequest){
         if (typeof token === 'undefined') {
             return NextResponse.json({ message: 'Token Not Found', isSuccess: false}, { status: 401 });
         }
-        const decoded = verifyToken(token.value); // Pass the value of the token cookie
-        if(typeof decoded === 'string'){
+        
+        //token expire 검사
+        let decoded;
+        try{
+            decoded = verifyToken(token.value); // Pass the value of the token cookie
+            if(typeof decoded === 'string'){
+                return NextResponse.json({ message: 'Invalid Token', isSuccess: false}, { status: 401 });
+            }
+        }
+        catch (err){
             return NextResponse.json({ message: 'Invalid Token', isSuccess: false}, { status: 401 });
         }
 
@@ -52,12 +61,17 @@ export async function POST(req:NextRequest){
         //작성 시간 설정
         const date = new Date();
 
+        //노션 페이지 컨텐츠 획득
+        const notionContent = await getNotionPageContent(id);
+
         //DB 저장
         const _response = await uploadPost({
             id:id,
             author:userId,
             description:description,
-            date:date
+            date:date,
+            image:notionContent.image,
+            title:notionContent.title
         });
 
         if(_response){

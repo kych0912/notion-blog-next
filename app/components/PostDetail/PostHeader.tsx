@@ -7,6 +7,7 @@ import {
     getPage
 } from "@/app/lib/notion-api";
 import * as types from "notion-types"
+import Link from 'next/link'
 
 export default async function PostHeader({recordMap,user}: {recordMap: types.ExtendedRecordMap,user:string}){
     const keys = Object.keys(recordMap?.block || {});
@@ -36,8 +37,10 @@ export default async function PostHeader({recordMap,user}: {recordMap: types.Ext
                 }}>{title}</Typography>
 
                 <Box sx={{display:"flex",pt:1}}>
-                    <Avatar sx={{width:"1.5rem",height:"1.5rem",mr:1}}/>
-                    <Typography sx={{color:"#6f6f6f"}}>{user}</Typography>
+                    <Link href={`/${user}`} passHref style={{display:"flex",textDecoration:"none"}}>
+                        <Avatar sx={{width:"1.5rem",height:"1.5rem",mr:1}}/>
+                        <Typography sx={{color:"#6f6f6f"}}>{user}</Typography>
+                    </Link>
                     <Typography sx={{color:"#6f6f6f",mx:1}}>|</Typography>
                     <Typography sx={{color:"#6f6f6f"}}>{publishedTime}</Typography>
                 </Box>

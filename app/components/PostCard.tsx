@@ -4,34 +4,23 @@ import { getPageTitle } from "notion-utils";
 import { getPage, getNotionImage, getPageBlockContent } from "@/app/lib/notion-api";
 import * as types from 'notion-types'
 
-export default async function PostCard({id,user,caption,date}:{
+function dateFormat(date:Date) {
+    var year = date.getFullYear();
+    var month = ('0' + (date.getMonth() + 1)).slice(-2);
+    var day = ('0' + date.getDate()).slice(-2);
+    
+    var dateString = year + '-' + month  + '-' + day;
+	return dateString;
+}
+
+export default async function PostCard({id,user,caption,date,title,image}:{
     id:string,
     user:string,
     caption:string,
-    date:Date
+    date:Date,
+    title:string,
+    image:string
 }){
-
-    const recordMap: types.ExtendedRecordMap = await getPage(id);
-
-    const keys = Object.keys(recordMap?.block || {});
-    const block = recordMap?.block?.[keys[0]]?.value;
-
-    //노션 페이지 글
-    //const description = getPageBlockContent(recordMap, keys);
-
-    //사용자가 작성한 description
-    const description = caption;
-
-    let coverImg = recordMap?.block?.[keys[0]].value.format?.page_cover;
-
-    coverImg = getNotionImage(coverImg, keys, block);
-
-    const title = getPageTitle(recordMap);
-
-    //notion 페이지 생성 시간
-    // const publishedTime = new Date(block?.created_time).toLocaleDateString();
-
-    const publishedTime = new Date(date).toLocaleDateString();
 
     return (
         <Box sx={{
@@ -46,8 +35,8 @@ export default async function PostCard({id,user,caption,date}:{
             <Link href={`/${user}/${id}`} scroll={true}  style={{ textDecoration: "none"}}>
                 <Box sx={{width:"100%"}}>
                 {
-                    coverImg &&
-                    <img className="feedImg" src={coverImg} alt={title}/>||
+                    image &&
+                    <img className="feedImg" src={image} alt={title}/>||
                     <img className="feedImg" src="https://via.placeholder.com/150" alt={title}/>
                 }
                 </Box>
@@ -68,10 +57,10 @@ export default async function PostCard({id,user,caption,date}:{
                                     color:"black",
                                     mt:1
                                 }}>
-                                {description}
+                                {caption}
                             </Typography>
                         </Box>
-                        <Typography sx={{fontSize:"0.75rem",color:"black"}}>{publishedTime}</Typography>
+                        <Typography sx={{fontSize:"0.75rem",color:"black"}}>{dateFormat(new Date(date))}</Typography>
                     </Box>
                     <Box sx={{display:'flex',alignItems:"center",pt:1}}>
                         <Avatar sx={{width:"1.5rem",height:"1.5rem"}}/>
