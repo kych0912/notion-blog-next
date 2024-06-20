@@ -1,4 +1,5 @@
 import {NextRequest} from 'next/server';
+import { NextResponse } from 'next/server';
 import { getPostDetail } from '@/app/lib/postData/postDB';
 import { verifyToken } from '@/app/lib/jwt';
 import { headers } from 'next/headers';
