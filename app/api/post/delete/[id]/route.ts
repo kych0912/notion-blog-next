@@ -1,9 +1,8 @@
 import {NextResponse, NextRequest} from 'next/server';
 import { deletePost, getPostById } from '@/app/lib/postData/postDB';
-import { NextApiRequest } from 'next';
 
 
-export async function DELETE( req:NextApiRequest, { params }: { params: { id: string } }){
+export async function DELETE( req:NextRequest, { params }: { params: { id: string } }){
     try{
         const id = params.id
 
