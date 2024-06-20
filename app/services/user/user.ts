@@ -3,8 +3,8 @@ import axios from 'axios';
 export const getAuth = async () => {    
     try {
         const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/user/auth`,{
-            withCredentials: true 
-          });
+            withCredentials:true
+        });
         return {
             id:res.data.id,
             isLogged:res.data.isLogged,

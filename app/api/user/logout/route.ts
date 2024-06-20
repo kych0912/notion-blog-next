@@ -11,8 +11,7 @@ export async function GET(req:NextRequest,res:NextResponse){
         }
 
         const response = NextResponse.json({ message: 'Logout Success', isLogged: false},{status: 200});
-        response.cookies.set('_vercel_jwt', '', { path: '/', expires: new Date(0) });
-
+        response.cookies.set('_vercel_jwt', '', { path: '/', expires: new Date(0) ,sameSite:'none',secure:process.env.NODE_ENV !== 'development'});
         return response;
     }
     catch(err){

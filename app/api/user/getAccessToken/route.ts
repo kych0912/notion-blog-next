@@ -54,19 +54,21 @@ export const GET = async (request: NextRequest, response: NextResponse) => {
     const expires = new Date(Date.now() + 1000 * 60 * 60 * 24 * 3);
 
     const response = NextResponse.json(json, {
-            status: 200,
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-            },
-        });
+        status: 200,
+        headers: {
+          'Access-Control-Allow-Origin': '*', // CORS 설정
+        },
+      });
 
         // 쿠키 설정
         response.cookies.set("x_auth", token, {
+            name: "x_auth",
+            value: token,
             expires,
+            path: "/",
+            sameSite: "strict",
+            secure: process.env.NODE_ENV === "production",
             httpOnly: true,
-            sameSite: 'none',
-            secure: true,
-            domain: 'https://notion-blog-next-j6nbqb54s-kych0912s-projects.vercel.app/',
           });
 
     return response;
