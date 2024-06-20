@@ -1,0 +1,215 @@
+[33mcommit cd726dfa05af754f8e9f7716454ef96187c5b190[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m
+Author: YoungCheon Kim <kyt031522@gmail.com>
+Date:   Thu Jun 20 21:12:59 2024 +0900
+
+    .
+
+[33mcommit e5d5f73c93c911307cd40aa8e0a2790e5eef1724[m
+Author: YoungCheon Kim <kyt031522@gmail.com>
+Date:   Thu Jun 20 21:11:36 2024 +0900
+
+    fix giterror
+
+[33mcommit af7dfcdf86507fc29b4c80d357041dd6da135a65[m
+Author: YoungCheon Kim <kyt031522@gmail.com>
+Date:   Thu Jun 20 21:09:42 2024 +0900
+
+    apidocs
+
+[33mcommit 1bb5daa5638ff24dfc5cb2efc13c24fda0ca14f6[m[33m ([m[1;31morigin/main[m[33m)[m
+Author: YoungCheon Kim <kyt031522@gmail.com>
+Date:   Thu Jun 20 20:37:00 2024 +0900
+
+    .
+
+[33mcommit aa7e39e92baccf2c5eb2581bd1eba3a1e7bbcf4e[m
+Author: YoungCheon Kim <kyt031522@gmail.com>
+Date:   Thu Jun 20 20:32:26 2024 +0900
+
+    hotfix
+
+[33mcommit 7b455aa843b3589e36cab17d0ab99c2cf41c29d4[m
+Author: YoungCheon Kim <kyt031522@gmail.com>
+Date:   Thu Jun 20 20:29:21 2024 +0900
+
+    routing error fix
+
+[33mcommit 73e19ae4b407956874482dcb2b19f333bbdde010[m
+Author: YoungCheon Kim <kyt031522@gmail.com>
+Date:   Thu Jun 20 20:24:29 2024 +0900
+
+    url fix
+
+[33mcommit b79c3d7988860dc6e9b6667c80f159a3fe5054b9[m
+Author: YoungCheon Kim <kyt031522@gmail.com>
+Date:   Thu Jun 20 20:05:10 2024 +0900
+
+    fix
+
+[33mcommit 41adf8b2ce5fcae386b2a2cd634a30f26ccdc19b[m
+Author: YoungCheon Kim <kyt031522@gmail.com>
+Date:   Thu Jun 20 20:00:50 2024 +0900
+
+    deploy backend
+
+[33mcommit 906795160c6ef9f019bce45d5cdaa9f5aeb8aecc[m
+Author: YoungCheon Kim <kyt031522@gmail.com>
+Date:   Thu Jun 20 19:47:09 2024 +0900
+
+    api fix
+
+[33mcommit e6c877fc8c0701c642aac118594ee8a4c2617aa1[m
+Author: YoungCheon Kim <kyt031522@gmail.com>
+Date:   Thu Jun 20 19:40:04 2024 +0900
+
+    request type
+
+[33mcommit 91a26e888518cdcc48942a9825ae9d6b45522e42[m
+Author: YoungCheon Kim <kyt031522@gmail.com>
+Date:   Thu Jun 20 19:37:46 2024 +0900
+
+    request fix
+
+[33mcommit b67f6a28f4491f611a9014a2019f68d64aa979b0[m
+Author: YoungCheon Kim <kyt031522@gmail.com>
+Date:   Thu Jun 20 19:32:34 2024 +0900
+
+    .
+
+[33mcommit 9a100d8dc0babea49709a3b884b925aba75ec213[m
+Author: YoungCheon Kim <kyt031522@gmail.com>
+Date:   Thu Jun 20 19:25:29 2024 +0900
+
+    .
+
+[33mcommit f7b79128f04257d50617a3884dc4ec02b70e5faf[m
+Author: YoungCheon Kim <kyt031522@gmail.com>
+Date:   Thu Jun 20 19:22:17 2024 +0900
+
+    fix error
+
+[33mcommit fd4792e6d7a0a62d1b50b2c951c2efb8b7cef533[m
+Author: YoungCheon Kim <kyt031522@gmail.com>
+Date:   Thu Jun 20 19:20:08 2024 +0900
+
+    fix error
+
+[33mcommit 6cbcb36d4669862250c370cc4b504ffa84b10283[m
+Author: YoungCheon Kim <kyt031522@gmail.com>
+Date:   Thu Jun 20 19:13:34 2024 +0900
+
+    .
+
+[33mcommit c888790b70357208a617c2836a93e972018e8406[m
+Author: YoungCheon Kim <kyt031522@gmail.com>
+Date:   Thu Jun 20 13:16:22 2024 +0900
+
+    page not found
+
+[33mcommit 88717565f918194455e8853afc35862901868459[m
+Author: YoungCheon Kim <kyt031522@gmail.com>
+Date:   Wed Jun 19 16:54:07 2024 +0900
+
+    .
+
+[33mcommit b0ccec8548e42df16150a8da4c2badc86461c670[m
+Author: YoungCheon Kim <kyt031522@gmail.com>
+Date:   Tue Jun 18 15:48:50 2024 +0900
+
+    post write
+
+[33mcommit d9f12b19288b589f1b2e0eeb093031795c3a57d8[m
+Author: YoungCheon Kim <kyt031522@gmail.com>
+Date:   Tue Jun 18 02:54:22 2024 +0900
+
+    .
+
+[33mcommit 14b1b9611fef475cc5bf7a7e2d3d2e2fcfe77cd8[m
+Author: YoungCheon Kim <kyt031522@gmail.com>
+Date:   Mon Jun 17 04:39:58 2024 +0900
+
+    .
+
+[33mcommit 976306e9e046ec728824de4a63a2523f492ed2c1[m
+Author: YoungCheon Kim <kyt031522@gmail.com>
+Date:   Sun Jun 16 15:20:44 2024 +0900
+
+    userMenu Responsive
+
+[33mcommit d09aafd3b46ecb0398f3473970c0f09d4a50073e[m
+Author: YoungCheon Kim <kyt031522@gmail.com>
+Date:   Sun Jun 16 00:43:34 2024 +0900
+
+    reload
+
+[33mcommit 8eed9e40881891954046ef7d67f6412d1eff84a1[m
+Author: YoungCheon Kim <kyt031522@gmail.com>
+Date:   Tue May 28 20:35:03 2024 +0900
+
+    login modal
+
+[33mcommit 0603ddfd1cd5e7da84fa819b4c09fb6d754ec8a1[m
+Author: YoungCheon Kim <kyt031522@gmail.com>
+Date:   Sat May 18 15:30:16 2024 +0900
+
+    login, register api
+
+[33mcommit d7f3da19a64835e08c2de49c64bc8f124f668303[m
+Author: YoungCheon Kim <kyt031522@gmail.com>
+Date:   Wed May 15 15:31:36 2024 +0900
+
+    .
+
+[33mcommit a941b7a358715e5e19c0f7c4bd7761d6b7b29370[m
+Author: YoungCheon Kim <kyt031522@gmail.com>
+Date:   Mon May 13 13:26:04 2024 +0900
+
+    header
+
+[33mcommit ec35b32eb796db0f6794649467161f50998640aa[m
+Author: YoungCheon Kim <kyt031522@gmail.com>
+Date:   Sun May 12 15:57:15 2024 +0900
+
+    page responsive
+
+[33mcommit 5891e39d265d1da8b568158049b0f67031432899[m
+Author: YoungCheon Kim <kyt031522@gmail.com>
+Date:   Sun May 12 15:52:06 2024 +0900
+
+    feed
+
+[33mcommit c6b843b3f30955a58e33ae915ff093a46596d217[m
+Author: YoungCheon Kim <kyt031522@gmail.com>
+Date:   Thu May 9 13:46:09 2024 +0900
+
+    feed layout
+
+[33mcommit 35e8bf98f92d37da9d638bba1f9b9c4ddb8772f3[m
+Author: YoungCheon Kim <kyt031522@gmail.com>
+Date:   Tue May 7 12:20:08 2024 +0900
+
+    .
+
+[33mcommit 517bb1b340266b0f2899818f819adec9570be17c[m
+Author: YoungCheon Kim <kyt031522@gmail.com>
+Date:   Fri May 3 01:28:33 2024 +0900
+
+    pretendard variable font
+
+[33mcommit 891468fd65fcf4f5fa27280eeae53d385397cd2c[m
+Author: YoungCheon Kim <kyt031522@gmail.com>
+Date:   Thu May 2 22:12:17 2024 +0900
+
+    collection url mappiing
+
+[33mcommit 578e39ea7e98bd0f69f3a19d9e0b355b559eb370[m
+Author: YoungCheon Kim <kyt031522@gmail.com>
+Date:   Thu May 2 20:39:03 2024 +0900
+
+    notion-page-rendering
+
+[33mcommit 0406356847f880d983ae8381fe29c50c533a9c0a[m
+Author: YoungCheon Kim <kyt031522@gmail.com>
+Date:   Wed May 1 18:43:11 2024 +0900
+
+    Initial commit from Create Next App
