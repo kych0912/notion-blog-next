@@ -7,7 +7,7 @@ import axios from 'axios';
 export async function GET(req: Request) {
 
   const token = await cookies().get('x_auth');
-
+ 
     try {
         if (typeof token === 'undefined') {
             return NextResponse.json({ message: 'Token Not Found', isLogged: false}, { status: 401 });
