@@ -2,7 +2,9 @@ import axios from 'axios';
 
 export const getAuth = async () => {    
     try {
-        const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/user/auth`);
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/user/auth`,{
+            withCredentials: true 
+          });
         return {
             id:res.data.id,
             isLogged:res.data.isLogged,
@@ -35,7 +37,9 @@ const writeData = {
 export const logout = async () => {
     try {
 
-        const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/user/logout`);
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/user/logout`,{
+            withCredentials: true
+          });
         return res;
     } catch (err) {
         throw err;
@@ -44,7 +48,9 @@ export const logout = async () => {
 
 export const getAccessToken = async (code:string) => {
     try {
-        const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/user/getAccessToken?code=${code}`);
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/user/getAccessToken?code=${code}`,{
+            withCredentials: true
+          });
         return res;
     } catch (err) {
         throw err;

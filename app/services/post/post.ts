@@ -13,7 +13,9 @@ export async function uploadPost(data:PostData){
             description:data.description
         }
 
-        const res = await axios.post(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/post/write`,body);
+        const res = await axios.post(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/post/write`,body,{
+            withCredentials: true 
+          });
         return{
             message:res.data.message,
             isSuccess:res.data.isSuccess
@@ -62,7 +64,9 @@ export async function getPostDetail(id:string,user:string,token:string){
 
 export async function deletePost(id:string){
     try{
-        const res = await axios.delete(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/post/delete/${id}`);
+        const res = await axios.delete(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/post/delete/${id}`,{
+            withCredentials: true 
+          });
         return res.data;
     }
     catch(err){
