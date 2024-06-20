@@ -2,25 +2,14 @@ import axios from 'axios';
 
 export const getAuth = async () => {    
     try {
-        
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/user/auth`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            credentials: 'include' 
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/user/auth`,{
+            withCredentials:true
         });
-
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-
-        const res = await response.json();
         return {
-            id: res.id,
-            isLogged: res.isLogged,
-            message: res.message,
-            user: res.user
+            id:res.data.id,
+            isLogged:res.data.isLogged,
+            message:res.data.message,
+            user:res.data.user
         };
     } catch (err) {
         throw err;
