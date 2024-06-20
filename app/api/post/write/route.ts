@@ -31,7 +31,7 @@ export async function POST(req:NextRequest){
         //token expire 검사
         let decoded;
         try{
-            decoded = verifyToken(token.value); // Pass the value of the token cookie
+            decoded = verifyToken(token); // Pass the value of the token cookie
             if(typeof decoded === 'string'){
                 return NextResponse.json({ message: 'Invalid Token', isSuccess: false}, { status: 401 });
             }
