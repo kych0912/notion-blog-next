@@ -62,8 +62,4 @@ export async function GET(request: NextRequest) {
     console.log(error);
     return new NextResponse('Internal Server Error', { status: 500 });
   }
-  catch(err){
-    console.log(err)
-    return NextResponse.json({ message: 'Server Error' }, {status: 500});
-  }
 }
