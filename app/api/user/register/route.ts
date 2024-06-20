@@ -29,7 +29,7 @@ export async function POST(req:Request) {
             return NextResponse.json({ message: "User Already Exists"},{status: 400});
         }
 
-        const _response = await createUser(id,password);
+        const _response = await createUser(id,password,"");
 
         if (_response) {
             return NextResponse.json({ message: "User Created", status: 200});

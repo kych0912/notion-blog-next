@@ -1,7 +1,9 @@
+'use client'
+import { useState, useEffect } from 'react';
 import {Box,Typography,Avatar,Divider} from '@mui/material'
 
 
-export default async function User({user}:{user:string}){
+export default function User({id,avatar}:{id:string,avatar:string}){
 
     return(
         <Box sx={{
@@ -19,13 +21,13 @@ export default async function User({user}:{user:string}){
                     alignItems:{md:"center",xs:'start'},
                     flexDirection:{xs:"column",md:"row"},
                 }}>
-                    <Avatar sx={{width:128,height:128}} src="https://avatars.githubusercontent.com/u/4374977?v=4"/>
+                    <Avatar sx={{width:128,height:128}} src={`${avatar ? avatar:''}`}/>
                     <Typography sx={{
                         fontSize:"1.5rem",
                         fontWeight:700,
                         pl:{md:3,xs:0},
                         pt:{md:0,xs:2}
-                    }}>{user}</Typography>
+                    }}>{decodeURIComponent(id)}</Typography>
                 </Box>
 
             <Divider sx={{width:"100%",mt:5,mb:3}}/>

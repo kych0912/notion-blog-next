@@ -29,7 +29,7 @@ export default function Page(){
     const handlePost = () =>{
         const postData = {
             notionUrl:url,
-            description:description
+            description:description,
         }
 
         mutate(postData);

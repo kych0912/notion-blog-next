@@ -1,23 +1,38 @@
 import {NextResponse} from 'next/server';
 import { NextApiRequest } from 'next';
 import { getPostDetail } from '@/app/lib/postData/postDB';
-import { cookies } from 'next/headers';
 import { verifyToken } from '@/app/lib/jwt';
+import { headers } from 'next/headers';
+import axios from 'axios';
 
 export async function GET(req:NextApiRequest, { params }: { params: { id: string, user:string } }){
     try{
         const id = params.id;
         const user = params.user;
-        const token = await cookies().get('x_auth');
+
+        const headersList = headers();
+        const token = headersList.get('x_auth');
+
         let isAuthor = false;
-        let author = null;
-        
+
         if (token) {
             try {
-                const decoded = verifyToken(token.value);
+                const decoded = verifyToken(token);
                 if (typeof decoded !== 'string') {
-                    isAuthor = true;
-                    author = decoded.id;
+
+                    const userData = await axios.get('https://api.github.com/user',{
+                        headers: {
+                          authorization: `token ${decoded.id}`, 
+                        }
+                      })
+
+                    if(userData.data.name === user){
+                        isAuthor = true;
+                    }
+                    
+                    else{
+                        isAuthor = false;
+                    }
                 }
             } catch (err) {
                 isAuthor = false; // Token is invalid or expired

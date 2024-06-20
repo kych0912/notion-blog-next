@@ -4,12 +4,12 @@ import {
 } from "notion-utils"
 import {
     getNotionImage,
-    getPage
 } from "@/app/lib/notion-api";
 import * as types from "notion-types"
 import Link from 'next/link'
+import Option from '../PostOption/Option';
 
-export default async function PostHeader({recordMap,user}: {recordMap: types.ExtendedRecordMap,user:string}){
+export default async function PostHeader({recordMap,user,isAuthor,id,avatar}: {recordMap: types.ExtendedRecordMap,user:string,isAuthor:boolean,id:string,avatar:string}){
     const keys = Object.keys(recordMap?.block || {});
     const block = recordMap?.block?.[keys[0]]?.value;
 
@@ -20,6 +20,7 @@ export default async function PostHeader({recordMap,user}: {recordMap: types.Ext
     const title = getPageTitle(recordMap);
     const publishedTime = new Date(block?.created_time).toLocaleDateString();
     
+
     return(
         <Box sx={{
             display:'flex',
@@ -36,13 +37,21 @@ export default async function PostHeader({recordMap,user}: {recordMap: types.Ext
                     fontWeight:700
                 }}>{title}</Typography>
 
-                <Box sx={{display:"flex",pt:1}}>
-                    <Link href={`/${user}`} passHref style={{display:"flex",textDecoration:"none"}}>
-                        <Avatar sx={{width:"1.5rem",height:"1.5rem",mr:1}}/>
-                        <Typography sx={{color:"#6f6f6f"}}>{user}</Typography>
-                    </Link>
-                    <Typography sx={{color:"#6f6f6f",mx:1}}>|</Typography>
-                    <Typography sx={{color:"#6f6f6f"}}>{publishedTime}</Typography>
+                <Box sx={{display:"flex",pt:1,justifyContent:'space-between'}}>
+                    <Box sx={{display:"flex"}}>
+                        <Link href={`/${user}`} passHref style={{display:"flex",textDecoration:"none"}}>
+                            <Avatar src={avatar?avatar:''} sx={{width:"1.5rem",height:"1.5rem",mr:1}}/>
+                            <Typography sx={{color:"#6f6f6f"}}>{decodeURIComponent(user)}</Typography>
+                        </Link>
+                        <Typography sx={{color:"#6f6f6f",mx:1}}>|</Typography>
+                        <Typography sx={{color:"#6f6f6f"}}>{publishedTime}</Typography>
+                    </Box>
+                    
+                    {
+                        isAuthor &&
+                        <Option id={id}/>
+                    }
+
                 </Box>
 
             </Box>

@@ -42,11 +42,23 @@ export async function generateToken(id:string){
     return token;
 }   
 
-export async function createUser(id:string,password:string){
+export async function createUser(id:string,password:string,avatar:string){
     const salt = await bcrypt.genSalt(saltRounds);
     const hashedPassword:string = await bcrypt.hash(password, salt);
 
-    const query = `INSERT INTO user(id, password) VALUES('${id}','${hashedPassword}')`;
+    const query = `INSERT INTO user(id, password,avatar) VALUES('${id}','${hashedPassword}','${avatar}')`;
+
+    try {
+        const data = await executeQuery(query, []);
+        return data;
+    } catch (err) {
+        console.log(err);
+        throw err;
+    }
+}
+
+export async function getUserInfo(id:string){
+    const query = `SELECT * FROM user WHERE id='${id}'`;
 
     try {
         const data = await executeQuery(query, []);

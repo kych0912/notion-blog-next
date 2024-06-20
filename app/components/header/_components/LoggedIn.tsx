@@ -24,17 +24,15 @@ const StyledButton = styled(Button)({
     },
   });
 
-interface UserDataProps{
-    data:AuthResponse
-}
 
-export default function LoggedIn({data}:UserDataProps){
+export default function LoggedIn({data}:any){
     const [open,setOpen] = React.useState(false);
     const [ishover,setIshover] = React.useState(false);
     const router = useRouter();
     const mutation = useLogout();
 
     const handleLogout = () =>{
+        localStorage.removeItem('currentUser');
         mutation.mutate(undefined);
     }
 
@@ -44,7 +42,7 @@ export default function LoggedIn({data}:UserDataProps){
         {
             title:"내 정보",
             link:"/user",
-            handleClick:()=>{router.push(`/${data.id.id}`)},
+            handleClick:()=>{router.push(`/${data.user.name}`)},
             isVisible:true
         },
         {
@@ -68,7 +66,6 @@ export default function LoggedIn({data}:UserDataProps){
     const handleHover = (bool:boolean) =>{
         setIshover(bool);
     }
-    
     return(
         <>
             {
@@ -99,7 +96,7 @@ export default function LoggedIn({data}:UserDataProps){
                     onMouseLeave={()=>{handleHover(false)}}
                     onClick={()=>{handleMenu()}} 
                 >
-                    <Avatar alt="Remy Sharp" sx={{width:'40px',height:'40px'}} component="div"/>
+                    <Avatar src={`${data.user.avatar_url}`}  alt="Remy Sharp" sx={{width:'40px',height:'40px'}} component="div"/>
                     {
                         open && <UserMenu MenuOption = {MenuOption}/>
                     }

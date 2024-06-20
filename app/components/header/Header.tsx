@@ -16,6 +16,18 @@ export default function Header(){
         retry:false,
     });
 
+    React.useEffect(() => {
+        if (data && data.user) {
+            const userSet = data.user;
+
+            const localStorageUser = {
+                avatar: userSet.avatar_url,
+                name: userSet.name,
+            };
+
+            window.localStorage.setItem('currentUser', JSON.stringify(localStorageUser));
+        }
+    }, [data]);
 
     return (
             <AppBar component="header" position="sticky" sx={{

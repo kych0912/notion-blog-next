@@ -7,6 +7,7 @@ import { uploadPost,getPostById } from '@/app/lib/postData/postDB';
 import { parsePageId } from 'notion-utils';
 import { RowDataPacket } from 'mysql2';
 import {getNotionPageContent} from '@/app/lib/notion-api';
+import axios from 'axios';
 
 export async function POST(req:NextRequest){
     const {notionUrl,description} = await req.json();
@@ -39,7 +40,14 @@ export async function POST(req:NextRequest){
             return NextResponse.json({ message: 'Invalid Token', isSuccess: false}, { status: 401 });
         }
 
-        const userId = decoded.id;
+        const userData = await axios.get('https://api.github.com/user',{
+          headers: {
+            authorization: `token ${decoded.id}`, 
+          }
+        })
+
+        const userId = userData.data.name;
+        const avatar = userData.data.avatar_url;
 
         //노션 링크 유효성 검사
         let recordMap:Types.ExtendedRecordMap;
@@ -71,7 +79,8 @@ export async function POST(req:NextRequest){
             description:description,
             date:date,
             image:notionContent.image,
-            title:notionContent.title
+            title:notionContent.title,
+            avatar:avatar,
         });
 
         if(_response){

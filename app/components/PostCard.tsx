@@ -13,15 +13,16 @@ function dateFormat(date:Date) {
 	return dateString;
 }
 
-export default async function PostCard({id,user,caption,date,title,image}:{
+export default async function PostCard({id,user,caption,date,title,image,avatar}:{
     id:string,
     user:string,
     caption:string,
     date:Date,
     title:string,
-    image:string
+    image:string,
+    avatar:string
 }){
-
+    
     return (
         <Box sx={{
             display:"flex",
@@ -63,8 +64,8 @@ export default async function PostCard({id,user,caption,date,title,image}:{
                         <Typography sx={{fontSize:"0.75rem",color:"black"}}>{dateFormat(new Date(date))}</Typography>
                     </Box>
                     <Box sx={{display:'flex',alignItems:"center",pt:1}}>
-                        <Avatar sx={{width:"1.5rem",height:"1.5rem"}}/>
-                        <Typography sx={{fontSize:"0.75rem",ml:1.5,color:"black"}}>{user}</Typography>
+                        <Avatar src={avatar?avatar:""} sx={{width:"1.5rem",height:"1.5rem"}}/>
+                        <Typography sx={{fontSize:"0.75rem",ml:1.5,color:"black",overflow:'hidden',textOverflow:'ellipsis'}}>{user}</Typography>
                     </Box>
                 </Box>
             </Link>

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { headers } from "next/headers";
 
 interface PostData{
     notionUrl:string|undefined,
@@ -43,12 +44,29 @@ export async function getUserPosts(id:string){
     }
 }
 
-export async function getPostDetail(id:string,user:string){
+export async function getPostDetail(id:string,user:string,token:string){
     try{
-        const res = await axios.get(`http://127.0.0.1:3000/api/post/${user}/${id}`);
+        const headers={
+            headers:{
+                'x_auth':token
+            }
+        }
+
+        const res = await axios.get(`http://127.0.0.1:3000/api/post/${user}/${id}`,headers);
         return res.data;
     }
     catch(err){
         throw err;
     }
+}
+
+export async function deletePost(id:string){
+    try{
+        const res = await axios.delete(`/api/post/delete/${id}`);
+        return res.data;
+    }
+    catch(err){
+        throw err;
+    }
+
 }
