@@ -6,6 +6,7 @@ import axios from 'axios';
 
 export async function GET(req: NextRequest) {
     const token = req.cookies.get("_vercel_jwt");
+    console.log(token)
     try {
         if (typeof token === 'undefined') {
             return NextResponse.json({ message: 'Token Not Found', isLogged: false}, { status: 401 });
