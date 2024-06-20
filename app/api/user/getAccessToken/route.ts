@@ -63,6 +63,8 @@ export const GET = async (request: NextRequest, response: NextResponse) => {
       response.headers.set('Access-Control-Allow-Origin', 'https://notion-blog-next-j6nbqb54s-kych0912s-projects.vercel.app');
       response.headers.set('Access-Control-Allow-Credentials', 'true');
 
+      console.log(token);
+
         // 쿠키 설정
         response.cookies.set("x_auth", token, {
             name: "x_auth",
