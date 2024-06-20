@@ -8,8 +8,8 @@ export function useUploadPost(){
     return useMutation({
         mutationFn:uploadPost,
         onSuccess:()=>{
-            router.push("/");
             location.reload();
+            router.push("/");
         }
     })
 }
