@@ -11,7 +11,7 @@ import axios from 'axios';
 
 export async function POST(req:NextRequest){
     const {notionUrl,description} = await req.json();
-    const token = await cookies().get('_vercel_jwt');
+    const token = req.cookies.get("_vercel_jwt")?.value;
 
     const id = parsePageId(notionUrl);
     try{

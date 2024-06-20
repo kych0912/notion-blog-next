@@ -1,13 +1,11 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { verifyToken } from '@/app/lib/jwt';
-import { findUserByName } from '@/app/lib/UserData/UserDB';
+import { NextRequest } from 'next/server';
 import axios from 'axios';
 
-export async function GET(req: Request) {
-
-  const token = await cookies().get('_vercel_jwt');
- 
+export async function GET(req: NextRequest) {
+    const token = req.cookies.get("_vercel_jwt");
     try {
         if (typeof token === 'undefined') {
             return NextResponse.json({ message: 'Token Not Found', isLogged: false}, { status: 401 });

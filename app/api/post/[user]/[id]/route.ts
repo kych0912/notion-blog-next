@@ -9,9 +9,7 @@ export async function GET(req:NextRequest , { params }: { params: { id: string, 
     try{
         const id = params.id;
         const user = params.user;
-
-        const headersList = headers();
-        const token = headersList.get('_vercel_jwt');
+        const token = req.cookies.get("_vercel_jwt")?.value;
 
         let isAuthor = false;
 
