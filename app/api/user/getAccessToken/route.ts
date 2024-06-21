@@ -54,6 +54,7 @@ export const GET = async (request: NextRequest, response: NextResponse) => {
     const expires = new Date(Date.now() + 1000 * 60 * 60 * 24 * 3);
 
     cookies().set("x_auth", token,{
+        httpOnly: true,
         expires,
         sameSite: "none",
         secure: true,
