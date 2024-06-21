@@ -56,8 +56,6 @@ export const GET = async (request: NextRequest, response: NextResponse) => {
     cookies().set("x_auth", token,{
         httpOnly: true,
         expires,
-        sameSite: "none",
-        secure: true,
       });
 
     return new NextResponse(JSON.stringify(json), {
