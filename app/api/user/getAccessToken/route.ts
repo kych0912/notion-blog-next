@@ -55,7 +55,7 @@ export const GET = async (request: NextRequest, response: NextResponse) => {
 
     cookies().set("x_auth", token,{
         expires,
-        httpOnly: true,
+        httpOnly: false,
         sameSite: 'none',
         secure: process.env.NODE_ENV !== 'development',
         domain: 'https://notion-blog-next-j6nbqb54s-kych0912s-projects.vercel.app',
