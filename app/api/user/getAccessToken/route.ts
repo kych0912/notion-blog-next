@@ -59,7 +59,7 @@ export const GET = async (request: NextRequest, response: NextResponse) => {
         sameSite: "none",
         secure: true,
         httpOnly: true,
-        domain: 'notion-blog-next-j6nbqb54s-kych0912s-projects.vercel.app',
+        domain: 'https://notion-blog-next-j6nbqb54s-kych0912s-projects.vercel.app',
       });
 
     return new NextResponse(JSON.stringify(json), {
