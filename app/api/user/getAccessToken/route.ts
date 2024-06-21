@@ -41,7 +41,7 @@ export const GET = async (request: NextRequest, response: NextResponse) => {
     const token = await generateToken(id);
 
     const user = await getUserInfo(userData.data.name)
-
+    console.log(user);
     if(Array.isArray(user) && user.length === 0){
         await createUser(
             userData.data.name,
@@ -53,28 +53,20 @@ export const GET = async (request: NextRequest, response: NextResponse) => {
 
     const expires = new Date(Date.now() + 1000 * 60 * 60 * 24 * 3);
 
-    const response = NextResponse.json(json, {
-        status: 200,
-        headers: {
-          'Access-Control-Allow-Origin': '*', // CORS 설정
-        },
+    cookies().set("x_auth", token,{
+        expires,
+        httpOnly: true,
+        sameSite: 'none',
+        secure: process.env.NODE_ENV !== 'development',
+        domain: 'https://notion-blog-next-j6nbqb54s-kych0912s-projects.vercel.app',
       });
 
-        response.headers.set('Access-Control-Allow-Origin', 'https://notion-blog-next-j6nbqb54s-kych0912s-projects.vercel.app');
-        response.headers.set('Access-Control-Allow-Credentials', 'true');
-        response.headers.set('access-control-expose-headers', 'Set-Cookie');
-        // 쿠키 설정
-        response.cookies.set("x_auth", token, {
-            name: "x_auth",
-            value: token,
-            expires,
-            path: "/",
-            sameSite: "none",
-            secure: process.env.NODE_ENV === "production",
-            httpOnly: false,
-        });
-
-    return response;
+    return new NextResponse(JSON.stringify(json), {
+      status: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+      },
+    });
   } catch (error) {
     console.log(error);
     return new NextResponse('Internal Server Error', { status: 500 });
