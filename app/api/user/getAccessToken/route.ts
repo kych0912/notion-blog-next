@@ -31,8 +31,6 @@ export const GET = async (request: NextRequest, response: NextResponse) => {
     const json = await data.json();
 
     const id = json.access_token;
-    
-    console.log(id);
 
     const userData = await axios.get('https://api.github.com/user',{
         headers: {
@@ -43,7 +41,7 @@ export const GET = async (request: NextRequest, response: NextResponse) => {
     const token = await generateToken(id);
 
     const user = await getUserInfo(userData.data.name)
-    console.log(user);
+
     if(Array.isArray(user) && user.length === 0){
         await createUser(
             userData.data.name,
@@ -62,8 +60,9 @@ export const GET = async (request: NextRequest, response: NextResponse) => {
         },
       });
 
-      response.headers.set('Access-Control-Allow-Origin', 'https://notion-blog-next-j6nbqb54s-kych0912s-projects.vercel.app');
-      response.headers.set('Access-Control-Allow-Credentials', 'true');
+        response.headers.set('Access-Control-Allow-Origin', 'https://notion-blog-next-j6nbqb54s-kych0912s-projects.vercel.app');
+        response.headers.set('Access-Control-Allow-Credentials', 'true');
+        response.headers.set('access-control-expose-headers', 'Set-Cookie');
         // 쿠키 설정
         response.cookies.set("x_auth", token, {
             name: "x_auth",
@@ -73,7 +72,7 @@ export const GET = async (request: NextRequest, response: NextResponse) => {
             sameSite: "none",
             secure: process.env.NODE_ENV === "production",
             httpOnly: true,
-          });
+        });
 
     return response;
   } catch (error) {
