@@ -5,7 +5,7 @@ import { NextRequest } from 'next/server';
 import axios from 'axios';
 
 export async function GET(req: NextRequest) {
-    const token = req.cookies.get("_cfuvid");
+    const token = req.cookies.get("x_auth");
     console.log(token)
     try {
         if (typeof token === 'undefined') {
