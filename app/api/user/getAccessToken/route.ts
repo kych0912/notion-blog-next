@@ -71,7 +71,7 @@ export const GET = async (request: NextRequest, response: NextResponse) => {
             path: "/",
             sameSite: "none",
             secure: process.env.NODE_ENV === "production",
-            httpOnly: true,
+            httpOnly: false,
         });
 
     return response;
