@@ -51,6 +51,8 @@ export const getAccessToken = async (code:string) => {
         const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/user/getAccessToken?code=${code}`,{
             withCredentials: true
           });
+
+          console.log(res);
         return res;
     } catch (err) {
         throw err;
