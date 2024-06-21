@@ -59,6 +59,7 @@ export const GET = async (request: NextRequest, response: NextResponse) => {
         sameSite: 'none',
         secure: process.env.NODE_ENV !== 'development',
         domain: 'https://notion-blog-next-j6nbqb54s-kych0912s-projects.vercel.app',
+        maxAge: 3 * 24 * 60 * 60 * 1000,
       });
 
     return new NextResponse(JSON.stringify(json), {
