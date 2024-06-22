@@ -64,7 +64,7 @@ export const GET = async (request: NextRequest, response: NextResponse) => {
     return new NextResponse(JSON.stringify(json), {
       status: 200,
       headers: {
-        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Origin': 'https://notion-blog-next-j6nbqb54s-kych0912s-projects.vercel.app',
         "Access-Control-Allow-Credentials": 'true',
       },
     });
