@@ -1,8 +1,6 @@
 'use client';
 import React, { useState } from 'react';
 import { Box,Typography } from '@mui/material';
-import axios from 'axios';
-import {getAccessToken} from '../services/user/user';
 
 const title = [
     "Home",
@@ -14,18 +12,6 @@ const HomeTab: React.FC = () => {
     const handleTabChange = (newValue: number) => {
         setSelectedTab(newValue);
     };
-
-    
-    React.useEffect(()=>{
-        const queryString = window.location.search;
-        const urlParams = new URLSearchParams(queryString);
-        const codeParam = urlParams.get("code");
-        console.log(codeParam);
-        if(codeParam){
-            getAccessToken(codeParam);
-        }
-
-    },[]);
 
     return (
         <Box sx={{display:"flex",py:2,width:"100%",px:'auto'}}>

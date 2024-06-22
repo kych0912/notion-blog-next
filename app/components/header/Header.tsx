@@ -1,8 +1,7 @@
 'use client';
 import * as React from 'react'
 import { Avatar,AppBar,Box,Skeleton, Typography} from "@mui/material";
-import {styled} from '@mui/material/styles';
-import AcUnitIcon from '@mui/icons-material/AcUnit';
+import {getAccessToken} from "@/app/services/user/user";
 import LoggedIn from './_components/LoggedIn';
 import NotLoggedIn from './_components/NotLoggedIn';
 import { useQuery } from '@tanstack/react-query';
@@ -15,6 +14,17 @@ export default function Header(){
         queryFn: ()=>getAuth(),
         retry:false,
     });
+
+    React.useEffect(()=>{
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const codeParam = urlParams.get("code");
+        console.log(codeParam);
+        if(codeParam){
+            getAccessToken(codeParam);
+        }
+
+    },[]);
 
     React.useEffect(() => {
         if (data && data.user) {
