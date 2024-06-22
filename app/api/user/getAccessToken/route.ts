@@ -57,12 +57,15 @@ export const GET = async (request: NextRequest, response: NextResponse) => {
     cookies().set("x_auth", token,{
         httpOnly: true,
         expires,
+        secure: true,
+        sameSite: "none"
       });
 
     return new NextResponse(JSON.stringify(json), {
       status: 200,
       headers: {
         'Access-Control-Allow-Origin': '*',
+        "Access-Control-Allow-Credentials": 'true',
       },
     });
   } catch (error) {

@@ -44,8 +44,9 @@ export const logout = async () => {
 
 export const getAccessToken = async (code:string) => {
     try {
-        const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/user/getAccessToken?code=${code}`,{ headers: { "Content-Type": "multipart/form-data" },withCredentials: true });
-
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/user/getAccessToken?code=${code}`,{ 
+            withCredentials: true
+         });
           console.log(res);
         return res;
     } catch (err) {
