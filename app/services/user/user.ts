@@ -46,6 +46,10 @@ export const logout = async () => {
 export const getAccessToken = async (code:string) => {
     try {
         const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/user/getAccessToken?code=${code}`,{ 
+            headers:{
+                "Access-Control-Allow-Origin":"https://notion-blog-next-j6nbqb54s-kych0912s-projects.vercel.app",
+                "Access-Control-Allow-Headers":"Set-Cookie",
+            },
             withCredentials: true
          });
           console.log(res);
