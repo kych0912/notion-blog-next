@@ -66,6 +66,7 @@ export const GET = async (request: NextRequest, response: NextResponse) => {
       headers: {
         'Access-Control-Allow-Origin': 'https://notion-blog-next-j6nbqb54s-kych0912s-projects.vercel.app',
         "Access-Control-Allow-Credentials": 'true',
+        "Access-Control-Allow-Headers": 'Set-Cookie',
       },
     });
   } catch (error) {
