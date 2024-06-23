@@ -33,7 +33,7 @@ export default async function PostCard({id,user,caption,date,title,image,avatar}
             backgroundColor:"#fff"
         }}
         >
-            <Link href={`/${user}/${id}`} scroll={true}  style={{ textDecoration: "none"}}>
+            <a href={`/${user}/${id}`} style={{ textDecoration: "none"}}>
                 <Box sx={{width:"100%"}}>
                 {
                     image &&
@@ -68,7 +68,7 @@ export default async function PostCard({id,user,caption,date,title,image,avatar}
                         <Typography sx={{fontSize:"0.75rem",ml:1.5,color:"black",overflow:'hidden',textOverflow:'ellipsis'}}>{user}</Typography>
                     </Box>
                 </Box>
-            </Link>
+            </a>
         </Box>
     )
 }
