@@ -9,11 +9,11 @@ import { getAuth } from '@/app/services/user/user';
 import Link from "next/link";
 
 export default function Header(){
-    // const {data,isLoading,isError}= useQuery({
-    //     queryKey: ['auth'],
-    //     queryFn: ()=>getAuth(),
-    //     retry:false,
-    // });
+    const {data,isLoading,isError}= useQuery({
+        queryKey: ['auth'],
+        queryFn: ()=>getAuth(),
+        retry:false,
+    });
 
     React.useEffect(()=>{
         const queryString = window.location.search;
@@ -26,18 +26,18 @@ export default function Header(){
 
     },[]);
 
-    // React.useEffect(() => {
-    //     if (data && data.user) {
-    //         const userSet = data.user;
+    React.useEffect(() => {
+        if (data && data.user) {
+            const userSet = data.user;
 
-    //         const localStorageUser = {
-    //             avatar: userSet.avatar_url,
-    //             name: userSet.name,
-    //         };
+            const localStorageUser = {
+                avatar: userSet.avatar_url,
+                name: userSet.name,
+            };
 
-    //         window.localStorage.setItem('currentUser', JSON.stringify(localStorageUser));
-    //     }
-    // }, [data]);
+            window.localStorage.setItem('currentUser', JSON.stringify(localStorageUser));
+        }
+    }, [data]);
 
     return (
             <AppBar component="header" position="sticky" sx={{
@@ -63,7 +63,7 @@ export default function Header(){
                             <Typography sx={{fontSize:"21px",color:"black",fontWeight:700}}>Notion Blog</Typography>
                         </Link>
 
-{/* 
+
                         {
                             isLoading ?
                             <Box sx={{ display: "flex", gap: 2 }}>
@@ -78,7 +78,7 @@ export default function Header(){
                                     <NotLoggedIn />
                                 }
                             </>
-                        } */}
+                        }
 
                         <NotLoggedIn />
 
