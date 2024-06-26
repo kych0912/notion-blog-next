@@ -79,9 +79,6 @@ export default function Header(){
                                 }
                             </>
                         }
-
-                        <NotLoggedIn />
-
                     </Box>
             </AppBar>
     )
