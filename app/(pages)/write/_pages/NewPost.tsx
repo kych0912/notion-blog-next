@@ -47,7 +47,7 @@ export default function NewPost({nextStep,setUrl,url}:{
                             }
                         }}
                         />
-                        <Link style={url?.length === 0 ? { pointerEvents: "none" } : {}} href={`write/?step=${nextStep}`} shallow={true} passHref>
+                        <Link style={url?.length === 0 ? { pointerEvents: "none" } : {}} href={`write/?step=${nextStep}`} passHref>
                             <Button disabled={!url?.length} color="primary" variant="contained"  sx={{position:'absolute',right:'20px',bottom:'10px',boxShadow:0,borderRadius:"50px"}}>
                                 <Typography sx={{fontWeight:'600',fontSize:'15px',color:"white"}}>
                                     {"확인"}
