@@ -9,11 +9,6 @@ import { getAuth } from '@/app/services/user/user';
 import Link from "next/link";
 
 export default function Header(){
-    const {data,isLoading,isError}= useQuery({
-        queryKey: ['auth'],
-        queryFn: ()=>getAuth(),
-        retry:false,
-    });
 
     React.useEffect(()=>{
         const queryString = window.location.search;
@@ -25,6 +20,12 @@ export default function Header(){
         }
 
     },[]);
+
+    const {data,isLoading,isError}= useQuery({
+        queryKey: ['auth'],
+        queryFn: ()=>getAuth(),
+        retry:false,
+    });
 
     React.useEffect(() => {
         if (data && data.user) {
