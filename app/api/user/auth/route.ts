@@ -9,7 +9,7 @@ export async function GET(req: NextRequest) {
     console.log(token)
 
     const corsHeaders = {
-      'Access-Control-Allow-Origin': 'https://notion-blog-next-j6nbqb54s-kych0912s-projects.vercel.app',
+      'Access-Control-Allow-Origin': 'https://notion-blog-next-sigma.vercel.app',
       'Access-Control-Allow-Credentials': 'true',
     };
     try {

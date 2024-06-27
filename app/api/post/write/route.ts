@@ -14,6 +14,12 @@ export async function POST(req:NextRequest){
     const token = req.cookies.get("_vercel_jwt")?.value;
 
     const id = parsePageId(notionUrl);
+
+    const corsHeaders = {
+        'Access-Control-Allow-Origin': 'https://notion-blog-next-sigma.vercel.app',
+        'Access-Control-Allow-Credentials': 'true',
+      };
+
     try{
         //notionUrl,description 유효성 검사
         if(!id){
@@ -33,11 +39,11 @@ export async function POST(req:NextRequest){
         try{
             decoded = verifyToken(token); // Pass the value of the token cookie
             if(typeof decoded === 'string'){
-                return NextResponse.json({ message: 'Invalid Token', isSuccess: false}, { status: 401 });
+                return NextResponse.json({ message: 'Invalid Token', isSuccess: false}, { status: 401, headers: corsHeaders});
             }
         }
         catch (err){
-            return NextResponse.json({ message: 'Invalid Token', isSuccess: false}, { status: 401 });
+            return NextResponse.json({ message: 'Invalid Token', isSuccess: false}, { status: 401, headers: corsHeaders});
         }
 
         const userData = await axios.get('https://api.github.com/user',{
@@ -55,14 +61,14 @@ export async function POST(req:NextRequest){
             recordMap = await getPage(id);
         }
         catch(err){
-            return NextResponse.json({message:"Invalid Notion URL",isSuccess:false},{status:400})
+            return NextResponse.json({message:"Invalid Notion URL",isSuccess:false},{status:400,headers:corsHeaders})
         }
 
         //중복 검사
         const post = await getPostById(id) as RowDataPacket[];
 
         if(post.length !== 0){
-            return NextResponse.json({message:"Post Already Exists",isSuccess:false},{status:400})
+            return NextResponse.json({message:"Post Already Exists",isSuccess:false},{status:400,headers:corsHeaders})
         }
 
 
@@ -84,14 +90,14 @@ export async function POST(req:NextRequest){
         });
 
         if(_response){
-            return NextResponse.json({message:"Post Uploaded",isSuccess:true},{status:200})
+            return NextResponse.json({message:"Post Uploaded",isSuccess:true},{status:200,headers:corsHeaders})
         }
         else{
-            return NextResponse.json({message:"Post Upload Failed",isSuccess:false},{status:400})
+            return NextResponse.json({message:"Post Upload Failed",isSuccess:false},{status:400,headers:corsHeaders})
         }
 
     }
     catch(err){
-        return NextResponse.json({message:"Internal Server Error",isSuccess:false},{status:500})
+        return NextResponse.json({message:"Internal Server Error",isSuccess:false},{status:500,headers:corsHeaders})
     }
 }
