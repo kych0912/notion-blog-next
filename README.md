@@ -8,14 +8,21 @@ Next.js 14버전에 대한 공부와 TypeScript에 대해 공부해 보고자 �
 
 ## 기술 스택
 
-Frontend - React, JavaScript, React-query, Material UI, Axios
-<br>
-Backend - Express, TypeScript, Mysql
+### Frontend
+
+- **Next.js (14)**, **TypeScript**, **React-Query**, **Material UI,** react-notion-x
+
+### DB
+
+- Mysql, EC2
 
 ## Link
 [notion-blog](https://notion-blog-next-sigma.vercel.app/)
 
-## Api Docs
+## 개발 기간
+2024.05 ~ 진행중
+
+## Api Docs 
 [API Docs](https://github.com/kych0912/notion-blog-next/tree/main/_apidocs)
 
 ## 페이지 구성
