@@ -13,7 +13,7 @@ Frontend - React, JavaScript, React-query, Material UI, Axios
 Backend - Express, TypeScript, Mysql
 
 ## Link
-[ivc-inha](https://ivc-inha.co.kr/)
+[notion-blog](https://notion-blog-next-sigma.vercel.app/)
 
 ## Api Docs
 [API Docs](https://github.com/kych0912/notion-blog-next/tree/main/_apidocs)
