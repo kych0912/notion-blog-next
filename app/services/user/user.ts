@@ -1,5 +1,5 @@
-"use server"
 import axios from 'axios';
+import { AxiosError } from 'axios';
 
 export const getAuth = async () => {    
     try {
@@ -8,9 +8,10 @@ export const getAuth = async () => {
             id:res.data.id,
             isLogged:res.data.isLogged,
             message:res.data.message,
-            user:res.data.user
+            user:res.data.user   
         };
     } catch (err) {
+        return err;
     }
 }
 
@@ -26,12 +27,6 @@ export const login = async (data:{
     }
 }
 
-const writeData = {
-    id: "writeData",
-    password: "writeData"
-}
-
-
 export const logout = async () => {
     try {
 
@@ -44,14 +39,14 @@ export const logout = async () => {
 
 export const getAccessToken = async (code:string) => {
     try {
-        const res = await axios.get(`/api/user/getAccessToken?code=${code}`,{ 
-            headers:{
-                "Access-Control-Allow-Origin":"https://notion-blog-next-j6nbqb54s-kych0912s-projects.vercel.app",
-            },
-            withCredentials: true
-         });
-          console.log(res);
-        return res;
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/user/getAccessToken?code=${code}`);
+        const _data = res.data;
+
+        //server component에서 client component로 데이터 전달 시, Promise 객체를 전달한다.
+        //하지만 Promise 객체는 JSON.stringify를 사용할 수 없다.
+        //nextjs 의 특징
+        //따라서, JSON.stringify를 사용하려면, Promise 객체를 data 객체로 변환해야한다.
+        return _data;
     } catch (err) {
         throw err;
     }
@@ -67,3 +62,16 @@ export const getUserInfo = async (id:string) =>{
         throw err;
     }
 }
+
+axios.interceptors.response.use(
+    (response) => {
+        return response;
+    },
+    async (error: AxiosError) => {
+        if (error.response?.status === 401) {
+            
+            
+        }
+        return Promise.reject(error);
+    }
+);
