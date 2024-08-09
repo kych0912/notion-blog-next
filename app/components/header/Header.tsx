@@ -7,25 +7,10 @@ import NotLoggedIn from './_components/NotLoggedIn';
 import { useQuery } from '@tanstack/react-query';
 import { getAuth } from '@/app/services/user/user';
 import Link from "next/link";
+import { useAuth } from '@/app/react-query/user/queries';
 
-export default function Header(){
-
-    const {data,isLoading,isError}= useQuery({
-        queryKey: ['auth'],
-        queryFn: ()=>getAuth(),
-        retry:false,
-    });
-
-    React.useEffect(()=>{
-        const queryString = window.location.search;
-        const urlParams = new URLSearchParams(queryString);
-        const codeParam = urlParams.get("code");
-        console.log(codeParam);
-        if(codeParam){
-            getAccessToken(codeParam);
-        }
-
-    },[]);
+export default async function Header(){
+    const {data,isLoading,isError}=  await useAuth();
 
     React.useEffect(() => {
         if (data && data.user) {
@@ -39,6 +24,18 @@ export default function Header(){
             window.localStorage.setItem('currentUser', JSON.stringify(localStorageUser));
         }
     }, [data]);
+
+        
+    React.useEffect(()=>{
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const codeParam = urlParams.get("code");
+
+        if(codeParam){
+            getAccessToken(codeParam);
+        }
+
+    },[]);
 
     return (
             <AppBar component="header" position="sticky" sx={{
@@ -80,6 +77,7 @@ export default function Header(){
                                 }
                             </>
                         }
+
                     </Box>
             </AppBar>
     )
