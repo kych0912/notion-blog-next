@@ -7,12 +7,14 @@ import NotLoggedIn from './_components/NotLoggedIn';
 import { useQuery } from '@tanstack/react-query';
 import { getAuth } from '@/app/services/user/user';
 import Link from "next/link";
+import { useSession } from 'next-auth/react';
 import { useAuth } from '@/app/react-query/user/queries';
 
-export default async function Header(){
-    const {data,isLoading,isError}=  await useAuth();
+export default function Header(){
+    const {data,isLoading,isError}= useAuth();
 
     React.useEffect(() => {
+
         if (data && data.user) {
             const userSet = data.user;
 
