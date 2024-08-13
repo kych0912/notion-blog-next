@@ -10,6 +10,7 @@ import React from "react";
 import { AxiosError } from "axios";
 import Image from 'next/image';
 import GithubIcon from "../assets/github_logo_icon_147285.svg"
+import { signIn, signOut, useSession } from 'next-auth/react'
 
 
 const ModalStyled={
@@ -49,6 +50,7 @@ export default function LoginModal({open,setOpen}:{
     const AUTHORIZATION_CODE_URL = `https://github.com//login/oauth/authorize?client_id=Iv23liTtW0bz44YvmubS&redirect_url=https://notion-blog-next-j6nbqb54s-kych0912s-projects.vercel.app/`;
 
     const fetchAuthCode = () => {
+        // signIn('github');
         window.location.assign(AUTHORIZATION_CODE_URL);
     };
 
@@ -118,10 +120,6 @@ export default function LoginModal({open,setOpen}:{
                                 로그인
                             </Typography>
 
-
-                            {/* <Input {...register("id",{ required: true })} sx={{width:'100%',fontFamily:'Pretendard Variable',fontWeight:'500'}}/> 
-                            <Input type="password" {...register("password",{ required: true })} sx={{width:'100%',fontFamily:'Pretendard Variable',fontWeight:'500',mt:2}}/>  */}
-
                         </Box>
 
                         <CustomButton onClick={fetchAuthCode} type="submit" variant="contained">
@@ -130,20 +128,6 @@ export default function LoginModal({open,setOpen}:{
                                 깃허브로 로그인
                             </Box>
                         </CustomButton>
-
-                        {/* <Box sx={{width:"100%",display:'flex',justifyContent:"center",alignItems:"center"}}>
-                        {
-                            isPending?
-                            <CircularProgress color="primary"/>:
-                            <CustomButton type="submit" variant="contained">
-                                <Box sx={{display:'flex',justifyContent:'center',alignItems:"center",px:4,width:"100%"}}>
-                                    <Image src={GithubIcon} alt="github" style={{width:"1rem",height:"1rem",marginRight:'10px'}}/>
-                                    깃허브로 로그인
-                                </Box>
-                            </CustomButton>
-                        }
-
-                        </Box> */}
 
                     </Box> 
 
