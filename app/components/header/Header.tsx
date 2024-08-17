@@ -9,9 +9,11 @@ import { getAuth } from '@/app/services/user/user';
 import Link from "next/link";
 import { useSession } from 'next-auth/react';
 import { useAuth } from '@/app/react-query/user/queries';
+import { set } from 'react-hook-form';
 
 export default function Header(){
-    const {data,isLoading,isError}= useAuth();
+    const {data,isLoading,isError,refetch}= useAuth();
+    const [cookieLoading, setCookieLoading] = React.useState(false);
 
     React.useEffect(() => {
 
@@ -34,7 +36,11 @@ export default function Header(){
         const codeParam = urlParams.get("code");
 
         if(codeParam){
-            getAccessToken(codeParam);
+            setCookieLoading(true);
+            getAccessToken(codeParam).then(()=>{
+                refetch();
+                setCookieLoading(false)
+            });
         }
 
     },[]);
@@ -65,7 +71,7 @@ export default function Header(){
 
 
                         {
-                            isLoading ?
+                            isLoading||cookieLoading ?
                             <Box sx={{ display: "flex", gap: 2 }}>
                                 <Skeleton variant="rounded" width={100} height={40} />
                             </Box>
