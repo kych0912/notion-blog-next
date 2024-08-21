@@ -5,21 +5,17 @@ import { NextRequest } from 'next/server';
 import axios from 'axios';
 
 export async function GET(req: NextRequest) {
-    const token = cookies().get("x_auth");
-    console.log(token)
 
-    const corsHeaders = {
-      'Access-Control-Allow-Origin': 'https://notion-blog-next-sigma.vercel.app',
-      'Access-Control-Allow-Credentials': 'true',
-    };
+  const token = await cookies().get('x_auth');
+ 
     try {
         if (typeof token === 'undefined') {
-            return NextResponse.json({ message: 'Token Not Found', isLogged: false}, { status: 401, headers: corsHeaders });
+            return NextResponse.json({ message: 'Token Not Found', isLogged: false}, { status: 401 });
         }
         
         const decoded = verifyToken(token.value); // Pass the value of the token cookie
         if(typeof decoded === 'string'){
-            return NextResponse.json({ message: 'Invalid Token', isLogged: false}, { status: 401, headers: corsHeaders });
+            return NextResponse.json({ message: 'Invalid Token', isLogged: false}, { status: 401 });
         }
 
         const accessToken = decoded.id;  
@@ -30,15 +26,19 @@ export async function GET(req: NextRequest) {
           }
         })
 
+        const bodyUserData = {
+          name:userData.data?.name,
+          avatar_url:userData.data?.avatar_url,
+        }
+
         if (userData) {
-            return NextResponse.json({user:userData.data , message: 'Token Verified',id:decoded, isLogged: true}, { status: 200, headers: corsHeaders });
+            return NextResponse.json({user:bodyUserData , message: 'Token Verified',id:decoded, isLogged: true}, { status: 200 });
         } else {
-            return NextResponse.json({ message: 'Invalid Token', isLogged: false}, { status: 401, headers: corsHeaders });
+            return NextResponse.json({ message: 'Invalid Token', isLogged: false}, { status: 401 });
         }
 
     } 
   catch (err) {
-    console.log(err)
-    return NextResponse.json({ message: 'Server Error' }, { status: 500, headers: corsHeaders });
+    return NextResponse.json({ message: 'Server Error' }, { status: 500 });
   }
 } 

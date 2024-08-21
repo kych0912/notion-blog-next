@@ -38,6 +38,8 @@ export default function Header(){
         if(codeParam){
             setCookieLoading(true);
             getAccessToken(codeParam).then(()=>{
+                //다시 auth 정보를 가져온다.
+                //쿠키가 설정되고, 다시 로그인 정보 설정
                 refetch();
                 setCookieLoading(false)
             });

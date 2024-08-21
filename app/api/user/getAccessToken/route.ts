@@ -1,4 +1,3 @@
-'use server'
 import { NextRequest, NextResponse } from 'next/server';
 import { 
     generateToken,
@@ -19,6 +18,7 @@ export const GET = async (request: NextRequest, response: NextResponse) => {
       client_secret: process.env.CLIENT_SECRETS || '',
       code: code || '',
     };
+
     const params = new URLSearchParams(config).toString();
     const finalUrl = `${baseUrl}?${params}`;
 
@@ -42,7 +42,7 @@ export const GET = async (request: NextRequest, response: NextResponse) => {
     const token = await generateToken(id);
 
     const user = await getUserInfo(userData.data.name)
-    console.log(user);
+
     if(Array.isArray(user) && user.length === 0){
         await createUser(
             userData.data.name,
@@ -51,26 +51,26 @@ export const GET = async (request: NextRequest, response: NextResponse) => {
         )
     }
 
-
     const expires = new Date(Date.now() + 1000 * 60 * 60 * 24 * 3);
 
-    cookies().set("x_auth", token,{
-        httpOnly: true,
-        expires,
-        secure: true,
-        sameSite: "none"
-      });
-
-    return new NextResponse(JSON.stringify(json), {
+    const response = NextResponse.json(json, {
       status: 200,
       headers: {
-        'Access-Control-Allow-Origin': 'https://notion-blog-next-sigma.vercel.app/',
-        "Access-Control-Allow-Credentials": 'true',
-        "Access-Control-Allow-Headers": 'Set-Cookie',
+        'Access-Control-Allow-Origin': '*',
       },
     });
+    
+      // 쿠키 설정
+      cookies().set("x_auth", token, {
+        expires,
+        path: "/",
+        sameSite: "strict",
+        secure: true,
+        httpOnly: true
+      });
+    return response;
   } catch (error) {
-    console.log(error);
-    return new NextResponse('Internal Server Error', { status: 500 });
+    console.error(error);
+    return NextResponse.json({ message: "Internal Server Error" }, { status: 500 });
   }
 };
