@@ -8,7 +8,8 @@ import React, { useEffect } from 'react';
 import { useRouter } from "next/navigation";
 import { useLogout } from "@/app/react-query/user/mutations";
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { JwtPayload } from "jsonwebtoken";
+import { DefaultSession } from "next-auth";
+
 
 const StyledButton = styled(Button)({
     border:'2px solid',
@@ -25,7 +26,7 @@ const StyledButton = styled(Button)({
   });
 
 
-export default function LoggedIn({data}:any){
+export default function LoggedIn({user}:{user:DefaultSession}){
     const [open,setOpen] = React.useState(false);
     const [ishover,setIshover] = React.useState(false);
     const router = useRouter();
@@ -42,7 +43,7 @@ export default function LoggedIn({data}:any){
         {
             title:"내 정보",
             link:"/user",
-            handleClick:()=>{router.push(`/${data.user.name}`)},
+            handleClick:()=>{router.push(`/${user.user?.name}`)},
             isVisible:true
         },
         {
@@ -96,7 +97,7 @@ export default function LoggedIn({data}:any){
                     onMouseLeave={()=>{handleHover(false)}}
                     onClick={()=>{handleMenu()}} 
                 >
-                    <Avatar src={`${data.user.avatar_url}`}  alt="Remy Sharp" sx={{width:'40px',height:'40px'}} component="div"/>
+                    <Avatar src={`${user.user?.image}`}  alt="Remy Sharp" sx={{width:'40px',height:'40px'}} component="div"/>
                     {
                         open && <UserMenu MenuOption = {MenuOption}/>
                     }
