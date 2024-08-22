@@ -16,6 +16,7 @@ export default  function HeaderRight(){
             )
         case "authenticated":
             if(session && session.user){
+                window.localStorage.setItem("currentUser",JSON.stringify(session.user));
                 return <LoggedIn user={session}/>
             }
             return <NotLoggedIn />
