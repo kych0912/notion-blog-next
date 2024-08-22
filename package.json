@@ -20,6 +20,7 @@
     "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.9.7",
     "next": "14.2.3",
+    "next-auth": "^4.24.7",
     "notion-client": "^6.16.0",
     "notion-utils": "^6.16.0",
     "react": "^18",
