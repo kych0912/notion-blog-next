@@ -50,8 +50,8 @@ export default function LoginModal({open,setOpen}:{
     const AUTHORIZATION_CODE_URL = `https://github.com//login/oauth/authorize?client_id=Iv23liTtW0bz44YvmubS&redirect_url=https://notion-blog-next-j6nbqb54s-kych0912s-projects.vercel.app/`;
 
     const fetchAuthCode = () => {
-        // signIn('github');
-        window.location.assign(AUTHORIZATION_CODE_URL);
+        signIn('github');
+        //window.location.assign(AUTHORIZATION_CODE_URL);
     };
 
 
