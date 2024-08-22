@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { useLogout } from "@/app/react-query/user/mutations";
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { DefaultSession } from "next-auth";
+import { signOut } from 'next-auth/react'
 
 
 const StyledButton = styled(Button)({
@@ -34,7 +35,7 @@ export default function LoggedIn({user}:{user:DefaultSession}){
 
     const handleLogout = () =>{
         localStorage.removeItem('currentUser');
-        mutation.mutate(undefined);
+        signOut();
     }
 
     const isSmallScreen = useMediaQuery('(max-width:600px)'); 
