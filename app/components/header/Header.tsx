@@ -4,48 +4,11 @@ import { Avatar,AppBar,Box,Skeleton, Typography} from "@mui/material";
 import {getAccessToken} from "@/app/services/user/user";
 import LoggedIn from './_components/LoggedIn';
 import NotLoggedIn from './_components/NotLoggedIn';
-import { useQuery } from '@tanstack/react-query';
-import { getAuth } from '@/app/services/user/user';
 import Link from "next/link";
-import { useSession } from 'next-auth/react';
-import { useAuth } from '@/app/react-query/user/queries';
-import { set } from 'react-hook-form';
+import { SessionProvider, useSession } from 'next-auth/react';
+import HeaderRight from './_components/HeaderRight';
 
 export default function Header(){
-    const {data,isLoading,isError,refetch}= useAuth();
-    const [cookieLoading, setCookieLoading] = React.useState(false);
-
-    React.useEffect(() => {
-
-        if (data && data.user) {
-            const userSet = data.user;
-
-            const localStorageUser = {
-                avatar: userSet.avatar_url,
-                name: userSet.name,
-            };
-
-            window.localStorage.setItem('currentUser', JSON.stringify(localStorageUser));
-        }
-    }, [data]);
-
-        
-    React.useEffect(()=>{
-        const queryString = window.location.search;
-        const urlParams = new URLSearchParams(queryString);
-        const codeParam = urlParams.get("code");
-
-        if(codeParam){
-            setCookieLoading(true);
-            getAccessToken(codeParam).then(()=>{
-                //다시 auth 정보를 가져온다.
-                //쿠키가 설정되고, 다시 로그인 정보 설정
-                refetch();
-                setCookieLoading(false)
-            });
-        }
-
-    },[]);
 
     return (
             <AppBar component="header" position="sticky" sx={{
@@ -55,6 +18,7 @@ export default function Header(){
                 py:'12px',
                 width:"100%"
                 }} >
+                    <SessionProvider>
                     <Box sx={{
                         maxWidth:{md:'900px',lg:"1200px"},
                         margin:'auto',                
@@ -71,24 +35,9 @@ export default function Header(){
                             <Typography sx={{fontSize:"21px",color:"black",fontWeight:700}}>Notion Blog</Typography>
                         </Link>
 
-
-                        {
-                            isLoading||cookieLoading ?
-                            <Box sx={{ display: "flex", gap: 2 }}>
-                                <Skeleton variant="rounded" width={100} height={40} />
-                            </Box>
-                            :
-                            <>
-                                {
-                                    data?.isLogged ?
-                                    <LoggedIn data={data} /> // Fixed the prop name here
-                                    :
-                                    <NotLoggedIn />
-                                }
-                            </>
-                        }
-
-                    </Box>
+                        <HeaderRight/>
+                        </Box>
+                    </SessionProvider>
             </AppBar>
     )
 }

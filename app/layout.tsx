@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 import { ThemeProvider } from '@mui/material/styles';
-import {SessionProvider } from 'next-auth/react'
-import { getServerSession } from 'next-auth'
 import CssBaseline from '@mui/material/CssBaseline';
 import theme from "./styles/theme";
 import Header from './components/header/Header'
@@ -13,8 +11,6 @@ import 'prismjs/themes/prism-tomorrow.css'
 import 'katex/dist/katex.min.css'
 
 import ReactQueryProvider from "./utils/Provier";
-
-import { authOptions } from "./api/auth/[...nextauth]/route";
 
 export const metadata: Metadata = {
   title: "Create Next App",

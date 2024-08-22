@@ -4,7 +4,6 @@ import Link from 'next/link';
 import {styled} from '@mui/material/styles';
 import LoginModal from "../../LoginModal";
 import React from 'react';
-import { Login } from "@mui/icons-material";
 
 const StyledButton = styled(Button)({
     border:'2px solid',
