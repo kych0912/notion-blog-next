@@ -10,7 +10,7 @@ import React from "react";
 import { AxiosError } from "axios";
 import Image from 'next/image';
 import GithubIcon from "../assets/github_logo_icon_147285.svg"
-import { signIn, signOut, useSession } from 'next-auth/react'
+import { signIn } from 'next-auth/react'
 
 
 const ModalStyled={
