@@ -43,8 +43,11 @@ export const logout = async () => {
     }
 }
 
-export const getAccessToken = async (code:string) => {
-    const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/user/getAccessToken?code=${code}`);
+export const updateUser = async (name:string,avatar_url:string) => {
+    const res = await axios.put(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/user/updateUser`,{
+        name,
+        avatar_url
+    });
     const _data = res.data;
 
     //server component에서 client component로 데이터 전달 시, Promise 객체를 전달한다.
