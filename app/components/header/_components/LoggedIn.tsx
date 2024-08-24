@@ -31,7 +31,6 @@ export default function LoggedIn({user}:{user:DefaultSession}){
     const [open,setOpen] = React.useState(false);
     const [ishover,setIshover] = React.useState(false);
     const router = useRouter();
-    const mutation = useLogout();
 
     const handleLogout = () =>{
         localStorage.removeItem('currentUser');

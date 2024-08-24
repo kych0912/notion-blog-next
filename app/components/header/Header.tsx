@@ -1,11 +1,8 @@
 'use client';
 import * as React from 'react'
 import { Avatar,AppBar,Box,Skeleton, Typography} from "@mui/material";
-import {getAccessToken} from "@/app/services/user/user";
-import LoggedIn from './_components/LoggedIn';
-import NotLoggedIn from './_components/NotLoggedIn';
 import Link from "next/link";
-import { SessionProvider, useSession } from 'next-auth/react';
+import { SessionProvider } from 'next-auth/react';
 import HeaderRight from './_components/HeaderRight';
 
 export default function Header(){
@@ -24,7 +21,7 @@ export default function Header(){
                         margin:'auto',                
                         display:'flex',
                         flexDirection:"row",
-                        justifyContent:"space-between",
+                        justifyContent:"space-between", 
                         alignItems:"center",
                         width:"100%",
                         px:2,
