@@ -3,15 +3,7 @@ import PostCard from "./PostCard";
 
 
 async function Feed({posts}:{
-    posts: {
-        id: string;
-        author: string;
-        date: Date;
-        description: string;
-        title:string,
-        image:string,
-        avatar:string
-    }[]
+    posts:Iposts[]
 }){
 
     return (

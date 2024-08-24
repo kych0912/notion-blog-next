@@ -3,7 +3,7 @@ import { getLatestPosts } from '@/app/services/post/post';
 
 export const useLatestPosts = async () => {
     return(
-        useQuery({
+        useQuery<Iposts[]>({
             queryKey: ["latestPosts"],
             queryFn: getLatestPosts,
         })  
