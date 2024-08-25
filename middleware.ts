@@ -1,18 +1,14 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { getToken } from "next-auth/jwt";
+import { NextRequest, NextResponse } from "next/server";
 
-export function middleware(request: NextRequest) {
-  const { cookies } = request;
-  const hasCookie = cookies.get('x_auth');
+export { default } from "next-auth/middleware";
 
-  if (!hasCookie && request.nextUrl.pathname !== '/') {
-    return NextResponse.redirect(new URL('/', request.nextUrl.origin));
-  }
-  if (hasCookie && request.nextUrl.pathname === '/') {
-    return NextResponse.rewrite(new URL('/', request.nextUrl.origin));
-  }
-  return NextResponse.next();
+export const config = { matcher: ["/write"] };
+
+export async function middleware(request: NextRequest) {
+	const token = await getToken({ req: request });
+
+	if (!token && process.env.NEXTAUTH_URL) {
+		return NextResponse.redirect(process.env.NEXTAUTH_URL);
+	}
 }
-
-export const config = {
-  matcher: ['/'],
-};

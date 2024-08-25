@@ -12,7 +12,6 @@ const authOptions = {
             clientSecret: process.env.CLIENT_SECRETS as string,
         }),
         ],
-    secret: process.env.AUTH_SECRET,
     pages: {
         signIn: '/auth/signin',
         error: '/auth/error',
