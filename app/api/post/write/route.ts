@@ -8,17 +8,13 @@ import { parsePageId } from 'notion-utils';
 import { RowDataPacket } from 'mysql2';
 import {getNotionPageContent} from '@/app/lib/notion-api';
 import axios from 'axios';
+import { getToken } from 'next-auth/jwt';
 
 export async function POST(req:NextRequest){
     const {notionUrl,description} = await req.json();
-    const token = req.cookies.get("_vercel_jwt")?.value;
+    const token = await getToken({req});
 
     const id = parsePageId(notionUrl);
-
-    const corsHeaders = {
-        'Access-Control-Allow-Origin': 'https://notion-blog-next-sigma.vercel.app',
-        'Access-Control-Allow-Credentials': 'true',
-      };
 
     try{
         //notionUrl,description 유효성 검사
@@ -30,30 +26,16 @@ export async function POST(req:NextRequest){
         } 
 
         //토큰 유효성 검사
-        if (typeof token === 'undefined') {
+        if (!token) {
             return NextResponse.json({ message: 'Token Not Found', isSuccess: false}, { status: 401 });
         }
-        
-        //token expire 검사
-        let decoded;
-        try{
-            decoded = verifyToken(token); // Pass the value of the token cookie
-            if(typeof decoded === 'string'){
-                return NextResponse.json({ message: 'Invalid Token', isSuccess: false}, { status: 401, headers: corsHeaders});
-            }
-        }
-        catch (err){
-            return NextResponse.json({ message: 'Invalid Token', isSuccess: false}, { status: 401, headers: corsHeaders});
-        }
 
-        const userData = await axios.get('https://api.github.com/user',{
-          headers: {
-            authorization: `token ${decoded.id}`, 
-          }
-        })
+        const userId = token.name;
+        const avatar = token.picture;
 
-        const userId = userData.data.name;
-        const avatar = userData.data.avatar_url;
+        if(!userId || !avatar){
+            return NextResponse.json({ message: 'Invalid Token', isSuccess: false}, { status: 401 });
+        }
 
         //노션 링크 유효성 검사
         let recordMap:Types.ExtendedRecordMap;
@@ -61,14 +43,14 @@ export async function POST(req:NextRequest){
             recordMap = await getPage(id);
         }
         catch(err){
-            return NextResponse.json({message:"Invalid Notion URL",isSuccess:false},{status:400,headers:corsHeaders})
+            return NextResponse.json({message:"Invalid Notion URL",isSuccess:false},{status:400})
         }
 
         //중복 검사
         const post = await getPostById(id) as RowDataPacket[];
 
         if(post.length !== 0){
-            return NextResponse.json({message:"Post Already Exists",isSuccess:false},{status:400,headers:corsHeaders})
+            return NextResponse.json({message:"Post Already Exists",isSuccess:false},{status:400})
         }
 
 
@@ -90,14 +72,14 @@ export async function POST(req:NextRequest){
         });
 
         if(_response){
-            return NextResponse.json({message:"Post Uploaded",isSuccess:true},{status:200,headers:corsHeaders})
+            return NextResponse.json({message:"Post Uploaded",isSuccess:true},{status:200})
         }
         else{
-            return NextResponse.json({message:"Post Upload Failed",isSuccess:false},{status:400,headers:corsHeaders})
+            return NextResponse.json({message:"Post Upload Failed",isSuccess:false},{status:400})
         }
 
     }
     catch(err){
-        return NextResponse.json({message:"Internal Server Error",isSuccess:false},{status:500,headers:corsHeaders})
+        return NextResponse.json({message:"Internal Server Error",isSuccess:false},{status:500})
     }
 }

@@ -46,15 +46,10 @@ export async function getUserPosts(id:string){
     }
 }
 
-export async function getPostDetail(id:string,user:string,token:string){
+export async function getPostDetail(id:string,user:string){
     try{
-        const headers={
-            headers:{
-                'x_auth':token
-            }
-        }
 
-        const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/post/${user}/${id}`,headers);
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/post/${user}/${id}`);
         return res.data;
     }
     catch(err){

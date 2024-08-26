@@ -16,10 +16,9 @@ async function Post({params}: {params:{id:string,user:string }}){
     let isAuthor = false;
     
     const cookieStore = cookies();
-    const token = cookieStore.get('x_auth')?.value ?? '';    
 
     try{
-        const _response = await getPostDetail(id,user,token);
+        const _response = await getPostDetail(id,user);
         const PageId = _response.data[0].id;
         avatar_url = _response.data[0].avatar;
         isAuthor = _response.isAuthor;
