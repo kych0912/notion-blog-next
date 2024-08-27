@@ -1,13 +1,10 @@
 import {NextResponse, NextRequest} from 'next/server';
-import { cookies } from 'next/headers';
 import { getPage } from '@/app/lib/notion-api';
-import { verifyToken } from '@/app/lib/jwt';
 import * as Types from 'notion-types';
 import { uploadPost,getPostById } from '@/app/lib/postData/postDB';
 import { parsePageId } from 'notion-utils';
 import { RowDataPacket } from 'mysql2';
 import {getNotionPageContent} from '@/app/lib/notion-api';
-import axios from 'axios';
 import { getToken } from 'next-auth/jwt';
 
 export async function POST(req:NextRequest){
