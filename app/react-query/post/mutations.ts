@@ -8,7 +8,6 @@ export function useUploadPost(){
     return useMutation({
         mutationFn:uploadPost,
         onSuccess:()=>{
-            location.reload();
             router.push("/");
         }
     })
@@ -20,7 +19,6 @@ export function useDeletePostMutation(){
         mutationFn:deletePost,
         onSuccess:()=>{
             router.push("/");
-            location.reload();
         }
     })
 }
