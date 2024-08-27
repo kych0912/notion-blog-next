@@ -2,6 +2,7 @@ import { Box } from "@mui/material";
 import {Feed} from './components/feed'
 import HomeTab from "./components/HomeTab";
 import {getLatestPosts} from "@/app/services/post/post"
+import { Suspense } from "react";
 
 export default async function Home() {
   if(!process.env.NEXT_PUBLIC_BASE_API_URL){
@@ -20,7 +21,9 @@ export default async function Home() {
       }}>
         <Box sx={{ px:2. }}>
             <HomeTab/>
-            <Feed posts={posts}/>
+            <Suspense fallback={<p>Loading feed...</p>}>
+                <Feed posts={posts}/>
+            </Suspense>
         </Box>
     </Box>
   );
