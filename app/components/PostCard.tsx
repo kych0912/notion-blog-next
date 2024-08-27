@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { getPageTitle } from "notion-utils";
 import { getPage, getNotionImage, getPageBlockContent } from "@/app/lib/notion-api";
 import * as types from 'notion-types'
+import { ConnectingAirportsOutlined } from "@mui/icons-material";
 
 function dateFormat(date:Date) {
     var year = date.getFullYear();
@@ -22,7 +23,7 @@ export default async function PostCard({id,user,caption,date,title,image,avatar}
     image:string,
     avatar:string
 }){
-    
+
     return (
         <Box sx={{
             display:"flex",
@@ -36,8 +37,8 @@ export default async function PostCard({id,user,caption,date,title,image,avatar}
             <a href={`/${user}/${id}`} style={{ textDecoration: "none"}}>
                 <Box sx={{width:"100%"}}>
                 {
-                    image &&
-                    <img className="feedImg" src={image} alt={title}/>||
+                    image !== "null"?
+                    <img className="feedImg" src={image} alt={title}/>:
                     <img className="feedImg" src="https://via.placeholder.com/150" alt={title}/>
                 }
                 </Box>
