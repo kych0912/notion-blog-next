@@ -1,5 +1,4 @@
 import axios from "axios";
-import { headers } from "next/headers";
 
 interface PostData{
     notionUrl:string|undefined,
@@ -46,10 +45,16 @@ export async function getUserPosts(id:string){
     }
 }
 
-export async function getPostDetail(id:string,user:string){
+export async function getPostDetail(id:string,user:string,token:string){
     try{
+        const headers={
+            headers:{
+                'next-auth.session-token':token
+            }
+        }
 
-        const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/post/${user}/${id}`);
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/post/${user}/${id}`, headers);
+
         return res.data;
     }
     catch(err){

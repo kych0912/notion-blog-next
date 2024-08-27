@@ -1,47 +1,43 @@
 import {NextRequest} from 'next/server';
 import { NextResponse } from 'next/server';
 import { getPostDetail } from '@/app/lib/postData/postDB';
-import { verifyToken } from '@/app/lib/jwt';
-import { headers } from 'next/headers';
-import axios from 'axios';
+import { getToken } from 'next-auth/jwt';
+import { decode } from 'next-auth/jwt';
 
-export async function GET(req:NextRequest , { params }: { params: { id: string, user:string } }){
+export async function GET(req:NextRequest, { params }: { params: { id: string, user:string } }){
+    const id = params.id;
+    const user = params.user;
+
+    //header에서 encoded token을 가져옴
+    const rawToken = req.headers.get('next-auth.session-token');
+
+    if(!rawToken){
+        return NextResponse.json({message:"Token Not Found",isSuccess:false},{status:401})
+    }
+
+    //secret 값 default 설정
+    const secret = process.env.NEXTAUTH_SECRET || '';
+
+    const decodedToken = await decode({token:rawToken,secret});
+    let isAuthor = false;
+
     try{
-        const id = params.id;
-        const user = params.user;
-        const token = req.cookies.get("_vercel_jwt")?.value;
-
-        let isAuthor = false;
-
-        if (token) {
-            try {
-                const decoded = verifyToken(token);
-                if (typeof decoded !== 'string') {
-
-                    const userData = await axios.get('https://api.github.com/user',{
-                        headers: {
-                          authorization: `token ${decoded.id}`, 
-                        }
-                      })
-
-                    if(userData.data.name === user){
-                        isAuthor = true;
-                    }
-                    
-                    else{
-                        isAuthor = false;
-                    }
-                }
-            } catch (err) {
-                isAuthor = false; // Token is invalid or expired
-            }
-        }
-
         const res = await getPostDetail(id,user);
 
+        //포스트가 존재하지 않을 때
         if(!Array.isArray(res) || res.length === 0){
             return NextResponse.json({message:"Post Not Found",isSuccess:false},{status:404})
         }
+
+        //토큰 유효성 검사
+        if(!decodedToken){
+            return NextResponse.json({data:res,isAuthor:isAuthor},{status:200})
+        }
+        
+        if(decodedToken.name === user){
+            isAuthor = true;
+        }
+
         return NextResponse.json({data:res,isAuthor:isAuthor},{status:200})
     }
     catch(err){

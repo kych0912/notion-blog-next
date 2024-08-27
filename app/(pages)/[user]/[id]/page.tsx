@@ -14,11 +14,14 @@ async function Post({params}: {params:{id:string,user:string }}){
     let avatar_url = '';
     let recordMap: ExtendedRecordMap;
     let isAuthor = false;
-    
+
+    //get 요청에 쿠키 전달을 위한 토큰 설정
+    //SSR에서는 쿠키를 사용할 수 없으므로 클라이언트에서 쿠키를 사용하도록 설정
     const cookieStore = cookies();
+    const token = cookieStore.get("next-auth.session-token")?.value ?? '';
 
     try{
-        const _response = await getPostDetail(id,user);
+        const _response = await getPostDetail(id,user,token);
         const PageId = _response.data[0].id;
         avatar_url = _response.data[0].avatar;
         isAuthor = _response.isAuthor;
