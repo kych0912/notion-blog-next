@@ -14,7 +14,7 @@ const HomeTab: React.FC = () => {
     };
 
     return (
-        <Box sx={{display:"flex",py:2,width:"100%",px:'auto'}}>
+        <Box sx={{display:"flex",py:2,width:"100%"}}>
             <Box sx={{display:"flex"}}>
                 {
                     title.map((tab, index) => (

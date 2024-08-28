@@ -25,7 +25,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body style={{backgroundColor:"#f8f9fa"}}>
+      <body style={{}}>
             <AppRouterCacheProvider options={{ enableCssLayer: true }}>
               <ThemeProvider theme={theme}>
                 <CssBaseline />
