@@ -39,7 +39,7 @@ export default async function PostCard({id,user,caption,date,title,image,avatar}
                 {
                     image !== "null"?
                     <img className="feedImg" src={image} alt={title}/>:
-                    <img className="feedImg" src="https://via.placeholder.com/150" alt={title}/>
+                    <img className="feedImg" src={process.env.DEFAULT_IMAGE} alt={title}/>
                 }
                 </Box>
                 <Box sx={{p:'1rem',width:"100%"}}>
