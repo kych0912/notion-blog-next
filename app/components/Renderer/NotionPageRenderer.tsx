@@ -54,7 +54,6 @@ export default function NotionPage({recordMap, user} : {recordMap: any,user:stri
             Pdf,
             Modal,  
           }}
-
           darkMode={false} 
         />
     </>

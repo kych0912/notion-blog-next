@@ -6,7 +6,6 @@ import {styled} from '@mui/material/styles';
 import UserMenu from "./UserMenu";
 import React, { useEffect } from 'react';
 import { useRouter } from "next/navigation";
-import { useLogout } from "@/app/react-query/user/mutations";
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { DefaultSession } from "next-auth";
 import { signOut } from 'next-auth/react'
