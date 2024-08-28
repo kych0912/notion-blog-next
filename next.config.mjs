@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+    images: {
+        domains: ['www.notion.so','transitivebullsh.it'],
+    },
     async headers() {
         return [
           {

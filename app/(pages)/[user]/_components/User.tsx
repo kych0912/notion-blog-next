@@ -1,6 +1,5 @@
-'use client'
-import { useState, useEffect } from 'react';
-import {Box,Typography,Avatar,Divider} from '@mui/material'
+import {Box,Typography,Avatar} from '@mui/material'
+import CoverImage from './CoverImage'
 
 
 export default function User({id,avatar}:{id:string,avatar:string}){
@@ -9,28 +8,29 @@ export default function User({id,avatar}:{id:string,avatar:string}){
         <Box sx={{
             display:'flex',
             flexDirection:"column",
-            alignItems:"start",
+            alignItems:"center",
             justifyContent:"center",
             px:"calc(min(16px, 8vw))",
             margin:"0 auto",
             maxWidth:"720px",
+            mt:"-60px"
         }}> 
                 <Box sx={{
                     display:"flex",
                     justifyContent:"start",
-                    alignItems:{md:"center",xs:'start'},
-                    flexDirection:{xs:"column",md:"row"},
+                    alignItems:"center",
+                    flexDirection:'column',
+                    width:"100%"
                 }}>
                     <Avatar sx={{width:128,height:128}} src={`${avatar ? avatar:''}`}/>
                     <Typography sx={{
                         fontSize:"1.5rem",
                         fontWeight:700,
-                        pl:{md:3,xs:0},
-                        pt:{md:0,xs:2}
+                        pl:0,
+                        pt:2
                     }}>{decodeURIComponent(id)}</Typography>
                 </Box>
 
-            <Divider sx={{width:"100%",mt:5,mb:3}}/>
         </Box>
     )
 }

@@ -1,10 +1,7 @@
 import { getPage, getNotionImage, getPageBlockContent } from "@/app/lib/notion-api";
-import {Grid} from '@mui/material'
+import {Grid,Divider, Typography} from '@mui/material'
 import PostCard from "../../../components/PostCard";
 import {Box} from '@mui/material'
-import { getPageTitle,
-    } from "notion-utils";
-import * as types from 'notion-types'
 
 async function Feed({posts}:{
     posts: {
@@ -28,6 +25,11 @@ async function Feed({posts}:{
             margin:"0 auto",
             maxWidth:"720px",
         }}>
+
+            <Typography sx={{fontWeight:700,mt:2,fontSize:'1.25em'}}>모든 포스트</Typography>
+
+            <Divider sx={{width:"100%",mt:1,mb:3}}/>
+
             {
                 posts.length === 0 ?
                 <Box sx={{width:"100%",display:"flex",justifyContent:"center"}}>
