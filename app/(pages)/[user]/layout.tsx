@@ -1,5 +1,4 @@
-import { Box, Card } from "@mui/material";
-import CardLayout from "@/app/Layout/CardLayout";
+import DefaultLayout from "@/app/Layout/DefaultLayout";
 
 export default function RootLayout({
   children,
@@ -9,8 +8,8 @@ export default function RootLayout({
 
 
   return (
-    <CardLayout>
+    <DefaultLayout>
             {children}
-    </CardLayout>
+    </DefaultLayout>
   );
 }

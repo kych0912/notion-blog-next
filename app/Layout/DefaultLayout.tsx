@@ -8,7 +8,7 @@ export default function CardLayout({
 
 
   return (
-    <Box sx={{p:2}}>
+    <Box sx={{p:0}}>
       {children}
     </Box>
   );
