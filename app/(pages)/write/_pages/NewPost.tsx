@@ -3,7 +3,6 @@ import {
     FunnelContainer,
     ContentContainer,
     InputContainer,
-    CustomButton
 } from "../write.styles";
 import Link from 'next/link'
 import {SetStateAction} from 'react'
@@ -42,7 +41,7 @@ export default function NewPost({nextStep,setUrl,url}:{
                         }}
                         InputProps={{
                             sx:{
-                                borderRadius:'50px',
+                                borderRadius:'12px',
                                 pr:10,
                             }
                         }}
@@ -60,7 +59,11 @@ export default function NewPost({nextStep,setUrl,url}:{
                 <Box sx={{
                     display:"flex",
                     flexDirection:"column",
-                    pt:3
+                    mt:3,
+                    width:"100%",
+                    backgroundColor:"primary.light",
+                    p:3,
+                    borderRadius:"12px"
                 }}>
                     <Box sx={{display:"flex"}}>
                         <ErrorOutlineIcon/>

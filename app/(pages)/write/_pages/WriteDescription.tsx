@@ -3,12 +3,10 @@ import {
     FunnelContainer,
     ContentContainer,
     InputContainer,
-    CustomButton
 } from "../write.styles";
 import Link from 'next/link'
 import {SetStateAction} from 'react'
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
-import { MutateFunction } from "@tanstack/react-query";
 
 export default function Description({nextStep,setDescription,description,handlePost}:{
         nextStep:string,
@@ -26,7 +24,7 @@ export default function Description({nextStep,setDescription,description,handleP
     return(
         <FunnelContainer>
             <ContentContainer>
-                <InputContainer>
+                <InputContainer style={{ border:'1px solid #f0f0f0', borderRadius:'12px',padding:'1rem'}}>
                     <textarea placeholder="작성하는 글에 대해 간단하게 설명해주세요." 
                         value={description}
                         onInput={(e) => { adjustHeight(e.target)}}
@@ -64,7 +62,7 @@ export default function Description({nextStep,setDescription,description,handleP
                 <Button onClick={handlePost} disabled={!description?.length || (description?.length ?? 0) > 100} variant="contained" sx={{
                     color: "white",
                     height: "3rem",
-                    borderRadius: '50px',
+                    borderRadius: '12px',
                     width: "100%",
                     fontWeight: 700,
                     fontSize: "1rem",
