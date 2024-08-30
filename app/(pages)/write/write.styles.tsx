@@ -22,17 +22,6 @@ export const InputContainer = styled('div')({
     display:"flex",
     flexDirection:"column",
     alignItems:"start",
-    justifyContent:"center",
-    width:"100%"
-})
-
-export const CustomButton = styled(Button)({
-    color:'white',
-    height:"3rem",
-    borderRadius:'50px',
-    position:'absolute',
+    justifyContent:"center",    
     width:"100%",
-    bottom:"20px",
-    fontWeight:700,
-    fontSize:"1rem",
 })
