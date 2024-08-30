@@ -8,6 +8,7 @@ import {
 import * as types from "notion-types"
 import Link from 'next/link'
 import Option from '../PostOption/Option';
+import CoverImage from "./PostCoverImage"
 
 export default async function PostHeader({recordMap,user,isAuthor,id,avatar}: {recordMap: types.ExtendedRecordMap,user:string,isAuthor:boolean,id:string,avatar:string}){
     const keys = Object.keys(recordMap?.block || {});
@@ -56,20 +57,8 @@ export default async function PostHeader({recordMap,user,isAuthor,id,avatar}: {r
 
             </Box>
 
-            <Box sx={{width:"100%"}}>
-                
-                {
-                    coverImg &&
-                    <img src={coverImg} alt="coverImg" style={{
-                        objectFit:"cover",
-                        height:'20rem',
-                        objectPosition:"center",
-                        borderRadius:"1rem",
-                        width:"100%"
-                    }}/>
-                }
+            <CoverImage coverImg={coverImg}/>
 
-            </Box>
         </Box>
     )
 }
