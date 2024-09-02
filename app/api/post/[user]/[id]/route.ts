@@ -11,14 +11,17 @@ export async function GET(req:NextRequest, { params }: { params: { id: string, u
     //secret 값 default 설정
     const secret = process.env.NEXTAUTH_SECRET || '';
 
+    const headerList = headers();
+    const ConvertHeaderList = JSON.stringify(Array.from(headerList.entries()));
+
     //header에서 encoded token을 가져옴
     const rawToken = headers().get('next-auth.session-token');
     const header = headers();
 
-    console.log(header)
+    console.log(ConvertHeaderList)
 
     if(!rawToken){
-        return NextResponse.json({message:"Need Token",token:rawToken,header:header,isSuccess:false},{status:400})
+        return NextResponse.json({message:"Need Token",token:rawToken,header:ConvertHeaderList,isSuccess:false},{status:400})
     }
 
     let isAuthor = false;
