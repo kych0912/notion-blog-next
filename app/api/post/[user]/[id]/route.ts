@@ -1,7 +1,6 @@
 import {NextRequest} from 'next/server';
 import { NextResponse } from 'next/server';
 import { getPostDetail } from '@/app/lib/postData/postDB';
-import { getToken } from 'next-auth/jwt';
 import { decode } from 'next-auth/jwt';
 
 export async function GET(req:NextRequest, { params }: { params: { id: string, user:string } }){
@@ -13,6 +12,10 @@ export async function GET(req:NextRequest, { params }: { params: { id: string, u
 
     //header에서 encoded token을 가져옴
     const rawToken = req.headers.get('next-auth.session-token');
+
+    if(!rawToken){
+        return NextResponse.json({message:"Need Token",isSuccess:false},{status:400})
+    }
 
     let isAuthor = false;
 
@@ -30,9 +33,6 @@ export async function GET(req:NextRequest, { params }: { params: { id: string, u
         }
 
         const decodedToken = await decode({token:rawToken,secret}); 
-
-        console.log(decodedToken);
-        console.log(rawToken);
 
         //토큰이 유효하지 않을 때
         if(!decodedToken){
