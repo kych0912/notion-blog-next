@@ -12,7 +12,7 @@ export async function GET(req:NextRequest, { params }: { params: { id: string, u
     const secret = process.env.NEXTAUTH_SECRET || '';
 
     //header에서 encoded token을 가져옴
-    const rawToken = req.headers.get('__Secure-next-auth.session-token');
+    const rawToken = req.headers.get('next-auth.session-token');
 
     let isAuthor = false;
 
@@ -30,9 +30,6 @@ export async function GET(req:NextRequest, { params }: { params: { id: string, u
         }
 
         const decodedToken = await decode({token:rawToken,secret}); 
-
-        console.log(decodedToken);
-        console.log(rawToken);
 
         //토큰이 유효하지 않을 때
         if(!decodedToken){
