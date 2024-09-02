@@ -8,17 +8,12 @@ export async function GET(req:NextRequest, { params }: { params: { id: string, u
     const id = params.id;
     const user = params.user;
 
-    //header에서 encoded token을 가져옴
-    const rawToken = req.headers.get('next-auth.session-token');
-
-    if(!rawToken){
-        return NextResponse.json({message:"Token Not Found",isSuccess:false},{status:401})
-    }
-
     //secret 값 default 설정
     const secret = process.env.NEXTAUTH_SECRET || '';
 
-    const decodedToken = await decode({token:rawToken,secret});
+    //header에서 encoded token을 가져옴
+    const rawToken = req.headers.get('__Secure-next-auth.session-token');
+
     let isAuthor = false;
 
     try{
@@ -30,6 +25,13 @@ export async function GET(req:NextRequest, { params }: { params: { id: string, u
         }
 
         //토큰 유효성 검사
+        if(!rawToken){
+            return NextResponse.json({data:res,isAuthor:isAuthor},{status:200})
+        }
+
+        const decodedToken = await decode({token:rawToken,secret}); 
+
+        //토큰이 유효하지 않을 때
         if(!decodedToken){
             return NextResponse.json({data:res,isAuthor:isAuthor},{status:200})
         }
