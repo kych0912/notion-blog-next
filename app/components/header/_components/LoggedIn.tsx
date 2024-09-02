@@ -4,7 +4,7 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import Link from 'next/link';
 import {styled} from '@mui/material/styles';
 import UserMenu from "./UserMenu";
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useRouter } from "next/navigation";
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { DefaultSession } from "next-auth";
