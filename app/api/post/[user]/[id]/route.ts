@@ -12,9 +12,12 @@ export async function GET(req:NextRequest, { params }: { params: { id: string, u
 
     //header에서 encoded token을 가져옴
     const rawToken = req.headers.get('next-auth.session-token');
+    const header = req.headers;
+
+    console.log(header)
 
     if(!rawToken){
-        return NextResponse.json({message:"Need Token",isSuccess:false},{status:400})
+        return NextResponse.json({message:"Need Token",token:rawToken,header:header,isSuccess:false},{status:400})
     }
 
     let isAuthor = false;
