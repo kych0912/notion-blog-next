@@ -8,7 +8,7 @@ async function Feed({posts}:{
 
     return (
         <>
-            <Grid container spacing={'32px'} columns={16} sx={{}}>
+            <Grid container spacing={'16px'} columns={16} sx={{}}>
                 {posts.map((item, index) => {
                     return (
                         <Grid item xs={16} md={8} lg={4} key={index} sx={{width:"100%"}}>
