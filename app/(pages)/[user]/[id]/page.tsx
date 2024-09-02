@@ -20,6 +20,8 @@ async function Post({params}: {params:{id:string,user:string }}){
     const cookieStore = cookies();
     const token = cookieStore.get(process.env.NEXTAUTH_COOKIE_NAME as string)?.value ?? '';
 
+    console.log(token);
+
     try {
         const _response = await getPostDetail(id, user, token);
         const PageId = _response.data[0].id;

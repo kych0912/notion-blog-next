@@ -31,6 +31,9 @@ export async function GET(req:NextRequest, { params }: { params: { id: string, u
 
         const decodedToken = await decode({token:rawToken,secret}); 
 
+        console.log(decodedToken);
+        console.log(rawToken);
+
         //토큰이 유효하지 않을 때
         if(!decodedToken){
             return NextResponse.json({data:res,isAuthor:isAuthor},{status:200})
