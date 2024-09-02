@@ -49,7 +49,8 @@ export async function getPostDetail(id:string,user:string,token:string){
     try{
         const headers={
             headers:{
-                'next-auth.session-token':token
+                'next-auth.session-token':token,
+                "Access-Control-Allow-Headers": "*",
             }
         }
 
