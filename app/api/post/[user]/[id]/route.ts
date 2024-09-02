@@ -2,6 +2,7 @@ import {NextRequest} from 'next/server';
 import { NextResponse } from 'next/server';
 import { getPostDetail } from '@/app/lib/postData/postDB';
 import { decode } from 'next-auth/jwt';
+import { headers } from 'next/headers';
 
 export async function GET(req:NextRequest, { params }: { params: { id: string, user:string } }){
     const id = params.id;
@@ -11,8 +12,8 @@ export async function GET(req:NextRequest, { params }: { params: { id: string, u
     const secret = process.env.NEXTAUTH_SECRET || '';
 
     //header에서 encoded token을 가져옴
-    const rawToken = req.headers.get('next-auth.session-token');
-    const header = req.headers;
+    const rawToken = headers().get('next-auth.session-token');
+    const header = headers();
 
     console.log(header)
 
