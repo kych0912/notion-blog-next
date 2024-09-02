@@ -21,7 +21,7 @@ export async function uploadPost(data:PostData){
         }
     }
     catch(err){
-        throw err;
+        return err;
     }
 }
 
@@ -31,7 +31,7 @@ export async function getLatestPosts(){
         return res.data;
     }
     catch(err){
-        throw err;
+        return err;
     }
 }
 
@@ -41,7 +41,7 @@ export async function getUserPosts(id:string){
         return res.data;
     }
     catch(err){
-        throw err;
+        return err;
     }
 }
 
@@ -58,7 +58,7 @@ export async function getPostDetail(id:string,user:string,token:string){
         return res.data;
     }
     catch(err){
-        throw err;
+        return err;
     }
 }
 
@@ -70,7 +70,7 @@ export async function deletePost(id:string){
         return res.data;
     }
     catch(err){
-        throw err;
+        return err;
     }
 
 }
