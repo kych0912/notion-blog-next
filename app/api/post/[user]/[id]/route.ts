@@ -19,12 +19,13 @@ export async function GET(req:NextRequest, { params }: { params: { id: string, u
 
     //header에서 encoded token을 가져옴
     const rawToken = headerList.get('x-next-auth-session-token') || headerList.get('x-next-auth.session-token');
-    const header = headers();
-
-    console.log(ConvertHeaderList)
 
     if(!rawToken){
-        return NextResponse.json({message:"Need Token",token:session,header:ConvertHeaderList,isSuccess:false},{status:400})
+        return NextResponse.json({message:"Need Token",token:session,data:{
+            header:ConvertHeaderList,
+            session:session,
+            rawToken:rawToken,
+        },isSuccess:false},{status:400})
     }
 
     let isAuthor = false;
