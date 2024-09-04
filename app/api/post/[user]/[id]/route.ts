@@ -3,6 +3,8 @@ import { NextResponse } from 'next/server';
 import { getPostDetail } from '@/app/lib/postData/postDB';
 import { decode } from 'next-auth/jwt';
 import { headers } from 'next/headers';
+import { getServerSession } from "next-auth/next"
+import { authOptions } from "../../../auth/[...nextauth]/route";
 
 export async function GET(req:NextRequest, { params }: { params: { id: string, user:string } }){
     const id = params.id;
@@ -13,6 +15,7 @@ export async function GET(req:NextRequest, { params }: { params: { id: string, u
 
     const headerList = headers();
     const ConvertHeaderList = JSON.stringify(Array.from(headerList.entries()));
+    const session = await getServerSession(authOptions)
 
     //header에서 encoded token을 가져옴
     const rawToken = headerList.get('x-next-auth-session-token') || headerList.get('x-next-auth.session-token');
@@ -21,7 +24,7 @@ export async function GET(req:NextRequest, { params }: { params: { id: string, u
     console.log(ConvertHeaderList)
 
     if(!rawToken){
-        return NextResponse.json({message:"Need Token",token:rawToken,header:ConvertHeaderList,isSuccess:false},{status:400})
+        return NextResponse.json({message:"Need Token",token:session,header:ConvertHeaderList,isSuccess:false},{status:400})
     }
 
     let isAuthor = false;
