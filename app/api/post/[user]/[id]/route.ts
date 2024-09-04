@@ -15,7 +15,7 @@ export async function GET(req:NextRequest, { params }: { params: { id: string, u
     const ConvertHeaderList = JSON.stringify(Array.from(headerList.entries()));
 
     //header에서 encoded token을 가져옴
-    const rawToken = headers().get('x-next-auth.session-token');
+    const rawToken = headerList.get('x-next-auth-session-token') || headerList.get('x-next-auth.session-token');
     const header = headers();
 
     console.log(ConvertHeaderList)

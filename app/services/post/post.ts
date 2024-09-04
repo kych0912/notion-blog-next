@@ -47,14 +47,13 @@ export async function getUserPosts(id:string){
 
 export async function getPostDetail(id:string,user:string,token:string){
     try{
-        const headers={
-            headers:{
-                'x-next-auth.session-token':token,
+        const config = {
+            headers: {
+              'X-Next-Auth-Session-Token': token,
             }
-        }
-
-        const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/post/${user}/${id}`, headers);
-
+          };
+          
+          const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/post/${user}/${id}`, config);
         return res.data;
     }
     catch(err){
