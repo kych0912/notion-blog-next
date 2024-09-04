@@ -4,7 +4,7 @@ import { getPostDetail } from '@/app/lib/postData/postDB';
 import { decode } from 'next-auth/jwt';
 import { headers } from 'next/headers';
 import { getServerSession } from "next-auth/next"
-import { authOptions } from "../../../auth/[...nextauth]/route";
+import { authOptions } from "@/app/api/auth/[...nextauth]/options";
 
 export async function GET(req:NextRequest, { params }: { params: { id: string, user:string } }){
     const id = params.id;
