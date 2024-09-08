@@ -38,7 +38,8 @@ async function Post({params}: {params:{id:string,user:string }}){
             )
         }
 
-        
+        //자식 페이지일 경우 avatar_url, isAuthor 설정 X
+
         //부모 페이지 일 경우
         const PageId = _response.data[0].id;
         avatar_url = _response.data[0].avatar;
