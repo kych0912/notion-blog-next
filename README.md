@@ -10,14 +10,14 @@ Next.js 14버전에 대한 공부와 TypeScript에 대해 공부해 보고자 �
 
 ### Frontend
 
-- **Next.js (14)**, **TypeScript**, **React-Query**, **Material UI,** react-notion-x
+- **Next.js (14)**, **TypeScript**, **React-Query**, **Material UI,** react-notion-x, next-auth 
 
 ### DB
 
 - Mysql, EC2
 
 ## Link
-[notion-blog](https://notion-blog-next-sigma.vercel.app/)
+[nextblog.me](https://nextblog.me)
 
 ## 개발 기간
 2024.05 ~ 진행중
