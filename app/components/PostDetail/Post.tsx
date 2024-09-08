@@ -2,7 +2,7 @@
 import * as React from 'react'
 import NotionPageRenderer from '../Renderer/NotionPageRenderer';
 import { Box } from '@mui/material';
-import Header from "./PostHeader"
+import Header from "./_components/PostHeader"
 import * as types from 'notion-types'
 
 export default function NotionPage({
@@ -10,14 +10,26 @@ export default function NotionPage({
   user,
   isAuthor,
   id,
-  avatar
-} : {recordMap: types.ExtendedRecordMap,user:string,isAuthor:boolean,id:string,avatar:string}){
+  avatar,
+  isChild
+} : {recordMap: types.ExtendedRecordMap,user:string,isAuthor:boolean,id:string,avatar:string,isChild:boolean}){
     if (!recordMap) {
       return null
     }
+    
   return(
   <>
-        <Header recordMap={recordMap} user={user} isAuthor={isAuthor} id={id} avatar={avatar}/>
+        {/* 자식 페이지일 경우 특정 컴포넌트 렌더링 X */}
+        {
+            <Header 
+            recordMap={recordMap} 
+            user={user} 
+            isAuthor={isAuthor} 
+            id={id} 
+            avatar={avatar}
+            isChild={isChild}
+            />
+        }
         <NotionPageRenderer 
           user={user}
           recordMap={recordMap}
