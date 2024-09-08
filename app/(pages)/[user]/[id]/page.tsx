@@ -1,12 +1,10 @@
 import { useState, useEffect } from "react";
 import { getPage } from "@/app/lib/notion-api";
 import { ExtendedRecordMap } from "notion-types";
-import { Box } from "@mui/material";
 import NotionPage from "@/app/components/PostDetail/Post";
 import {getPostDetail} from '@/app/services/post/post';
 import { notFound } from "next/navigation";
 import { cookies } from "next/headers";
-
 
 async function Post({params}: {params:{id:string,user:string }}){    
     const id = params.id;
@@ -22,25 +20,49 @@ async function Post({params}: {params:{id:string,user:string }}){
 
     try {
         const _response = await getPostDetail(id, user, token);
+
+        const isChild = _response.isChild;
+
+        //자식 페이지 일 경우
+        if(isChild){
+            recordMap = await getPage(id);
+            return(
+                <NotionPage 
+                    id={id}
+                    recordMap={recordMap} 
+                    user={params.user}
+                    isAuthor={isAuthor}
+                    avatar={avatar_url}
+                    isChild={true}
+                />
+            )
+        }
+
+        
+        //부모 페이지 일 경우
         const PageId = _response.data[0].id;
         avatar_url = _response.data[0].avatar;
         isAuthor = _response.isAuthor;
+
         recordMap = await getPage(PageId);
+
+        return(
+            <>
+                <NotionPage 
+                    id={id}
+                    recordMap={recordMap} 
+                    user={params.user}
+                    isAuthor={isAuthor}
+                    avatar={avatar_url}
+                    isChild={false} 
+                />
+            </>
+        )
+        
     } catch (err) {
+        console.log(err);
         notFound();
     }
-
-    return(
-        <>
-            <NotionPage 
-                id={id}
-                recordMap={recordMap} 
-                user={params.user}
-                isAuthor={isAuthor}
-                avatar={avatar_url}
-            />
-        </>
-    )
 }
 
 export default Post;
