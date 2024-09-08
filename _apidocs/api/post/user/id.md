@@ -25,7 +25,8 @@
             "author": "test1",
             "title": "김영천 | 상상프렌즈 포트폴리오",
             "image": "https://www.notion.so/image/https%3A%2F%2Fimages.unsplash.com%2Fphoto-1472289065668-ce650ac443d2%3Fixlib%3Drb-1.2.1%26q%3D85%26fm%3Djpg%26crop%3Dentropy%26cs%3Dsrgb?table=block&id=85d2a88f-3f4d-498c-adc6-e8c73be8c432&cache=v2",
-            "avatar": null
+            "avatar": null,
+            "isChild":false,
         }
     ],
     "isAuthor": false,
