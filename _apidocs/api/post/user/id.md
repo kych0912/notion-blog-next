@@ -28,8 +28,9 @@
             "avatar": null
         }
     ],
-    "isAuthor": false
-  }
+    "isAuthor": false,
+    "isChild":false
+    }
       ```
     
 * **Failes Response:**
