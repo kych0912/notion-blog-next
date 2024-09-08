@@ -40,6 +40,7 @@ export default function NotionPage({recordMap, user} : {recordMap: any,user:stri
     if (!recordMap) {
       return null
     }
+    
   return(
     <>
         <NotionRenderer 
