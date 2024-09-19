@@ -1,10 +1,12 @@
-'use client';
+'use client'
 
 import * as React from 'react'
 import { NotionRenderer } from 'react-notion-x'
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import Link from 'next/link'
+import { Box } from '@mui/material' 
+import { ExtendedRecordMap } from 'notion-types'
 
 import "../../styles/notion.css"
 
@@ -15,6 +17,7 @@ import "../../styles/notion.css"
 const Code = dynamic(() =>
   import('react-notion-x/build/third-party/code').then((m) => m.Code)
 )
+
 const Collection = dynamic(() =>
   import('react-notion-x/build/third-party/collection').then(
     (m) => m.Collection
@@ -34,18 +37,27 @@ const Modal = dynamic(
   {
     ssr: false
   }
-)
+)     
 
-export default function NotionPage({recordMap, user} : {recordMap: any,user:string}){
+export default function NotionPage({recordMap, user} : {recordMap: ExtendedRecordMap,user:string}){
     if (!recordMap) {
       return null
     }
     
   return(
-    <>
+    <Box sx={{
+      display:'flex',
+      flexDirection:"column",
+      alignItems:"center",
+      justifyContent:"center",
+      margin:"0 auto",
+      maxWidth:"720px", 
+    }}>
         <NotionRenderer 
           recordMap={recordMap} 
           mapPageUrl={(pageId) => `/${user}/${pageId}`}
+          previewImages={true}
+          fullPage={false}
           components={{
             nextImage: Image,
             nextLink: Link,
@@ -57,6 +69,6 @@ export default function NotionPage({recordMap, user} : {recordMap: any,user:stri
           }}
           darkMode={false} 
         />
-    </>
+    </Box>
   )
 }
