@@ -3,6 +3,7 @@ import {Feed} from './components/feed'
 import HomeTab from "./components/HomeTab";
 import {getLatestPosts} from "@/app/services/post/post"
 import { Suspense } from "react";
+import WithHeader from "@/app/Layout/WithHeader";
 
 export default async function Home() {
   if(!process.env.NEXT_PUBLIC_BASE_API_URL){
@@ -11,6 +12,7 @@ export default async function Home() {
 
   const posts = await getLatestPosts();
   return (
+    <WithHeader>
     <Box sx={{
         display:"flex",
         flexDirection:"column",
@@ -26,5 +28,6 @@ export default async function Home() {
             </Suspense>
         </Box>
     </Box>
+    </WithHeader>
   );
 }

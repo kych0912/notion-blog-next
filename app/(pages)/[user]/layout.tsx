@@ -1,4 +1,4 @@
-import DefaultLayout from "@/app/Layout/DefaultLayout";
+import WithHeader from "@/app/Layout/WithHeader";
 
 export default function RootLayout({
   children,
@@ -8,8 +8,8 @@ export default function RootLayout({
 
 
   return (
-    <DefaultLayout>
+    <WithHeader>
             {children}
-    </DefaultLayout>
+    </WithHeader>
   );
 }
