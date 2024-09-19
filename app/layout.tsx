@@ -3,7 +3,6 @@ import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import theme from "./styles/theme";
-import Header from './components/header/Header'
 import "./styles/global.css";
 
 import 'react-notion-x/src/styles.css'
@@ -30,7 +29,6 @@ export default async function RootLayout({
               <ThemeProvider theme={theme}>
                 <CssBaseline />
                 <ReactQueryProvider>
-                  <Header/>
                   {children}
                 </ReactQueryProvider>
                 </ThemeProvider>
