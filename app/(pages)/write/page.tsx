@@ -1,5 +1,5 @@
 import NotionPageContainer from "./_pages/NotionPageContainer"
-import NotionPageContent from "./_pages/NotionPagecontent";
+import NotionPageContent from "./_pages/NotionPageContent";
 import { Suspense } from "react";
 import {
     WriteFunnelContainer
@@ -7,8 +7,9 @@ import {
 
 
 export default function Page({searchParams}:{
-    searchParams:{url?:string}
+    searchParams:{pageId?:string}
 }){
+
 
     return(
         <>
@@ -19,7 +20,7 @@ export default function Page({searchParams}:{
                 <WriteFunnelContainer>
                     <Suspense fallback={<div>Loading...</div>}>
                         <NotionPageContent
-                            url={searchParams.url}
+                            pageId={searchParams.pageId}
                         />           
                     </Suspense> 
                 </WriteFunnelContainer>    
