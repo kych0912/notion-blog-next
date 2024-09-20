@@ -3,7 +3,7 @@ import {Feed} from './components/feed'
 import HomeTab from "./components/HomeTab";
 import {getLatestPosts} from "@/app/services/post/post"
 import { Suspense } from "react";
-import WithHeader from "@/app/Layout/WithHeader";
+import WithHeader from "@/app/Layout/WithHeaderLayout";
 
 export default async function Home() {
   if(!process.env.NEXT_PUBLIC_BASE_API_URL){
