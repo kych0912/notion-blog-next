@@ -1,6 +1,6 @@
 'use client'
-import { Box, Card } from "@mui/material";
-import CardLayout from "@/app/Layout/CardLayout";
+import DefaultLayout from "@/app/Layout/DefaultLayout";
+import WritePostLayout from "@/app/Layout/WritePostLayout";
 import { Suspense } from 'react'
 
 export default function RootLayout({
@@ -11,10 +11,8 @@ export default function RootLayout({
 
 
   return (
-    <CardLayout>
-        <Suspense>
+    <WritePostLayout>
             {children}
-        </Suspense>
-    </CardLayout>
+    </WritePostLayout>
   );
 }
