@@ -8,10 +8,10 @@ import Link from 'next/link'
 import {SetStateAction} from 'react'
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 
-export default function NewPost({nextStep,setUrl,url}:{
-        nextStep:string,
-        setUrl:React.Dispatch<SetStateAction<string|undefined>>,
-        url:string|undefined
+export default function NewPost({setUrl,url,onSubmit}:{
+        setUrl: (value: string) => void,
+        url:string|undefined,
+        onSubmit:()=>void,
     }){
 
         
@@ -20,7 +20,7 @@ export default function NewPost({nextStep,setUrl,url}:{
         <FunnelContainer>
             <ContentContainer>
                 <InputContainer>
-                    <Typography variant="h4" sx={{
+                    <Typography variant="h5" sx={{
                         fontWeight:700,
                     }}>
                         Notion 페이지 주소를 입력해주세요.
@@ -46,13 +46,16 @@ export default function NewPost({nextStep,setUrl,url}:{
                             }
                         }}
                         />
-                        <Link style={url?.length === 0 ? { pointerEvents: "none" } : {}} href={`write/?step=${nextStep}`} passHref>
-                            <Button disabled={!url?.length} color="primary" variant="contained"  sx={{position:'absolute',right:'20px',bottom:'10px',boxShadow:0,borderRadius:"50px"}}>
+                            <Button
+                                onClick={onSubmit}
+                                disabled={!url?.length}
+                                color="primary"
+                                variant="contained"
+                                sx={{position:'absolute',right:'20px',bottom:'10px',boxShadow:0,borderRadius:"50px"}}>
                                 <Typography sx={{fontWeight:'600',fontSize:'15px',color:"white"}}>
-                                    {"확인"}
+                                    {"불러오기"}
                                 </Typography>
                             </Button>
-                        </Link>
                     </Box>
                 </InputContainer>
 
@@ -79,12 +82,6 @@ export default function NewPost({nextStep,setUrl,url}:{
                     <img src="https://app.oopy.io/static/media/notion-help.a5ea9a08.gif" alt="notion-help" style={{width: '100%', marginTop: '8px', marginBottom: '8px', borderRadius: '8px'}}></img>
                 </Box>
                 
-
-                {/* <Link href={`write/?step=${nextStep}`} shallow={true} passHref>
-                    <CustomButton onClick={()=>onNext()} variant="contained">
-                        작성
-                    </CustomButton>
-                </Link> */}
             </ContentContainer>
         
         </FunnelContainer>

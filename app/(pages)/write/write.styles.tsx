@@ -2,20 +2,34 @@
 import styled from '@mui/material/styles/styled';
 import Button from '@mui/material/Button';
 
-export const FunnelContainer = styled('div')({
-    margin:'0 1rem 0 1rem',
+export const WriteFunnelContainer = styled('div')(({ theme }) => ({
     display:"flex",
     flexDirection:"column",
     alignItems:"start", 
-    position:"relative"
+    position:"relative",
+    [theme.breakpoints.down('lg')]: {
+        display: 'none',
+    },
+    height:"100vh",
+    flex:'1 1 0%'
+}))
+
+export const FunnelContainer = styled('div')({
+    display:"flex",
+    flexDirection:"column",
+    alignItems:"start", 
+    position:"sticky",
+    flex:'1 1 0%',
+    height:"100vh",
 })
 
 export const ContentContainer = styled('div')({
     display:"flex",
     flexDirection:"column",
     alignItems:"start",
-    justifyContent:"space-between",
     width:"100%",
+    height:"100%",
+    padding:'2rem',
 })
 
 export const InputContainer = styled('div')({
