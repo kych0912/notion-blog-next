@@ -2,7 +2,7 @@
 import NewPost from "./NewPost";
 import { useState } from "react";
 import { useRouter } from 'next/navigation';
-import { Box } from '@mui/material';
+import { parsePageId } from "notion-utils";
 
 export default function NotionPageContainer({
     children,
@@ -15,7 +15,8 @@ export default function NotionPageContainer({
 
     const handleSubmit = () => {
         if (url) {
-            router.push(`?url=${encodeURIComponent(url)}`, { scroll: false });
+            const pageId = parsePageId(url);
+            router.push(`?pageId=${pageId}`, { scroll: false });
         }
     };
 

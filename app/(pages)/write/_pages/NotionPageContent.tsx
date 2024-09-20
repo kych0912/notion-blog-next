@@ -3,21 +3,21 @@ import { getPage } from "@/app/lib/notion-api";
 import { Box } from "@mui/material"; 
 
 export default async function NotionPageContent({
-    url
+    pageId
   }: {
-    url?:string
+    pageId?:string
   }) {
 
-    if(!url){
+    if(!pageId){
         return null;
     }
-    
-    const recordMap = await getPage(url);
 
-    return (
+    const recordMap = await getPage(pageId);
+
+    return (    
         <Box sx={{
             height:"100%",  
-            width:"100%",
+            width:"100%",   
             overflowY:"auto",
         }}>
         {
@@ -25,6 +25,7 @@ export default async function NotionPageContent({
             <NotionPage 
                 user={"none"}
                 recordMap={recordMap}
+                isPreview={true}
             />
             :
             <>

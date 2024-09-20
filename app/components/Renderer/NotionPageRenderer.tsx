@@ -39,9 +39,23 @@ const Modal = dynamic(
   }
 )     
 
-export default function NotionPage({recordMap, user} : {recordMap: ExtendedRecordMap,user:string}){
+export default function NotionPage({
+  recordMap,
+  user,
+  isPreview = false
+} : {recordMap: ExtendedRecordMap,user:string,isPreview?:boolean}){
     if (!recordMap) {
       return null
+    }
+
+    const mapPageUrl = (pageId:string) =>{
+      console.log(isPreview);
+
+      if(isPreview){
+        return `/write?pageId=${pageId}`
+      }
+
+      return `/${user}/${pageId}`
     }
     
   return(
@@ -55,7 +69,7 @@ export default function NotionPage({recordMap, user} : {recordMap: ExtendedRecor
     }}>
         <NotionRenderer 
           recordMap={recordMap} 
-          mapPageUrl={(pageId) => `/${user}/${pageId}`}
+          mapPageUrl={mapPageUrl}
           previewImages={true}
           fullPage={false}
           components={{
