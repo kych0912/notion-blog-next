@@ -1,4 +1,4 @@
-import WithHeader from "@/app/Layout/WithHeader";
+import WithHeader from "@/app/Layout/WithHeaderLayout";
 
 export default function RootLayout({
   children,
