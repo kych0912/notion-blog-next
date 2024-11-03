@@ -1,10 +1,5 @@
-import {Box,Typography,Avatar} from '@mui/material'
-import {
-    getPageTitle,
-} from "notion-utils"
-import {
-    getNotionImage,
-} from "@/app/lib/notion-api";
+import {Box} from '@mui/material'
+import PostTitle from './PostTitle';
 import * as types from "notion-types"
 import PostProperty from './PostProperty';
 
@@ -16,7 +11,6 @@ export default async function PostHeader({recordMap,user,isAuthor,id,avatar,isCh
     avatar:string,
     isChild:boolean,
 }){
-    const title = getPageTitle(recordMap);
 
     return(
         <Box sx={{
@@ -29,10 +23,7 @@ export default async function PostHeader({recordMap,user,isAuthor,id,avatar,isCh
             maxWidth:"720px",
         }}>
             <Box sx={{width:"100%"}}>
-                <Typography sx={{
-                    fontSize:"1.875rem",
-                    fontWeight:700
-                }}>{title}</Typography>
+                <PostTitle recordMap={recordMap}/>
 
                 {
                     !isChild &&
