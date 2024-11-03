@@ -15,7 +15,7 @@ export default function Page({searchParams}:{
         <>
 
             <NotionPageContainer>
-                {/* NotionPageContainer에 왼쪽 퍼널이 포함되어 있음 */}
+                {/* NotionPageContainer에 왼쪽 퍼널이 포함되어 있음. Client Component와 Server Component 사용 위해*/}
 
                 <WriteFunnelContainer>
                     <Suspense fallback={<div>Loading...</div>}>
