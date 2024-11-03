@@ -49,7 +49,6 @@ export default function NotionPage({
     }
 
     const mapPageUrl = (pageId:string) =>{
-      console.log(isPreview);
 
       if(isPreview){
         return `/write?pageId=${pageId}`
