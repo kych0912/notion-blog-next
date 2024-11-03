@@ -1,6 +1,7 @@
 import NotionPage from "@/app/components/Renderer/NotionPageRenderer"; 
 import { getPage } from "@/app/lib/notion-api";
 import { Box } from "@mui/material"; 
+import PreRender from "./PreRender";
 
 export default async function NotionPageContent({
     pageId
@@ -22,11 +23,7 @@ export default async function NotionPageContent({
         }}>
         {
             recordMap?
-            <NotionPage 
-                user={"none"}
-                recordMap={recordMap}
-                isPreview={true}
-            />
+            <PreRender recordMap={recordMap}/>
             :
             <>
             </>
