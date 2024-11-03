@@ -1,7 +1,7 @@
 import { Box, Typography, Avatar } from "@mui/material"
 import Link from 'next/link'
 import Option from '../../PostOption/Option'
-import CoverImage from "../PostCoverImage"
+import CoverImage from "./PostCoverImage"
 import {
     getNotionImage,
 } from "@/app/lib/notion-api";
