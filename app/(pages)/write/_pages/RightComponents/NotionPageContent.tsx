@@ -1,4 +1,3 @@
-import NotionPage from "@/app/components/Renderer/NotionPageRenderer"; 
 import { getPage } from "@/app/lib/notion-api";
 import { Box } from "@mui/material"; 
 import PreRender from "./PreRender";

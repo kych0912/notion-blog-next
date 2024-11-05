@@ -1,20 +1,30 @@
+'use client'
+
 import { Box, TextField, Typography, Button } from "@mui/material";
 import {
     FunnelContainer,
     ContentContainer,
     InputContainer,
-} from "../write.styles";
+} from "../../write.styles";
 import Link from 'next/link'
-import {SetStateAction} from 'react'
+import {SetStateAction, useState} from 'react'
+import { useRouter } from 'next/navigation';
+import { parsePageId } from "notion-utils";
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 
-export default function NewPost({setUrl,url,onSubmit}:{
-        setUrl: (value: string) => void,
-        url:string|undefined,
-        onSubmit:()=>void,
-    }){
-
+export default function NewPost(){
         
+    const [url, setUrl] = useState('');
+    const router = useRouter();
+
+    const handleSubmit = () => {
+        if (url) {
+            const pageId = parsePageId(url);
+            router.push(`?pageId=${pageId}`, { scroll: false });
+        }
+    };
+        
+
 
     return(
         <FunnelContainer>
@@ -47,7 +57,7 @@ export default function NewPost({setUrl,url,onSubmit}:{
                         }}
                         />
                             <Button
-                                onClick={onSubmit}
+                                onClick={handleSubmit}
                                 disabled={!url?.length}
                                 color="primary"
                                 variant="contained"
