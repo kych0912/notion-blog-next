@@ -1,5 +1,6 @@
 import { Box } from "@mui/material";
 import Header from "@/app/components/header/Header";
+import RecoilRootWrapper from "./RecoilWrapper";
 
 export default function WritePostLayout({
     children,
@@ -19,7 +20,9 @@ export default function WritePostLayout({
                 display: "flex",
                 flex: 1
             }}>
-                {children}
+                <RecoilRootWrapper> 
+                    {children}
+                </RecoilRootWrapper>
             </Box>
         </Box>
     );
