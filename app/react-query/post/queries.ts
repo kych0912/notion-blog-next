@@ -1,7 +1,8 @@
 import {useQuery} from '@tanstack/react-query';
-import { getLatestPosts } from '@/app/services/post/post';
+import { getLatestPosts, getRecordMap } from '@/app/services/post/post';
+import { ExtendedRecordMap } from 'notion-types';
 
-export const useLatestPosts = async () => {
+export const useLatestPosts = () => {
     return(
         useQuery<Iposts[]>({
             queryKey: ["latestPosts"],
@@ -9,3 +10,14 @@ export const useLatestPosts = async () => {
         })  
     )
 }
+
+export const useRecordMapFetch = (pageId:string) => {
+    return(
+        useQuery<ExtendedRecordMap>({
+            queryKey: ["recordMap"],
+            queryFn: () => getRecordMap(pageId),
+            enabled: !!pageId,
+            refetchOnWindowFocus: false,
+        })  
+    )
+}   

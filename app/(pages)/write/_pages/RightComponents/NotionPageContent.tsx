@@ -1,32 +1,38 @@
-import { getPage } from "@/app/lib/notion-api";
+'use client'
+
 import { Box } from "@mui/material"; 
 import PreRender from "./PreRender";
+import { WriteFunnelContainer } from "../../write.styles";
+import NotionRecordMapFetcher from "@/app/components/Fetcher/NotionRecordMapFetcher";
+import { useRecordMapFetch } from "@/app/react-query/post/queries"
+import { useEffect } from "react";
 
-export default async function NotionPageContent({
-    pageId
-  }: {
-    pageId?:string
-  }) {
 
-    if(!pageId){
-        return null;
-    }
+export default function NotionPageContent({pageId}:{pageId:string}) {
+    const fetchState = useRecordMapFetch(pageId);
 
-    const recordMap = await getPage(pageId);
+    useEffect(()=>{
+        fetchState.refetch();
+    },[pageId])
 
     return (    
-        <Box sx={{
-            height:"100%",  
-            width:"100%",   
-            overflowY:"auto",
-        }}>
-        {
-            recordMap?
-            <PreRender recordMap={recordMap}/>
-            :
-            <>
-            </>
-        }
-        </Box>
+        <WriteFunnelContainer>  
+            <Box sx={{
+                width:"100%",   
+                height:"100%",
+                overflowY:"auto",
+                pb:"6rem"
+            }}>
+                <NotionRecordMapFetcher fetchState={fetchState}>
+                    {
+                        fetchState.data?
+                        <PreRender recordMap={fetchState.data}/>
+                        :
+                        <>
+                        </>
+                    }
+                </NotionRecordMapFetcher>
+            </Box>
+        </WriteFunnelContainer>
     );
     }
