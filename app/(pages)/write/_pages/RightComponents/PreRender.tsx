@@ -1,6 +1,5 @@
 import NotionPage from "@/app/components/Renderer/NotionPageRenderer";
 import {ExtendedRecordMap} from "notion-types";
-import PostTitle from "@/app/components/PostDetail/_components/PostTitle";
 import PreRenderHeader from "./PreRenderHeader";
 
 export default function PreRender({
@@ -8,7 +7,6 @@ export default function PreRender({
 }:{
     recordMap:ExtendedRecordMap
 }){
-    
 
     return(
         <>

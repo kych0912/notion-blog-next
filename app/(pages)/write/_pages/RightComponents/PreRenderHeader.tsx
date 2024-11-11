@@ -18,7 +18,7 @@ export default function PreRenderHeader({
             px:"calc(min(16px, 8vw))",
             margin:"0 auto",
             maxWidth:"720px",
-            pb:1
+            py:3
         }}>
             <Box sx={{width:"100%"}}>
                 <PostTitle recordMap={recordMap}/>
