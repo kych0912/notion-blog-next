@@ -1,6 +1,5 @@
 'use client'
 import styled from '@mui/material/styles/styled';
-import Button from '@mui/material/Button';
 
 export const WriteFunnelContainer = styled('div')(({ theme }) => ({
     display:"flex",
@@ -11,7 +10,9 @@ export const WriteFunnelContainer = styled('div')(({ theme }) => ({
         display: 'none',
     },
     height:"100vh",
-    flex:'1 1 0%'
+    flex:'1 1 0%',
+    width:"50%",
+    overflowY:"auto",
 }))
 
 export const FunnelContainer = styled('div')({
@@ -21,6 +22,7 @@ export const FunnelContainer = styled('div')({
     position:"sticky",
     flex:'1 1 0%',
     height:"100vh",
+    width:"50%"
 })
 
 export const ContentContainer = styled('div')({
