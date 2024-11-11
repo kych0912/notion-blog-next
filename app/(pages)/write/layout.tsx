@@ -1,6 +1,6 @@
 'use client'
-import DefaultLayout from "@/app/Layout/DefaultLayout";
-import WritePostLayout from "@/app/Layout/WritePostLayout";
+import DefaultLayout from "@/app/components/Layout/DefaultLayout";
+import WritePostLayout from "@/app/components/Layout/WritePostLayout";
 import { Suspense } from 'react'
 
 export default function RootLayout({

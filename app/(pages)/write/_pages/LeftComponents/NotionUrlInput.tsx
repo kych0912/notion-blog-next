@@ -6,13 +6,12 @@ import {
     ContentContainer,
     InputContainer,
 } from "../../write.styles";
-import Link from 'next/link'
-import {SetStateAction, useState} from 'react'
+import { useState} from 'react'
 import { useRouter } from 'next/navigation';
 import { parsePageId } from "notion-utils";
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 
-export default function NewPost(){
+export default function NotionUrlInput(){
         
     const [url, setUrl] = useState('');
     const router = useRouter();
@@ -20,7 +19,7 @@ export default function NewPost(){
     const handleSubmit = () => {
         if (url) {
             const pageId = parsePageId(url);
-            router.push(`?pageId=${pageId}`, { scroll: false });
+            router.push(`/write?pageId=${pageId}`);
         }
     };
         
@@ -47,12 +46,25 @@ export default function NewPost(){
                         value={url}
                         sx={{
                             color:"primary.main",
-                            width:"100%"
+                            width:"100%",
+                            '& .MuiOutlinedInput-root': {
+                                '&.Mui-focused fieldset': {
+                                    borderColor: 'primary.main',
+                                    backgroundColor: 'transparent',
+                                }
+                            },
+                            '& input': {
+                                '&:-webkit-autofill': {
+                                    WebkitBoxShadow: '0 0 0 1000px white inset',
+                                    WebkitTextFillColor: 'inherit',
+                                    backgroundColor: 'transparent !important',
+                                },
+                            }
                         }}
                         InputProps={{
                             sx:{
                                 borderRadius:'12px',
-                                pr:10,
+                                pr:'110px',
                             }
                         }}
                         />
