@@ -62,14 +62,13 @@ export async function getPostDetail(id:string,user:string,token:string){
 }
 
 export async function deletePost(id:string){
-    try{
-        const res = await axios.delete(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/post/delete/${id}`,{
-            withCredentials: true 
-          });
-        return res.data;
-    }
-    catch(err){
-        return err;
-    }
+    const res = await axios.delete(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/post/delete/${id}`,{
+        withCredentials: true 
+        });
+    return res.data;
+}
 
+export async function getRecordMap(pageId:string){
+    const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/notion/page?pageId=${pageId}`);
+    return res.data;
 }
