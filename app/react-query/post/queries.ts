@@ -17,7 +17,11 @@ export const useRecordMapFetch = (pageId:string) => {
             queryKey: ["recordMap"],
             queryFn: () => getRecordMap(pageId),
             enabled: !!pageId,
-            refetchOnWindowFocus: false,
+            retry:false,
+            throwOnError:true,
+            refetchOnWindowFocus:false,
+            refetchOnMount:false,
+            refetchOnReconnect:false,
         })  
     )
 }   
