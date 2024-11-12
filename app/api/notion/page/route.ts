@@ -10,6 +10,11 @@ export async function GET(
     return Response.json({ error: 'Page ID is required' }, { status: 400 });
   }
 
-  const recordMap = await getPage(pageId);
-  return Response.json(recordMap);
+  try{
+    const recordMap = await getPage(pageId);
+    
+    return Response.json(recordMap);
+  } catch(error){
+    return Response.json({ error: 'Page not found' }, { status: 404 });
+  }
 } 
