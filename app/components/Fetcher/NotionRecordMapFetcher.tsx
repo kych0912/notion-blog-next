@@ -23,9 +23,9 @@ function NotionRecordMapFetcher({children, pageId}:{
         if(data) setRecordMap(data);
     },[data])
 
-    if(isLoading || isRefetching) return <LoadingPage/>;
-
     if(error) throw error;
+
+    if(isLoading || isRefetching) return <LoadingPage/>;
 
     return children;    
 }
