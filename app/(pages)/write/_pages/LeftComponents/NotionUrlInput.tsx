@@ -1,6 +1,6 @@
 'use client'
 
-import NotionPageContainer from "./_components/NotionPageContainer";
+import NotionInputPageContainer from "./_components/NotionInputPageContainer";
 import { useState} from 'react'
 import { useRouter } from 'next/navigation';
 import { parsePageId } from "notion-utils";
@@ -15,11 +15,11 @@ export default function NotionUrlInput(){
 
     return(
         <>
-            <NotionPageContainer>
+            <NotionInputPageContainer>
                 <Input url={url} setUrl={setUrl} handleSubmit={handleSubmit}/>
 
                 <Information/>
-            </NotionPageContainer>
+            </NotionInputPageContainer>
 
             {
                 error && 

@@ -1,7 +1,7 @@
 import { ContentContainer } from "../../../write.styles"
 import { FunnelContainer } from "../../../write.styles"
 
-export default function NotionPageContainer({
+export default function NotionInputPageContainer({
     children,
 }:{
     children: React.ReactNode,

@@ -5,7 +5,7 @@ import { useMutation } from "@tanstack/react-query";
 import CloseIcon from '@mui/icons-material/Close';
 import { useLogin } from "../react-query/user/mutations";
 import { useRouter } from "next/navigation";
-import ErrorSnackbar from "./Error/Error";
+import ErrorSnackbar from "./Error/ErrorHandler";
 import React from "react";
 import { AxiosError } from "axios";
 import Image from 'next/image';
@@ -131,10 +131,10 @@ export default function LoginModal({open,setOpen}:{
 
                     </Box> 
 
-                    {
+                    {/* {
                         isError&&
                         <ErrorSnackbar message={erroMessage}/>
-                    }
+                    } */}
                 </Box>
             </Modal>
 
