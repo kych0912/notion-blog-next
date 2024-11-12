@@ -1,7 +1,7 @@
 'use client';
 import {Box,Modal,Typography} from "@mui/material"
 import {useDeletePostMutation} from "@/app/react-query/post/mutations"
-import Error from "@/app/components/Error/Error"
+import ErrorHandler from "@/app/components/Error/ErrorHandler"
 
 export default function DeleteModal({id,open,handleOpen}: {id:string,open:boolean,handleOpen:()=>void}){
 
@@ -57,8 +57,13 @@ export default function DeleteModal({id,open,handleOpen}: {id:string,open:boolea
                     </Box>
                 </Box>  
             </Modal>
+
             {
-                isError && <Error message="게시글 삭제에 실패했어요."/>
+                isError && <ErrorHandler 
+                    message="게시글 삭제에 실패했어요."
+                    type="snackbar"
+                    resetError={()=>{}}
+                />
             }
         </>
     )
