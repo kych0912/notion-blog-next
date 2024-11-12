@@ -1,7 +1,7 @@
 import NotionPageContent from "./_pages/RightComponents/NotionPageContent";
 import NotionUrlInput from "./_pages/LeftComponents/NotionUrlInput";
 
-export default function Page({searchParams}:{searchParams:{pageId:string}}){
+export default async function Page({searchParams}:{searchParams:{pageId:string}}){
 
     return(
         <>
