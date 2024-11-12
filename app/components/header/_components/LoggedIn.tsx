@@ -47,8 +47,8 @@ export default function LoggedIn({user}:{user:DefaultSession}){
         },
         {
             title:"새 글 쓰기",
-            link:"/write?step=write",
-            handleClick:()=>{router.push("/write?step=write")},
+            link:"/write?",
+            handleClick:()=>{router.push("/write")},
             isVisible:isSmallScreen
         },
         {
@@ -78,7 +78,7 @@ export default function LoggedIn({user}:{user:DefaultSession}){
             }}
             >
                 <Box sx={{pr:3,display:{xs:"none",sm:'flex'}}}>
-                    <Link href="/write?step=write" passHref>
+                    <Link href="/write" passHref>
                         <StyledButton variant="outlined">
                             새 글 쓰기
                         </StyledButton>
