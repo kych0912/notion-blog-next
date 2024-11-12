@@ -5,8 +5,8 @@ export async function GET(
 ) {
   const { searchParams } = new URL(request.url);
   const pageId = searchParams.get('pageId');
-  
-  if (!pageId) {
+
+  if (pageId === "undefined" || !pageId) {
     return Response.json({ error: 'Page ID is required' }, { status: 400 });
   }
 
