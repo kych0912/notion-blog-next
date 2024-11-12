@@ -47,7 +47,7 @@ export default function LoggedIn({user}:{user:DefaultSession}){
         },
         {
             title:"새 글 쓰기",
-            link:"/write?",
+            link:"/write",
             handleClick:()=>{router.push("/write")},
             isVisible:isSmallScreen
         },
