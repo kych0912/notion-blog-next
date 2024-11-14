@@ -1,23 +1,25 @@
-import { useState, useEffect } from 'react';
+'use client'
+
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { parsePageId } from "notion-utils";
 
 export function useNotionUrlValidation() {
     const [url, setUrl] = useState('');
-    const [error, setError] = useState(false);
+    const [isError, setIsError] = useState(false);
     const router = useRouter();
 
     const handleSubmit = () => {
         const pageId = parsePageId(url);
         if (pageId) {
-            setError(false);
+            setIsError(false);
             router.push(`/write?pageId=${pageId}`);
         } else {
-            setError(true);
+            setIsError(true);
         }
     };
 
-    const resetError = () => setError(false);
+    const resetError = () => setIsError(false);
 
-    return { url, setUrl, error, handleSubmit, resetError };
+    return { url, setUrl, isError, handleSubmit, resetError };
 }
