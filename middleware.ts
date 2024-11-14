@@ -9,10 +9,8 @@ export async function middleware(request: NextRequest) {
 	const token = await getToken({ 
 		req: request,
 		secret: process.env.NEXTAUTH_SECRET,
-		secureCookie: true
+		secureCookie: true && process.env.NODE_ENV === "production"
 	});
-
-	console.log(token);
 
 	if (!token && process.env.NEXTAUTH_URL) {
 		return NextResponse.redirect(process.env.NEXTAUTH_URL);
