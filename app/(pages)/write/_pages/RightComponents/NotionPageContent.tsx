@@ -3,11 +3,14 @@
 import { Box } from "@mui/material"; 
 import PreRender from "./PreRender";
 import { WriteFunnelContainer } from "../../write.styles";
-import NotionRecordMapFetcher from "@/app/components/Fetcher/NotionRecordMapFetcher";
-import ApiErrorBoundary from "@/app/components/Error/APIErrorBoundary";
+import { RecordMapContext } from "@/app/context/RecordMapContext";
+import { useContext } from "react";
+import LoadingPage from "@/app/components/LoadingPage";
 
-export default function NotionPageContent({pageId}:{pageId:string}) {
+//UI 렌더링
+export default function NotionPageContent() {
 
+    const {recordMap, isLoading} = useContext(RecordMapContext);
 
     return (    
         <WriteFunnelContainer>  
@@ -17,11 +20,7 @@ export default function NotionPageContent({pageId}:{pageId:string}) {
                 overflowY:"auto",
                 pb:"6rem"
             }}>
-                <ApiErrorBoundary>
-                    <NotionRecordMapFetcher pageId={pageId}>
-                        <PreRender/>
-                    </NotionRecordMapFetcher>
-                </ApiErrorBoundary>
+                {isLoading ? <LoadingPage/> : <PreRender recordMap={recordMap}/>}
             </Box>
         </WriteFunnelContainer>
     );

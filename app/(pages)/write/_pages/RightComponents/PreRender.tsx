@@ -1,12 +1,8 @@
 import NotionPage from "@/app/components/Renderer/NotionPageRenderer";
 import {ExtendedRecordMap} from "notion-types";
 import PreRenderHeader from "./PreRenderHeader";
-import { useRecoilValue } from "recoil";
-import { recordMapState } from "@/app/store";
 
-export default function PreRender(){
-
-    const recordMap = useRecoilValue(recordMapState);
+export default function PreRender({recordMap}:{recordMap:ExtendedRecordMap | null }){
 
     if(!recordMap) return null;
 
