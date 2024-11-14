@@ -7,6 +7,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Box } from '@mui/material' 
 import { ExtendedRecordMap } from 'notion-types'
+import { useRouter } from 'next/navigation'
 
 import "../../styles/notion.css"
 
@@ -38,13 +39,15 @@ const Modal = dynamic(
   {
     ssr: false
   }
-)     
+)
 
 export default function NotionPage({
   recordMap,
   user,
   isPreview = false
 } : {recordMap: ExtendedRecordMap,user:string,isPreview?:boolean}){
+    const router = useRouter()
+
     if (!recordMap) {
       return null
     }
@@ -56,6 +59,18 @@ export default function NotionPage({
       }
 
       return `/${user}/${pageId}`
+    }
+    
+    const PageLink = ({ href, children, ...props }) => {
+      return (
+        <div 
+          onClick={() => router.push(href)}
+          style={{ cursor: 'pointer' }}
+          {...props}
+        >
+          {children}
+        </div>
+      )
     }
     
   return(
@@ -70,11 +85,12 @@ export default function NotionPage({
 
     }}>
         <NotionRenderer 
-          recordMap={recordMap} 
+          recordMap={recordMap}
           mapPageUrl={mapPageUrl}
           previewImages={true}
           fullPage={false}
           components={{
+            PageLink,
             nextImage: Image,
             nextLink: Link,
             Code,
