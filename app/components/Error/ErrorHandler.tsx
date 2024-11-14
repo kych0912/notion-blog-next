@@ -5,39 +5,38 @@ import { Snackbar, Alert } from '@mui/material';
 interface ErrorProps {
   message: string;
   duration?: number;
-  type: "snackbar" | "alert";
+  type?: "snackbar" | "alert";
   resetError: () => void;
 }
 
-const ErrorSnackbar: React.FC<ErrorProps> = ({ message, duration = 3000, type, resetError}) => {
+const ErrorSnackbar: React.FC<ErrorProps> = ({ message, duration = 3000, resetError}) => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
     if (message) {
       setOpen(true);
-      const timer = setTimeout(() => {
-        setOpen(false);
-      }, duration);
-
-      return () => clearTimeout(timer);
+    } else {
+      setOpen(false);
     }
-  }, [message, duration]);
+  }, [message]);
+
+  const handleClose = () => {
+    setOpen(false);
+    resetError();
+  };
 
   return (
     <Snackbar 
       open={open} 
       autoHideDuration={duration} 
-      onClose={() =>{
-        resetError();
-        setOpen(false);
-      }} 
+      onClose={handleClose} 
       anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
     >
       <Alert 
-        onClose={() =>{
-          resetError();
-          setOpen(false);
-      }} severity="error" variant="filled">
+        onClose={handleClose}
+        severity="error" 
+        variant="filled"
+      >
         {message}
       </Alert>
     </Snackbar>
@@ -50,6 +49,6 @@ export default function ErrorHandler({
   type,
   resetError
  }:ErrorProps){
-  if(type === "snackbar") return <ErrorSnackbar message={message} duration={duration} type={type} resetError={resetError}/>;
+  if(type === "snackbar") return <ErrorSnackbar message={message} duration={duration} resetError={resetError}/>;
   if(type === "alert") return <></>;  
 }
