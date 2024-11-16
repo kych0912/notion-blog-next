@@ -1,29 +1,14 @@
 'use client'
-import {Box,Avatar,Button} from "@mui/material"
+import {Box,Avatar} from "@mui/material"
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import Link from 'next/link';
-import {styled} from '@mui/material/styles';
 import UserMenu from "./UserMenu";
 import React from 'react';
 import { useRouter } from "next/navigation";
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { DefaultSession } from "next-auth";
 import { signOut } from 'next-auth/react'
-
-
-const StyledButton = styled(Button)({
-    border:'2px solid',
-    fontSize:'1rem',
-    fontWeight:700,
-    borderRadius:'1rem',
-    paddingLeft:'16px',
-    paddingRight:'16px',
-    '&:hover': {
-        border:'2px solid #96C2F7',
-        backgroundColor: '#96C2F7',
-        color:"#ffffff"
-    },
-  });
+import { HoverButton } from '../../Button/button.styles';
 
 
 export default function LoggedIn({user}:{user:DefaultSession}){
@@ -79,9 +64,9 @@ export default function LoggedIn({user}:{user:DefaultSession}){
             >
                 <Box sx={{pr:3,display:{xs:"none",sm:'flex'}}}>
                     <Link href="/write" passHref>
-                        <StyledButton variant="outlined">
+                        <HoverButton>
                             새 글 쓰기
-                        </StyledButton>
+                        </HoverButton>
                     </Link>
                 </Box>
 

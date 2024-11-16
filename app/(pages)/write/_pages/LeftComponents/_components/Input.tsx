@@ -1,6 +1,7 @@
 import { Typography } from "@mui/material";
 import { Box, TextField, Button } from "@mui/material";
 import { InputContainer } from "../../../write.styles";   
+import { ContainedButton } from "@/app/components/Button/button.styles";
 
 export default function Input(
     {url, setUrl, handleSubmit}:{url:string, setUrl:React.Dispatch<React.SetStateAction<string>>, handleSubmit:()=>void}
@@ -46,16 +47,13 @@ export default function Input(
                     }
                 }}
                 />
-                    <Button
-                        onClick={handleSubmit}
-                        disabled={!url?.length}
-                        color="primary"
-                        variant="contained"
-                        sx={{position:'absolute',right:'20px',bottom:'10px',boxShadow:0,borderRadius:"50px"}}>
-                        <Typography sx={{fontWeight:'600',fontSize:'15px',color:"white"}}>
-                            {"불러오기"}
-                    </Typography>
-                </Button>
+
+                <ContainedButton 
+                    onClick={handleSubmit} 
+                    disabled={!url?.length}
+                    size="small"
+                    sx={{position:'absolute',right:'20px',bottom:'10px'}}
+                >불러오기</ContainedButton>
             </Box>
         </InputContainer>
     )
