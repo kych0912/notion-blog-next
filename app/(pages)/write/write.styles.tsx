@@ -48,6 +48,15 @@ export const PostActionBarContainer = styled('nav')({
     display:"flex",
     alignItems:"start",
     justifyContent:"space-between",
+    alignSelf:"center",
     width:"100%",
     paddingTop:'1rem',
+})
+
+export const PostActionBarButtonContainer = styled('div')({
+    display:"flex",
+    alignItems:"center",
+    justifyContent:"center",
+    height:"100%",
+    cursor:"pointer",
 })
