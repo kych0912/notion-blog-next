@@ -3,8 +3,6 @@
 import * as React from 'react'
 import { NotionRenderer } from 'react-notion-x'
 import dynamic from 'next/dynamic'
-import Image from 'next/image'
-import Link from 'next/link'
 import { Box } from '@mui/material' 
 import { ExtendedRecordMap } from 'notion-types'
 import { useRouter } from 'next/navigation'
@@ -61,7 +59,11 @@ export default function NotionPage({
       return `/${user}/${pageId}`
     }
     
-    const PageLink = ({ href, children, ...props }) => {
+    const PageLink = ({ href, children, ...props }:{
+      href:string,
+      children:React.ReactNode,
+      props:React.HTMLAttributes<HTMLDivElement>
+    }) => {
       return (
         <div 
           onClick={() => router.push(href)}
@@ -91,8 +93,6 @@ export default function NotionPage({
           fullPage={false}
           components={{
             PageLink,
-            nextImage: Image,
-            nextLink: Link,
             Code,
             Equation,
             Pdf,
