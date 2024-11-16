@@ -1,7 +1,7 @@
 'use client'
 
 import { Box } from "@mui/material"; 
-import PreRender from "./PreRender";
+import PreRender from "./_components/PreRender";
 import { WriteFunnelContainer } from "../../write.styles";
 import { RecordMapContext } from "@/app/context/RecordMapContext";
 import { useContext } from "react";
