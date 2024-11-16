@@ -21,17 +21,19 @@ export const FunnelContainer = styled('div')({
     alignItems:"start", 
     position:"sticky",
     flex:'1 1 0%',
-    height:"100vh",
-    width:"50%"
+    width:"50%",
+    height:"calc(100vh - 64px)",
 })
 
 export const ContentContainer = styled('div')({
     display:"flex",
     flexDirection:"column",
     alignItems:"start",
+    justifyContent:"space-between",
     width:"100%",
-    height:"100%",
     padding:'2rem',
+    boxSizing:"border-box",
+    height:'100%',
 })
 
 export const InputContainer = styled('div')({
@@ -40,4 +42,12 @@ export const InputContainer = styled('div')({
     alignItems:"start",
     justifyContent:"center",    
     width:"100%",
+})
+
+export const PostActionBarContainer = styled('nav')({
+    display:"flex",
+    alignItems:"start",
+    justifyContent:"space-between",
+    width:"100%",
+    paddingTop:'1rem',
 })

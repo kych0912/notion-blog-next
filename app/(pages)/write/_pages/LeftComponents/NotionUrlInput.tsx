@@ -5,6 +5,7 @@ import Input from "./_components/Input";
 import Information from "./_components/Information";
 import ErrorHandler from "@/app/components/Error/ErrorHandler";
 import { useNotionUrlValidation } from "@/app/hooks/write/useNotionValidation";
+import PostActionBar from "./PostActionBar";
 
 export default function NotionUrlInput() {
     const {url, setUrl, isError, handleSubmit, resetError} = useNotionUrlValidation(); 
@@ -12,12 +13,15 @@ export default function NotionUrlInput() {
     return(
         <>
             <NotionInputPageContainer>
-                <Input 
-                    url={url} 
-                    setUrl={setUrl} 
-                    handleSubmit={handleSubmit}
-                />
-                <Information/>
+                <div>
+                    <Input 
+                        url={url} 
+                        setUrl={setUrl} 
+                        handleSubmit={handleSubmit}
+                    />
+                    <Information/>
+                </div>
+                <PostActionBar/>
             </NotionInputPageContainer>
 
             {
