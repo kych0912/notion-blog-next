@@ -3,35 +3,34 @@
 import React from "react";
 import { useEffect } from "react";
 import { useRecordMapFetch } from "@/app/react-query/post/queries";
-import { RecordMapContext } from "@/app/context/RecordMapContext";
 import { ExtendedRecordMap } from "notion-types";
+import { useNotionPage } from "@/app/context/NotionPageContext";
+import LoadingPage from "../LoadingPage";
 
 //데이터 fetching
 //상태관리
 //상태 분기 처리
-function NotionRecordMapFetcher({children, pageId}:{
+function NotionRecordMapFetcher({children}:{
     children:React.ReactNode,
-    pageId:string 
 }) {
 
-    const {data, isLoading, error, isRefetching,refetch} = useRecordMapFetch(pageId);
-    const [recordMap, setRecordMap] = React.useState<ExtendedRecordMap | null>(null);
+    const {setRecordMap, pageId} = useNotionPage();
+    const {data, isLoading, error, isRefetching} = useRecordMapFetch(pageId as string);
 
-    useEffect(()=>{
-        if(pageId) refetch();
-    },[pageId,refetch])
-
+    //데이터 저장
     useEffect(()=>{
         if(data) setRecordMap(data);
     },[data,setRecordMap])
 
-    if(error) throw error;
+    if(isLoading || isRefetching) return <LoadingPage/>;
 
-    return (
-        <RecordMapContext.Provider value={{recordMap:recordMap, isLoading:isLoading || isRefetching}}>
-            {children}
-        </RecordMapContext.Provider>
-    );
+    //에러 처리
+    if(error) {
+        setRecordMap(null);
+        throw error;
+    }
+
+    return children;
 }
 
 export default NotionRecordMapFetcher;
