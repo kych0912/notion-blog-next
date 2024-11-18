@@ -26,7 +26,7 @@ const buttonSizes = {
 };
 
 export const BaseButton = styled('button')<ButtonProps>(({ theme, disabled, size = 'medium' }) => ({
-    cursor: disabled ? 'not-allowed' : 'pointer',
+    cursor: 'pointer',
     opacity: disabled ? 0.5 : 1,
     transition: 'all 0.3s ease',
     fontWeight: 700,
