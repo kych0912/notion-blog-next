@@ -7,9 +7,6 @@ import WithHeader from "@/app/components/Layout/WithHeaderLayout";
 import { HomePageLayout } from "@/app/components/Layout/HomeLayout";
 
 export default async function Home() {
-  if(!process.env.NEXT_PUBLIC_BASE_API_URL){
-    return null;
-  }
 
   const posts = await getLatestPosts();
   return (
