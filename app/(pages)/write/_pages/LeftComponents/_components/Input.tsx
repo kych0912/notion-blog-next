@@ -4,7 +4,7 @@ import { InputContainer } from "../../../write.styles";
 import { ContainedButton } from "@/app/components/Button/button.styles";
 
 export default function Input(
-    {url, setUrl, handleSubmit}:{url:string, setUrl:React.Dispatch<React.SetStateAction<string>>, handleSubmit:()=>void}
+    {url, setUrl, handleSubmit, isError}:{url:string, setUrl:React.Dispatch<React.SetStateAction<string>>, handleSubmit:()=>void, isError:boolean}
 ){
     return(
         <InputContainer>
@@ -23,6 +23,7 @@ export default function Input(
                 onChange={(e)=>setUrl(e.target.value)}
                 placeholder="https://www.notion.so/..."
                 value={url}
+                error={isError}
                 sx={{
                     color:"primary.main",
                     width:"100%",
@@ -50,7 +51,7 @@ export default function Input(
 
                 <ContainedButton 
                     onClick={handleSubmit} 
-                    disabled={!url?.length}
+                    disabled={!url?.length || isError}
                     size="small"
                     sx={{position:'absolute',right:'20px',bottom:'10px'}}
                 >불러오기</ContainedButton>
