@@ -3,14 +3,21 @@
 import { Box } from "@mui/material"; 
 import PreRender from "./_components/PreRender";
 import { WriteFunnelContainer } from "../../write.styles";
-import { RecordMapContext } from "@/app/context/RecordMapContext";
-import { useContext } from "react";
-import LoadingPage from "@/app/components/LoadingPage";
+import NotionRecordMapFetcher from "@/app/components/Fetcher/NotionRecordMapFetcher";
+import FetchErrorBoundary from "@/app/components/Error/FetchErrorBoundary";
+import { useNotionPage } from "@/app/context/NotionPageContext";
+import { useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 
 //UI 렌더링
 export default function NotionPageContent() {
+    const { setPageId } = useNotionPage();
+    const searchParams = useSearchParams();
+    const pageId = searchParams.get("pageId");
 
-    const {recordMap, isLoading} = useContext(RecordMapContext);
+    useEffect(()=>{
+        if(pageId) setPageId(pageId);
+    },[pageId]);
 
     return (    
         <WriteFunnelContainer>  
@@ -20,8 +27,12 @@ export default function NotionPageContent() {
                 overflowY:"auto",
                 pb:"6rem"
             }}>
-                {isLoading ? <LoadingPage/> : <PreRender recordMap={recordMap}/>}
+                <FetchErrorBoundary key={pageId || undefined}>
+                    <NotionRecordMapFetcher>
+                        <PreRender/>
+                    </NotionRecordMapFetcher>
+                </FetchErrorBoundary>
             </Box>
         </WriteFunnelContainer>
     );
-    }
+}
