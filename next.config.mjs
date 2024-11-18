@@ -4,6 +4,9 @@ const nextConfig = {
     images: {
         domains: ['www.notion.so','transitivebullsh.it'],
     },
+    experimental: {
+      missingSuspenseWithCSRBailout: false,
+    },
     async headers() {
         return [
           {
