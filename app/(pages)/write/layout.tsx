@@ -1,7 +1,5 @@
-'use client'
-import DefaultLayout from "@/app/components/Layout/DefaultLayout";
 import WritePostLayout from "@/app/components/Layout/WritePostLayout";
-import { Suspense } from 'react'
+import ContextProvider from "./_pages/ContextProvider";
 
 export default function RootLayout({
   children,
@@ -12,7 +10,9 @@ export default function RootLayout({
 
   return (
     <WritePostLayout>
-            {children}
+      <ContextProvider>
+        {children}
+      </ContextProvider>
     </WritePostLayout>
   );
 }
