@@ -68,7 +68,7 @@ export async function getNotionPageContent(id:string):Promise<{
 
     return{
         image:coverImg,
-        title:title
+        title:title || ""
     }
 
 }
