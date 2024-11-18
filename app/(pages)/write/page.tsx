@@ -1,23 +1,12 @@
-import NotionPageContent from "./_pages/RightComponents/NotionPageContent";
 import NotionUrlInput from "./_pages/LeftComponents/NotionUrlInput";
-import ApiErrorBoundary from "@/app/components/Error/APIErrorBoundary";
-import NotionRecordMapFetcher from "@/app/components/Fetcher/NotionRecordMapFetcher";
+import NotionPageContent from "./_pages/RightComponents/NotionPageContent";
 
-export default function Page({searchParams}:{searchParams:{pageId:string}}){
-
-    const {pageId} = searchParams;
-
-    //레이아웃 구성
+// 서버 컴포넌트로 유지
+export default function Page(){
     return(
         <>
-
-            <NotionUrlInput />
-
-            <ApiErrorBoundary>
-                <NotionRecordMapFetcher pageId={pageId}>
-                    <NotionPageContent/>   
-                </NotionRecordMapFetcher>
-            </ApiErrorBoundary>
+            <NotionUrlInput/>
+            <NotionPageContent/>
         </>
     )
 }
