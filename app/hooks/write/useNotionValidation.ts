@@ -1,9 +1,10 @@
 'use client'
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { parsePageId } from "notion-utils";
 
+//parsePageId 함수를 사용하여 유효한 pageId인지 검사
 export function useNotionUrlValidation() {
     const [url, setUrl] = useState('');
     const [isError, setIsError] = useState(false);
@@ -18,6 +19,10 @@ export function useNotionUrlValidation() {
             setIsError(true);
         }
     };
+
+    useEffect(()=>{
+        setIsError(false);
+    },[url])
 
     const resetError = () => setIsError(false);
 
