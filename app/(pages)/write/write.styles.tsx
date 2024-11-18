@@ -29,11 +29,12 @@ export const ContentContainer = styled('div')({
     display:"flex",
     flexDirection:"column",
     alignItems:"start",
-    justifyContent:"space-between",
+    justifyContent:"start",
     width:"100%",
     padding:'2rem',
     boxSizing:"border-box",
     height:'100%',
+    position:"relative",
 })
 
 export const InputContainer = styled('div')({
@@ -46,11 +47,19 @@ export const InputContainer = styled('div')({
 
 export const PostActionBarContainer = styled('nav')({
     display:"flex",
-    alignItems:"start",
-    justifyContent:"space-between",
     alignSelf:"center",
     width:"100%",
-    paddingTop:'1rem',
+    position:"absolute",
+    bottom:"0",
+})
+
+export const PostActionBarWrapper = styled('div')({
+    display:"flex",
+    alignItems:"center",
+    justifyContent:"space-between",
+    height:"100%",
+    width:"100%",
+    padding:"1rem",
 })
 
 export const PostActionBarButtonContainer = styled('div')({
