@@ -8,7 +8,7 @@ import {getNotionPageContent} from '@/app/lib/notion-api';
 import { getToken } from 'next-auth/jwt';
 
 export async function POST(req:NextRequest){
-    const {notionUrl,description} = await req.json();
+    const {notionUrl} = await req.json();
     const token = await getToken({req});
 
     const id = parsePageId(notionUrl);
@@ -18,9 +18,6 @@ export async function POST(req:NextRequest){
         if(!id){
             return NextResponse.json({message:"Invalid Notion URL",isSuccess:false},{status:400})
         }
-        if(!description){
-            return NextResponse.json({message:"Invalid Input",isSuccess:false},{status:400})
-        } 
 
         //토큰 유효성 검사
         if (!token) {
@@ -47,7 +44,7 @@ export async function POST(req:NextRequest){
         const post = await getPostById(id) as RowDataPacket[];
 
         if(post.length !== 0){
-            return NextResponse.json({message:"Post Already Exists",isSuccess:false},{status:400})
+            return NextResponse.json({message:"Post Already Exists",isSuccess:false},{status:409})
         }
 
 
@@ -58,22 +55,16 @@ export async function POST(req:NextRequest){
         const notionContent = await getNotionPageContent(id);
 
         //DB 저장
-        const _response = await uploadPost({
+        await uploadPost({
             id:id,
             author:userId,
-            description:description,
             date:date,
             image:notionContent.image,
             title:notionContent.title,
             avatar:avatar,
         });
-
-        if(_response){
-            return NextResponse.json({message:"Post Uploaded",isSuccess:true},{status:200})
-        }
-        else{
-            return NextResponse.json({message:"Post Upload Failed",isSuccess:false},{status:400})
-        }
+        
+        return NextResponse.json({message:"Post Uploaded",isSuccess:true},{status:200})
 
     }
     catch(err){

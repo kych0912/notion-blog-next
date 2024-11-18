@@ -3,7 +3,6 @@ import executeQuery from "../db";
 
 interface Post {
     id:string,
-    description:string,
     author:string,
     date:Date,
     image:string,
@@ -11,24 +10,19 @@ interface Post {
     avatar:string
 }
 
-export async function uploadPost(data:Post){
-    const id = data.id;
-    const description = data.description;
-    const author = data.author;
-    const date = data.date.toISOString().slice(0, 10);
-    const image = data.image;
-    const title = data.title;
-    const avatar = data.avatar;
+export async function uploadPost(Post:Post){
+    const id = Post.id;
+    const author = Post.author;
+    const date = Post.date.toISOString().slice(0, 10);
+    const image = Post.image;
+    const title = Post.title;
+    const avatar = Post.avatar;
 
 
-    const query = `INSERT INTO Post(id, description, author, date, image, title,avatar) VALUES('${id}', '${description}', '${author}', '${date}', '${image}', '${title}','${avatar}')`;
+    const query = `INSERT INTO Post(id, author, date, image, title,avatar) VALUES('${id}', '${author}', '${date}', '${image}', '${title}','${avatar}')`;
 
-    try {
-        const data = await executeQuery(query, []);
-        return data;
-    } catch (err) {
-        throw err;
-    }
+    const data = await executeQuery(query, []);
+    return data;
 }
 
 export async function getPostById(id:string):Promise<QueryResult>{
