@@ -14,11 +14,10 @@ export const useLatestPosts = () => {
 export const useRecordMapFetch = (pageId:string) => {
     return(
         useQuery<ExtendedRecordMap>({
-            queryKey: ["recordMap"],
+            queryKey: ["recordMap",pageId],
             queryFn: () => getRecordMap(pageId),
             enabled: !!pageId,
             retry:false,
-            throwOnError:true,
             refetchOnWindowFocus:false,
             refetchOnMount:false,
             refetchOnReconnect:false,
