@@ -1,8 +1,10 @@
 import NotionPage from "@/app/components/Renderer/NotionPageRenderer";
 import {ExtendedRecordMap} from "notion-types";
 import PreRenderHeader from "./PreRenderHeader";
+import { useNotionPage } from "@/app/context/NotionPageContext";
 
-export default function PreRender({recordMap}:{recordMap:ExtendedRecordMap | null }){
+export default function PreRender(){
+    const {recordMap} = useNotionPage();
 
     if(!recordMap) return null;
 
