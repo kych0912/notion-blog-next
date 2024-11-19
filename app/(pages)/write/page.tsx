@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import NotionUrlInput from "./_pages/LeftComponents/NotionUrlInput";
 import NotionPageContent from "./_pages/RightComponents/NotionPageContent";
 
@@ -6,7 +7,9 @@ export default function Page(){
     return(
         <>
             <NotionUrlInput/>
-            <NotionPageContent/>
+            <Suspense>
+                <NotionPageContent/>
+            </Suspense>
         </>
     )
 }
