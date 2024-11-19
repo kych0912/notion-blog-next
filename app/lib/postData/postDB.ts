@@ -36,13 +36,14 @@ export async function getPostById(id:string):Promise<QueryResult>{
     }
 }
 
-export async function getLatestPosts(){
+export async function getLatestPosts(page:number){
     const query = `SELECT * FROM Post ORDER BY date DESC`;
 
     try {
         const data = await executeQuery(query, []);
         return data;
     } catch (err) {
+        console.log(err);
         throw err;
     }
 }

@@ -3,8 +3,11 @@ import { getLatestPosts } from '@/app/lib/postData/postDB';
 
 
 export async function GET(req:NextRequest){
+    const searchParams = req.nextUrl.searchParams;
+    const page = searchParams.get('page');
+
     try{
-        const res = await getLatestPosts();
+        const res = await getLatestPosts( parseInt(page || '1') );
         return NextResponse.json(res,{status:200})
     }
     catch(err){
