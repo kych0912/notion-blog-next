@@ -1,15 +1,7 @@
-import {useQuery} from '@tanstack/react-query';
+import {useInfiniteQuery, useQuery} from '@tanstack/react-query';
 import { getLatestPosts, getRecordMap } from '@/app/services/post/post';
 import { ExtendedRecordMap } from 'notion-types';
 
-export const useLatestPosts = () => {
-    return(
-        useQuery<Iposts[]>({
-            queryKey: ["latestPosts"],
-            queryFn: getLatestPosts,
-        })  
-    )
-}
 
 export const useRecordMapFetch = (pageId:string) => {
     return(
@@ -24,3 +16,17 @@ export const useRecordMapFetch = (pageId:string) => {
         })  
     )
 }   
+
+export const useLatestPostsInfinite = () =>{
+    return(
+        useInfiniteQuery({
+            queryKey: ['latest-posts'],
+            queryFn: ({ pageParam = 1 }) =>getLatestPosts(pageParam),
+            getNextPageParam: (lastPage, allPages) => {
+                if ( lastPage.length < 10) return undefined;
+                return allPages.length + 1;
+            },
+            initialPageParam: 1
+        })  
+    )
+}
