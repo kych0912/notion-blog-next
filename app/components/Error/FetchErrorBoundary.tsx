@@ -45,11 +45,15 @@ export default class ApiErrorBoundary extends React.Component<IErrorProps,IError
 	}
 
 	static getDerivedStateFromError(error: any) {
-        return {    
-            hasError: true,
+
+        if(error?.response?.status){
+            return {    
+                hasError: true,
             shouldHandleError:true,
-            errorStatus: error.response.status
-        };
+                errorStatus: error.response.status
+            };
+        }
+        return {hasError: true, shouldHandleError:true, errorStatus: 500};
     }
 
     render() {
