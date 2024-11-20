@@ -4,6 +4,14 @@ const nextConfig = {
     images: {
         domains: ['www.notion.so','transitivebullsh.it'],
     },
+    async rewrites() {
+      return [
+          {
+            source: '/api/:path*',
+            destination: 'https://nextblog.me/api/:path*'
+        }
+      ]
+    },
     async headers() {
         return [
           {
