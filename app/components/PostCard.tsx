@@ -1,9 +1,6 @@
 import {Box, Typography, Avatar} from "@mui/material";
-import Link from 'next/link'
-import { getPageTitle } from "notion-utils";
-import { getPage, getNotionImage, getPageBlockContent } from "@/app/lib/notion-api";
-import * as types from 'notion-types'
-import { ConnectingAirportsOutlined } from "@mui/icons-material";
+import { Skeleton } from "@mui/material";
+import { DEFAULT_IMAGE } from "@/app/styles/DefaultImage";
 
 function dateFormat(date:Date) {
     var year = date.getFullYear();
@@ -14,14 +11,15 @@ function dateFormat(date:Date) {
 	return dateString;
 }
 
-export default async function PostCard({id,user,caption,date,title,image,avatar}:{
+export default function PostCard({id,user,caption,date,title,image,avatar,isLoading = false}:{
     id:string,
     user:string,
     caption:string,
     date:Date,
     title:string,
     image:string,
-    avatar:string
+    avatar:string,
+    isLoading?:boolean
 }){
 
     return (
@@ -34,42 +32,47 @@ export default async function PostCard({id,user,caption,date,title,image,avatar}
             backgroundColor:"#fff"
         }}
         >
-            <a href={`/${user}/${id}`} style={{ textDecoration: "none"}}>
-                <Box sx={{width:"100%"}}>
-                {
-                    image !== "null"?
-                    <img className="feedImg" src={image} alt={title}/>:
-                    <img className="feedImg" src={process.env.DEFAULT_IMAGE} alt={title}/>
-                }
-                </Box>
-                <Box sx={{p:'1rem',width:"100%"}}>
-                    <Box sx={{}}>
-                        <Typography sx={{fontSize:'1rem',fontWeight:700,color:"black"}}>{title}</Typography>
-                        <Box>
-                            <Typography 
-                                style={{WebkitLineClamp:3,WebkitBoxOrient:'vertical'} as any}
-                                sx={{
-                                    fontSize:'0.875rem',
-                                    display: '-webkit-box',
-                                    overflow: 'hidden',
-                                    textOverflow: 'ellipsis',
-                                    height:'4rem',
-                                    wordWrap:"break-word",
-                                    wordBreak:"break-word",
-                                    color:"black",
-                                    mt:1
-                                }}>
-                                {caption}
-                            </Typography>
+            {
+                isLoading?
+                <Skeleton variant="rounded" width="100%" height="100%" animation="wave"/>
+                :
+                <a href={`/${user}/${id}`} style={{ textDecoration: "none"}}>
+                    <Box sx={{width:"100%"}}>
+                    {
+                        image !== "null"?
+                        <img className="feedImg" src={image} alt={title}/>:
+                        <img className="feedImg" src={DEFAULT_IMAGE} alt={title}/>
+                    }
+                    </Box>
+                    <Box sx={{p:'1rem',width:"100%"}}>
+                        <Box sx={{}}>
+                            <Typography sx={{fontSize:'1rem',fontWeight:700,color:"black"}}>{title}</Typography>
+                            <Box>
+                                <Typography 
+                                    style={{WebkitLineClamp:3,WebkitBoxOrient:'vertical'} as any}
+                                    sx={{
+                                        fontSize:'0.875rem',
+                                        display: '-webkit-box',
+                                        overflow: 'hidden',
+                                        textOverflow: 'ellipsis',
+                                        height:'4rem',
+                                        wordWrap:"break-word",
+                                        wordBreak:"break-word",
+                                        color:"black",
+                                        mt:1
+                                    }}>
+                                    {caption}
+                                </Typography>
+                            </Box>
+                            <Typography sx={{fontSize:"0.75rem",color:"black"}}>{dateFormat(new Date(date))}</Typography>
                         </Box>
-                        <Typography sx={{fontSize:"0.75rem",color:"black"}}>{dateFormat(new Date(date))}</Typography>
+                        <Box sx={{display:'flex',alignItems:"center",pt:1}}>
+                            <Avatar src={avatar?avatar:""} sx={{width:"1.5rem",height:"1.5rem"}}/>
+                            <Typography sx={{fontSize:"0.75rem",ml:1.5,color:"black",overflow:'hidden',textOverflow:'ellipsis'}}>{user}</Typography>
+                        </Box>
                     </Box>
-                    <Box sx={{display:'flex',alignItems:"center",pt:1}}>
-                        <Avatar src={avatar?avatar:""} sx={{width:"1.5rem",height:"1.5rem"}}/>
-                        <Typography sx={{fontSize:"0.75rem",ml:1.5,color:"black",overflow:'hidden',textOverflow:'ellipsis'}}>{user}</Typography>
-                    </Box>
-                </Box>
-            </a>
+                </a>
+            }
         </Box>
     )
 }
