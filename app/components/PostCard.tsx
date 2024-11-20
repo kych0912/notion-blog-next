@@ -46,7 +46,18 @@ export default function PostCard({id,user,caption,date,title,image,avatar,isLoad
                     </Box>
                     <Box sx={{p:'1rem',width:"100%"}}>
                         <Box sx={{}}>
-                            <Typography sx={{fontSize:'1rem',fontWeight:700,color:"black"}}>{title}</Typography>
+                            <Typography sx={{
+                                    fontSize:'1rem',
+                                    fontWeight:700,
+                                    color:"black",
+                                    overflow: 'hidden',
+                                    textOverflow: 'ellipsis',
+                                    display: '-webkit-box',
+                                    WebkitLineClamp:1,
+                                    WebkitBoxOrient:'vertical'
+                                }}>
+                                    {title}
+                            </Typography>
                             <Box>
                                 <Typography 
                                     style={{WebkitLineClamp:3,WebkitBoxOrient:'vertical'} as any}
