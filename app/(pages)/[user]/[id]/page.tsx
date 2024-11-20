@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+
 import { getPage } from "@/app/lib/notion-api";
 import { ExtendedRecordMap } from "notion-types";
 import NotionPage from "@/app/components/PostDetail/Post";
