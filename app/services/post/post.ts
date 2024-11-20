@@ -18,10 +18,9 @@ export async function uploadPost(data:PostData){
     }
 }
 
-export async function getLatestPosts(pageParam:number){
+export async function getLatestPosts(pageParam:number = 1){
     const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/post/latest?page=${pageParam}`);
 
-    console.log(res);
     return res.data;
 }
 
