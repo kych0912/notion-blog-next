@@ -19,7 +19,7 @@ interface IFeedItemProps {
 
 const FeedItem = forwardRef<HTMLDivElement, IFeedItemProps>(({ post = initialPost, isLoading = false }, ref) => {
     return (
-        <Grid ref={ref} item xs={12} md={8} lg={4} sx={{ width: "100%" }}>
+        <Grid ref={ref} item xs={16} md={8} lg={4} sx={{ width: "100%" }}>
             <PostCard
                 id={post.id}
                 user={post.author}
