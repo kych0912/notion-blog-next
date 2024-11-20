@@ -1,22 +1,26 @@
-import { Box } from "@mui/material";
-import {Feed} from './components/feed'
+import LatestFeed from './components/Feed/LatestFeed'
 import HomeTab from "./components/HomeTab";
 import {getLatestPosts} from "@/app/services/post/post"
 import { Suspense } from "react";
 import WithHeader from "@/app/components/Layout/WithHeaderLayout";
 import { HomePageLayout } from "@/app/components/Layout/HomeLayout";
+import FetchErrorBoundary from "@/app/components/Error/FetchErrorBoundary";
+import GlobalErrorBoundary from './components/Error/GlobalErrorBoundary';
 
 export default async function Home() {
 
-  const posts = await getLatestPosts();
   return (
-    <WithHeader>
-      <HomePageLayout>
+    <GlobalErrorBoundary>
+      <WithHeader>
+        <HomePageLayout>
             <HomeTab/>
-            <Suspense fallback={<p>Loading feed...</p>}>
-                <Feed posts={posts}/>
-            </Suspense>
-      </HomePageLayout>
-    </WithHeader>
+            <FetchErrorBoundary>
+              <Suspense fallback={<p>Loading feed...</p>}>
+                  <LatestFeed/>
+              </Suspense>
+            </FetchErrorBoundary>
+          </HomePageLayout>
+        </WithHeader>
+    </GlobalErrorBoundary>
   );
 }
