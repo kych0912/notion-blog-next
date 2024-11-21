@@ -26,7 +26,11 @@ export const useLatestPostsInfinite = () =>{
                 if ( lastPage.length < 10) return undefined;
                 return allPages.length + 1;
             },
-            initialPageParam: 1
+            initialPageParam: 1,
+            retry:false,
+            refetchOnWindowFocus:false,
+            refetchOnMount:false,
+            refetchOnReconnect:false,
         })  
     )
 }
