@@ -1,6 +1,8 @@
 import {Box, Typography, Avatar} from "@mui/material";
 import { Skeleton } from "@mui/material";
 import { DEFAULT_IMAGE } from "@/app/styles/DefaultImage";
+import Image from "next/image";
+import PostCardLoading from "./PostCardLoading";
 
 function dateFormat(date:Date) {
     var year = date.getFullYear();
@@ -34,15 +36,15 @@ export default function PostCard({id,user,caption,date,title,image,avatar,isLoad
         >
             {
                 isLoading?
-                <Skeleton variant="rounded" width="100%" height="100%" animation="wave"/>
+                <PostCardLoading/>
                 :
                 <a href={`/${user}/${id}`} style={{ textDecoration: "none"}}>
                     <Box sx={{width:"100%"}}>
-                    {
-                        image !== "null"?
-                        <img className="feedImg" src={image} alt={title}/>:
-                        <img className="feedImg" src={DEFAULT_IMAGE} alt={title}/>
-                    }
+                        <img 
+                            className="feedImg" 
+                            src={image === "null" ? DEFAULT_IMAGE : image} 
+                            alt={title}
+                        />
                     </Box>
                     <Box sx={{p:'1rem',width:"100%"}}>
                         <Box sx={{}}>

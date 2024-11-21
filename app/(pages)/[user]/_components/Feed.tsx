@@ -1,6 +1,6 @@
 import { getPage, getNotionImage, getPageBlockContent } from "@/app/lib/notion-api";
 import {Grid,Divider, Typography} from '@mui/material'
-import PostCard from "../../../components/PostCard";
+import PostCard from "../../../components/PostCard/PostCard";
 import {Box} from '@mui/material'
 
 async function Feed({posts}:{
