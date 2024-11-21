@@ -37,10 +37,11 @@ export async function getPostById(id:string):Promise<QueryResult>{
 }
 
 export async function getLatestPosts(page:number){
-    const query = `SELECT * FROM Post ORDER BY date DESC`;
+    const offset = (page - 1) * 10;
+    const query = `SELECT * FROM Post ORDER BY date DESC LIMIT ?, ?`;
 
     try {
-        const data = await executeQuery(query, []);
+        const data = await executeQuery(query, [offset,10]);
         return data;
     } catch (err) {
 
