@@ -6,9 +6,11 @@ const pool = createPool({
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE,
-    port: 3306,
+    port: 3306,      
+    maxIdle: 5,               
+    idleTimeout: 60000,
     waitForConnections: true,
-    connectionLimit: 10,
+    connectionLimit: 5,
     queueLimit: 0
 })
 
@@ -18,23 +20,23 @@ pool.getConnection((err, conn) => {
     conn.release()
 })
 
-const executeQuery = (query:string, arrParams:any):Promise<QueryResult> => {
-    return new Promise((resolve, reject) => {
-        try {
-            pool.query(query, arrParams, (err, data) => {
-                if (err) {
-                    console.log(err)
-                    console.log('Error in executing the query')
-                    reject(err)
-                }
-                console.log('------db.jsx------')
-                //console.log(data)
-                resolve(data)
-            })
-        } catch (err) {
-            reject(err)
+const executeQuery = async (query:string, arrParams:any):Promise<QueryResult> => {  
+    let connection;
+    try {
+
+        connection = await pool.promise().getConnection();
+
+        const [results] = await connection.query(query, arrParams);
+        return results;
+
+    } catch (err) {
+        console.error('Database error:', err);
+        throw err;
+    } finally {
+        if (connection) {
+            connection.release();
         }
-    })
+    }
 }
 
 export default executeQuery
