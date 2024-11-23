@@ -42,26 +42,26 @@ export async function GET(req:NextRequest, { params }: { params: { id: string, u
             //자식 페이지일 경우 페이지 return
             return NextResponse.json({data:{
                 id:id,
-            },isAuthor:isAuthor,isChild:true},{status:200})
+            },isAuthor:isAuthor,isChild:true,isSuccess:true},{status:200})
         }
 
         //토큰 유효성 검사
         if(!rawToken){
-            return NextResponse.json({data:res,isAuthor:isAuthor,isChild:false},{status:200})
+            return NextResponse.json({data:res,isAuthor:isAuthor,isChild:false,isSuccess:true},{status:200})
         }
 
         const decodedToken = await decode({token:rawToken,secret}); 
 
         //토큰이 유효하지 않을 때
         if(!decodedToken){
-            return NextResponse.json({data:res,isAuthor:isAuthor,isChild:false},{status:200})
+            return NextResponse.json({data:res,isAuthor:isAuthor,isChild:false,isSuccess:true},{status:200})
         }
         
         if(decodedToken.name === user){
             isAuthor = true;
         }
 
-        return NextResponse.json({data:res,isAuthor:isAuthor,isChild:false},{status:200})
+        return NextResponse.json({data:res,isAuthor:isAuthor,isChild:false,isSuccess:true},{status:200})
     }
     catch(err){
         return NextResponse.json({message:"Internal Server Error",isSuccess:false},{status:500})
