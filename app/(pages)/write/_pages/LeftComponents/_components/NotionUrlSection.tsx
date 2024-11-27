@@ -8,7 +8,6 @@ import { useNotionUrlValidation } from "@/app/hooks/write/useNotionValidation";
 
 const NotionUrlSection = React.memo(function NotionUrlSection() {
     const {url, setUrl, isError, handleSubmit, resetError} = useNotionUrlValidation(); 
-
     return(
         <>
             <div>

@@ -36,7 +36,7 @@ export async function getPostDetail(id:string,user:string,token:string){
         }
         };
         
-        const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/post/${user}/${id}`, config);
+    const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/post/${user}/${id}`, config);
     return res.data;
 }
 

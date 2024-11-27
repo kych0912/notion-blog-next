@@ -1,5 +1,4 @@
 import NotionPage from "@/app/components/Renderer/NotionPageRenderer";
-import {ExtendedRecordMap} from "notion-types";
 import PreRenderHeader from "./PreRenderHeader";
 import { useNotionPage } from "@/app/context/NotionPageContext";
 
