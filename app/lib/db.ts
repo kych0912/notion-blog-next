@@ -15,7 +15,10 @@ const pool = createPool({
 })
 
 pool.getConnection((err, conn) => {
-    if (err) console.log('Error connecting to db...')
+    if (err){
+        console.log(err);
+        console.log('Error connecting to db...')
+    }
     else console.log('Connected to db...!')
     conn.release()
 })
