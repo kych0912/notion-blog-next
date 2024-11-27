@@ -2,8 +2,18 @@
 const nextConfig = {
     poweredByHeader: false,
     images: {
-        domains: ['www.notion.so','transitivebullsh.it'],
+        domains: [
+          'www.notion.so',
+          'transitivebullsh.it',
+          'www.notion.so',
+          'notion.so',
+          'images.unsplash.com',
+          'prod-files-secure.s3.us-west-2.amazonaws.com',
+          's3.us-west-2.amazonaws.com'
+        ],
+        formats: ['image/avif', 'image/webp']
     },
+
 
     async headers() {
         return [
