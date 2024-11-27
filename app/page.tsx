@@ -15,7 +15,7 @@ export default async function Home() {
         <HomePageLayout>
             <HomeTab/>
             <FetchErrorBoundary>
-              <Suspense fallback={<p>Loading feed...</p>}>
+              <Suspense>
                   <LatestFeed/>
               </Suspense>
             </FetchErrorBoundary>
