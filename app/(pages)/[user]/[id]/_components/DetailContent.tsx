@@ -9,21 +9,21 @@ export default async function DetailContent({ id, user, token }: {
     token: string 
 }) {
     try{
-    const _response = await getPostDetail(id, user, token);
-    const recordMap = await getPage(_response.isChild ? id : _response.data[0].id);
+        const recordMap = await getPage(id);
+        const _response = await getPostDetail(id, user, token);
     
-    if(_response.isChild) {
-        return <NotionPage 
-            id={id}
-            recordMap={recordMap} 
-            user={user}
-            isAuthor={false}
-            avatar={''}
-            isChild={true}
-        />
-    }
+        if(_response.isChild) {
+            return <NotionPage 
+                id={id}
+                recordMap={recordMap}   
+                user={user}
+                isAuthor={false}
+                avatar={''}
+                isChild={true}
+            />
+        }
 
-    return <NotionPage 
+        return <NotionPage 
             id={id}
             recordMap={recordMap}
             user={user}
