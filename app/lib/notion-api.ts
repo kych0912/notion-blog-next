@@ -2,11 +2,22 @@ import { NotionAPI } from 'notion-client'
 import * as types from 'notion-types'
 import { getPageTitle, getBlockParentPage } from 'notion-utils'
 import { getPostById } from './postData/postDB'
+import { NextResponse } from 'next/server'
 
 const notion = new NotionAPI()
 
 export async function getPage(id:string) {
-    return await notion.getPage(id)
+    try {
+        return await notion.getPage(id)
+    } catch(err) {
+        throw {
+            response: {
+                status: 404,
+                message: "Notion API Error",
+                isSuccess: false
+            }
+        };
+    }
 }
 
 export function getNotionImage(url:string,keys:string[], block:types.Block){
