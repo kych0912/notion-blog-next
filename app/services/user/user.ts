@@ -58,14 +58,8 @@ export const updateUser = async (name:string,avatar_url:string) => {
 }
 
 export const getUserInfo = async (id:string) =>{
-    try{
-        const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/user/${id}`);
-        return res.data;
-    }
-    catch(err){
-        console.log(err)
-        return err;
-    }
+    const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/user/${id}`);
+    return res.data;
 }
 
 axios.interceptors.response.use(

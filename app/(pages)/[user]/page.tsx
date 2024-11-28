@@ -1,4 +1,3 @@
-import styles from '../../../styles/page.module.css'
 import { Typography,Avatar,Box } from '@mui/material';
 import User from "./_components/User";
 import Feed from "./_components/Feed"
@@ -19,8 +18,12 @@ const Post = async ({ params }: { params: { user: string } }) => {
         id = _response.data[0][0].id;
         posts = _response.data[1];
     }    
-    catch(err){
-        notFound();
+    catch(err:any){
+        if (err?.response?.status === 404) {
+            notFound();
+        }
+        
+        throw err;
     }
 
 
