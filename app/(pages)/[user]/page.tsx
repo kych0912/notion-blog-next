@@ -1,4 +1,4 @@
-import { Typography,Avatar,Box } from '@mui/material';
+import { Box } from '@mui/material';
 import User from "./_components/User";
 import Feed from "./_components/Feed"
 import {getUserInfo} from "@/app/services/user/user"

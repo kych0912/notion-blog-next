@@ -1,11 +1,9 @@
 import {NextRequest} from 'next/server';
 import { NextResponse } from 'next/server';
-import { getPostDetail, getPostById } from '@/app/lib/postData/postDB';
+import { getPostDetail } from '@/app/lib/postData/postDB';
 import { decode } from 'next-auth/jwt';
 import { headers } from 'next/headers';
-import { getPage, isDescendantOfStoredPage } from '@/app/lib/notion-api';
-import { getBlockParentPage  } from 'notion-utils';
-import { NotionAPI } from 'notion-client'
+import { isDescendantOfStoredPage } from '@/app/lib/notion-api';
 
 export async function GET(req:NextRequest, { params }: { params: { id: string, user:string } }){
     const id = params.id;
