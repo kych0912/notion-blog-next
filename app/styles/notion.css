@@ -74,6 +74,6 @@
   width: 100%;
 }
 
-.notion-list {
-  padding: 0;
+.notion-list li {
+  padding: 3px 0;
 }
