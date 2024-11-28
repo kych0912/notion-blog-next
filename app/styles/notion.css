@@ -73,3 +73,7 @@
 .notion-h {
   width: 100%;
 }
+
+.notion-list {
+  padding: 0;
+}
