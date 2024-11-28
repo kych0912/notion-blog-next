@@ -42,7 +42,7 @@ export default function PostCard({id,user,caption,date,title,image,avatar,isLoad
                     <Box sx={{width:"100%"}}>
                         <img 
                             className="feedImg" 
-                            src={image === "null" ? DEFAULT_IMAGE : image} 
+                            src={image === "null" ? "/Default_Image.jpeg" : image} 
                             alt={title}
                         />
                     </Box>
