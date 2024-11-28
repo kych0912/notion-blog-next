@@ -25,6 +25,10 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
+      <head>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8839634347934414"
+          crossOrigin="anonymous"></script>
+      </head>
       <body style={{}}>
         {process.env.NEXT_PUBLIC_GA_ID ? (
           <Analytics id={process.env.NEXT_PUBLIC_GA_ID} />
