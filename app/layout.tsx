@@ -9,7 +9,7 @@ import 'react-notion-x/src/styles.css'
 import 'prismjs/themes/prism-tomorrow.css'
 import 'katex/dist/katex.min.css'
 
-import { Analytics } from "./components/GA/Analytics";
+import Analytics from "./components/GA/Analytics";
 import ReactQueryProvider from "./utils/Provier";
 
 export const metadata: Metadata = {
@@ -27,7 +27,7 @@ export default async function RootLayout({
     <html lang="en">
       <body style={{}}>
         {process.env.NEXT_PUBLIC_GA_ID ? (
-          <Analytics/>
+          <Analytics id={process.env.NEXT_PUBLIC_GA_ID} />
         ) : null}
         <AppRouterCacheProvider options={{ enableCssLayer: true }}>
               <ThemeProvider theme={theme}>
