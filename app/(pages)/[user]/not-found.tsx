@@ -1,9 +1,9 @@
+'use client'
+
 import ErrorHandler from "@/app/components/Error/ErrorHandler";
 import RefetchPage from "@/app/components/Error/_components/RefetchPage/RefetchPage";
-import { decode } from "next-auth/jwt";
-import { headers } from "next/headers";
 
-export default async function NotFound() {
+export default function NotFound() {
 
     return (
         <>
