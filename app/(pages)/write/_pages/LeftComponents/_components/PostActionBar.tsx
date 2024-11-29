@@ -11,11 +11,18 @@ import { ContainedButton } from "@/app/components/Button/button.styles";
 import { useRouter } from "next/navigation";
 import { useNotionPage } from "@/app/context/NotionPageContext";
 import { useNotionUploader } from "@/app/hooks/write/useNotionUploader";
+import { getPageContentBlockIds } from "notion-utils";
 
 export default function PostActionBar(){
     const router = useRouter();
-    const {recordMap, pageId} = useNotionPage();
+    const {recordMap} = useNotionPage();
     const { handleUploadPost,isPending } = useNotionUploader();
+    let pageId:string | undefined;
+
+    if(recordMap){
+        const blockIds = getPageContentBlockIds(recordMap);
+        pageId = blockIds[0];
+    }
 
     return(
         <PostActionBarContainer>

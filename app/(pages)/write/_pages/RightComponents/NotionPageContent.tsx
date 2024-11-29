@@ -1,23 +1,16 @@
 'use client'
 
-import { Box } from "@mui/material"; 
+import { Box, useTheme, useMediaQuery } from "@mui/material"; 
 import PreRender from "./_components/PreRender";
 import { WriteFunnelContainer } from "../../write.styles";
 import NotionRecordMapFetcher from "@/app/components/Fetcher/NotionRecordMapFetcher";
-import FetchErrorBoundary from "@/app/components/Error/FetchErrorBoundary";
-import { useNotionPage } from "@/app/context/NotionPageContext";
-import { useEffect } from "react";
+import FallbackErrorBoundary from "@/app/components/Error/FallbackErrorBoundary";
 import { useSearchParams } from "next/navigation";
 
 //UI 렌더링
 export default function NotionPageContent() {
-    const { setPageId } = useNotionPage();
     const searchParams = useSearchParams();
     const pageId = searchParams.get("pageId");
-
-    useEffect(()=>{
-        if(pageId) setPageId(pageId);
-    },[pageId]);
 
     return (    
         <WriteFunnelContainer>  
@@ -27,12 +20,14 @@ export default function NotionPageContent() {
                 overflowY:"auto",
                 pb:"6rem"
             }}>
-                <FetchErrorBoundary key={pageId || undefined}>
-                    <NotionRecordMapFetcher>
+                <FallbackErrorBoundary key={pageId || undefined}>
+                    <NotionRecordMapFetcher pageId={pageId as string}>
                         <PreRender/>
                     </NotionRecordMapFetcher>
-                </FetchErrorBoundary>
+                </FallbackErrorBoundary>
             </Box>
         </WriteFunnelContainer>
     );
+
+
 }

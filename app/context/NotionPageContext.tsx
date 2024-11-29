@@ -7,24 +7,20 @@ import { ExtendedRecordMap } from "notion-types";
 interface IRecordMapContext {
     recordMap: ExtendedRecordMap | null;
     isLoading: boolean;
-    pageId: string | undefined;
     setRecordMap: (recordMap: ExtendedRecordMap | null) => void;
     setIsLoading: (isLoading: boolean) => void;
-    setPageId: (pageId: string | undefined) => void;
 }
 
 const NotionPageContext = createContext<IRecordMapContext | undefined>(undefined);
 
 export function NotionPageProvider({ children }: { children: React.ReactNode }) {
-    const [recordMap, setRecordMap] = useState<ExtendedRecordMap | null>(null);
-    const [pageId, setPageId] = useState<string | undefined>(undefined);    
+    const [recordMap, setRecordMap] = useState<ExtendedRecordMap | null>(null);  
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         // cleanup 함수
         return () => {
             setRecordMap(null);
-            setPageId(undefined);
             setIsLoading(false);
         };
     }, []); 
@@ -34,10 +30,8 @@ export function NotionPageProvider({ children }: { children: React.ReactNode }) 
             value={{
                 recordMap,
                 isLoading,
-                pageId,
                 setRecordMap,
                 setIsLoading,
-                setPageId
             }}
         >
             {children}
