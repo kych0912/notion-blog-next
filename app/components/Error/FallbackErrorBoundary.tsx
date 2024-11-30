@@ -1,9 +1,7 @@
 'use client'
 
 import React from "react";
-import ErrorHandler from "./ErrorHandler";
 import RefetchPage from "./_components/RefetchPage/RefetchPage";
-
 interface IErrorProps{
     children:React.ReactNode
     isPreservedChildren?:boolean
@@ -31,14 +29,17 @@ interface IErrorState{
  * - key: refetch 조건에 사용될 key값
  * 
  * @example
- * <FetchErrorBoundary key={pageId}>
+ * <FallbackErrorBoundary key={pageId}>
  *   <NotionRecordMapFetcher pageId={pageId}>
  *     <PreRender />
  *   </NotionRecordMapFetcher>
- * </FetchErrorBoundary>
+ * </FallbackErrorBoundary>
  */
 
-export default class ApiErrorBoundary extends React.Component<IErrorProps,IErrorState>{
+class FallbackErrorBoundary extends React.Component<
+    IErrorProps,
+    IErrorState
+> {
 	constructor(props:IErrorProps) {
 		super(props);
 		this.state = { hasError: false, shouldHandleError:false, errorStatus: 0 }; 
@@ -49,7 +50,7 @@ export default class ApiErrorBoundary extends React.Component<IErrorProps,IError
         if(error?.response?.status){
             return {    
                 hasError: true,
-            shouldHandleError:true,
+                shouldHandleError:true,
                 errorStatus: error.response.status
             };
         }
@@ -57,6 +58,7 @@ export default class ApiErrorBoundary extends React.Component<IErrorProps,IError
     }
 
     render() {
+
         //fetcher를 다시 mount하여 refetch
         //shouldHandleError가 false로 변하거나, key가 변경되면 refetch
         if(!this.state.shouldHandleError || this.props.key) return this.props.children;
@@ -69,25 +71,24 @@ export default class ApiErrorBoundary extends React.Component<IErrorProps,IError
                     return (
                         <>
                             <RefetchPage refetch={()=>this.setState({shouldHandleError:false})}/>
-                            <ErrorHandler message="페이지를 찾을 수 없습니다" type="snackbar"/>
                         </>
                     );
                 case 400:
                     return (
                         <>
-                            <ErrorHandler message="유효하지 않은 Notion URL입니다." type="snackbar"/>
+                            <RefetchPage refetch={()=>this.setState({shouldHandleError:false})}/>
                         </>
                     );
                 case 409:
                     return (
                         <> 
-                            <ErrorHandler message="이미 존재하는 포스트입니다." type="snackbar"/>
+                            <RefetchPage refetch={()=>this.setState({shouldHandleError:false})}/>
                         </>
                     );
                 default:
                     return (
                         <>
-                            <ErrorHandler message="서버 에러가 발생했습니다" type="snackbar"/>
+                            <RefetchPage refetch={()=>this.setState({shouldHandleError:false})}/>
                         </>
                     );
             }
@@ -95,3 +96,6 @@ export default class ApiErrorBoundary extends React.Component<IErrorProps,IError
         return this.props.children;
 	}
 }
+
+// HOC로 감싸서 export
+export default FallbackErrorBoundary;

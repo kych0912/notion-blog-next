@@ -3,9 +3,9 @@
 import React from "react";
 import { useEffect } from "react";
 import { useRecordMapFetch } from "@/app/react-query/post/queries";
-import { ExtendedRecordMap } from "notion-types";
 import { useNotionPage } from "@/app/context/NotionPageContext";
 import LoadingPage from "../LoadingPage";
+import { useError } from "@/app/context/ErrorContext";
 
 //데이터 fetching
 //상태관리
@@ -15,21 +15,28 @@ function NotionRecordMapFetcher({children, pageId}:{
     pageId:string
 }) {
 
+    const {setError} = useError();
     const {setRecordMap} = useNotionPage();
     const {data, isLoading, isRefetching, error} = useRecordMapFetch(pageId as string);
 
     //데이터 저장
     useEffect(()=>{
         if(data) setRecordMap(data);
-    },[data,setRecordMap])
 
-    //에러 발생시 상태 초기화
-    if(error){
-        setRecordMap(null);
-        throw error;
+        return () => {
+            setRecordMap(null);
+        }
+    },[data,setRecordMap])
+    
+    //로딩중일 땐 LoadingPage 렌더링
+    if(isLoading || isRefetching){
+        return <LoadingPage/>;
     }
 
-    if(isLoading || isRefetching) return <LoadingPage/>;
+    if(error){
+        setError(error);
+        throw error;
+    }
 
     return children;
 }

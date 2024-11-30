@@ -3,7 +3,6 @@
 import NotionInputPageContainer from "./_components/NotionInputPageContainer";
 import PostActionBar from "./_components/PostActionBar";
 import NotionUrlSection from "./_components/NotionUrlSection";
-import MutationErrorBoundary from "@/app/components/Error/MutateErrorBoundary";
 
 export default function NotionUrlInput() {    
 
@@ -12,10 +11,7 @@ export default function NotionUrlInput() {
 
             <NotionUrlSection />
 
-            <MutationErrorBoundary> 
-                <PostActionBar/>
-            </MutationErrorBoundary>
-
+            <PostActionBar/>
         </NotionInputPageContainer>
     )
 }
