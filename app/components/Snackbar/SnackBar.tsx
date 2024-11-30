@@ -30,6 +30,9 @@ export function SnackBar({ message, type, duration = 3000, resetError}:ISnackbar
         autoHideDuration={duration} 
         onClose={handleClose} 
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        sx={{
+          bottom:50
+        }}
       >
         <Alert 
           onClose={handleClose}
