@@ -1,12 +1,9 @@
 import axios from "axios";
 
-interface PostData{
-    notionUrl:string|undefined,
-}
 
-export async function uploadPost(data:PostData){
+export async function uploadPost(pageId:string){
     const body = {
-        notionUrl:data.notionUrl,
+        notionUrl:pageId,
     }
 
     const res = await axios.post(`/api/post/write`,body,{
