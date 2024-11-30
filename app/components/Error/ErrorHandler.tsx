@@ -1,6 +1,6 @@
 'use client'
 import HelperText from "./_components/HelperText";
-import ErrorSnackbar from "./_components/SnackBar";
+import {SnackBar} from "../Snackbar/SnackBar";
 
 type ErrorType = "snackbar" | "alert" | "helperText";
 
@@ -18,8 +18,9 @@ export default function ErrorHandler({
   resetError
  }:ErrorHandlerProps){
   if(type === "snackbar") return (
-    <ErrorSnackbar 
+    <SnackBar 
       message={message} 
+      type={"error"}
       duration={duration} 
       resetError={resetError}
     />

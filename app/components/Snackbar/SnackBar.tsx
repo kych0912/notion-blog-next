@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react';
 import { Snackbar, Alert } from '@mui/material';
 
-interface ErrorSnackbarProps {
+interface ISnackbarProps {
     message: string;
+    type: 'error' | 'success' | 'info' | 'warning';
     duration?: number;
     resetError?: () => void;
   }
   
-export default function ErrorSnackbar({ message, duration = 3000, resetError}:ErrorSnackbarProps) {
+export function SnackBar({ message, type, duration = 3000, resetError}:ISnackbarProps) {
     const [open, setOpen] = useState(false);
   
     useEffect(() => {
@@ -32,7 +33,7 @@ export default function ErrorSnackbar({ message, duration = 3000, resetError}:Er
       >
         <Alert 
           onClose={handleClose}
-          severity="error" 
+          severity={type} 
           variant="filled"
         >
           {message}
