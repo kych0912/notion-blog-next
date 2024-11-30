@@ -1,5 +1,6 @@
 import WritePostLayout from "@/app/components/Layout/WritePostLayout";
 import ContextProvider from "./_pages/ContextProvider";
+import { ErrorProvider } from "@/app/context/ErrorContext";
 
 export default function RootLayout({
   children,
@@ -10,9 +11,11 @@ export default function RootLayout({
 
   return (
     <WritePostLayout>
-      <ContextProvider>
-        {children}
-      </ContextProvider>
+      <ErrorProvider>
+        <ContextProvider> 
+          {children}
+        </ContextProvider>
+      </ErrorProvider>
     </WritePostLayout>
   );
 }
