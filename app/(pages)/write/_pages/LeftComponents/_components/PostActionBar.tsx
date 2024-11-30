@@ -10,13 +10,14 @@ import { Typography, CircularProgress } from "@mui/material";
 import { ContainedButton } from "@/app/components/Button/button.styles";
 import { useRouter } from "next/navigation";
 import { useNotionPage } from "@/app/context/NotionPageContext";
-import { useNotionUploader } from "@/app/hooks/write/useNotionUploader";
+import { useUploadPost } from "@/app/react-query/post/mutations";
 import { getPageContentBlockIds } from "notion-utils";
 
 export default function PostActionBar(){
     const router = useRouter();
     const {recordMap} = useNotionPage();
-    const { handleUploadPost,isPending } = useNotionUploader();
+    const { isPending,mutate } = useUploadPost();
+    
     let pageId:string | undefined;
 
     if(recordMap){
@@ -40,7 +41,7 @@ export default function PostActionBar(){
                 size="small"    
                 disabled={!recordMap || !pageId || isPending}
                 onClick={()=>{
-                    if(pageId) handleUploadPost(pageId);
+                    if(pageId && recordMap) mutate(pageId);
                 }}
             >                
                 <Typography>
