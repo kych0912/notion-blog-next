@@ -16,8 +16,8 @@ function NotionRecordMapFetcher({children, pageId}:{
 }) {
 
     const {setError} = useError();
-    const {setRecordMap} = useNotionPage();
-    const {data, isLoading, isRefetching, error} = useRecordMapFetch(pageId as string);
+    const {setRecordMap,setIsLoading} = useNotionPage();
+    const {data, isLoading, error} = useRecordMapFetch(pageId as string);
 
     //데이터 저장
     useEffect(()=>{
@@ -27,13 +27,19 @@ function NotionRecordMapFetcher({children, pageId}:{
             setRecordMap(null);
         }
     },[data,setRecordMap])
+
+    //로딩 상태 관리
+    useEffect(()=>{
+        setIsLoading(isLoading);
+    },[isLoading,setIsLoading])
     
     //로딩중일 땐 LoadingPage 렌더링
-    if(isLoading || isRefetching){
+    if(isLoading){
         return <LoadingPage/>;
     }
 
     if(error){
+        setIsLoading(false);
         setError(error);
         throw error;
     }

@@ -1,11 +1,15 @@
 import { Typography } from "@mui/material";
-import { Box, TextField, Button } from "@mui/material";
+import { Box, TextField, CircularProgress } from "@mui/material";
 import { InputContainer } from "../../../write.styles";   
 import { ContainedButton } from "@/app/components/Button/button.styles";
+import { useNotionPage } from "@/app/context/NotionPageContext";
 
 export default function Input(
     {url, setUrl, handleSubmit, isError}:{url:string, setUrl:React.Dispatch<React.SetStateAction<string>>, handleSubmit:()=>void, isError:boolean}
 ){
+
+    const {isLoading} = useNotionPage();
+
     return(
         <InputContainer>
             <Typography variant="h5" sx={{
@@ -51,10 +55,16 @@ export default function Input(
 
                 <ContainedButton 
                     onClick={handleSubmit} 
-                    disabled={!url?.length || isError}
+                    disabled={!url?.length || isError || isLoading}
                     size="small"
                     sx={{position:'absolute',right:'20px',bottom:'10px'}}
-                >불러오기</ContainedButton>
+                >
+                    {
+                        isLoading ?
+                        <CircularProgress size={16} color="inherit"/> 
+                        : '불러오기'
+                    }
+                </ContainedButton>
             </Box>
         </InputContainer>
     )
