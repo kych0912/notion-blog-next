@@ -6,6 +6,7 @@ import { useRecordMapFetch } from "@/app/react-query/post/queries";
 import { useNotionPage } from "@/app/context/NotionPageContext";
 import LoadingPage from "../LoadingPage";
 import { useError } from "@/app/context/ErrorContext";
+import { useFeedback } from "@/app/context/FeedbackContext";
 
 //데이터 fetching
 //상태관리
@@ -16,12 +17,16 @@ function NotionRecordMapFetcher({children, pageId}:{
 }) {
 
     const {setError} = useError();
+    const {setMessageState} = useFeedback();
     const {setRecordMap,setIsLoading} = useNotionPage();
     const {data, isLoading, error} = useRecordMapFetch(pageId as string);
 
     //데이터 저장
     useEffect(()=>{
-        if(data) setRecordMap(data);
+        if(data) {
+            setRecordMap(data);
+            setMessageState("성공적으로 불러왔습니다.", 'success', 'snackbar');
+        }
 
         return () => {
             setRecordMap(null);
