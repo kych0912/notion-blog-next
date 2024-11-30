@@ -12,9 +12,10 @@ export function useNotionUrlValidation() {
 
     const handleSubmit = () => {
         const pageId = parsePageId(url);
+        const timestamp = Date.now()
         if (pageId) {
             setIsError(false);
-            router.push(`/write?pageId=${pageId}`);
+            router.push(`/write?pageId=${pageId}&timestamp=${timestamp}`);
         } else {
             setIsError(true);
         }

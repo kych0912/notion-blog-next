@@ -11,6 +11,7 @@ import { useSearchParams } from "next/navigation";
 export default function NotionPageContent() {
     const searchParams = useSearchParams();
     const pageId = searchParams.get("pageId");
+    const timestamp = searchParams.get("timestamp");
 
     return (    
         <WriteFunnelContainer>  
@@ -20,7 +21,7 @@ export default function NotionPageContent() {
                 overflowY:"auto",
                 pb:"6rem"
             }}>
-                <FallbackErrorBoundary key={pageId || undefined}>
+                <FallbackErrorBoundary key={`${pageId}-${timestamp}` || undefined}>
                     <NotionRecordMapFetcher pageId={pageId as string}>
                         <PreRender/>
                     </NotionRecordMapFetcher>
