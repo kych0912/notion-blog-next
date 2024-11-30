@@ -45,13 +45,16 @@ export const InputContainer = styled('div')({
     width:"100%",
 })
 
-export const PostActionBarContainer = styled('nav')({
+export const PostActionBarContainer = styled('nav')(({ theme }) => ({
     display:"flex",
     alignSelf:"center",
     width:"100%",
-    position:"absolute",
+    position:"fixed",
+    [theme.breakpoints.up('lg')]: {
+        position:"absolute",
+    },
     bottom:"0",
-})
+}))
 
 export const PostActionBarWrapper = styled('div')({
     display:"flex",
