@@ -6,8 +6,10 @@ import dynamic from 'next/dynamic'
 import { Box } from '@mui/material' 
 import { ExtendedRecordMap } from 'notion-types'
 import { useRouter } from 'next/navigation'
+import { useTransition} from "react"
 
 import "../../styles/notion.css"
+import { Loading } from '../Loading'
 
 // -----------------------------------------------------------------------------
 // dynamic imports for optional components
@@ -45,6 +47,7 @@ export default function NotionPage({
   isPreview = false
 } : {recordMap: ExtendedRecordMap,user:string,isPreview?:boolean}){
     const router = useRouter()
+    const [isPending,startTransition] = useTransition()
 
     if (!recordMap) {
       return null
@@ -66,7 +69,11 @@ export default function NotionPage({
     }) => {
       return (
         <div 
-          onClick={() => router.push(href)}
+          onClick={() => {
+            startTransition(()=>{   
+              router.push(href)
+            })
+          }}
           style={{ cursor: 'pointer' }}
           {...props}
         >
@@ -100,6 +107,9 @@ export default function NotionPage({
           }}
           darkMode={false} 
         />
+        {
+          isPending && <Loading/>   
+        }
     </Box>
   )
 }
