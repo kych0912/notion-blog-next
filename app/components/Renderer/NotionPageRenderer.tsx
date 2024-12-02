@@ -70,9 +70,13 @@ export default function NotionPage({
       return (
         <div 
           onClick={() => {
-            startTransition(()=>{   
+            if(isPreview) {
               router.push(href)
-            })
+            }else{
+              startTransition(()=>{   
+                router.push(href)
+              })
+            }
           }}
           style={{ cursor: 'pointer' }}
           {...props}
