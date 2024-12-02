@@ -7,6 +7,7 @@ import { useNotionPage } from "@/app/context/NotionPageContext";
 import LoadingPage from "../LoadingPage";
 import { useError } from "@/app/context/ErrorContext";
 import { useFeedback } from "@/app/context/FeedbackContext";
+import { useMediaQuery,useTheme } from "@mui/material";
 
 //데이터 fetching
 //상태관리
@@ -19,13 +20,16 @@ function NotionRecordMapFetcher({children, pageId}:{
     const {setError} = useError();
     const {setMessageState} = useFeedback();
     const {setRecordMap,setIsLoading} = useNotionPage();
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
     const {data, isLoading, error} = useRecordMapFetch(pageId as string);
+
 
     //데이터 저장
     useEffect(()=>{
         if(data) {
             setRecordMap(data);
-            setMessageState("성공적으로 불러왔습니다.", 'success', 'snackbar');
+            if(isMobile) setMessageState("성공적으로 불러왔습니다.", 'success', 'snackbar');
         }
 
         return () => {
