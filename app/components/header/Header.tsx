@@ -13,7 +13,8 @@ export default function Header(){
                 backdropFilter:"blur(30px)",
                 backgroundColor:"hsla(0, 0%, 100%, .8)",
                 py:'12px',
-                width:"100%"
+                width:"100%",
+                zIndex:299
                 }} >
                     <SessionProvider>
                     <Box sx={{
