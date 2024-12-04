@@ -3,7 +3,7 @@ import PostTitle from './PostTitle';
 import * as types from "notion-types"
 import PostProperty from './PostProperty';
 
-export default async function PostHeader({recordMap,user,isAuthor,id,avatar,isChild}: {
+export default function PostHeader({recordMap,user,isAuthor,id,avatar,isChild}: {
     recordMap: types.ExtendedRecordMap,
     user:string,
     isAuthor:boolean,
@@ -21,6 +21,7 @@ export default async function PostHeader({recordMap,user,isAuthor,id,avatar,isCh
             px:"calc(min(16px, 8vw))",
             margin:"0 auto",
             maxWidth:"720px",
+            py:2
         }}>
             <Box sx={{width:"100%"}}>
                 <PostTitle recordMap={recordMap}/>
