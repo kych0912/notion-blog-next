@@ -10,7 +10,7 @@ export default function NotionPage({
   isAuthor,
   id,
   avatar,
-  isChild
+  isChild,
 } : {recordMap: types.ExtendedRecordMap,user:string,isAuthor:boolean,id:string,avatar:string,isChild:boolean}){
     if (!recordMap) {
       return null
@@ -21,12 +21,12 @@ export default function NotionPage({
         {/* 자식 페이지일 경우 특정 컴포넌트 렌더링 X */}
         {
             <Header 
-            recordMap={recordMap} 
-            user={user} 
-            isAuthor={isAuthor} 
-            id={id} 
-            avatar={avatar}
-            isChild={isChild}
+              recordMap={recordMap} 
+              user={user} 
+              isAuthor={isAuthor} 
+              id={id} 
+              avatar={avatar}
+              isChild={isChild}
             />
         }
         <NotionPageRenderer 
