@@ -10,7 +10,7 @@ export const WriteFunnelContainer = styled('div')(({ theme }) => ({
         display: 'none',
     },
     height:"100vh",
-    flex:'1 1 0%',
+    flex:'2 1 0%',
     width:"50%",
     overflowY:"auto",
 }))
@@ -21,7 +21,7 @@ export const FunnelContainer = styled('div')({
     alignItems:"start", 
     position:"sticky",
     flex:'1 1 0%',
-    width:"50%",
+    width:"100%",
     height:"calc(100vh - 64px)",
 })
 
