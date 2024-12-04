@@ -4,7 +4,7 @@
 
 * **URL**
 
-  `/api/user/logout`
+  `/api/user/auth`
 
 * **Method:**
 
