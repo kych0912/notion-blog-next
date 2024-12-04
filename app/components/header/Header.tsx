@@ -2,7 +2,6 @@
 import * as React from 'react'
 import { Avatar,AppBar,Box,Skeleton, Typography} from "@mui/material";
 import Link from "next/link";
-import { SessionProvider } from 'next-auth/react';
 import HeaderRight from './_components/HeaderRight';
 
 export default function Header(){
@@ -15,8 +14,7 @@ export default function Header(){
                 py:'12px',
                 width:"100%",
                 zIndex:299
-                }} >
-                    <SessionProvider>
+                }} >    
                     <Box sx={{
                         maxWidth:{md:'900px',lg:"1200px"},
                         margin:'auto',                
@@ -34,8 +32,7 @@ export default function Header(){
                         </Link>
 
                         <HeaderRight/>
-                        </Box>
-                    </SessionProvider>
+                    </Box>
             </AppBar>
     )
 }

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 import { ThemeProvider } from '@mui/material/styles';
+import AuthProvider from "./lib/next-auth/provider";
 import CssBaseline from '@mui/material/CssBaseline';
 import theme from "./styles/theme";
 import "./styles/global.css";
@@ -11,6 +12,8 @@ import 'katex/dist/katex.min.css'
 
 import Analytics from "./components/GA/Analytics";
 import ReactQueryProvider from "./utils/Provier";
+import { FeedbackProvider } from "./context/FeedbackContext";
+import { ErrorProvider } from "./context/ErrorContext";
 
 export const metadata: Metadata = {
   title: "nextblog",
@@ -33,14 +36,20 @@ export default async function RootLayout({
         {process.env.NEXT_PUBLIC_GA_ID ? (
           <Analytics id={process.env.NEXT_PUBLIC_GA_ID} />
         ) : null}
-        <AppRouterCacheProvider options={{ enableCssLayer: true }}>
+        <ErrorProvider>
+          <FeedbackProvider>
+            <AppRouterCacheProvider options={{ enableCssLayer: true }}>
               <ThemeProvider theme={theme}>
-                <CssBaseline />
-                <ReactQueryProvider>
-                  {children}
-                </ReactQueryProvider>
-                </ThemeProvider>
+                  <AuthProvider>
+                    <CssBaseline />
+                    <ReactQueryProvider>
+                      {children}
+                    </ReactQueryProvider>
+                </AuthProvider>
+              </ThemeProvider>
             </AppRouterCacheProvider>
+          </FeedbackProvider>
+        </ErrorProvider>
       </body>
     </html>
   );

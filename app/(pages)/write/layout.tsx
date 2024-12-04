@@ -12,13 +12,9 @@ export default function RootLayout({
 
   return (
     <WritePostLayout>
-      <ErrorProvider>
-        <FeedbackProvider>
-          <ContextProvider> 
-            {children}
-          </ContextProvider>
-        </FeedbackProvider>
-      </ErrorProvider>
+      <ContextProvider> 
+        {children}
+      </ContextProvider>
     </WritePostLayout>
   );
 }
