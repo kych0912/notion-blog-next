@@ -5,12 +5,13 @@ import Input from "./Input";
 import Information from "./Information";
 import ErrorHandler from "@/app/components/Error/ErrorHandler";
 import { useNotionUrlValidation } from "@/app/hooks/write/useNotionValidation";
+import { Box } from '@mui/material';
 
 const NotionUrlSection = React.memo(function NotionUrlSection() {
     const {url, setUrl, isError, handleSubmit, resetError} = useNotionUrlValidation(); 
     return(
         <>
-            <div>
+            <Box sx={{width:"100%"}}>
                 <Input 
                     url={url} 
                     setUrl={setUrl} 
@@ -26,7 +27,7 @@ const NotionUrlSection = React.memo(function NotionUrlSection() {
                     />
                 }
                 <Information/>
-            </div>
+            </Box>
         </>
     )
 });
