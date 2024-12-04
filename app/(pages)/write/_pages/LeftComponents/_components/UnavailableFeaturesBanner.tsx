@@ -25,8 +25,8 @@ const UnavailableFeaturesBanner = () => {
       reason: `비디오 기능을 사용할 수 없어요. 유튜브 영상은 삽입할 수 있어요.`,
     },
     {
-      name: "PDF",
-      reason: "PDF를 업로드하거나 미리보기할 수 없어요.",
+      name: "파일 다운로드",
+      reason: "파일을 다운로드할 수 없어요.",
     }
   ];
 
