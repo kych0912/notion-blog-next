@@ -3,6 +3,7 @@ import { Box, TextField, CircularProgress } from "@mui/material";
 import { InputContainer } from "../../../write.styles";   
 import { ContainedButton } from "@/app/components/Button/button.styles";
 import { useNotionPage } from "@/app/context/NotionPageContext";
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 
 export default function Input(
     {url, setUrl, handleSubmit, isError}:{url:string, setUrl:React.Dispatch<React.SetStateAction<string>>, handleSubmit:()=>void, isError:boolean}
@@ -15,7 +16,12 @@ export default function Input(
             <Typography variant="h5" sx={{
                 fontWeight:700,
             }}>
-                Notion 페이지 주소를 입력해주세요.
+                {"Notion 페이지 주소를"}
+            </Typography>
+            <Typography variant="h5" sx={{
+                fontWeight:700,
+            }}>
+                {"입력해주세요."}
             </Typography>
 
             <Box sx={{
