@@ -11,17 +11,6 @@ export default async function DetailContent({ id, user, token }: {
     try{
         const recordMap = await getPage(id);
         const _response = await getPostDetail(id, user, token);
-    
-        if(_response.isChild) {
-            return <NotionPage 
-                id={id}
-                recordMap={recordMap}   
-                user={user}
-                isAuthor={false}
-                avatar={''}
-                isChild={true}
-            />
-        }
 
         return <NotionPage 
             id={id}
@@ -29,7 +18,7 @@ export default async function DetailContent({ id, user, token }: {
             user={user}
             isAuthor={_response.isAuthor}
             avatar={_response.data[0].avatar}
-            isChild={false}
+            isChild={_response.isChild}
         />;
     }
     catch(err:any){
