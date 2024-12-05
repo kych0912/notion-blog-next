@@ -49,8 +49,8 @@ export async function getLatestPosts(page:number){
     }
 }
 
-export async function getUserPosts(id:string){
-    const query = `SELECT * FROM Post WHERE author='${id}' ORDER BY date DESC`;
+export async function getUserPosts(name:string){
+    const query = `SELECT * FROM Post WHERE author='${name}' ORDER BY date DESC`;
 
     try {
         const data = await executeQuery(query, []);

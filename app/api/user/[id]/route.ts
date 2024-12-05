@@ -1,20 +1,16 @@
-import axios from 'axios';
 import { NextResponse,NextRequest } from 'next/server';
-import {getUserInfo} from '@/app/lib/UserData/UserDB';
-import { getUserPosts } from '@/app/lib/postData/postDB';
+import {getUserInfoById} from '@/app/lib/UserData/UserDB';
 
 export async function GET(req:NextRequest, { params }: { params: { id: string} }){
     try{
         const id = params.id;
-        const user = await getUserInfo(id);
+        const user = await getUserInfoById(id);
         
         if(!Array.isArray(user) || user.length === 0) {
             return NextResponse.json({ message: 'Not Found' }, { status: 404 });
         }
 
-        const posts = await getUserPosts(id);
-
-        return NextResponse.json({ data:[user,posts]}, { status: 200 });
+        return NextResponse.json({ data:[user]}, { status: 200 });
     }
     catch(err){
         return NextResponse.json({ message: 'Server Error' }, { status: 500 });
