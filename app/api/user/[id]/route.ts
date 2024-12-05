@@ -10,7 +10,7 @@ export async function GET(req:NextRequest, { params }: { params: { id: string} }
             return NextResponse.json({ message: 'Not Found' }, { status: 404 });
         }
 
-        return NextResponse.json({ data:[user]}, { status: 200 });
+        return NextResponse.json({ data:user}, { status: 200 });
     }
     catch(err){
         return NextResponse.json({ message: 'Server Error' }, { status: 500 });
