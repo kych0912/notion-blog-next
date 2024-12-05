@@ -18,10 +18,17 @@ const authOptions = {
         async signIn({ user }: { user: User | AdapterUser }): Promise<boolean | string> {
             const { id ,name, image, email } = user;
 
-            const _UserInfo = await getUserInfoById(id);
-
-            if(Array.isArray(_UserInfo) && _UserInfo.length > 0){
-                return true;
+            try{
+                const _UserInfo = await getUserInfoById(id);
+                            
+                if(Array.isArray(_UserInfo) && _UserInfo.length > 0){
+                    return true;
+                }
+            }
+            catch(err:any){
+                if(err.response?.status === 404){
+                   
+                }
             }
 
             if (!email) {
@@ -32,16 +39,12 @@ const authOptions = {
                 return '/auth/error?error=InvalidProfile';  // 이름이나 이미지가 없을 경우
             }
 
-            if(!Array.isArray(_UserInfo) || _UserInfo.length === 0){
-                try {
-                    await updateUser(id,name, image, email);
-                    return true;
-                } catch (error) {
-                    return '/auth/error?error=DatabaseError';  // DB 업데이트 실패 시
-                }
+            try {
+                await updateUser(id,name, image, email);
+                return true;
+            } catch (error) {
+                return '/auth/error?error=DatabaseError';  // DB 업데이트 실패 시
             }
-            
-            return true;
         },
     },
     
