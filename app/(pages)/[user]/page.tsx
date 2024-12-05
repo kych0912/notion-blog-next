@@ -8,7 +8,7 @@ import CoverImage from './_components/CoverImage';
 const Post = async ({ params }: { params: { user: string } }) => {
     const user = params.user;
     let avatar_url = '';
-    let id = '';
+    let name = '';
     let posts;
 
     try{
