@@ -2,7 +2,7 @@ import {Box,Typography,Avatar} from '@mui/material'
 import CoverImage from './CoverImage'
 
 
-export default function User({id,avatar}:{id:string,avatar:string}){
+export default function User({name,avatar}:{name:string,avatar:string}){
 
     return(
         <Box sx={{
@@ -28,7 +28,7 @@ export default function User({id,avatar}:{id:string,avatar:string}){
                         fontWeight:700,
                         pl:0,
                         pt:2
-                    }}>{decodeURIComponent(id)}</Typography>
+                    }}>{decodeURIComponent(name)}</Typography>
                 </Box>
 
         </Box>

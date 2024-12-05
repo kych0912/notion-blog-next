@@ -15,7 +15,7 @@ const Post = async ({ params }: { params: { user: string } }) => {
         const _response = await getUserInfoAndPostByName(user);
 
         avatar_url = _response.data[0][0].avatar;
-        id = _response.data[0][0].id;
+        name = _response.data[0][0].name;
         posts = _response.data[1];
     }    
     catch(err:any){
@@ -30,7 +30,7 @@ const Post = async ({ params }: { params: { user: string } }) => {
     return( 
         <Box sx={{display:"flex",flexDirection:'column',justifyContent:"center",alignItems:"center"}}>  
             <CoverImage src={"/Default_Image.jpeg"}/>
-            <User avatar={avatar_url} id={id}/>
+            <User avatar={avatar_url} name={name}/>
             
             <Feed posts={posts}/>
         </Box>
