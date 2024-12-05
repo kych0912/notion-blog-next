@@ -41,7 +41,7 @@ const Modal = dynamic(
   }
 )
 
-export default function NotionPage({
+export default function NotionPageRenderer({
   recordMap,
   user,
   isPreview = false
