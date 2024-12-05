@@ -66,7 +66,7 @@ export const getUserInfoAndPostByName = async (name:string) =>{
 
 export const getUserInfoById = async (id:string)=>{
     const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/user/${id}`);
-    return res.data;
+    return res.data.data;
 }
 
 
