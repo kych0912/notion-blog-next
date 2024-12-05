@@ -43,10 +43,12 @@ export const logout = async () => {
     }
 }
 
-export const updateUser = async (name:string,avatar_url:string) => {
+export const updateUser = async (id:string,name:string,avatar_url:string,email:string) => {
     const res = await axios.put(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/user/updateUser`,{
+        id:id,
         name,
-        avatar_url
+        avatar_url,
+        email
     });
     const _data = res.data;
 
@@ -57,10 +59,16 @@ export const updateUser = async (name:string,avatar_url:string) => {
     return _data;
 }
 
-export const getUserInfo = async (id:string) =>{
+export const getUserInfoAndPostByName = async (name:string) =>{
+    const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/user?name=${name}`);
+    return res.data;
+}
+
+export const getUserInfoById = async (id:string)=>{
     const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/user/${id}`);
     return res.data;
 }
+
 
 axios.interceptors.response.use(
     (response) => {

@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 import User from "./_components/User";
 import Feed from "./_components/Feed"
-import {getUserInfoByName} from "@/app/services/user/user"
+import {getUserInfoAndPostByName} from "@/app/services/user/user"
 import { notFound } from 'next/navigation';
 import CoverImage from './_components/CoverImage';
 
@@ -12,7 +12,7 @@ const Post = async ({ params }: { params: { user: string } }) => {
     let posts;
 
     try{
-        const _response = await getUserInfoByName(user);
+        const _response = await getUserInfoAndPostByName(user);
 
         avatar_url = _response.data[0][0].avatar;
         id = _response.data[0][0].id;
