@@ -1,5 +1,5 @@
 import GithubProvider from "next-auth/providers/github"
-import { getUserInfoAndPostByName, getUserInfoById, updateUser } from "@/app/services/user/user";
+import {getUserInfoById, updateUser } from "@/app/services/user/user";
 import { User } from "next-auth";
 import { AdapterUser } from "next-auth/adapters";
 
