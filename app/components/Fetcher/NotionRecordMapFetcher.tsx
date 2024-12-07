@@ -8,6 +8,7 @@ import LoadingPage from "../LoadingPage";
 import { useError } from "@/app/context/ErrorContext";
 import { useFeedback } from "@/app/context/FeedbackContext";
 import { useMediaQuery,useTheme } from "@mui/material";
+import { FEEDBACK_MESSAGES } from "@/app/constants/messages";
 
 //데이터 fetching
 //상태관리
@@ -29,7 +30,7 @@ function NotionRecordMapFetcher({children, pageId}:{
     useEffect(()=>{
         if(data) {
             setRecordMap(data);
-            if(isMobile) setMessageState("성공적으로 불러왔습니다.", 'success', 'snackbar');
+            if(isMobile) setMessageState(FEEDBACK_MESSAGES.POST.LOAD_SUCCESS, 'success', 'snackbar');
         }
 
         return () => {
