@@ -1,7 +1,6 @@
 import {useInfiniteQuery, useQueries, useQuery} from '@tanstack/react-query';
 import { getLatestPosts, getPostDetail, getRecordMap } from '@/app/services/post/post';
 import { ExtendedRecordMap } from 'notion-types';
-import { getPage } from '@/app/lib/notion-api';
 
 export const useRecordMapFetch = (pageId:string) => {
     return(
@@ -40,7 +39,7 @@ export const usePostDetailFetch = (pageId:string, user:string, token:string) => 
         queries: [
             {
                 queryKey: ['page', pageId],
-                queryFn: () => getPage(pageId),
+                queryFn: () => getRecordMap(pageId),
             },
             {
                 queryKey: ['postDetail', pageId],
