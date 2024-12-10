@@ -29,7 +29,7 @@ export default function PostProperty({recordMap,user,isAuthor,id,avatar}: {
             <Box sx={{display:"flex",pt:1,justifyContent:'space-between',pb:2}}>
                 <Box sx={{display:"flex"}}>
                     <Link href={`/${user}`} passHref style={{display:"flex",textDecoration:"none"}}>
-                        <Avatar src={avatar?avatar:''} sx={{width:"1.5rem",height:"1.5rem",mr:1}}/>
+                        <Avatar alt={user} src={avatar?avatar:''} sx={{width:"1.5rem",height:"1.5rem",mr:1}}/>
                         <Typography sx={{color:"#6f6f6f"}}>{decodeURIComponent(user)}</Typography>
                     </Link>
                     <Typography sx={{color:"#6f6f6f",mx:1}}>|</Typography>
