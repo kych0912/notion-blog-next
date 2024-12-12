@@ -29,9 +29,10 @@ export const BaseButton = styled('button')<ButtonProps>(({ theme, disabled, size
     cursor: 'pointer',
     opacity: disabled ? 0.5 : 1,
     transition: 'all 0.3s ease',
-    fontWeight: 700,
+    fontWeight: 500,
     border: 'none',
     outline: 'none',
+    fontFamily: 'var(--font-pretendard)',
     ...buttonSizes[size], // size에 따른 스타일 적용
 }));
 
