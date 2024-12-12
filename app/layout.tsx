@@ -15,10 +15,13 @@ import ReactQueryProvider from "./utils/Provier";
 import { FeedbackProvider } from "./context/FeedbackContext";
 import { ErrorProvider } from "./context/ErrorContext";
 
+import { pretendard } from "./styles/fonts/fonts";
+
 export const metadata: Metadata = {
   title: "nextblog",
   description: "노션으로 작성하는 블로그 서비스",
 };
+
 
 export default async function RootLayout({
   children,
@@ -27,7 +30,7 @@ export default async function RootLayout({
 }>) {
 
   return (
-    <html lang="en">
+    <html lang="ko" className={pretendard.variable}>
       <head>
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8839634347934414"
           crossOrigin="anonymous"></script>
