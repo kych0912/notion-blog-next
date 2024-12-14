@@ -19,9 +19,9 @@ export default function NotionPage({
   const recordMap = data[0];
   const postDetail = data[1];
 
-  const isAuthor = postDetail.isAuthor;
-  const avatar = postDetail.data[0].avatar;
-  const isChild = postDetail.isChild;
+  const isAuthor = postDetail.isAuthor || false;
+  const avatar = postDetail.data[0]?.avatar || "";
+  const isChild = postDetail.isChild || false;
 
   return(
 
