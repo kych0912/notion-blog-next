@@ -40,10 +40,22 @@ export const usePostDetailFetch = (pageId:string, user:string, token:string) => 
             {
                 queryKey: ['page', pageId],
                 queryFn: () => getRecordMap(pageId),
+                enabled: !!pageId,
+                retry:false,
+                refetchOnWindowFocus:false,
+                refetchOnMount:false,
+                refetchOnReconnect:false,
+                throwOnError:true,
             },
             {
                 queryKey: ['postDetail', pageId],
                 queryFn: () => getPostDetail(pageId, user, token),
+                enabled: !!pageId,
+                retry:false,
+                refetchOnWindowFocus:false,
+                refetchOnMount:false,
+                refetchOnReconnect:false,
+                throwOnError:true,
             },
         ],
     });
