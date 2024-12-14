@@ -1,3 +1,5 @@
+'use client'
+
 import {Box} from '@mui/material'
 import PostTitle from './PostTitle';
 import * as types from "notion-types"

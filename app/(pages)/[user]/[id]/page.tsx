@@ -1,4 +1,4 @@
-import DetailContent from "./_components/DetailContent";
+import NotionPage from "@/app/components/PostDetail/Post";
 import { cookies } from "next/headers";
 
 async function Page({params}: {params:{id:string,user:string }}) {    
@@ -8,7 +8,7 @@ async function Page({params}: {params:{id:string,user:string }}) {
     const user = params.user;
 
     return (
-        <DetailContent 
+        <NotionPage 
             id={id} 
             user={user} 
             token={token}

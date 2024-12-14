@@ -1,10 +1,12 @@
+'use client'
+
 import { Box, Typography, Avatar } from "@mui/material"
 import Link from 'next/link'
 import Option from '../../PostOption/Option'
 import CoverImage from "./PostCoverImage"
 import {
     getNotionImage,
-} from "@/app/lib/notion-api";
+} from "@/app/utils/NotionApi";
 import * as types from "notion-types"
 
 export default function PostProperty({recordMap,user,isAuthor,id,avatar}: {
