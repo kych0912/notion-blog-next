@@ -8,11 +8,13 @@ async function Page({params}: {params:{id:string,user:string }}) {
     const user = params.user;
 
     return (
-        <NotionPage 
-            id={id} 
-            user={user} 
-            token={token}
-        />
+        <>
+            <NotionPage 
+                id={id} 
+                user={user} 
+                token={token}
+            />
+        </> 
     );
 }
 
