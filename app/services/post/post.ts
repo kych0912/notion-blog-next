@@ -26,6 +26,7 @@ export async function getUserPosts(id:string){
     return res.data;
 }
 
+//client에서 사용
 export async function getPostDetail(id:string,user:string,token:string){
     const config = {
         headers: {
@@ -33,7 +34,7 @@ export async function getPostDetail(id:string,user:string,token:string){
         }
         };
         
-    const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/post/${user}/${id}`, config);
+    const res = await axios.get(`/api/post/${user}/${id}`, config);
     return res.data;
 }
 
