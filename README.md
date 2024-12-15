@@ -238,21 +238,24 @@
 
 ## 주요 기능
 1. 노션 페이지 블로그 포스트로 변환
-     ![image](https://github.com/user-attachments/assets/89678c12-d1e6-4c3f-bcf9-ad475af930fa)
 
+     ![ezgif-1-38e7d1d176](https://github.com/user-attachments/assets/75c78257-de20-4b4b-9984-d8cb5ef66af3)
     - **react-notion-x**를 활용하여 노션 페이지의 콘텐츠를 자동으로 블로그 포스트로 변환
     - 노션의 텍스트 스타일링, 이미지, 코드 블록 등 서식 유지
     - 실시간 동기화로 노션 페이지 수정사항 자동 반영
     - **노션 페이지 URL 입력만으로 간편하게 포스트 작성 가능**
 2. 노션 자식페이지 연동
+
+    ![ezgif-1-5df98bb44d](https://github.com/user-attachments/assets/0ce1511c-3d0b-49e4-9748-058c7d817b51)
     - 메인 노션 페이지의 하위 페이지들을 자동으로 감지하여 블로그 포스트로 변환
     - 새로운 자식 페이지 생성 시 자동으로 블로그에 반영
 3. 블로그 기능
-   
+
     - 작성된 포스트 목록을 한눈에 볼 수 있는 대시보드 제공
     - 직관적인 UI로 포스트 내용 미리보기 및 관리
 4. Github OAuth 기능
-   
+
+   ![ezgif-1-353b2c88e8](https://github.com/user-attachments/assets/4cef9c23-7fb2-44b6-8604-d477469fcbb1)
     - Github 계정을 통한 간편한 로그인/회원가입
     - 안전한 사용자 인증 및 권한 관리
     - Github 프로필 정보를 활용한 블로그 프로필 자동 구성
