@@ -32,8 +32,8 @@ const UserMenu = ({MenuOption}:{
             }}>
                 {
                     MenuOption.filter((item)=>item.isVisible===true).map((item,index)=>(
-                        <a href={item.link} style={{textDecoration:"none"}}>
-                            <MenuItem onClick={item?.handleClick} key={index}>
+                        <a key={index} href={item.link} style={{textDecoration:"none"}}>
+                            <MenuItem onClick={item?.handleClick}>
                                 <Typography variant="body1" sx={{
                                     color: '#000',
                                     p: '.75rem 1rem',
