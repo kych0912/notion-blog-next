@@ -32,11 +32,31 @@ export function getNotionImage(url:string,keys:string[], block:types.Block){
 }
 
 export function getPageBlockContent(recordMap:types.RecordMap, keys:string[]){
+
+    let description:string[] = [];
+
     for(let i = 1;i<keys.length;i++){
-        const block = recordMap?.block?.[keys[i]]?.value.properties?.title[0][0];
+
+        const block = recordMap?.block?.[keys[i]]?.value.properties?.title[0];
         const type = recordMap?.block?.[keys[i]]?.value.type;
         if(block && type === 'text'){
-            return block;
+            description.push(block);
         }
     }
+
+    console.log(getDescriotion(description))
+
+    return getDescriotion(description);
+}
+
+const getDescriotion = (blocks:string[]):string => {
+    let description:string[] = [];
+
+    for(let i = 0;i<blocks.length;i++){
+        for(let j=0;j<blocks[i].length;j++){
+            description.push(blocks[i][j])
+        }
+    }
+
+    return description.find(block => (block.length > 50)&&(block.length < 150)) ?? '';
 }
