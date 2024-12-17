@@ -1,20 +1,46 @@
 import NotionPage from "@/app/components/PostDetail/Post";
 import { cookies } from "next/headers";
+import type { Metadata } from 'next';
+import { getMetadata } from "@/app/components/MetaData/getMetaData";
+import { fetchPostAndRecordMap } from "@/app/services/post/post";
+import {getPageBlockContent} from "@/app/utils/NotionApi";
 
-async function Page({params}: {params:{id:string,user:string }}) {    
+type paramsType = {
+    params: {
+        id: string,
+        user: string
+    }
+};
+
+export const generateMetadata = async ({ params }: paramsType): Promise<Metadata> => {
+    const { id, user } = params;
     const cookieStore = cookies();
     const token = cookieStore.get(process.env.NEXTAUTH_COOKIE_NAME as string)?.value ?? '';
-    const id = params.id;
-    const user = params.user;
+
+    const { recordMap } = await fetchPostAndRecordMap(id, user, token, id);
+    const keys = Object.keys(recordMap?.block || {});
+
+    const title = recordMap?.block?.[keys[0]].value.properties.title[0][0];
+    const description = getPageBlockContent(recordMap,keys);
+    return getMetadata({ title, description, asPath: `/@${user}/${id}` });
+};
+
+async function Page({ params }: paramsType) {
+    const { id, user } = params;
+    const cookieStore = cookies();
+    const token = cookieStore.get(process.env.NEXTAUTH_COOKIE_NAME as string)?.value ?? '';
+
+    const { postDetail, recordMap } = await fetchPostAndRecordMap(id, user, token, id);
 
     return (
         <>
-            <NotionPage 
-                id={id} 
-                user={user} 
-                token={token}
+            <NotionPage
+                id={id}
+                user={user}
+                postDetail={postDetail}
+                recordMap={recordMap}
             />
-        </> 
+        </>
     );
 }
 

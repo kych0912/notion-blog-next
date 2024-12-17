@@ -49,3 +49,22 @@ export async function getRecordMap(pageId:string){
     const res = await axios.get(`/api/notion/page?pageId=${pageId}`);
     return res.data;
 }
+
+export async function fetchPostAndRecordMap(postId: string, user: string, token: string, pageId: string) {
+    const config = {
+        headers: {
+            'X-Next-Auth-Session-Token': token,
+        }
+    };
+
+    const [postDetail, recordMap] = await Promise.all([
+        axios.get(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/post/${user}/${postId}`, config),
+        axios.get(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/notion/page?pageId=${pageId}`)
+    ]);
+
+    return {
+        postDetail: postDetail.data,
+        recordMap: recordMap.data
+    };
+}
+

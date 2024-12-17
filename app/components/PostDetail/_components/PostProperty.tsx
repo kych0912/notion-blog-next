@@ -1,7 +1,4 @@
-'use client'
-
 import { Box, Typography, Avatar } from "@mui/material"
-import Link from 'next/link'
 import Option from '../../PostOption/Option'
 import CoverImage from "./PostCoverImage"
 import {

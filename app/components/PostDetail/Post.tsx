@@ -1,23 +1,14 @@
-'use client'
-
 import * as React from 'react'
 import NotionPageRenderer from '../Renderer/NotionPageRenderer';
 import Header from "./_components/PostHeader"
-import LoadingPage from '../LoadingPage';
-import { usePostDetailFetch } from '@/app/react-query/post/queries';
+import * as types from "notion-types"
 
 export default function NotionPage({
-  id,
   user,
-  token,  
-} : {id:string,user:string,token:string}){
-
-  const { isLoading, isError, data, errors } = usePostDetailFetch(id, user, token);
-
-  if(isLoading) return <LoadingPage />;
-
-  const recordMap = data[0];
-  const postDetail = data[1];
+  id,
+  postDetail,
+  recordMap,
+} : {postDetail:any,recordMap:types.ExtendedRecordMap,user:string,id:string}){
 
   const isAuthor = postDetail.isAuthor || false;
   const avatar = postDetail.data[0]?.avatar || "";
