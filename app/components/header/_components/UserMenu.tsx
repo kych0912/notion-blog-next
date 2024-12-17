@@ -14,7 +14,7 @@ const UserMenu = ({MenuOption}:{
     MenuOption:{
         title:string,
         link:string,
-        handleClick:()=>void,
+        handleClick?:()=>void,
         isVisible?:boolean
     }[]
 }) =>{
@@ -32,16 +32,18 @@ const UserMenu = ({MenuOption}:{
             }}>
                 {
                     MenuOption.filter((item)=>item.isVisible===true).map((item,index)=>(
-                        <MenuItem onClick={item.handleClick} key={index}>
-                            <Typography variant="body1" sx={{
-                                color: '#000',
-                                p: '.75rem 1rem',
-                                fontWeight: 500,
-                                cursor: 'pointer',
-                            }}>
-                                {item.title}
-                            </Typography>
-                        </MenuItem>
+                        <a href={item.link} style={{textDecoration:"none"}}>
+                            <MenuItem onClick={item?.handleClick} key={index}>
+                                <Typography variant="body1" sx={{
+                                    color: '#000',
+                                    p: '.75rem 1rem',
+                                    fontWeight: 500,
+                                    cursor: 'pointer',
+                                }}>
+                                    {item.title}
+                                </Typography>
+                            </MenuItem>
+                        </a>
                     ))
                 }
             </Box>

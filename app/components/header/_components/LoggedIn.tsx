@@ -26,14 +26,12 @@ export default function LoggedIn({user}:{user:DefaultSession}){
     const MenuOption = [
         {
             title:"내 정보",
-            link:"/user",
-            handleClick:()=>{router.push(`/${user.user?.name}`)},
+            link:`/${user.user?.name}`,
             isVisible:true
         },
         {
             title:"새 글 쓰기",
             link:"/write",
-            handleClick:()=>{router.push("/write")},
             isVisible:isSmallScreen
         },
         {
