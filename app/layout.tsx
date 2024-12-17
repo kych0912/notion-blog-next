@@ -16,12 +16,13 @@ import { FeedbackProvider } from "./context/FeedbackContext";
 import { ErrorProvider } from "./context/ErrorContext";
 
 import { pretendard } from "./styles/fonts/fonts";
+import { getMetadata } from "./components/MetaData/getMetaData";
 
-export const metadata: Metadata = {
-  title: "nextblog",
-  description: "노션으로 작성하는 블로그 서비스",
+export const generateMetadata = async (): Promise<Metadata> => {
+
+
+  return getMetadata();
 };
-
 
 export default async function RootLayout({
   children,
