@@ -77,3 +77,36 @@
 .notion-list li {
   padding: 3px 0;
 }
+
+.notion-collection {
+  width: 100% !important;
+  min-width: 100% !important;
+}
+
+/* table css 변경 */
+.notion-table {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.notion-table-view {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+/* board css 변경 */
+
+.notion-board-view {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.notion-board {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.notion-collection-group-title {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
