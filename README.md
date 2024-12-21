@@ -4,15 +4,14 @@
 - 노션은 뛰어난 문서 작성 도구이지만, 공개적으로 콘텐츠를 공유하기에는 제한적
 - 기존 블로그 플랫폼들은 제한적인 글 작성 기능으로 인해 풍부한 콘텐츠 작성에 어려움
 - 노션에서 작성한 문서를 블로그로 쉽게 변환하고 공유할 수 있는 솔루션이 필요
-- 개발자들이 Github 계정으로 쉽게 기술 블로그를 시작할 수 있는 플랫폼이 필요
+
+<br/>
 
 2. 개발 목적
 - 노션의 편리한 문서 작성 기능을 활용하면서 블로그 형태로 콘텐츠 공유
 - URL 입력만으로 노션 페이지를 블로그 포스트로 간편하게 변환
 - 노션의 강력한 문서 작성 도구를 통해 기존 블로그 플랫폼의 제한적인 글 작성 기능 보완
     - 피그마 임베드, 외부 객체, 코드블록 등 다양한 노션 기능을 사용할 수 있습니다.
-- Github 계정 연동을 통한 간편한 블로그 시작 및 관리
-- 노션의 실시간 수정사항이 자동으로 블로그에 반영되는 효율적인 콘텐츠 관리
 
 ## 기술 스택
 
@@ -24,217 +23,9 @@
 
 - Mysql, EC2
 
+
 ## 시스템 구조
 ![image](https://github.com/user-attachments/assets/e5d7f5a0-d4b6-43f2-9754-5db5a1f681e2)
-
-```
-.
-├── .eslintrc.json
-├── .gitignore
-├── README.md
-├── middleware.ts
-├── next.config.mjs
-├── package-lock.json
-├── package.json
-├── tsconfig.json
-├── public
-│   ├── Default_Image.jpeg
-│   ├── fonts
-│   │   └── PretendardVariable.woff2
-│   ├── next.svg
-│   └── vercel.svg
-└── app
-   ├── layout.tsx
-   ├── page.tsx
-   ├── assets
-   │   ├── favicon.ico
-   │   ├── github_logo_icon_147285.svg
-   │   └── react.svg
-   ├── api //Serverless API route
-   │   ├── auth
-   │   │   └── [...nextauth]
-   │   │       ├── options.ts
-   │   │       └── route.ts
-   │   ├── notion
-   │   │   └── page
-   │   │       └── route.ts
-   │   ├── post
-   │   │   ├── [user]
-   │   │   │   └── [id]
-   │   │   │       └── route.ts
-   │   │   ├── delete
-   │   │   │   └── [id]
-   │   │   │       └── route.ts
-   │   │   ├── latest
-   │   │   │   └── route.ts
-   │   │   ├── user
-   │   │   │   └── [id]
-   │   │   │       └── route.ts
-   │   │   └── write
-   │   │       └── route.ts
-   │   └── user
-   │       ├── [id]
-   │       │   └── route.ts
-   │       ├── auth
-   │       │   └── route.ts
-   │       ├── route.ts
-   │       └── updateUser
-   │           └── route.ts
-   ├── components //프론트엔드 재사용 컴포넌트
-   │   ├── Button
-   │   │   └── button.styles.ts
-   │   ├── Error
-   │   │   ├── ErrorCatcher.tsx
-   │   │   ├── ErrorHandler.tsx
-   │   │   ├── FallbackErrorBoundary.tsx
-   │   │   ├── GlobalErrorBoundary.tsx
-   │   │   └── _components
-   │   │       ├── HelperText.tsx
-   │   │       └── RefetchPage
-   │   │           └── RefetchPage.tsx
-   │   ├── Feed
-   │   │   ├── LatestFeed.tsx
-   │   │   └── _components
-   │   │       ├── FeedItem.tsx
-   │   │       ├── FeedLayout.tsx
-   │   │       └── Latest.tsx
-   │   ├── Feedback
-   │   │   ├── FeedbackCatcher.tsx
-   │   │   └── FeedbackHandler.tsx
-   │   ├── Fetcher
-   │   │   └── NotionRecordMapFetcher.tsx
-   │   ├── GA
-   │   │   └── Analytics.tsx
-   │   ├── HomeTab.tsx
-   │   ├── Layout
-   │   │   ├── CardLayout.tsx
-   │   │   ├── DefaultLayout.tsx
-   │   │   ├── HomeLayout.tsx
-   │   │   ├── RecoilWrapper.tsx
-   │   │   ├── WithHeaderLayout.tsx
-   │   │   └── WritePostLayout.tsx
-   │   ├── Loading.tsx
-   │   ├── LoadingPage.tsx
-   │   ├── LoginModal.tsx
-   │   ├── Modal
-   │   │   └── Modal.tsx
-   │   ├── PostCard
-   │   │   ├── PostCard.tsx
-   │   │   └── PostCardLoading.tsx
-   │   ├── PostDetail
-   │   │   ├── Post.tsx
-   │   │   └── _components
-   │   │       ├── PostCoverImage.tsx
-   │   │       ├── PostHeader.tsx
-   │   │       ├── PostProperty.tsx
-   │   │       └── PostTitle.tsx
-   │   ├── PostOption
-   │   │   └── Option.tsx
-   │   ├── Renderer
-   │   │   └── NotionPageRenderer.tsx
-   │   ├── Snackbar
-   │   │   └── SnackBar.tsx
-   │   └── header
-   │       ├── Header.tsx
-   │       └── _components
-   │           ├── HeaderRight.tsx
-   │           ├── LoggedIn.tsx
-   │           ├── NotLoggedIn.tsx
-   │           └── UserMenu.tsx
-   ├── constants
-   │   └── messages.ts
-   ├── context //Context API
-   │   ├── ErrorContext.tsx
-   │   ├── FeedbackContext.tsx
-   │   └── NotionPageContext.tsx
-   ├── hooks //Custom Hook
-   │   └── write
-   │       └── useNotionValidation.ts
-   ├── lib //DB 호출
-   │   ├── UserData
-   │   │   └── UserDB.ts
-   │   ├── db.ts
-   │   ├── jwt.ts
-   │   ├── next-auth
-   │   │   └── provider.tsx
-   │   ├── notion-api.ts
-   │   └── postData
-   │       └── postDB.ts
-   ├── react-query //React-query
-   │   ├── post
-   │   │   ├── mutations.ts
-   │   │   └── queries.ts
-   │   └── user
-   │       ├── mutations.ts
-   │       └── queries.ts
-   ├── services //API 호출 함수
-   │   ├── post
-   │   │   └── post.ts
-   │   └── user
-   │       └── user.ts
-   ├── store
-   │   ├── atoms
-   │   │   └── notionState.ts
-   │   └── index.ts
-   ├── styles
-   │   ├── fonts
-   │   │   └── fonts.ts
-   │   ├── global.css
-   │   ├── notion.css
-   │   ├── page.module.css
-   │   ├── reset.css
-   │   └── theme.ts
-   ├── types
-   │   ├── NextAuth.d.ts
-   │   ├── content.d.ts
-   │   └── login.d.ts
-   ├── utils
-   │   ├── NotionApi.ts
-   │   └── Provier.tsx
-   └── (pages) //프론트엔드 페이지
-       ├── [user]
-       │   ├── [id]
-       │   │   ├── error.tsx
-       │   │   ├── layout.tsx
-       │   │   ├── not-found.tsx
-       │   │   └── page.tsx
-       │   ├── _components
-       │   │   ├── CoverImage.tsx
-       │   │   ├── Feed.tsx
-       │   │   └── User.tsx
-       │   ├── error.tsx
-       │   ├── layout.tsx
-       │   ├── not-found.tsx
-       │   └── page.tsx
-       ├── auth
-       │   └── error
-       │       ├── _components
-       │       │   └── Error.tsx
-       │       └── page.tsx
-       ├── home
-       │   └── layout.tsx
-       └── write
-           ├── _pages
-           │   ├── ContextProvider.tsx
-           │   ├── LeftComponents
-           │   │   ├── NotionUrlInput.tsx
-           │   │   └── _components
-           │   │       ├── Information.tsx
-           │   │       ├── Input.tsx
-           │   │       ├── NotionInputPageContainer.tsx
-           │   │       ├── NotionUrlSection.tsx
-           │   │       ├── PostActionBar.tsx
-           │   │       └── UnavailableFeaturesBanner.tsx
-           │   └── RightComponents
-           │       ├── NotionPageContent.tsx
-           │       └── _components
-           │           ├── PreRender.tsx
-           │           ├── PreRenderHeader.tsx
-           │           └── RightComponentsContainer.tsx
-           ├── layout.tsx
-           ├── page.tsx
-           └── write.styles.tsx
-```
 
 ## 주요 기능
 1. 노션 페이지 블로그 포스트로 변환
@@ -250,7 +41,7 @@
     - 메인 노션 페이지의 하위 페이지들을 자동으로 감지하여 블로그 포스트로 변환
     - 새로운 자식 페이지 생성 시 자동으로 블로그에 반영
 3. 블로그 기능
-
+![image](https://github.com/user-attachments/assets/fcb11647-ea78-4602-9dbe-5217f18466ff)
     - 작성된 포스트 목록을 한눈에 볼 수 있는 대시보드 제공
     - 직관적인 UI로 포스트 내용 미리보기 및 관리
 4. Github OAuth 기능
@@ -268,6 +59,17 @@
 
 ## Api Docs 
 [API Docs](https://github.com/kych0912/notion-blog-next/tree/main/_apidocs)
+
+## 트러블 슈팅
+### ⭐React Query 캐싱 도입으로 노션 블로그 페이지 이동 성능 최적화: API 호출 50% 감소 및 응답시간 60% 단축 (460ms → 185ms)
+https://www.nextblog.me/YoungCheon%20Kim/163e895f-ae86-8015-a966-fe0b74e618aa
+
+### ⭐ Context API의 **불필요한 구독 패턴 제거**를 통한 컴포넌트 렌더링 최적화로 성능 **14.3% 개선** (47.7ms → 40.9ms)
+https://www.nextblog.me/YoungCheon%20Kim/163e895f-ae86-80b7-9b94-ed4a3ec2ecb3
+
+
+### ⭐ 노션 블로그의 하위 페이지 404 에러를 Bottom-Up 검증 방식 도입으로 해결하여 업로드 시간 91.7% 개선 (19.86s → 1.64s) 및 안정적인 검증 시간 유지
+https://www.nextblog.me/YoungCheon%20Kim/163e895f-ae86-8071-a8ba-f61a6e39c697
 
 ## Quick Start
 ### 환경 변수 설정
