@@ -13,7 +13,7 @@ const nextConfig = {
         ],
         formats: ['image/avif', 'image/webp']
     },
-
+    reactStrictMode: false,
 
     async headers() {
         return [
