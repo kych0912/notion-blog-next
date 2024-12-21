@@ -95,7 +95,7 @@ export default function NotionPageRenderer({
       margin:"0 auto",
       maxWidth:"720px", 
       width:"100%",
-
+      mb:10
     }}>
         <NotionRenderer 
           recordMap={recordMap}
