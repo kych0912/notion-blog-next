@@ -5,7 +5,7 @@ export default function PostCoverImage({coverImg}:{coverImg:string}){
     return(
         <Box sx={{width:"100%", height:"20rem", position:"relative"}}>
             <Image 
-                src={coverImg || "/Default_Image.jpeg"}
+                src={coverImg || "/Default.webp"}
                 alt="coverImg"
                 fill
                 style={{
