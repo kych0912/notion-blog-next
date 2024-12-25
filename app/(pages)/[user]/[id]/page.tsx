@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import { getMetadata } from "@/app/components/MetaData/getMetaData";
 import { fetchPostAndRecordMap, getRecordMap } from "@/app/services/post/post";
 import {getPageBlockContent} from "@/app/utils/NotionApi";
+import {getPage} from "@/app/lib/notion-api";
 
 type paramsType = {
     params: {
@@ -17,7 +18,7 @@ export const generateMetadata = async ({ params }: paramsType): Promise<Metadata
     const cookieStore = cookies();
     const token = cookieStore.get(process.env.NEXTAUTH_COOKIE_NAME as string)?.value ?? '';
 
-    const recordMap = await getRecordMap(id);
+    const recordMap = await getPage(id);
     const keys = Object.keys(recordMap?.block || {});
 
     const title = recordMap?.block?.[keys[0]].value.properties.title[0][0];
