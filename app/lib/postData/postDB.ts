@@ -7,7 +7,8 @@ interface Post {
     date:Date,
     image:string,
     title:string,
-    avatar:string
+    avatar:string,
+    description:string
 }
 
 export async function uploadPost(Post:Post){
@@ -17,11 +18,10 @@ export async function uploadPost(Post:Post){
     const image = Post.image;
     const title = Post.title;
     const avatar = Post.avatar;
+    const description = Post.description;
 
-
-    const query = `INSERT INTO Post(id, author, date, image, title,avatar) VALUES('${id}', '${author}', '${date}', '${image}', '${title}','${avatar}')`;
-
-    const data = await executeQuery(query, []);
+    const query = `INSERT INTO Post(id, author, date, image, title,avatar,description) VALUES(?,?,?,?,?,?,?)`;
+    const data = await executeQuery(query, [id, author, date, image, title, avatar, description]);
     return data;
 }
 

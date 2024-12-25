@@ -6,6 +6,7 @@ import { parsePageId } from 'notion-utils';
 import { RowDataPacket } from 'mysql2';
 import {getNotionPageContent} from '@/app/lib/notion-api';
 import { getToken } from 'next-auth/jwt';
+import { getPageBlockContent } from '@/app/utils/NotionApi';
 
 export async function POST(req:NextRequest){
     const {notionUrl} = await req.json();
@@ -54,6 +55,10 @@ export async function POST(req:NextRequest){
         //노션 페이지 컨텐츠 획득
         const notionContent = await getNotionPageContent(id);
 
+        const keys = Object.keys(recordMap?.block || {});
+
+        const description = getPageBlockContent(recordMap,keys);
+
         //DB 저장
         await uploadPost({
             id:id,
@@ -62,6 +67,7 @@ export async function POST(req:NextRequest){
             image:notionContent.image,
             title:notionContent.title,
             avatar:avatar,
+            description:description
         });
         
         return NextResponse.json({message:"Post Uploaded",isSuccess:true},{status:200})
