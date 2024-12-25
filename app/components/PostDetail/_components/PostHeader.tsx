@@ -3,13 +3,14 @@ import PostTitle from './PostTitle';
 import * as types from "notion-types"
 import PostProperty from './PostProperty';
 
-export default function PostHeader({recordMap,user,isAuthor,id,avatar,isChild}: {
+export default function PostHeader({recordMap,user,isAuthor,id,avatar,isChild,image}: {
     recordMap: types.ExtendedRecordMap,
     user:string,
     isAuthor:boolean,
     id:string,
     avatar:string,
     isChild:boolean,
+    image:string
 }){
 
     return(
@@ -35,6 +36,7 @@ export default function PostHeader({recordMap,user,isAuthor,id,avatar,isChild}: 
                         id={id}
                         avatar={avatar}
                         isChild={isChild}
+                        image={image}
                     />
                 }
 

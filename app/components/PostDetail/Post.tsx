@@ -13,6 +13,7 @@ export default function NotionPage({
   const isAuthor = postDetail.isAuthor || false;
   const avatar = postDetail.data[0]?.avatar || "";
   const isChild = postDetail.isChild || false;
+  const image = postDetail.data[0]?.image || "";
 
   return(
 
@@ -26,6 +27,7 @@ export default function NotionPage({
               id={id} 
               avatar={avatar}
               isChild={isChild}
+              image={image}
             />
         }
         <NotionPageRenderer 

@@ -6,24 +6,21 @@ import {
 } from "@/app/utils/NotionApi";
 import * as types from "notion-types"
 
-export default function PostProperty({recordMap,user,isAuthor,id,avatar}: {
+export default function PostProperty({recordMap,user,isAuthor,id,avatar,image}: {
     recordMap: types.ExtendedRecordMap,
     user:string,
     isAuthor:boolean,
     id:string,
     avatar:string,
     isChild:boolean,
+    image:string
 }){
     const keys = Object.keys(recordMap?.block || {});
     const block = recordMap?.block?.[keys[0]]?.value;
 
-
-    let coverImg = recordMap?.block?.[keys[0]].value.format?.page_cover;
-
-    coverImg = getNotionImage(coverImg, keys, block);
     const publishedTime = new Date(block?.created_time).toLocaleDateString();
-    
-    return(
+
+    return( 
         <>
             <Box sx={{display:"flex",pt:1,justifyContent:'space-between',pb:2}}>
                 <Box sx={{display:"flex"}}>
@@ -41,8 +38,7 @@ export default function PostProperty({recordMap,user,isAuthor,id,avatar}: {
                 }
 
             </Box>
-
-            <CoverImage coverImg={coverImg}/>
+            <CoverImage coverImg={image}/>
         </>
     )
 }

@@ -1,4 +1,6 @@
+import { getPage } from "@/app/lib/notion-api";
 import axios from "axios";
+import { NotionAPI } from "notion-client";
 
 
 export async function uploadPost(pageId:string){
@@ -56,15 +58,16 @@ export async function fetchPostAndRecordMap(postId: string, user: string, token:
             'X-Next-Auth-Session-Token': token,
         }
     };
+    const notion = new NotionAPI();
 
     const [postDetail, recordMap] = await Promise.all([
         axios.get(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/post/${user}/${postId}`, config),
-        axios.get(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/notion/page?pageId=${pageId}`)
+        notion.getPage(pageId)
     ]);
 
     return {
         postDetail: postDetail.data,
-        recordMap: recordMap.data
+        recordMap: recordMap
     };
 }
 
