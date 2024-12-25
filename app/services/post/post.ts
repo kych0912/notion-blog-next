@@ -46,7 +46,7 @@ export async function deletePost(id:string){
 }
 
 export async function getRecordMap(pageId:string){
-    const res = await axios.get(`/api/notion/page?pageId=${pageId}`);
+    const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/notion/page?pageId=${pageId}`);
     return res.data;
 }
 
