@@ -48,8 +48,23 @@ export async function getNotionPageContent(id:string):Promise<{
  * @param id 탐색할 페이지의 id
  * @returns 페이지가 DB에 저장되어 있는지 여부
  */
-export async function isDescendantOfStoredPage(id: string): Promise<boolean> {
+export async function isDescendantOfStoredPage(id: string, visitedPages = new Set<string>(), maxDepth = 100, currentDepth = 0): Promise<boolean> {
     try {
+        // 최대 재귀 깊이에 도달하면 false 반환
+        if (currentDepth > maxDepth) {
+            console.warn('Max recursion depth reached');
+            return false;
+        }
+
+        // 이미 방문한 페이지면 false 반환
+        if (visitedPages.has(id)) {
+            console.warn('Loop detected');
+            return false;
+        }
+
+        // 현재 페이지를 방문한 페이지로 추가
+        visitedPages.add(id);
+
         // DB에서 포스트 존재 확인
         const page = await getPostById(id);
 
@@ -71,7 +86,7 @@ export async function isDescendantOfStoredPage(id: string): Promise<boolean> {
         }
 
         // 부모 페이지가 있을 경우 재귀적으로 탐색
-        return isDescendantOfStoredPage(parentPage.id);
+        return isDescendantOfStoredPage(parentPage.id, visitedPages, maxDepth, currentDepth + 1);
     } catch (error) {
         console.error('Error in isDescendantOfStoredPage:', error);
         return false; // 에러 발생 시 false 반환

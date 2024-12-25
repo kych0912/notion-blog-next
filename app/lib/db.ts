@@ -10,18 +10,28 @@ const pool = createPool({
     maxIdle: 5,               
     idleTimeout: 60000,
     waitForConnections: true,
-    connectionLimit: 5,
-    queueLimit: 0
+    connectionLimit: 20,
+    queueLimit: 20
 })
 
 pool.getConnection((err, conn) => {
-    if (err){
-        console.log(err);
-        console.log('Error connecting to db...')
+    if (err) {
+        console.error('Database connection error:', {
+            code: err.code,
+            message: err.message,
+            timestamp: new Date().toISOString()
+        });
+        return;
     }
-    else console.log('Connected to db...!')
-    conn.release()
-})
+    
+    try {
+        console.log('Connected to db...!');
+    } finally {
+        if (conn) { 
+            conn.release();
+        }
+    }
+});
 
 const executeQuery = async (query:string, arrParams:any):Promise<QueryResult> => {  
     let connection;
