@@ -27,10 +27,15 @@ export default function PostCard({id,user,caption,date,title,image,avatar,isLoad
         <Box sx={{
             display:"flex",
             flexDirection:"column",
-            transition:'transform .25s ease-in',
             width:"100%",
             borderRadius:'0.5rem',
-            backgroundColor:"#fff"
+            backgroundColor:"#fff",
+            boxShadow: 'none',
+            transition: 'transform 0.3s ease-in-out',
+            '&:hover': {
+            transform: 'scale(1.05)', 
+            boxShadow: 3,
+            },
         }}
         >
             {
