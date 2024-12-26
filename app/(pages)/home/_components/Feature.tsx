@@ -1,8 +1,10 @@
 import { Box, styled, Typography } from "@mui/material";
-import { useTransform } from "framer-motion";
+import { useAnimation } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import BlogImage from "./BlogImage";
+import React from "react";
 
 interface FeatureProps {
   title: string;
@@ -13,8 +15,27 @@ interface FeatureProps {
 
 
 export default function Feature({ title, description, image, demo }: FeatureProps) {
+  const controls = useAnimation();
+  
+  const [ref, inView] = useInView({ triggerOnce: true, rootMargin: '-100px 0px' });
 
+  React.useEffect(() => {
+    if (inView) {
+      controls.start('visible');
+    }
+  }, [controls, inView]);
+  
   return (
+      <motion.div
+        ref={ref}
+        animate={controls}
+        initial="hidden"
+        variants={{
+          visible: { opacity: 1, y: 0 },
+          hidden: { opacity: 0, y: 50 }
+        }}
+        transition={{ duration: 0.5 }}
+      >
       <Box
         sx={{
           p: 3,
@@ -28,7 +49,7 @@ export default function Feature({ title, description, image, demo }: FeatureProp
         }}
       >
         {demo && demo}
-        
+
         {!demo && <Box sx={{ position: 'relative', width: '100%', height: '17.5rem', borderRadius: '24px' }}>
           <CustomImage
             src={image || '/Default_Image.jpeg'}
@@ -60,6 +81,7 @@ export default function Feature({ title, description, image, demo }: FeatureProp
         </Box>
 
       </Box>
+    </motion.div>
   );
 }
 

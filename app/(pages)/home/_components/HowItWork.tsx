@@ -75,31 +75,9 @@ const HowItWorks = () => {
           >
             <Grid container spacing={6}>
               {features.map((feature, index) => {
-                const controls = useAnimation();
-                const [ref, inView] = useInView({ triggerOnce: true, rootMargin: '-100px 0px' });
-
-                React.useEffect(() => {
-                  if (inView) {
-                    controls.start('visible');
-                  }
-                }, [controls, inView]);
-
                 return (
                   <Grid item xs={12} key={index}>
-                    
-                      <motion.div
-                        ref={ref}
-                        animate={controls}
-                        initial="hidden"
-                        variants={{
-                          visible: { opacity: 1, y: 0 },
-                          hidden: { opacity: 0, y: 50 }
-                        }}
-                        transition={{ duration: 0.5 }}
-                      >
-                        <Feature {...feature} />
-                      </motion.div>
-                    
+                    <Feature {...feature} />
                   </Grid>
                 );
               })}
