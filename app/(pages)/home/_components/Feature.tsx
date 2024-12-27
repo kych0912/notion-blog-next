@@ -48,18 +48,7 @@ export default function Feature({ title, description, image, demo }: FeatureProp
           gap: 3
         }}
       >
-        {demo && demo}
-
-        {!demo && <Box sx={{ position: 'relative', width: '100%', height: '17.5rem', borderRadius: '24px' }}>
-          <CustomImage
-            src={image || '/Default_Image.jpeg'}
-            alt={title} 
-            layout="fill"
-            objectFit="cover"
-          />
-        </Box>}
-
-        <Box sx={{pl:1}}>
+          <Box sx={{pl:1}}>
           <Typography 
             variant="h3" 
             sx={{ 
@@ -79,12 +68,9 @@ export default function Feature({ title, description, image, demo }: FeatureProp
             {description}
           </Typography>
         </Box>
-
+        {demo && demo}
       </Box>
     </motion.div>
   );
 }
 
-const CustomImage = styled(Image)`
-  border-radius: 24px;
-`;
