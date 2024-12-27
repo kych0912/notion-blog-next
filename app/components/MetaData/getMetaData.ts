@@ -35,19 +35,19 @@ export const getMetadata = (metadataProps?: generateMetadataProps) => {
           url: OG_IMAGE,
         },
       },
-      verification: {
-        google: META.googleVerification,
-        other: {
-          'naver-site-verification': META.naverVerification,
-        },
-      },
-      twitter: {
-        title: TITLE,
-        description: DESCRIPTION,
-        images: {
-          url: OG_IMAGE,
-        },
-      },
+      // verification: {
+      //   google: META.googleVerification,
+      //   other: {
+      //     'naver-site-verification': META.naverVerification,
+      //   },
+      // },
+      // twitter: {
+      //   title: TITLE,
+      //   description: DESCRIPTION,
+      //   images: {
+      //     url: OG_IMAGE,
+      //   },
+      // },
     };
   
     return metadata;
