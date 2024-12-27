@@ -40,7 +40,7 @@ const PortfolioGrid = () => {
         align="center"
         sx={{
           mb: 6,
-          fontSize: { xs: '1.8rem', md: '3rem' },
+          fontSize: { xs: '1.6rem', md: '3rem' },
           fontWeight: 'bold',
           maxWidth: '800px',
           mx: 'auto',
