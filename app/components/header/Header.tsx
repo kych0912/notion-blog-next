@@ -78,7 +78,7 @@ export default function Header(){
                     }}>
 
                         <Link href="/"  style={{ textDecoration: "none"}}>
-                            <Typography sx={{fontSize:"21px",color:"black",fontWeight:700}}>Notion Blog</Typography>
+                            <Typography sx={{fontSize:"21px",color:"black",fontWeight:700}}>NextBlog</Typography>
                         </Link>
 
                         <HeaderRight/>
