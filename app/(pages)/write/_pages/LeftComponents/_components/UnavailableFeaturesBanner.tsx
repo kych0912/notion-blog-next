@@ -17,8 +17,8 @@ import {
 const UnavailableFeaturesBanner = () => {
   const unavailableFeatures = [
     {
-      name: "데이터베이스",
-      reason: "표, 보드, 갤러리 등의 데이터베이스 기능을 사용할 수 없어요.",
+      name: "일부 데이터베이스",
+      reason: "캘린더, 타임라인, 차트, 폼 데이터베이스 기능을 사용할 수 없어요.",
     },
     {
       name: "비디오",
