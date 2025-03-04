@@ -28,7 +28,7 @@ export async function uploadPost(Post: Post) {
 }
 
 export async function getPostById(id: string) {
-    const { data, error } = await supabase.from('post').select('*').eq('id', id).single();
+    const { data, error } = await supabase.from('post').select('*').eq('id', id);
     
     if (error) throw error;
     return data;
