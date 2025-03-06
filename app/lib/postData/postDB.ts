@@ -61,7 +61,6 @@ export async function getPostDetail(id: string, user: string) {
         .select('*')
         .eq('id', id)
         .eq('author', user)
-        .single();
     
     if (error) throw error;
     return data;

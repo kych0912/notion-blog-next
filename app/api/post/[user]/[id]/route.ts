@@ -62,6 +62,7 @@ export async function GET(req:NextRequest, { params }: { params: { id: string, u
         return NextResponse.json({data:res,isAuthor:isAuthor,isChild:false,isSuccess:true},{status:200})
     }
     catch(err){
+        console.log(err);
         return NextResponse.json({message:"Internal Server Error",isSuccess:false},{status:500})
     }
 }
