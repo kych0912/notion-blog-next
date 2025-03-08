@@ -2,6 +2,7 @@
 
 import React from "react";
 import RefetchPage from "./_components/RefetchPage/RefetchPage";
+import { AxiosError } from "axios";
 interface IErrorProps{
     children:React.ReactNode
     isPreservedChildren?:boolean
@@ -45,13 +46,12 @@ class FallbackErrorBoundary extends React.Component<
 		this.state = { hasError: false, shouldHandleError:false, errorStatus: 0 }; 
 	}
 
-	static getDerivedStateFromError(error: any) {
-
-        if(error?.response?.status){
+	static getDerivedStateFromError(error: unknown) {
+        if(error instanceof AxiosError){
             return {    
                 hasError: true,
                 shouldHandleError:true,
-                errorStatus: error.response.status
+                errorStatus: error.response?.status || 500
             };
         }
         return {hasError: true, shouldHandleError:true, errorStatus: 500};
