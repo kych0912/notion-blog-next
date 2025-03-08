@@ -7,7 +7,9 @@ export default function NotFound() {
 
     return (
         <>
-            <RefetchPage refetch={() => window.location.reload()}/>
+            <RefetchPage 
+                message="존재하지 않는 유저입니다."
+                refetch={() => window.location.reload()}/>
             <ErrorHandler message="존재하지 않는 유저입니다." type="snackbar"/>
         </>
     );

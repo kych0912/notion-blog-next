@@ -70,25 +70,37 @@ class FallbackErrorBoundary extends React.Component<
                 case 404:
                     return (
                         <>
-                            <RefetchPage refetch={()=>this.setState({shouldHandleError:false})}/>
+                            <RefetchPage 
+                                message="유효하지 않은 Notion URL입니다."
+                                refetch={()=>this.setState({shouldHandleError:false})}
+                            />
                         </>
                     );
                 case 400:
                     return (
                         <>
-                            <RefetchPage refetch={()=>this.setState({shouldHandleError:false})}/>
+                            <RefetchPage 
+                                message="유효하지 않은 Notion URL입니다."
+                                refetch={()=>this.setState({shouldHandleError:false})}
+                            />
                         </>
                     );
                 case 409:
                     return (
                         <> 
-                            <RefetchPage refetch={()=>this.setState({shouldHandleError:false})}/>
+                            <RefetchPage 
+                                message="이미 존재하는 포스트입니다."
+                                refetch={()=>this.setState({shouldHandleError:false})}
+                            />
                         </>
                     );
                 default:
                     return (
                         <>
-                            <RefetchPage refetch={()=>this.setState({shouldHandleError:false})}/>
+                            <RefetchPage 
+                                message="서버 오류가 발생했습니다."
+                                refetch={()=>this.setState({shouldHandleError:false})}
+                            />
                         </>
                     );
             }

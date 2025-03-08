@@ -40,12 +40,18 @@ export default class GlobalErrorBoundary extends React.Component<IGlobalErrorPro
 
         if (this.isNetworkError(this.state.error)) {
             return (
-                <RefetchPage refetch={() => this.setState({ shouldHandleError: false })} />
+                <RefetchPage 
+                    message="네트워크 오류가 발생했습니다."
+                    refetch={() => this.setState({ shouldHandleError: false })} 
+                />
             );
         }
 
         return (
-            <RefetchPage refetch={() => this.setState({ shouldHandleError: false })} />
+            <RefetchPage 
+                message="서버 오류가 발생했습니다."
+                refetch={() => this.setState({ shouldHandleError: false })} 
+            />
         );
     }
 }
