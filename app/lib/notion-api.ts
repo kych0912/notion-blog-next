@@ -4,19 +4,9 @@ import { getPageTitle, getBlockParentPage } from 'notion-utils'
 import { getPostById } from './postData/postDB'
 import { getNotionImage } from '@/app/utils/NotionApi'
 
-export async function getPage(id:string) {
-    try {
-        const notion = new NotionAPI()
-        return await notion.getPage(id)
-    } catch(err) {
-        throw {
-            response: {
-                status: 404,
-                message: "Notion API Error",
-                isSuccess: false
-            }
-        };
-    }
+export async function getPage(id:string):Promise<types.ExtendedRecordMap>{
+    const notion = new NotionAPI()
+    return await notion.getPage(id)
 }
 
 export async function getNotionPageContent(id:string):Promise<{

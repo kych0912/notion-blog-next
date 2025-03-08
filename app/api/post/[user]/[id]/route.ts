@@ -62,7 +62,11 @@ export async function GET(req:NextRequest, { params }: { params: { id: string, u
         return NextResponse.json({data:res,isAuthor:isAuthor,isChild:false,isSuccess:true},{status:200})
     }
     catch(err){
-        console.log(err);
+        if(err instanceof Error){
+            if(err.message.includes("invalid notion pageId")){
+                return NextResponse.json({message:"Not Found",isSuccess:false},{status:404})
+            }
+        }
         return NextResponse.json({message:"Internal Server Error",isSuccess:false},{status:500})
     }
 }
