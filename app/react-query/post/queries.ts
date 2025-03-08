@@ -10,7 +10,6 @@ export const useRecordMapFetch = (pageId:string) => {
             enabled: !!pageId,
             retry:false,
             refetchOnWindowFocus:false,
-            refetchOnMount:false,
             refetchOnReconnect:false,
         })  
     )
@@ -28,8 +27,8 @@ export const useLatestPostsInfinite = () =>{
             initialPageParam: 1,
             retry:false,
             refetchOnWindowFocus:false,
-            refetchOnMount:false,
             refetchOnReconnect:false,
+            staleTime: 0,
         })  
     )
 }
@@ -43,7 +42,7 @@ export const usePostDetailFetch = (pageId:string, user:string, token:string) => 
                 enabled: !!pageId,
                 retry:false,
                 refetchOnWindowFocus:false,
-                refetchOnMount:false,
+
                 refetchOnReconnect:false,
                 throwOnError:true,
             },
@@ -53,7 +52,7 @@ export const usePostDetailFetch = (pageId:string, user:string, token:string) => 
                 enabled: !!pageId,
                 retry:false,
                 refetchOnWindowFocus:false,
-                refetchOnMount:false,
+
                 refetchOnReconnect:false,
                 throwOnError:true,
             },
