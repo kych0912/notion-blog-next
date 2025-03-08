@@ -1,3 +1,4 @@
+'use server'
 import { supabase } from "../db";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';

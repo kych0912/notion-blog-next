@@ -1,3 +1,4 @@
+'use server'
 import { supabase } from "../db";
 
 interface Post {
@@ -41,7 +42,8 @@ export async function getLatestPosts(page: number) {
         .select('*')
         .order('date', { ascending: false })
         .range(offset, offset + 9);
-    
+    console.log(data);
+    console.log(error);
     if (error) throw error;
     return data;
 }
