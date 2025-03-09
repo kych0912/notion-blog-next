@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import {NextResponse,NextRequest} from 'next/server';
 import { getUserPosts } from '@/app/lib/postData/postDB';
 

@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { getPage } from "@/app/lib/notion-api"
 
 export async function GET(
