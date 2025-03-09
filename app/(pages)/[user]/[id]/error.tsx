@@ -44,4 +44,11 @@ export default function Error({
             );
         }
     }
+
+    return (
+        <>
+            <RefetchPage message="서버 에러가 발생했습니다" refetch={()=>reset()}/>
+            <ErrorHandler message="서버 에러가 발생했습니다" type="snackbar"/>
+        </>
+    );
 } 

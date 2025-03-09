@@ -5,8 +5,19 @@ import { getPostById } from './postData/postDB'
 import { getNotionImage } from '@/app/utils/NotionApi'
 
 export async function getPage(id:string):Promise<types.ExtendedRecordMap>{
-    const notion = new NotionAPI()
-    return await notion.getPage(id)
+    try{
+        const notion = new NotionAPI()
+        return await notion.getPage(id)
+    }
+    catch(err){
+        if(err instanceof Error){
+            if(err.message.includes("invalid notion pageId") || err.message.includes("Request failed with status code 400")){
+                throw new Error("invalid notion pageId");
+            }
+        }
+        console.error('Error in getPage:', err);
+        throw err;
+    }
 }
 
 export async function getNotionPageContent(id:string):Promise<{
