@@ -2,8 +2,7 @@ export const dynamic = "force-dynamic";
 import { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { getPostDetail } from "@/app/lib/postData/postDB";
-import { decode } from "next-auth/jwt";
-import { headers } from "next/headers";
+import { decode, getToken } from "next-auth/jwt";
 import { isDescendantOfStoredPage } from "@/app/lib/notion-api";
 
 export async function GET(
@@ -13,15 +12,11 @@ export async function GET(
   const id = params.id;
   const user = params.user;
 
-  //secret 값 default 설정
-  const secret = process.env.NEXTAUTH_SECRET || "";
-
-  const headerList = headers();
-
   //header에서 encoded token을 가져옴
-  const rawToken =
-    headerList.get("x-next-auth-session-token") ||
-    headerList.get("x-next-auth.session-token");
+  const decodedToken = await getToken({
+    req,
+    secret: process.env.NEXTAUTH_SECRET,
+  });
 
   let isAuthor = false;
 
@@ -58,20 +53,6 @@ export async function GET(
         { status: 200 }
       );
     }
-
-    //토큰 유효성 검사
-    if (!rawToken) {
-      return NextResponse.json(
-        { data: res, isAuthor: isAuthor, isChild: false, isSuccess: true },
-        { status: 200 }
-      );
-    }
-
-    const decodedToken = await decode({
-      token: rawToken,
-      secret,
-      salt: secret,
-    });
 
     //토큰이 유효하지 않을 때
     if (!decodedToken) {
