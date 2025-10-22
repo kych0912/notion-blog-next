@@ -13,20 +13,6 @@
 - 노션의 강력한 문서 작성 도구를 통해 기존 블로그 플랫폼의 제한적인 글 작성 기능 보완
     - 피그마 임베드, 외부 객체, 코드블록 등 다양한 노션 기능을 사용할 수 있습니다.
 
-## 기술 스택
-
-### Frontend
-
-- **Next.js (14)**, **TypeScript**, **React-Query**, **Material UI,** react-notion-x, next-auth 
-
-### DB
-
-- Mysql, EC2
-
-
-## 시스템 구조
-![image](https://github.com/user-attachments/assets/e5d7f5a0-d4b6-43f2-9754-5db5a1f681e2)
-
 ## 주요 기능
 1. 노션 페이지 블로그 포스트로 변환
 
@@ -53,63 +39,3 @@
 
 ## Link
 [nextblog.me](https://nextblog.me)
-
-## 개발 기간
-2024.05 ~ 진행중
-
-## Api Docs 
-[API Docs](https://github.com/kych0912/notion-blog-next/tree/main/_apidocs)
-
-## 트러블 슈팅
-### ⭐React Query 캐싱 도입으로 노션 블로그 페이지 이동 성능 최적화: API 호출 50% 감소 및 응답시간 60% 단축 (460ms → 185ms)
-https://www.nextblog.me/YoungCheon%20Kim/163e895f-ae86-8015-a966-fe0b74e618aa
-
-### ⭐ Context API의 **불필요한 구독 패턴 제거**를 통한 컴포넌트 렌더링 최적화로 성능 **14.3% 개선** (47.7ms → 40.9ms)
-https://www.nextblog.me/YoungCheon%20Kim/163e895f-ae86-80b7-9b94-ed4a3ec2ecb3
-
-
-### ⭐ 노션 블로그의 하위 페이지 404 에러를 Bottom-Up 검증 방식 도입으로 해결하여 업로드 시간 91.7% 개선 (19.86s → 1.64s) 및 안정적인 검증 시간 유지
-https://www.nextblog.me/YoungCheon%20Kim/163e895f-ae86-8071-a8ba-f61a6e39c697
-
-## Quick Start
-### 환경 변수 설정
-프로젝트 실행을 위해 .env 파일에 다음 환경변수들을 설정해야 합니다:
-
-| 환경변수 | 설명 | 비고 |
-|----------|---------|------|
-| **데이터베이스 설정** |||
-| DB_HOST | MySQL 데이터베이스 호스트 주소 | |
-| DB_USER | 데이터베이스 사용자 이름 | |
-| DB_PASSWORD | 데이터베이스 비밀번호 | |
-| DB_DATABASE | 사용할 데이터베이스 이름 | |
-| **API 설정** |||
-| API_PATH | API 기본 경로 | |
-| NEXT_PUBLIC_BASE_API_URL | 클라이언트측 API 기본 URL | |
-| **GitHub OAuth 설정** |||
-| CLIENT_ID | GitHub OAuth 애플리케이션 ID | |
-| CLIENT_SECRETS | GitHub OAuth 시크릿 키 | |
-| CALLBACK_URL | OAuth 콜백 URL | |
-| GITHUB_AUTH_CODE_SERVER | GitHub 인증 코드 서버 | 기본값: '/login/oauth/authorize' |
-| GITHUB_AUTH_TOKEN_SERVER | GitHub 토큰 서버 | 기본값: '/login/oauth/access_token' |
-| GITHUB_API_SERVER | GitHub API 서버 | 기본값: '/user' |
-| **NextAuth 설정** |||
-| NEXTAUTH_SECRET | NextAuth 암호화 키 | |
-| NEXTAUTH_URL | NextAuth 기본 URL | |
-| NEXTAUTH_COOKIE_NAME | 인증 쿠키 이름 | |
-| **기타 설정** |||
-| SECRET_KEY | 애플리케이션 암호화 키 | |
-| DEFAULT_IMAGE | 기본 이미지 경로 | |
-| NEXT_PUBLIC_GA_ID | Google Analytics ID | |
-## 실행 방법
-
-### 1. 환경 변수 설정
-`.env` 파일을 프로젝트 루트 디렉토리에 생성하고 필요한 환경 변수들을 설정합니다.
-
-### 2. 패키지 설치
-```bash
-npm install
-```
-
-### 3. 개발 환경에서 실행
-```bash
-npm run dev
