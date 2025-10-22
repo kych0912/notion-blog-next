@@ -4,19 +4,19 @@ import NotionPageContent from "./_pages/RightComponents/NotionPageContent";
 import GlobalErrorBoundary from "@/app/components/Error/GlobalErrorBoundary";
 import ErrorCatcher from "@/app/components/Error/ErrorCatcher";
 import FeedbackCatcher from "@/app/components/Feedback/FeedbackCatcher";
+import { writePostAction } from "@/app/(pages)/write/actions";
 
-// 서버 컴포넌트로 유지
-export default function Page(){
-    return(
-        <GlobalErrorBoundary>
-            <ErrorCatcher/> 
-            <FeedbackCatcher/>  
-            
-            <NotionUrlInput/>
+export default function Page() {
+  return (
+    <GlobalErrorBoundary>
+      <ErrorCatcher />
+      <FeedbackCatcher />
 
-            <Suspense>  
-                <NotionPageContent/>
-            </Suspense>
-        </GlobalErrorBoundary>  
-    )
+      <NotionUrlInput onWrite={writePostAction} />
+
+      <Suspense>
+        <NotionPageContent />
+      </Suspense>
+    </GlobalErrorBoundary>
+  );
 }
