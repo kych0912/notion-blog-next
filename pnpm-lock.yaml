@@ -23,9 +23,6 @@ importers:
       '@mui/material-nextjs':
         specifier: ^5.15.11
         version: 5.18.0(@emotion/cache@11.14.0)(@mui/material@5.18.0(@emotion/react@11.14.0(@types/react@18.3.23)(react@18.3.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@18.3.23)(react@18.3.1))(@types/react@18.3.23)(react@18.3.1))(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react@18.3.23)(next@14.2.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
-      '@supabase/supabase-js':
-        specifier: ^2.49.1
-        version: 2.53.0
       '@tanstack/react-query':
         specifier: ^5.37.1
         version: 5.84.1(react@18.3.1)
@@ -47,9 +44,6 @@ importers:
       jsonwebtoken:
         specifier: ^9.0.2
         version: 9.0.2
-      mysql2:
-        specifier: ^3.9.7
-        version: 3.14.3
       next:
         specifier: 14.2.3
         version: 14.2.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -80,9 +74,6 @@ importers:
       react-router-dom:
         specifier: ^6.23.0
         version: 6.30.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      recoil:
-        specifier: ^0.7.7
-        version: 0.7.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       uuid:
         specifier: ^13.0.0
         version: 13.0.0
@@ -810,28 +801,6 @@ packages:
   '@rushstack/eslint-patch@1.12.0':
     resolution: {integrity: sha512-5EwMtOqvJMMa3HbmxLlF74e+3/HhwBTMcvt3nqVJgGCozO6hzIPOBlwm8mGVNR9SN2IJpxSnlxczyDjcn7qIyw==}
 
-  '@supabase/auth-js@2.71.1':
-    resolution: {integrity: sha512-mMIQHBRc+SKpZFRB2qtupuzulaUhFYupNyxqDj5Jp/LyPvcWvjaJzZzObv6URtL/O6lPxkanASnotGtNpS3H2Q==}
-
-  '@supabase/functions-js@2.4.5':
-    resolution: {integrity: sha512-v5GSqb9zbosquTo6gBwIiq7W9eQ7rE5QazsK/ezNiQXdCbY+bH8D9qEaBIkhVvX4ZRW5rP03gEfw5yw9tiq4EQ==}
-
-  '@supabase/node-fetch@2.6.15':
-    resolution: {integrity: sha512-1ibVeYUacxWYi9i0cf5efil6adJ9WRyZBLivgjs+AUpewx1F3xPi7gLgaASI2SmIQxPoCEjAsLAzKPgMJVgOUQ==}
-    engines: {node: 4.x || >=6.0.0}
-
-  '@supabase/postgrest-js@1.19.4':
-    resolution: {integrity: sha512-O4soKqKtZIW3olqmbXXbKugUtByD2jPa8kL2m2c1oozAO11uCcGrRhkZL0kVxjBLrXHE0mdSkFsMj7jDSfyNpw==}
-
-  '@supabase/realtime-js@2.11.15':
-    resolution: {integrity: sha512-HQKRnwAqdVqJW/P9TjKVK+/ETpW4yQ8tyDPPtRMKOH4Uh3vQD74vmj353CYs8+YwVBKubeUOOEpI9CT8mT4obw==}
-
-  '@supabase/storage-js@2.10.4':
-    resolution: {integrity: sha512-cvL02GarJVFcNoWe36VBybQqTVRq6wQSOCvTS64C+eyuxOruFIm1utZAY0xi2qKtHJO3EjKaj8iWJKySusDmAQ==}
-
-  '@supabase/supabase-js@2.53.0':
-    resolution: {integrity: sha512-Vg9sl0oFn55cCPaEOsDsRDbxOVccxRrK/cikjL1XbywHEOfyA5SOOEypidMvQLwgoAfnC2S4D9BQwJDcZs7/TQ==}
-
   '@swc/counter@0.1.3':
     resolution: {integrity: sha512-e2BR4lsJkkRlKZ/qCHPw9ZaSxc0MVUd7gtbtaB7aMvHeJVYe8sOB8DBZkP2DtISHGSku9sCK6T6cnY0CtXrOCQ==}
 
@@ -871,9 +840,6 @@ packages:
   '@types/parse-json@4.0.2':
     resolution: {integrity: sha512-dISoDXWWQwUquiKsyZ4Ng+HX2KsPL7LyHKHQwgGFEA3IaKac4Obd+h2a/a6waisAoepJlBcx9paWqjA8/HVjCw==}
 
-  '@types/phoenix@1.6.6':
-    resolution: {integrity: sha512-PIzZZlEppgrpoT2QgbnDU+MMzuR6BbCjllj0bM70lWoejMeNJAxCchxnv7J3XFkI8MpygtRpzXrIlmWUBclP5A==}
-
   '@types/prismjs@1.26.5':
     resolution: {integrity: sha512-AUZTa7hQ2KY5L7AmtSiqxlhWxb4ina0yd8hNbl4TWuqnv/pFP0nDMb3YrfSBf4hJVGLh2YEIBfKaBW/9UEl6IQ==}
 
@@ -892,9 +858,6 @@ packages:
 
   '@types/react@18.3.23':
     resolution: {integrity: sha512-/LDXMQh55EzZQ0uVAZmKKhfENivEvWz6E+EYzh+/MCjMhNsotd+ZHhBGIjFDTi6+fz0OhQQQLbTgdQIxxCsC0w==}
-
-  '@types/ws@8.18.1':
-    resolution: {integrity: sha512-ThVF6DCVhA8kUGy+aazFQ4kXQ7E1Ty7A3ypFOe0IcJV8O/M511G99AW24irKrW56Wt44yG9+ij8FaqoBGkuBXg==}
 
   '@typescript-eslint/parser@7.2.0':
     resolution: {integrity: sha512-5FKsVcHTk6TafQKQbuIVkXq58Fnbkd2wDL4LB7AURN7RUOu1utVP+G8+6u3ZhEroW3DF6hyo3ZEXxgKgp4KeCg==}
@@ -1765,9 +1728,6 @@ packages:
   graphemer@1.4.0:
     resolution: {integrity: sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==}
 
-  hamt_plus@1.0.2:
-    resolution: {integrity: sha512-t2JXKaehnMb9paaYA7J0BX8QQAY8lwfQ9Gjf4pg/mk4krt+cmwmU652HOoWonf+7+EQV97ARPMhhVgU1ra2GhA==}
-
   has-bigints@1.1.0:
     resolution: {integrity: sha512-R3pbpkcIqv2Pm3dUwgjclDRVmWpTJW2DcMzcIhEXEx1oh/CEMObMm3KLmRJOdvhM7o4uQBnwr8pzRK2sJWIqfg==}
     engines: {node: '>= 0.4'}
@@ -1960,11 +1920,6 @@ packages:
 
   isexe@2.0.0:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
-
-  isows@1.0.7:
-    resolution: {integrity: sha512-I1fSfDCZL5P0v33sVqeTDSpcstAg/N+wF5HS033mogOVIp4B+oHC7oOCsA3axAbBSGTJ8QubbNmnIRN/h8U7hg==}
-    peerDependencies:
-      ws: '*'
 
   iterator.prototype@1.1.5:
     resolution: {integrity: sha512-H0dkQoCa3b2VEeKQBOxFph+JAbcrQdE7KC0UkqwpLmv2EC4P41QXP+rqo9wYodACiG5/WM5s9oDApTU8utwj9g==}
@@ -2553,18 +2508,6 @@ packages:
     resolution: {integrity: sha512-9u/sniCrY3D5WdsERHzHE4G2YCXqoG5FTHUiCC4SIbr6XcLZBY05ya9EKjYek9O5xOAwjGq+1JdGBAS7Q9ScoA==}
     engines: {node: '>= 6'}
 
-  recoil@0.7.7:
-    resolution: {integrity: sha512-8Og5KPQW9LwC577Vc7Ug2P0vQshkv1y3zG3tSSkWMqkWSwHmE+by06L8JtnGocjW6gcCvfwB3YtrJG6/tWivNQ==}
-    peerDependencies:
-      react: '>=16.13.1'
-      react-dom: '*'
-      react-native: '*'
-    peerDependenciesMeta:
-      react-dom:
-        optional: true
-      react-native:
-        optional: true
-
   reflect.getprototypeof@1.0.10:
     resolution: {integrity: sha512-00o4I+DVrefhv+nX0ulyi3biSHCPDe+yLv5o/p6d/UVlirijB8E16FtfwSAi4g3tcqrQ4lRAqQSoFEZJehYEcw==}
     engines: {node: '>= 0.4'}
@@ -2813,9 +2756,6 @@ packages:
     resolution: {integrity: sha512-65P7iz6X5yEr1cwcgvQxbbIw7Uk3gOy5dIdtZ4rDveLqhrdJP+Li/Hx6tyK0NEb+2GCyneCMJiGqrADCSNk8sQ==}
     engines: {node: '>=8.0'}
 
-  tr46@0.0.3:
-    resolution: {integrity: sha512-N3WMsuqV66lT30CrXNbEjx4GEwlow3v6rr4mCcv6prnfwhS01rkgyFdjPNBYd9br7LpXV1+Emh01fHnq2Gdgrw==}
-
   ts-api-utils@1.4.3:
     resolution: {integrity: sha512-i3eMG77UTMD0hZhgRS562pv83RC6ukSAC2GMNWc+9dieh/+jDM5u5YG+NHX6VNDRHQcHwmsTHctP9LhbC3WxVw==}
     engines: {node: '>=16'}
@@ -2886,12 +2826,6 @@ packages:
   warning@4.0.3:
     resolution: {integrity: sha512-rpJyN222KWIvHJ/F53XSZv0Zl/accqHR8et1kpaMTD/fLCRxtV8iX8czMzY7sVZupTI3zcUTg8eycS2kNF9l6w==}
 
-  webidl-conversions@3.0.1:
-    resolution: {integrity: sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ==}
-
-  whatwg-url@5.0.0:
-    resolution: {integrity: sha512-saE57nupxk6v3HY35+jzBwYa0rKSy0XR8JSxZPwgLr7ys0IBzhGviA1/TUGJLmSVqs8pb9AnvICXEuOHLprYTw==}
-
   which-boxed-primitive@1.1.1:
     resolution: {integrity: sha512-TbX3mj8n0odCBFVlY8AxkqcHASw3L60jIuF8jFP78az3C2YhmGvqbHBpAjTRH2/xqYunrJ9g1jSyjCjpoWzIAA==}
     engines: {node: '>= 0.4'}
@@ -2927,18 +2861,6 @@ packages:
 
   wrappy@1.0.2:
     resolution: {integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==}
-
-  ws@8.18.3:
-    resolution: {integrity: sha512-PEIGCY5tSlUt50cqyMXfCzX+oOPqN0vuGqWzbcJ2xvnkzkq46oOpz7dQaTDBdfICb4N14+GARUDw2XV2N4tvzg==}
-    engines: {node: '>=10.0.0'}
-    peerDependencies:
-      bufferutil: ^4.0.1
-      utf-8-validate: '>=5.0.2'
-    peerDependenciesMeta:
-      bufferutil:
-        optional: true
-      utf-8-validate:
-        optional: true
 
   yaml@1.10.2:
     resolution: {integrity: sha512-r3vXyErRCYJ7wg28yvBY5VSoAF8ZvlcW9/BwUzEtUsjvX/DKs24dIkuwjtuprwJJHsbyUbLApepYTR1BN4uHrg==}
@@ -3495,49 +3417,6 @@ snapshots:
 
   '@rushstack/eslint-patch@1.12.0': {}
 
-  '@supabase/auth-js@2.71.1':
-    dependencies:
-      '@supabase/node-fetch': 2.6.15
-
-  '@supabase/functions-js@2.4.5':
-    dependencies:
-      '@supabase/node-fetch': 2.6.15
-
-  '@supabase/node-fetch@2.6.15':
-    dependencies:
-      whatwg-url: 5.0.0
-
-  '@supabase/postgrest-js@1.19.4':
-    dependencies:
-      '@supabase/node-fetch': 2.6.15
-
-  '@supabase/realtime-js@2.11.15':
-    dependencies:
-      '@supabase/node-fetch': 2.6.15
-      '@types/phoenix': 1.6.6
-      '@types/ws': 8.18.1
-      isows: 1.0.7(ws@8.18.3)
-      ws: 8.18.3
-    transitivePeerDependencies:
-      - bufferutil
-      - utf-8-validate
-
-  '@supabase/storage-js@2.10.4':
-    dependencies:
-      '@supabase/node-fetch': 2.6.15
-
-  '@supabase/supabase-js@2.53.0':
-    dependencies:
-      '@supabase/auth-js': 2.71.1
-      '@supabase/functions-js': 2.4.5
-      '@supabase/node-fetch': 2.6.15
-      '@supabase/postgrest-js': 1.19.4
-      '@supabase/realtime-js': 2.11.15
-      '@supabase/storage-js': 2.10.4
-    transitivePeerDependencies:
-      - bufferutil
-      - utf-8-validate
-
   '@swc/counter@0.1.3': {}
 
   '@swc/helpers@0.5.5':
@@ -3580,8 +3459,6 @@ snapshots:
 
   '@types/parse-json@4.0.2': {}
 
-  '@types/phoenix@1.6.6': {}
-
   '@types/prismjs@1.26.5': {}
 
   '@types/prop-types@15.7.15': {}
@@ -3598,10 +3475,6 @@ snapshots:
     dependencies:
       '@types/prop-types': 15.7.15
       csstype: 3.1.3
-
-  '@types/ws@8.18.1':
-    dependencies:
-      '@types/node': 20.19.9
 
   '@typescript-eslint/parser@7.2.0(eslint@8.57.1)(typescript@5.9.2)':
     dependencies:
@@ -3810,7 +3683,8 @@ snapshots:
     dependencies:
       possible-typed-array-names: 1.1.0
 
-  aws-ssl-profiles@1.1.2: {}
+  aws-ssl-profiles@1.1.2:
+    optional: true
 
   axe-core@4.10.3: {}
 
@@ -3994,7 +3868,8 @@ snapshots:
 
   delayed-stream@1.0.0: {}
 
-  denque@2.1.0: {}
+  denque@2.1.0:
+    optional: true
 
   dequal@2.0.3:
     optional: true
@@ -4521,6 +4396,7 @@ snapshots:
   generate-function@2.3.1:
     dependencies:
       is-property: 1.0.2
+    optional: true
 
   get-intrinsic@1.3.0:
     dependencies:
@@ -4602,8 +4478,6 @@ snapshots:
 
   graphemer@1.4.0: {}
 
-  hamt_plus@1.0.2: {}
-
   has-bigints@1.1.0: {}
 
   has-flag@4.0.0: {}
@@ -4633,6 +4507,7 @@ snapshots:
   iconv-lite@0.6.3:
     dependencies:
       safer-buffer: 2.1.2
+    optional: true
 
   ieee754@1.2.1:
     optional: true
@@ -4744,7 +4619,8 @@ snapshots:
 
   is-path-inside@3.0.3: {}
 
-  is-property@1.0.2: {}
+  is-property@1.0.2:
+    optional: true
 
   is-regex@1.2.1:
     dependencies:
@@ -4790,10 +4666,6 @@ snapshots:
   isarray@2.0.5: {}
 
   isexe@2.0.0: {}
-
-  isows@1.0.7(ws@8.18.3):
-    dependencies:
-      ws: 8.18.3
 
   iterator.prototype@1.1.5:
     dependencies:
@@ -4906,7 +4778,8 @@ snapshots:
 
   lodash.once@4.1.1: {}
 
-  long@5.3.2: {}
+  long@5.3.2:
+    optional: true
 
   loose-envify@1.4.0:
     dependencies:
@@ -4914,9 +4787,11 @@ snapshots:
 
   lru-cache@10.4.3: {}
 
-  lru-cache@7.18.3: {}
+  lru-cache@7.18.3:
+    optional: true
 
-  lru.min@1.1.2: {}
+  lru.min@1.1.2:
+    optional: true
 
   make-cancellable-promise@1.3.2:
     optional: true
@@ -5002,10 +4877,12 @@ snapshots:
       named-placeholders: 1.1.3
       seq-queue: 0.0.5
       sqlstring: 2.3.3
+    optional: true
 
   named-placeholders@1.1.3:
     dependencies:
       lru-cache: 7.18.3
+    optional: true
 
   nanoid@3.3.11: {}
 
@@ -5403,13 +5280,6 @@ snapshots:
       util-deprecate: 1.0.2
     optional: true
 
-  recoil@0.7.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
-    dependencies:
-      hamt_plus: 1.0.2
-      react: 18.3.1
-    optionalDependencies:
-      react-dom: 18.3.1(react@18.3.1)
-
   reflect.getprototypeof@1.0.10:
     dependencies:
       call-bind: 1.0.8
@@ -5477,7 +5347,8 @@ snapshots:
       es-errors: 1.3.0
       is-regex: 1.2.1
 
-  safer-buffer@2.1.2: {}
+  safer-buffer@2.1.2:
+    optional: true
 
   scheduler@0.23.2:
     dependencies:
@@ -5487,7 +5358,8 @@ snapshots:
 
   semver@7.7.2: {}
 
-  seq-queue@0.0.5: {}
+  seq-queue@0.0.5:
+    optional: true
 
   set-function-length@1.2.2:
     dependencies:
@@ -5570,7 +5442,8 @@ snapshots:
 
   source-map@0.6.1: {}
 
-  sqlstring@2.3.3: {}
+  sqlstring@2.3.3:
+    optional: true
 
   stable-hash@0.0.5: {}
 
@@ -5707,8 +5580,6 @@ snapshots:
     dependencies:
       is-number: 7.0.0
 
-  tr46@0.0.3: {}
-
   ts-api-utils@1.4.3(typescript@5.9.2):
     dependencies:
       typescript: 5.9.2
@@ -5816,13 +5687,6 @@ snapshots:
     dependencies:
       loose-envify: 1.4.0
 
-  webidl-conversions@3.0.1: {}
-
-  whatwg-url@5.0.0:
-    dependencies:
-      tr46: 0.0.3
-      webidl-conversions: 3.0.1
-
   which-boxed-primitive@1.1.1:
     dependencies:
       is-bigint: 1.1.0
@@ -5883,8 +5747,6 @@ snapshots:
       strip-ansi: 7.1.0
 
   wrappy@1.0.2: {}
-
-  ws@8.18.3: {}
 
   yaml@1.10.2: {}
 
