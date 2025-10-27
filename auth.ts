@@ -44,5 +44,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         return "/auth/error?error=DatabaseError"; // DB 업데이트 실패 시
       }
     },
+    jwt: async ({ token, account }) => {
+      if (account && account.access_token) {
+        token.accessToken = account.access_token;
+      }
+      return token;
+    },
   },
 });

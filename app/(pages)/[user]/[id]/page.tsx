@@ -1,48 +1,59 @@
 import NotionPage from "@/app/components/PostDetail/Post";
 import { cookies } from "next/headers";
-import type { Metadata } from 'next';
+import type { Metadata } from "next";
 import { getMetadata } from "@/app/components/MetaData/getMetaData";
-import { fetchPostAndRecordMap, getRecordMap } from "@/app/services/post/post";
-import {getPageBlockContent} from "@/app/utils/NotionApi";
-import {getPage} from "@/app/lib/notion-api";
+import { getPage } from "@/app/lib/notion-api";
+import { getPageBlockContent } from "@/app/utils/NotionApi";
+import { getPage as getNotionPage } from "@/app/lib/notion-api";
+import { getToken } from "next-auth/jwt";
+import { notFound } from "next/navigation";
+import { getPostDetailServer } from "@/app/services/post/server";
 
 type paramsType = {
-    params: {
-        id: string,
-        user: string
-    }
+  params: {
+    id: string;
+    user: string;
+  };
 };
 
-export const generateMetadata = async ({ params }: paramsType): Promise<Metadata> => {
-    const { id, user } = params;
-    const cookieStore = cookies();
-    const token = cookieStore.get(process.env.NEXTAUTH_COOKIE_NAME as string)?.value ?? '';
+export const generateMetadata = async ({
+  params,
+}: paramsType): Promise<Metadata> => {
+  const { id, user } = params;
 
-    const recordMap = await getPage(id);
-    const keys = Object.keys(recordMap?.block || {});
+  const recordMap = await getNotionPage(id);
+  const keys = Object.keys(recordMap?.block || {});
 
-    const title = recordMap?.block?.[keys[0]].value.properties.title[0][0];
-    const description = getPageBlockContent(recordMap,keys);
-    return getMetadata({ title, description, asPath: `/@${user}/${id}` });
+  const title = recordMap?.block?.[keys[0]].value.properties.title[0][0];
+  const description = getPageBlockContent(recordMap, keys);
+  return getMetadata({ title, description, asPath: `/@${user}/${id}` });
 };
 
 async function Page({ params }: paramsType) {
-    const { id, user } = params;
-    const cookieStore = cookies();
-    const token = cookieStore.get(process.env.NEXTAUTH_COOKIE_NAME as string)?.value ?? '';
+  const { id, user } = params;
 
-    const { postDetail, recordMap } = await fetchPostAndRecordMap(id, user, token, id);
+  try {
+    const [postDetail, recordMap] = await Promise.all([
+      getPostDetailServer(id, user),
+      getPage(id),
+    ]);
 
     return (
-        <>
-            <NotionPage
-                id={id}
-                user={user}
-                postDetail={postDetail}
-                recordMap={recordMap}
-            />
-        </>
+      <>
+        <NotionPage
+          id={id}
+          user={user}
+          postDetail={postDetail}
+          recordMap={recordMap}
+        />
+      </>
     );
+  } catch (e: unknown) {
+    if (e instanceof Error && e.message === "NOT_FOUND") {
+      return notFound();
+    }
+    throw e;
+  }
 }
 
 export default Page;
