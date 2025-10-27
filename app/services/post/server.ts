@@ -4,11 +4,12 @@ import { getPostDetail as getPostDetailFromDB } from "@/app/lib/postData/postDB"
 import { isDescendantOfStoredPage } from "@/app/lib/notion-api";
 import { auth } from "@/auth";
 import { AuthError, BaseServerResposne } from "@/app/types/base";
-
-interface GetPostDetailResponse {
+import { PostType } from "@/app/db/schema";
+export interface GetPostDetailResponse {
   id: string;
   isAuthor: boolean;
   isChild: boolean;
+  data: PostType | null;
 }
 
 export async function getPostDetailServer(
@@ -25,6 +26,7 @@ export async function getPostDetailServer(
     isAuthor = true;
   }
   const res = await getPostDetailFromDB(id, decodedUserName);
+  const postData = res[0];
 
   if (!Array.isArray(res) || res.length === 0) {
     const isChildPage = await isDescendantOfStoredPage(id);
@@ -34,13 +36,13 @@ export async function getPostDetailServer(
     }
 
     return {
-      data: { id, isAuthor, isChild: true },
+      data: { id, isAuthor, isChild: true, data: null },
       isSuccess: true,
     };
   }
 
   return {
-    data: { id, isAuthor, isChild: false },
+    data: { id, isAuthor, isChild: false, data: postData },
     isSuccess: true,
   };
 }

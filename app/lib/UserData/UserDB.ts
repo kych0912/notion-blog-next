@@ -1,19 +1,20 @@
 "use server";
-import { supabase } from "../db";
+import { db } from "@/app/db/drizzle";
+import * as schema from "@/app/db/schema";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { eq } from "drizzle-orm";
 const saltRounds = 10;
 
 export async function findUserByName(name: string) {
   try {
-    const { data, error } = await supabase
-      .from("user")
-      .select("*")
-      .eq("name", name)
-      .single();
+    const data = await db
+      .select()
+      .from(schema.user)
+      .where(eq(schema.user.name, name))
+      .limit(1);
 
-    if (error) throw error;
-    return data || null;
+    return data[0] || null;
   } catch (err) {
     console.log(err);
     throw err;
@@ -46,42 +47,39 @@ export async function createUser(
     const salt = await bcrypt.genSalt(saltRounds);
     const hashedPassword: string = await bcrypt.hash(password, salt);
 
-    const { data, error } = await supabase
-      .from("user")
-      .insert([{ id, name, password: hashedPassword, avatar, email }])
-      .select();
+    const data = await db
+      .insert(schema.user)
+      .values({ id, name, password: hashedPassword, avatar, email })
+      .returning();
 
-    if (error) throw error;
     return data;
-  } catch (err: any) {
+  } catch (err: unknown) {
     throw err;
   }
 }
 
 export async function getUserInfoAndPostByName(name: string) {
   try {
-    const { data, error } = await supabase
-      .from("user")
-      .select("*")
-      .eq("name", name);
+    const data = await db
+      .select()
+      .from(schema.user)
+      .where(eq(schema.user.name, name));
 
-    if (error) throw error;
     return data;
-  } catch (err: any) {
+  } catch (err: unknown) {
     throw err;
   }
 }
 
 export async function getUserInfoById(id: string) {
   try {
-    const { data, error } = await supabase
-      .from("user")
-      .select("*")
-      .eq("id", id);
+    const data = await db
+      .select()
+      .from(schema.user)
+      .where(eq(schema.user.id, id));
 
-    if (error) throw error;
     return data;
-  } catch (err: any) {
+  } catch (err: unknown) {
     throw err;
   }
 }

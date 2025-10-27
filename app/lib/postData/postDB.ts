@@ -1,5 +1,7 @@
 "use server";
-import { supabase } from "../db";
+import { db } from "@/app/db/drizzle";
+import * as schema from "@/app/db/schema";
+import { and, desc, eq } from "drizzle-orm";
 
 interface Post {
   id: string;
@@ -15,64 +17,64 @@ export async function uploadPost(Post: Post) {
   const postData = {
     id: Post.id,
     author: Post.author,
-    date: Post.date.toISOString().slice(0, 10),
+    date: new Date(Post.date).toISOString(),
     image: Post.image,
     title: Post.title,
     avatar: Post.avatar,
     description: Post.description,
   };
 
-  const { data, error } = await supabase.from("post").insert(postData);
+  const data = await db.insert(schema.post).values(postData).returning();
 
-  if (error) throw error;
   return data;
 }
 
 export async function getPostById(id: string) {
-  const { data, error } = await supabase.from("post").select("*").eq("id", id);
+  const data = await db
+    .select()
+    .from(schema.post)
+    .where(eq(schema.post.id, id));
 
-  if (error) throw error;
   return data;
 }
 
 export async function getLatestPosts(page: number) {
   const offset = (page - 1) * 10;
 
-  const { data, error } = await supabase
-    .from("post")
-    .select("*")
-    .order("date", { ascending: false })
-    .range(offset, offset + 9);
+  const data = await db
+    .select()
+    .from(schema.post)
+    .orderBy(desc(schema.post.date))
+    .limit(10)
+    .offset(offset);
 
-  if (error) throw error;
   return data;
 }
 
 export async function getUserPosts(name: string) {
-  const { data, error } = await supabase
-    .from("post")
-    .select("*")
-    .eq("author", name)
-    .order("date", { ascending: false });
+  const data = await db
+    .select()
+    .from(schema.post)
+    .where(eq(schema.post.author, name))
+    .orderBy(desc(schema.post.date));
 
-  if (error) throw error;
   return data;
 }
 
 export async function getPostDetail(id: string, user: string) {
-  const { data, error } = await supabase
-    .from("post")
-    .select("*")
-    .eq("id", id)
-    .eq("author", user);
+  const data = await db
+    .select()
+    .from(schema.post)
+    .where(and(eq(schema.post.id, id), eq(schema.post.author, user)));
 
-  if (error) throw error;
   return data;
 }
 
 export async function deletePost(id: string) {
-  const { data, error } = await supabase.from("post").delete().eq("id", id);
+  const data = await db
+    .delete(schema.post)
+    .where(eq(schema.post.id, id))
+    .returning();
 
-  if (error) throw error;
   return data;
 }

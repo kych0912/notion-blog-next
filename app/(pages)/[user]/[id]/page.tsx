@@ -1,11 +1,10 @@
 import NotionPage from "@/app/components/PostDetail/Post";
-import { cookies } from "next/headers";
 import type { Metadata } from "next";
 import { getMetadata } from "@/app/components/MetaData/getMetaData";
 import { getPage } from "@/app/lib/notion-api";
 import { getPageBlockContent } from "@/app/utils/NotionApi";
 import { getPage as getNotionPage } from "@/app/lib/notion-api";
-import { getToken } from "next-auth/jwt";
+
 import { notFound } from "next/navigation";
 import { getPostDetailServer } from "@/app/services/post/server";
 
@@ -38,12 +37,18 @@ async function Page({ params }: paramsType) {
       getPage(id),
     ]);
 
+    if (!postDetail.isSuccess) {
+      return notFound();
+    }
+
+    const postDetailData = postDetail.data;
+
     return (
       <>
         <NotionPage
           id={id}
           user={user}
-          postDetail={postDetail}
+          postDetail={postDetailData}
           recordMap={recordMap}
         />
       </>
