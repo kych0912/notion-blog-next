@@ -7,8 +7,8 @@ import { getPage, getNotionPageContent } from "@/app/lib/notion-api";
 import * as Types from "notion-types";
 import { uploadPost, getPostById } from "@/app/lib/postData/postDB";
 import { parsePageId } from "notion-utils";
-import { RowDataPacket } from "mysql2";
 import { getPageBlockContent } from "@/app/utils/NotionApi";
+import { PostType } from "@/app/db/schema";
 
 export type WriteActionState = { ok: boolean; message?: string };
 
@@ -36,7 +36,7 @@ export async function writePostAction(
     return { ok: false, message: "Invalid Notion URL" };
   }
 
-  const post = (await getPostById(id)) as RowDataPacket[];
+  const post = await getPostById(id);
   if (post.length !== 0) return { ok: false, message: "Post Already Exists" };
 
   const date = new Date();

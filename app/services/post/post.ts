@@ -1,19 +1,5 @@
 import { getPage } from "@/app/lib/notion-api";
-import axios, { AxiosError } from "axios";
-
-export async function uploadPost(pageId: string) {
-  const body = {
-    notionUrl: pageId,
-  };
-
-  const res = await axios.post(`/api/post/write`, body, {
-    withCredentials: true,
-  });
-  return {
-    message: res.data.message,
-    isSuccess: res.data.isSuccess,
-  };
-}
+import axios from "axios";
 
 export async function getLatestPosts(pageParam: number = 1) {
   const res = await axios.get(`/api/post/latest?page=${pageParam}`);
