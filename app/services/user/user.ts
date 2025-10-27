@@ -1,32 +1,6 @@
 import axios from "axios";
 import { AxiosError } from "axios";
 
-interface TAuthReturn {
-  id: string;
-  isLogged: boolean;
-  message: string;
-  user: {
-    name: string;
-    avatar_url: string;
-  };
-}
-
-export const getAuth = async (): Promise<TAuthReturn> => {
-  const res = await axios.get(
-    `${process.env.NEXT_PUBLIC_BASE_API_URL}/api/user/auth`,
-    {
-      headers: { "Content-Type": "multipart/form-data" },
-      withCredentials: true,
-    }
-  );
-  return {
-    id: res.data.id,
-    isLogged: res.data.isLogged,
-    message: res.data.message,
-    user: res.data.user,
-  };
-};
-
 export const login = async (data: { id: string; password: string }) => {
   try {
     const res = await axios.post(
