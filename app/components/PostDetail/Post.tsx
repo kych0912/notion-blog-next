@@ -1,4 +1,3 @@
-import * as React from "react";
 import NotionPageRenderer from "../Renderer/NotionPageRenderer";
 import Header from "./_components/PostHeader";
 import * as types from "notion-types";
