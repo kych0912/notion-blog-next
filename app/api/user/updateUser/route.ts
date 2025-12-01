@@ -2,7 +2,14 @@ import { NextRequest, NextResponse } from "next/server";
 import { generateToken, createUser } from "@/app/lib/UserData/UserDB";
 import { getUserInfoAndPostByName } from "@/app/lib/UserData/UserDB";
 
-export async function PUT(request: NextRequest, response: NextResponse) {
+interface UserData {
+  id: string;
+  name: string;
+  avatar_url: string;
+  email: string;
+}
+
+export async function PUT(request: NextRequest) {
   try {
     /* body schema :{
         data:{
