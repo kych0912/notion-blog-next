@@ -9,16 +9,16 @@ import { notFound } from "next/navigation";
 import { getPostDetailServer } from "@/app/services/post/server";
 
 type paramsType = {
-  params: {
-    id: string;
-    user: string;
-  };
+  id: string;
+  user: string;
 };
 
 export const generateMetadata = async ({
   params,
-}: paramsType): Promise<Metadata> => {
-  const { id, user } = params;
+}: {
+  params: Promise<paramsType>;
+}): Promise<Metadata> => {
+  const { id, user } = await params;
 
   const recordMap = await getNotionPage(id);
   const keys = Object.keys(recordMap?.block || {});
@@ -28,8 +28,8 @@ export const generateMetadata = async ({
   return getMetadata({ title, description, asPath: `/@${user}/${id}` });
 };
 
-async function Page({ params }: paramsType) {
-  const { id, user } = params;
+async function Page({ params }: { params: Promise<paramsType> }) {
+  const { id, user } = await params;
 
   try {
     const [postDetail, recordMap] = await Promise.all([

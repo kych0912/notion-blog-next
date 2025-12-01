@@ -1,5 +1,5 @@
 import NextAuth from "next-auth";
-import { getUserInfoById, updateUser } from "./app/services/user/user";
+import { getUserInfoById, updateUser } from "@/app/services/user/user";
 import { User } from "next-auth";
 import { AdapterUser } from "next-auth/adapters";
 import GitHub from "next-auth/providers/github";

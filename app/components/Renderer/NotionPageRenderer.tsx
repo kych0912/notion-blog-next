@@ -1,12 +1,12 @@
 "use client";
 
 import * as React from "react";
-import { NotionRenderer } from "react-notion-x";
 import dynamic from "next/dynamic";
 import { Box } from "@mui/material";
 import { ExtendedRecordMap } from "notion-types";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
+import { useEffect, useState } from "react";
 
 import "../../styles/notion.css";
 import { Loading } from "../Loading";
@@ -15,18 +15,37 @@ import { Loading } from "../Loading";
 // dynamic imports for optional components
 // -----------------------------------------------------------------------------
 
-const Code = dynamic(() =>
-  import("react-notion-x/build/third-party/code").then((m) => m.Code)
+// NotionRenderer를 SSR 없이 동적으로 로드
+const NotionRenderer = dynamic(
+  () => import("react-notion-x").then((m) => m.NotionRenderer),
+  {
+    ssr: false,
+  }
 );
 
-const Collection = dynamic(() =>
-  import("react-notion-x/build/third-party/collection").then(
-    (m) => m.Collection
-  )
+const Code = dynamic(
+  () => import("react-notion-x/build/third-party/code").then((m) => m.Code),
+  {
+    ssr: false,
+  }
 );
 
-const Equation = dynamic(() =>
-  import("react-notion-x/build/third-party/equation").then((m) => m.Equation)
+const Collection = dynamic(
+  () =>
+    import("react-notion-x/build/third-party/collection").then(
+      (m) => m.Collection
+    ),
+  {
+    ssr: false,
+  }
+);
+
+const Equation = dynamic(
+  () =>
+    import("react-notion-x/build/third-party/equation").then((m) => m.Equation),
+  {
+    ssr: false,
+  }
 );
 const Pdf = dynamic(
   () => import("react-notion-x/build/third-party/pdf").then((m) => m.Pdf),

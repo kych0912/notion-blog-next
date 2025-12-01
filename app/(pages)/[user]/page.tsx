@@ -5,8 +5,8 @@ import {getUserInfoAndPostByName} from "@/app/services/user/user"
 import { notFound } from 'next/navigation';
 import CoverImage from './_components/CoverImage';
 
-const Post = async ({ params }: { params: { user: string } }) => {
-    const user = params.user;
+const Post = async ({ params }: { params: Promise<{ user: string }> }) => {
+    const { user } = await params;
     let avatar_url = '';
     let name = '';
     let posts;
