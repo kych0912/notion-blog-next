@@ -1,8 +1,10 @@
 'use client'
 
+import { AxiosError } from "axios";
+
 import ErrorHandler from "@/app/components/Error/ErrorHandler";
 import RefetchPage from "@/app/components/Error/_components/RefetchPage/RefetchPage";
-import { AxiosError } from "axios";
+
 export default function Error({
   error,
   reset,

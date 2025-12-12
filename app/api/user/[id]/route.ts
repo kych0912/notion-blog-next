@@ -1,4 +1,5 @@
 import { NextResponse, NextRequest } from "next/server";
+
 import { getUserInfoById } from "@/app/lib/UserData/UserDB";
 
 export async function GET(

@@ -1,4 +1,5 @@
 import { Box } from "@mui/material";
+
 import Header from "@/app/components/header/Header";
 
 export default function WritePostLayout({

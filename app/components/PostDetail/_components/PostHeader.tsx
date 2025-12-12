@@ -1,6 +1,7 @@
 import {Box} from '@mui/material'
-import PostTitle from './PostTitle';
 import * as types from "notion-types"
+
+import PostTitle from './PostTitle';
 import PostProperty from './PostProperty';
 
 export default function PostHeader({recordMap,user,isAuthor,id,avatar,isChild,image}: {

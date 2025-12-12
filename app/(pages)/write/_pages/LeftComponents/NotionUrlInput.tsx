@@ -1,9 +1,10 @@
 "use client";
 
+import type { WriteActionState } from "@/app/(pages)/write/actions";
+
 import NotionInputPageContainer from "./_components/NotionInputPageContainer";
 import PostActionBar from "./_components/PostActionBar";
 import NotionUrlSection from "./_components/NotionUrlSection";
-import type { WriteActionState } from "@/app/(pages)/write/actions";
 
 export default function NotionUrlInput({
   onWrite,

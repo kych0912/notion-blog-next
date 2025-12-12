@@ -1,11 +1,13 @@
 import { Metadata } from "next";
+
 import { META } from "@/app/constants/metadata";
-  export type generateMetadataProps = {
+
+  export interface generateMetadataProps {
     title?: string;
     description?: string;
     asPath?: string;
     ogImage?: string;
-  };
+  }
 
 
 export const getMetadata = (metadataProps?: generateMetadataProps) => {

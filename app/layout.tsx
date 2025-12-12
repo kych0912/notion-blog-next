@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 import { ThemeProvider } from "@mui/material/styles";
-import AuthProvider from "./lib/next-auth/provider";
 import CssBaseline from "@mui/material/CssBaseline";
+
+import AuthProvider from "./lib/next-auth/provider";
 import theme from "./styles/theme";
 import "./styles/global.css";
 
@@ -13,7 +14,6 @@ import Analytics from "./components/GA/Analytics";
 import ReactQueryProvider from "./utils/Provier";
 import { FeedbackProvider } from "./context/FeedbackContext";
 import { ErrorProvider } from "./context/ErrorContext";
-
 import { pretendard } from "./styles/fonts/fonts";
 import { getMetadata } from "./components/MetaData/getMetaData";
 

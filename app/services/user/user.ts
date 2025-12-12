@@ -34,7 +34,7 @@ export const updateUser = async (
   const res = await axios.put(
     `${process.env.NEXT_PUBLIC_BASE_API_URL}/api/user/updateUser`,
     {
-      id: id,
+      id,
       name,
       avatar_url,
       email,

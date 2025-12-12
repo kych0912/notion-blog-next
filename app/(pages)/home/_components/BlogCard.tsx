@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { Grid, Box, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { motion, useInView } from 'framer-motion';
+
 import BlogImage from './BlogImage';
 import CircularScore from './CircleScore';
 

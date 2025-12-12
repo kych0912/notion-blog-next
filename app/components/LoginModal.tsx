@@ -3,11 +3,12 @@ import { Box, Modal, Typography, Button, styled } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import React from "react";
 import Image from "next/image";
-import GithubIcon from "../assets/github_logo_icon_147285.svg";
 import { signIn } from "next-auth/react";
 
+import GithubIcon from "../assets/github_logo_icon_147285.svg";
+
 const ModalStyled = {
-  position: "absolute" as "absolute",
+  position: "absolute" as const,
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",

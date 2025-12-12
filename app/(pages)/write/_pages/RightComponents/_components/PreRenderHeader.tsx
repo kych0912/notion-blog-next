@@ -1,6 +1,7 @@
 import { Box } from "@mui/material";
-import PostTitle from "@/app/components/PostDetail/_components/PostTitle";
 import { ExtendedRecordMap } from "notion-types";
+
+import PostTitle from "@/app/components/PostDetail/_components/PostTitle";
 
 export default function PreRenderHeader({
     recordMap

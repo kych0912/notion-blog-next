@@ -2,8 +2,9 @@
 import * as React from 'react'
 import { Avatar,AppBar,Box,Skeleton, Typography} from "@mui/material";
 import Link from "next/link";
-import HeaderRight from './_components/HeaderRight';
 import { useCallback, useState, useRef, useEffect } from 'react';
+
+import HeaderRight from './_components/HeaderRight';
 
 const getScrollTop = () => {
     if (!document.body) return 0;

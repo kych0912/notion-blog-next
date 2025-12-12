@@ -3,6 +3,7 @@ import { Box, Container, Grid, Typography } from '@mui/material';
 import { Edit, Share, Language } from '@mui/icons-material';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+
 import Feature from './Feature';
 import NotionWritingDemo from './Notion/NotionWrite';
 import NotionCopy from './Notion/NotionCopy';

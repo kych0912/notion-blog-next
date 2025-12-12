@@ -1,17 +1,17 @@
-import NotionPage from "@/app/components/PostDetail/Post";
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+
+import NotionPage from "@/app/components/PostDetail/Post";
 import { getMetadata } from "@/app/components/MetaData/getMetaData";
 import { getPage } from "@/app/lib/notion-api";
 import { getPageBlockContent } from "@/app/utils/NotionApi";
 import { getPage as getNotionPage } from "@/app/lib/notion-api";
-
-import { notFound } from "next/navigation";
 import { getPostDetailServer } from "@/app/services/post/server";
 
-type paramsType = {
+interface paramsType {
   id: string;
   user: string;
-};
+}
 
 export const generateMetadata = async ({
   params,

@@ -1,4 +1,5 @@
 import { NextResponse, NextRequest } from "next/server";
+
 import { deletePost, getPostById } from "@/app/lib/postData/postDB";
 
 export async function DELETE(

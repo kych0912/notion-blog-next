@@ -3,10 +3,10 @@
 import { createContext, useContext } from "react";
 import { useState } from "react";
 
-type ErrorContextType = {
+interface ErrorContextType {
     error: any;
     setError: (error: any) => void;
-};
+}
 
 export const ErrorContext = createContext<ErrorContextType>({
     error: null,

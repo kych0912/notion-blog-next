@@ -1,4 +1,5 @@
 import {Box,Typography,Avatar} from '@mui/material'
+
 import CoverImage from './CoverImage'
 
 

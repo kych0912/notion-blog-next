@@ -1,9 +1,11 @@
 "use server";
-import { db } from "@/app/db/drizzle";
-import * as schema from "@/app/db/schema";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { eq } from "drizzle-orm";
+
+import * as schema from "@/app/db/schema";
+import { db } from "@/app/db/drizzle";
+
 const saltRounds = 10;
 
 export async function findUserByName(name: string) {
@@ -32,7 +34,7 @@ export async function comparePassword(password: string, hash: string) {
 }
 
 export async function generateToken(id: string) {
-  const token = jwt.sign({ id: id }, "SECRET_KEY", { expiresIn: "3d" });
+  const token = jwt.sign({ id }, "SECRET_KEY", { expiresIn: "3d" });
   return token;
 }
 

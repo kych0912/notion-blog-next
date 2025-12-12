@@ -1,8 +1,10 @@
 import { Box } from '@mui/material';
+import { notFound } from 'next/navigation';
+
+import {getUserInfoAndPostByName} from "@/app/services/user/user"
+
 import User from "./_components/User";
 import Feed from "./_components/Feed"
-import {getUserInfoAndPostByName} from "@/app/services/user/user"
-import { notFound } from 'next/navigation';
 import CoverImage from './_components/CoverImage';
 
 const Post = async ({ params }: { params: Promise<{ user: string }> }) => {

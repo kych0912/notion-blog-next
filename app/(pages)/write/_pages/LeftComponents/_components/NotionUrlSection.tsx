@@ -1,11 +1,14 @@
 'use client'
 
 import React, { useEffect } from 'react';
-import Input from "./Input";
-import Information from "./Information";
+import { Box } from '@mui/material';
+
 import ErrorHandler from "@/app/components/Error/ErrorHandler";
 import { useNotionUrlValidation } from "@/app/hooks/write/useNotionValidation";
-import { Box } from '@mui/material';
+
+import Input from "./Input";
+import Information from "./Information";
+
 
 const NotionUrlSection = React.memo(function NotionUrlSection() {
     const {url, setUrl, isError, handleSubmit, resetError} = useNotionUrlValidation(); 

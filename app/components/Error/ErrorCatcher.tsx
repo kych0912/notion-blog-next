@@ -1,6 +1,7 @@
 'use client'
 
 import { useError } from "@/app/context/ErrorContext";
+
 import ErrorHandler from "./ErrorHandler";
 
 export default function ErrorCatcher(){

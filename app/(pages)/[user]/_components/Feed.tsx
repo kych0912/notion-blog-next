@@ -1,6 +1,7 @@
 import {Grid,Divider, Typography} from '@mui/material'
-import PostCard from "../../../components/PostCard/PostCard";
 import {Box} from '@mui/material'
+
+import PostCard from "../../../components/PostCard/PostCard";
 
 async function Feed({posts}:{
     posts: {

@@ -3,8 +3,9 @@ import { useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import BlogImage from "./BlogImage";
 import React from "react";
+
+import BlogImage from "./BlogImage";
 
 interface FeatureProps {
   title: string;

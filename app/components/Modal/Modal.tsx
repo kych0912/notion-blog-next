@@ -1,5 +1,6 @@
 'use client';
 import {Box,Modal,Typography} from "@mui/material"
+
 import {useDeletePostMutation} from "@/app/react-query/post/mutations"
 import ErrorHandler from "@/app/components/Error/ErrorHandler"
 

@@ -1,6 +1,7 @@
 export const dynamic = 'force-dynamic';
 
 import {NextResponse, NextRequest} from 'next/server';
+
 import { getLatestPosts } from '@/app/lib/postData/postDB';
 
 

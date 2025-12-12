@@ -1,8 +1,10 @@
 'use client'
 
 import React from "react";
-import RefetchPage from "./_components/RefetchPage/RefetchPage";
 import { AxiosError } from "axios";
+
+import RefetchPage from "./_components/RefetchPage/RefetchPage";
+
 interface IErrorProps{
     children:React.ReactNode
     isPreservedChildren?:boolean

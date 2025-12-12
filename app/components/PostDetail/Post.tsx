@@ -1,7 +1,10 @@
-import NotionPageRenderer from "../Renderer/NotionPageRenderer";
-import Header from "./_components/PostHeader";
 import * as types from "notion-types";
+
 import type { GetPostDetailResponse } from "@/app/services/post/server";
+
+import NotionPageRenderer from "../Renderer/NotionPageRenderer";
+
+import Header from "./_components/PostHeader";
 
 export default function NotionPage({
   user,

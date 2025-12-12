@@ -1,6 +1,7 @@
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
-import { getLatestPosts, getRecordMap } from "@/app/services/post/post";
 import { ExtendedRecordMap } from "notion-types";
+
+import { getLatestPosts, getRecordMap } from "@/app/services/post/post";
 
 export const useRecordMapFetch = (pageId: string) => {
   return useQuery<ExtendedRecordMap>({

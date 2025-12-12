@@ -1,8 +1,10 @@
 import { NotionAPI } from "notion-client";
 import * as types from "notion-types";
 import { getPageTitle, getBlockParentPage } from "notion-utils";
-import { getPostById } from "./postData/postDB";
+
 import { getNotionImage } from "@/app/utils/NotionApi";
+
+import { getPostById } from "./postData/postDB";
 
 export async function getPage(id: string): Promise<types.ExtendedRecordMap> {
   try {

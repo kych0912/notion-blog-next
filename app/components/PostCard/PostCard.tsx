@@ -1,6 +1,7 @@
 import {Box, Typography, Avatar} from "@mui/material";
 import { Skeleton } from "@mui/material";
 import Image from "next/image";
+
 import PostCardLoading from "./PostCardLoading";
 
 function dateFormat(date:Date) {

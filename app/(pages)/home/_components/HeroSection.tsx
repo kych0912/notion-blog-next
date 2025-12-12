@@ -1,8 +1,9 @@
 import React, { useRef } from 'react';
 import { Box, Container, Typography } from '@mui/material';
+import { motion, useInView } from 'framer-motion';
+
 import { ContainedButton } from '@/app/components/Button/button.styles';
 import defaultImage from '@/public/Default_Image.jpeg';
-import { motion, useInView } from 'framer-motion';
 
 const HeroSection: React.FC = () => {
   const ref = useRef(null);

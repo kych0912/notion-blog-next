@@ -5,6 +5,7 @@ import { isDescendantOfStoredPage } from "@/app/lib/notion-api";
 import { auth } from "@/auth";
 import { AuthError, BaseServerResposne } from "@/app/types/base";
 import { PostType } from "@/app/db/schema";
+
 export interface GetPostDetailResponse {
   id: string;
   isAuthor: boolean;

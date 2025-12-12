@@ -1,16 +1,17 @@
 "use server";
 
-import { auth } from "@/auth";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { getPage, getNotionPageContent } from "@/app/lib/notion-api";
 import * as Types from "notion-types";
-import { uploadPost, getPostById } from "@/app/lib/postData/postDB";
 import { parsePageId } from "notion-utils";
+
+import { getPage, getNotionPageContent } from "@/app/lib/notion-api";
+import { uploadPost, getPostById } from "@/app/lib/postData/postDB";
+import { auth } from "@/auth";
 import { getPageBlockContent } from "@/app/utils/NotionApi";
 import { PostType } from "@/app/db/schema";
 
-export type WriteActionState = { ok: boolean; message?: string };
+export interface WriteActionState { ok: boolean; message?: string }
 
 export async function writePostAction(
   _prevState: WriteActionState,

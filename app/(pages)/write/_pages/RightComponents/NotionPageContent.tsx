@@ -1,11 +1,15 @@
 "use client";
 
 import { Box } from "@mui/material";
-import PreRender from "./_components/PreRender";
-import { WriteFunnelContainer } from "../../write.styles";
+import { useSearchParams } from "next/navigation";
+
 import NotionRecordMapFetcher from "@/app/components/Fetcher/NotionRecordMapFetcher";
 import FallbackErrorBoundary from "@/app/components/Error/FallbackErrorBoundary";
-import { useSearchParams } from "next/navigation";
+
+import { WriteFunnelContainer } from "../../write.styles";
+
+import PreRender from "./_components/PreRender";
+
 
 //UI 렌더링
 export default function NotionPageContent() {

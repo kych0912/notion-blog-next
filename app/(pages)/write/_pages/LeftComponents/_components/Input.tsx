@@ -1,9 +1,12 @@
 import { Typography } from "@mui/material";
 import { Box, TextField, CircularProgress } from "@mui/material";
-import { InputContainer } from "../../../write.styles";   
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+
 import { ContainedButton } from "@/app/components/Button/button.styles";
 import { useNotionPage } from "@/app/context/NotionPageContext";
-import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+
+import { InputContainer } from "../../../write.styles";   
+
 
 export default function Input(
     {url, setUrl, handleSubmit, isError}:{url:string, setUrl:React.Dispatch<React.SetStateAction<string>>, handleSubmit:()=>void, isError:boolean}

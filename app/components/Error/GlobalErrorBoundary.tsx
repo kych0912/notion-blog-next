@@ -1,6 +1,7 @@
 'use client'
 
 import React from "react";
+
 import RefetchPage from "./_components/RefetchPage/RefetchPage";
 
 interface IGlobalErrorProps {

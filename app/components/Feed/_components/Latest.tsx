@@ -2,7 +2,9 @@
 
 import { useInView } from "react-intersection-observer"
 import { useEffect } from "react";
+
 import { useLatestPostsInfinite } from "@/app/react-query/post/queries"
+
 import FeedItem from "./FeedItem";
 
 export default function Latest() {

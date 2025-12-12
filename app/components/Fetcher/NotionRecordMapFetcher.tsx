@@ -2,13 +2,15 @@
 
 import React from "react";
 import { useEffect } from "react";
+import { useMediaQuery,useTheme } from "@mui/material";
+
 import { useRecordMapFetch } from "@/app/react-query/post/queries";
 import { useNotionPage } from "@/app/context/NotionPageContext";
-import LoadingPage from "../LoadingPage";
 import { useError } from "@/app/context/ErrorContext";
 import { useFeedback } from "@/app/context/FeedbackContext";
-import { useMediaQuery,useTheme } from "@mui/material";
 import { FEEDBACK_MESSAGES } from "@/app/constants/messages";
+
+import LoadingPage from "../LoadingPage";
 
 //데이터 fetching
 //상태관리
@@ -23,7 +25,7 @@ function NotionRecordMapFetcher({children, pageId}:{
     const {setRecordMap,setIsLoading} = useNotionPage();
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
-    const {data, isLoading, error} = useRecordMapFetch(pageId as string);
+    const {data, isLoading, error} = useRecordMapFetch(pageId);
 
 
     //데이터 저장

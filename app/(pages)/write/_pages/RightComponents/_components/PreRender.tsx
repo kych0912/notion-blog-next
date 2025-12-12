@@ -1,6 +1,7 @@
 import NotionPage from "@/app/components/Renderer/NotionPageRenderer";
-import PreRenderHeader from "./PreRenderHeader";
 import { useNotionPage } from "@/app/context/NotionPageContext";
+
+import PreRenderHeader from "./PreRenderHeader";
 
 export default function PreRender(){
     const {recordMap} = useNotionPage();

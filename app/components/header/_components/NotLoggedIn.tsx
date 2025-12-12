@@ -1,6 +1,7 @@
 import {Box} from "@mui/material"
-import LoginModal from "../../LoginModal";
 import React from 'react';
+
+import LoginModal from "../../LoginModal";
 import { HoverButton } from '../../Button/button.styles';
 
 

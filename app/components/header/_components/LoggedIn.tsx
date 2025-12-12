@@ -2,13 +2,15 @@
 import {Box,Avatar} from "@mui/material"
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import Link from 'next/link';
-import UserMenu from "./UserMenu";
 import React from 'react';
 import { useRouter } from "next/navigation";
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { DefaultSession } from "next-auth";
 import { signOut } from 'next-auth/react'
+
 import { HoverButton } from '../../Button/button.styles';
+
+import UserMenu from "./UserMenu";
 
 
 export default function LoggedIn({user}:{user:DefaultSession}){
