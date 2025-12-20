@@ -1,6 +1,7 @@
 import { Suspense } from 'react'
-import ErrorPage from './_components/Error'
 import { Box, Typography } from '@mui/material'
+
+import ErrorPage from './_components/Error'
 
 export default function Page() {
 

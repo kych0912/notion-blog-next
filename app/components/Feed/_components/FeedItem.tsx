@@ -1,5 +1,6 @@
 import { forwardRef } from 'react';
 import { Grid } from "@mui/material";
+
 import PostCard from "../../PostCard/PostCard";
 
 const initialPost = {

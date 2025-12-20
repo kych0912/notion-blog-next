@@ -3,11 +3,12 @@ import { Box, Modal, Typography, Button, styled } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import React from "react";
 import Image from "next/image";
-import GithubIcon from "../assets/github_logo_icon_147285.svg";
 import { signIn } from "next-auth/react";
 
+import GithubIcon from "../assets/github_logo_icon_147285.svg";
+
 const ModalStyled = {
-  position: "absolute" as "absolute",
+  position: "absolute" as const,
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
@@ -99,7 +100,7 @@ export default function LoginModal({
                 }}
               >
                 <Image
-                  src={GithubIcon}
+                  src={GithubIcon as unknown as string}
                   alt="github"
                   style={{ width: "1rem", height: "1rem", marginRight: "10px" }}
                 />
@@ -108,22 +109,9 @@ export default function LoginModal({
             </CustomButton>
           </Box>
 
-          {/* {
-                        isError&&
-                        <ErrorSnackbar message={erroMessage}/>
-                    } */}
+
         </Box>
       </Modal>
     </>
   );
 }
-
-const Form = styled("form")({
-  width: "100%",
-  height: "100%",
-  display: "flex",
-  flexDirection: "column",
-  gap: "1rem",
-  justifyContent: "space-between",
-  alignItems: "center",
-});

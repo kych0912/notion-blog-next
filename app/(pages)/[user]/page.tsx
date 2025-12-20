@@ -1,41 +1,45 @@
 import { Box } from '@mui/material';
-import User from "./_components/User";
-import Feed from "./_components/Feed"
-import {getUserInfoAndPostByName} from "@/app/services/user/user"
 import { notFound } from 'next/navigation';
+
+import { getUserInfoAndPostByName } from '@/app/server/queries/user';
+import { getUserPosts } from '@/app/server/queries/post';
+import type { UserType, PostType } from '@/app/server/db/schema';
+
+import User from './_components/User';
+import Feed from './_components/Feed';
 import CoverImage from './_components/CoverImage';
 
 const Post = async ({ params }: { params: Promise<{ user: string }> }) => {
-    const { user } = await params;
-    let avatar_url = '';
-    let name = '';
-    let posts;
+  const { user } = await params;
+  const decodedUser = decodeURIComponent(user);
 
-    try{
-        const _response = await getUserInfoAndPostByName(user);
+  const [userInfo, posts]: [UserType | null, PostType[]] = await Promise.all([
+    getUserInfoAndPostByName(decodedUser),
+    getUserPosts(decodedUser),
+  ]);
 
-        avatar_url = _response.data[0][0].avatar;
-        name = _response.data[0][0].name;
-        posts = _response.data[1];
-    }    
-    catch(err:any){
-        if (err?.response?.status === 404) {
-            notFound();
-        }
-        
-        throw err;
-    }
+  const avatar = userInfo?.avatar ?? '';
+  const name = userInfo?.name ?? '';
 
+  if (!userInfo) {
+    return notFound();
+  }
 
-    return( 
-        <Box sx={{display:"flex",flexDirection:'column',justifyContent:"center",alignItems:"center"}}>  
-            <CoverImage src={"/Default_Image.jpeg"}/>
-            <User avatar={avatar_url} name={name}/>
-            
-            <Feed posts={posts}/>
-        </Box>
-    )  
-}
+  return (
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
+      <CoverImage src={'/Default_Image.jpeg'} />
+      <User avatar={avatar} name={name} />
+
+      <Feed posts={posts} />
+    </Box>
+  );
+};
 
 export default Post;
-

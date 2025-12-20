@@ -1,27 +1,25 @@
-import type { Metadata } from "next";
-import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
-import { ThemeProvider } from "@mui/material/styles";
-import AuthProvider from "./lib/next-auth/provider";
-import CssBaseline from "@mui/material/CssBaseline";
-import theme from "./styles/theme";
-import "./styles/global.css";
+import type { Metadata } from 'next';
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
 
-import "react-notion-x/src/styles.css";
-import "prismjs/themes/prism-tomorrow.css";
+import 'react-notion-x/src/styles.css';
+import 'prismjs/themes/prism-tomorrow.css';
 
-import Analytics from "./components/GA/Analytics";
-import ReactQueryProvider from "./utils/Provier";
-import { FeedbackProvider } from "./context/FeedbackContext";
-import { ErrorProvider } from "./context/ErrorContext";
+import AuthProvider from './lib/next-auth/provider';
+import theme from './styles/theme';
+import './styles/global.css';
+import Analytics from './components/GA/Analytics';
+import ReactQueryProvider from './utils/Provier';
+import { FeedbackProvider } from './context/FeedbackContext';
+import { ErrorProvider } from './context/ErrorContext';
+import { pretendard } from './styles/fonts/fonts';
+import { getMetadata } from './components/MetaData/getMetaData';
 
-import { pretendard } from "./styles/fonts/fonts";
-import { getMetadata } from "./components/MetaData/getMetaData";
-
-export const generateMetadata = async (): Promise<Metadata> => {
+export const generateMetadata = (): Metadata => {
   return getMetadata();
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -36,19 +34,15 @@ export default async function RootLayout({
         ></script>
       </head>
       <body>
-        {process.env.NEXT_PUBLIC_GA_ID ? (
-          <Analytics id={process.env.NEXT_PUBLIC_GA_ID} />
-        ) : null}
+        {process.env.NEXT_PUBLIC_GA_ID ? <Analytics id={process.env.NEXT_PUBLIC_GA_ID} /> : null}
         <ErrorProvider>
           <FeedbackProvider>
-            <AppRouterCacheProvider options={{ enableCssLayer: true }}>
-              <ThemeProvider theme={theme}>
-                <AuthProvider>
-                  <CssBaseline />
-                  <ReactQueryProvider>{children}</ReactQueryProvider>
-                </AuthProvider>
-              </ThemeProvider>
-            </AppRouterCacheProvider>
+            <ThemeProvider theme={theme}>
+              <AuthProvider>
+                <CssBaseline />
+                <ReactQueryProvider>{children}</ReactQueryProvider>
+              </AuthProvider>
+            </ThemeProvider>
           </FeedbackProvider>
         </ErrorProvider>
       </body>

@@ -15,7 +15,7 @@ export async function GET(
     const recordMap = await getPage(pageId);
     
     return Response.json(recordMap);
-  } catch(error){
+  } catch{
     return Response.json({ error: 'Page not found' }, { status: 404 });
   }
 } 

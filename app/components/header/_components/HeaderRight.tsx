@@ -1,8 +1,9 @@
 import { Skeleton, Box } from "@mui/material";
-import LoggedIn from "./LoggedIn";
-import NotLoggedIn from "./NotLoggedIn";
 import { useSession } from "next-auth/react";
 import React from "react";
+
+import LoggedIn from "./LoggedIn";
+import NotLoggedIn from "./NotLoggedIn";
 
 export default  function HeaderRight(){
     const { data:session,status } = useSession();

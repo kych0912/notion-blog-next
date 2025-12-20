@@ -1,6 +1,7 @@
 'use client'
 
 import { useFeedback } from "@/app/context/FeedbackContext";
+
 import FeedbackHandler from "./FeedbackHandler";
 
 export default function FeedbackCatcher() {

@@ -1,6 +1,7 @@
 'use client'
-import HelperText from "./_components/HelperText";
 import {SnackBar} from "../Snackbar/SnackBar";
+
+import HelperText from "./_components/HelperText";
 
 type ErrorType = "snackbar" | "alert" | "helperText";
 

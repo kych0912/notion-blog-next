@@ -1,10 +1,9 @@
 import { Box, Typography, Avatar } from "@mui/material"
-import Option from '../../PostOption/Option'
-import CoverImage from "./PostCoverImage"
-import {
-    getNotionImage,
-} from "@/app/utils/NotionApi";
 import * as types from "notion-types"
+
+import Option from '../../PostOption/Option'
+
+import CoverImage from "./PostCoverImage"
 
 export default function PostProperty({recordMap,user,isAuthor,id,avatar,image}: {
     recordMap: types.ExtendedRecordMap,

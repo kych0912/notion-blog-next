@@ -1,64 +1,44 @@
-"use client";
+'use client';
 
-import * as React from "react";
-import dynamic from "next/dynamic";
-import { Box } from "@mui/material";
-import { ExtendedRecordMap } from "notion-types";
-import { useRouter } from "next/navigation";
-import { useTransition } from "react";
-import { useEffect, useState } from "react";
+import * as React from 'react';
+import dynamic from 'next/dynamic';
+import { Box } from '@mui/material';
+import { ExtendedRecordMap } from 'notion-types';
+import { useRouter } from 'next/navigation';
+import { useTransition } from 'react';
 
-import "../../styles/notion.css";
-import { Loading } from "../Loading";
+import '../../styles/notion.css';
+import { Loading } from '../Loading';
 
 // -----------------------------------------------------------------------------
 // dynamic imports for optional components
 // -----------------------------------------------------------------------------
 
 // NotionRenderer를 SSR 없이 동적으로 로드
-const NotionRenderer = dynamic(
-  () => import("react-notion-x").then((m) => m.NotionRenderer),
-  {
-    ssr: false,
-  }
-);
+const NotionRenderer = dynamic(() => import('react-notion-x').then((m) => m.NotionRenderer), {
+  ssr: false,
+});
 
-const Code = dynamic(
-  () => import("react-notion-x/build/third-party/code").then((m) => m.Code),
-  {
-    ssr: false,
-  }
-);
+const Code = dynamic(() => import('react-notion-x/build/third-party/code').then((m) => m.Code), {
+  ssr: false,
+});
 
 const Collection = dynamic(
-  () =>
-    import("react-notion-x/build/third-party/collection").then(
-      (m) => m.Collection
-    ),
+  () => import('react-notion-x/build/third-party/collection').then((m) => m.Collection),
   {
     ssr: false,
-  }
+  },
 );
 
 const Equation = dynamic(
-  () =>
-    import("react-notion-x/build/third-party/equation").then((m) => m.Equation),
+  () => import('react-notion-x/build/third-party/equation').then((m) => m.Equation),
   {
     ssr: false,
-  }
+  },
 );
-const Pdf = dynamic(
-  () => import("react-notion-x/build/third-party/pdf").then((m) => m.Pdf),
-  {
-    ssr: false,
-  }
-);
-const Modal = dynamic(
-  () => import("react-notion-x/build/third-party/modal").then((m) => m.Modal),
-  {
-    ssr: false,
-  }
-);
+const Pdf = dynamic(() => import('react-notion-x/build/third-party/pdf').then((m) => m.Pdf), {
+  ssr: false,
+});
 
 export default function NotionPageRenderer({
   recordMap,
@@ -104,7 +84,7 @@ export default function NotionPageRenderer({
             });
           }
         }}
-        style={{ cursor: "pointer" }}
+        style={{ cursor: 'pointer' }}
         {...props}
       >
         {children}
@@ -115,13 +95,13 @@ export default function NotionPageRenderer({
   return (
     <Box
       sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        margin: "0 auto",
-        maxWidth: "720px",
-        width: "100%",
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        margin: '0 auto',
+        maxWidth: '720px',
+        width: '100%',
         mb: 10,
       }}
     >
@@ -136,7 +116,6 @@ export default function NotionPageRenderer({
           Collection,
           Equation,
           Pdf,
-          Modal,
         }}
         darkMode={false}
       />

@@ -1,7 +1,10 @@
-import NotionPageRenderer from "../Renderer/NotionPageRenderer";
-import Header from "./_components/PostHeader";
-import * as types from "notion-types";
-import type { GetPostDetailResponse } from "@/app/services/post/server";
+import * as types from 'notion-types';
+
+import type { GetPostDetailResponse } from '@/app/server/actions/post';
+
+import NotionPageRenderer from '../Renderer/NotionPageRenderer';
+
+import Header from './_components/PostHeader';
 
 export default function NotionPage({
   user,
@@ -15,9 +18,9 @@ export default function NotionPage({
   id: string;
 }) {
   const isAuthor = postDetail.isAuthor || false;
-  const avatar = postDetail.data?.avatar || "";
+  const avatar = postDetail.data?.avatar || '';
   const isChild = postDetail.isChild || false;
-  const image = postDetail.data?.image || "";
+  const image = postDetail.data?.image || '';
 
   return (
     <>
