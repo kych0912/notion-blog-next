@@ -1,19 +1,17 @@
-import { Suspense } from 'react';
-
 import GlobalErrorBoundary from '@/app/components/Error/GlobalErrorBoundary';
-import { writePostAction } from '@/app/(pages)/write/actions';
 
-import NotionPageContent from './_pages/RightComponents/NotionPageContent';
-import NotionUrlInput from './_pages/LeftComponents/NotionUrlInput';
+import NotionPageContent from './components/RightComponents/NotionPageContent';
+import NotionUrlInput from './components/LeftComponents/NotionUrlInput';
+import { PageIdProvider } from './providers/PageIdProvider';
 
 export default function Page() {
   return (
     <GlobalErrorBoundary>
-      <NotionUrlInput onWrite={writePostAction} />
+      <PageIdProvider>
+        <NotionUrlInput />
 
-      <Suspense>
         <NotionPageContent />
-      </Suspense>
+      </PageIdProvider>
     </GlobalErrorBoundary>
   );
 }

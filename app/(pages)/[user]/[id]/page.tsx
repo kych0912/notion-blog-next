@@ -6,7 +6,7 @@ import { getMetadata } from '@/app/components/MetaData/getMetaData';
 import { getPage } from '@/app/lib/notion-api';
 import { getPageBlockContent } from '@/app/utils/NotionApi';
 import { getPage as getNotionPage } from '@/app/lib/notion-api';
-import { getPostDetailServer } from '@/app/services/post/server';
+import { getPostDetailServer } from '@/app/server/actions/post';
 
 interface ParamsType {
   id: string;

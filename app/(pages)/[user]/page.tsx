@@ -2,6 +2,8 @@ import { Box } from '@mui/material';
 import { notFound } from 'next/navigation';
 
 import { getUserInfoAndPostByName } from '@/app/server/queries/user';
+import { getUserPosts } from '@/app/server/queries/post';
+import type { UserType, PostType } from '@/app/server/db/schema';
 
 import User from './_components/User';
 import Feed from './_components/Feed';
@@ -9,21 +11,18 @@ import CoverImage from './_components/CoverImage';
 
 const Post = async ({ params }: { params: Promise<{ user: string }> }) => {
   const { user } = await params;
-  let avatar_url = '';
-  let name = '';
-  let posts;
+  const decodedUser = decodeURIComponent(user);
 
-  try {
-    const _response = await getUserInfoAndPostByName(user);
+  const [userInfo, posts]: [UserType | null, PostType[]] = await Promise.all([
+    getUserInfoAndPostByName(decodedUser),
+    getUserPosts(decodedUser),
+  ]);
 
-    avatar_url = _response[0].avatar ?? '';
-    name = _response[0].name;
-    posts = _response[1];
-  } catch (err: unknown) {
-    if (err instanceof Error && err.message === 'Not Found') {
-      return notFound();
-    }
-    throw err;
+  const avatar = userInfo?.avatar ?? '';
+  const name = userInfo?.name ?? '';
+
+  if (!userInfo) {
+    return notFound();
   }
 
   return (
@@ -36,7 +35,7 @@ const Post = async ({ params }: { params: Promise<{ user: string }> }) => {
       }}
     >
       <CoverImage src={'/Default_Image.jpeg'} />
-      <User avatar={avatar_url} name={name} />
+      <User avatar={avatar} name={name} />
 
       <Feed posts={posts} />
     </Box>

@@ -1,20 +1,10 @@
-import {
-  pgTable,
-  pgPolicy,
-  timestamp,
-  varchar,
-  text,
-  unique,
-  bigint,
-} from "drizzle-orm/pg-core";
-import { sql } from "drizzle-orm";
+import { pgTable, pgPolicy, timestamp, varchar, text, unique, bigint } from 'drizzle-orm/pg-core';
+import { sql } from 'drizzle-orm';
 
 export const post = pgTable(
-  "post",
+  'post',
   {
-    date: timestamp({ withTimezone: true, mode: "string" })
-      .defaultNow()
-      .notNull(),
+    date: timestamp({ withTimezone: true, mode: 'string' }).defaultNow().notNull(),
     author: varchar().notNull(),
     title: varchar(),
     image: text(),
@@ -23,25 +13,25 @@ export const post = pgTable(
     id: text().primaryKey().notNull(),
   },
   () => [
-    pgPolicy("Enable insert for authenticated users only", {
-      as: "permissive",
-      for: "insert",
-      to: ["authenticated"],
+    pgPolicy('Enable insert for authenticated users only', {
+      as: 'permissive',
+      for: 'insert',
+      to: ['authenticated'],
       withCheck: sql`true`,
     }),
-    pgPolicy("Enable read access for all users", {
-      as: "permissive",
-      for: "select",
-      to: ["public"],
+    pgPolicy('Enable read access for all users', {
+      as: 'permissive',
+      for: 'select',
+      to: ['public'],
     }),
-  ]
+  ],
 );
 
 export const user = pgTable(
-  "user",
+  'user',
   {
-    seq: bigint({ mode: "number" }).primaryKey().generatedByDefaultAsIdentity({
-      name: "user_seq_seq",
+    seq: bigint({ mode: 'number' }).primaryKey().generatedByDefaultAsIdentity({
+      name: 'user_seq_seq',
       startWith: 1,
       increment: 1,
       minValue: 1,
@@ -54,7 +44,8 @@ export const user = pgTable(
     email: varchar(),
     id: varchar(),
   },
-  (table) => [unique("user_password_key").on(table.password)]
+  (table) => [unique('user_password_key').on(table.password)],
 );
 
 export type PostType = typeof post.$inferSelect;
+export type UserType = typeof user.$inferSelect;

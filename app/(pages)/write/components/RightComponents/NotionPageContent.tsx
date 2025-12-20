@@ -1,10 +1,12 @@
 import { Box } from '@mui/material';
+import { Suspense } from 'react';
+
+import LoadingPage from '@/app/components/LoadingPage';
 
 import { WriteFunnelContainer } from '../../write.styles';
 
 import PreRender from './_components/PreRender';
 
-//UI 렌더링
 export default function NotionPageContent() {
   return (
     <WriteFunnelContainer>
@@ -16,7 +18,9 @@ export default function NotionPageContent() {
           pb: '6rem',
         }}
       >
-        <PreRender />
+        <Suspense fallback={<LoadingPage />}>
+          <PreRender />
+        </Suspense>
       </Box>
     </WriteFunnelContainer>
   );

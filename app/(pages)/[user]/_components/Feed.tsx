@@ -1,21 +1,11 @@
 import { Grid, Divider, Typography } from '@mui/material';
 import { Box } from '@mui/material';
 
+import type { PostType } from '@/app/server/db/schema';
+
 import PostCard from '../../../components/PostCard/PostCard';
 
-export default function Feed({
-  posts,
-}: {
-  posts: {
-    id: string;
-    author: string;
-    date: Date;
-    description: string;
-    image: string;
-    title: string;
-    avatar: string;
-  }[];
-}) {
+export default function Feed({ posts }: { posts: PostType[] }) {
   return (
     <Box
       sx={{
@@ -50,11 +40,11 @@ export default function Feed({
                 <PostCard
                   id={item.id}
                   user={item.author}
-                  caption={item.description}
-                  date={item.date}
-                  image={item.image}
-                  title={item.title}
-                  avatar={item.avatar}
+                  caption={item.description ?? ''}
+                  date={new Date(item.date)}
+                  image={item.image ?? ''}
+                  title={item.title ?? ''}
+                  avatar={item.avatar ?? ''}
                 />
               </Grid>
             );

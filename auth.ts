@@ -30,6 +30,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           return true;
         }
       } catch (err: unknown) {
+        console.error(err);
         if (err instanceof AxiosError && err.response?.status === 404) {
         }
       }
