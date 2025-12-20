@@ -1,6 +1,6 @@
 import { Typography } from '@mui/material';
 import { Box, TextField, CircularProgress } from '@mui/material';
-import { useSuspenseQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { parsePageId } from 'notion-utils';
 
 import { getRecordMapOptions } from '@/app/react-query/options/notion';
@@ -21,7 +21,7 @@ export default function Input({
   isError: boolean;
 }) {
   const { pageId, setPageId } = usePageId();
-  const { isLoading } = useSuspenseQuery(getRecordMapOptions(pageId));
+  const { isLoading } = useQuery(getRecordMapOptions(pageId));
 
   return (
     <InputContainer>

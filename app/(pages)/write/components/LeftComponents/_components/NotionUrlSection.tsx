@@ -1,38 +1,32 @@
-'use client'
+'use client';
 
 import React from 'react';
 import { Box } from '@mui/material';
 
-import ErrorHandler from "@/app/components/Error/ErrorHandler";
-import { useNotionUrlValidation } from "@/app/hooks/write/useNotionValidation";
+import ErrorHandler from '@/app/components/Error/ErrorHandler';
 
-import Input from "./Input";
-import Information from "./Information";
+import { useNotionUrlValidation } from '../../../hooks/useNotionValidation';
 
+import Input from './Input';
+import Information from './Information';
 
 const NotionUrlSection = React.memo(function NotionUrlSection() {
-    const {url, setUrl, isError, handleSubmit, resetError} = useNotionUrlValidation(); 
-    return(
-        <>
-            <Box sx={{width:"100%"}}>
-                <Input 
-                    url={url} 
-                    setUrl={setUrl} 
-                    isError={isError}
-                    handleSubmit={handleSubmit}
-                />
-                {
-                    isError &&
-                    <ErrorHandler 
-                        message="유효하지 않은 Notion URL입니다." 
-                        type="helperText"
-                        resetError={resetError}
-                    />
-                }
-                <Information/>
-            </Box>
-        </>
-    )
+  const { url, setUrl, isError, handleSubmit, resetError } = useNotionUrlValidation();
+  return (
+    <>
+      <Box sx={{ width: '100%' }}>
+        <Input url={url} setUrl={setUrl} isError={isError} handleSubmit={handleSubmit} />
+        {isError && (
+          <ErrorHandler
+            message="유효하지 않은 Notion URL입니다."
+            type="helperText"
+            resetError={resetError}
+          />
+        )}
+        <Information />
+      </Box>
+    </>
+  );
 });
 
-export default NotionUrlSection; 
+export default NotionUrlSection;

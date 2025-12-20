@@ -11,6 +11,7 @@ import PreRenderHeader from './PreRenderHeader';
 
 export default function PreRender() {
   const { pageId: inputPageId } = usePageId();
+  console.log(inputPageId);
   const { data: recordMap } = useSuspenseQuery(getRecordMapOptions(inputPageId));
 
   if (!recordMap) {
