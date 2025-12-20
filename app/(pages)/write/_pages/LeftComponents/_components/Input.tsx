@@ -1,6 +1,5 @@
 import { Typography } from "@mui/material";
 import { Box, TextField, CircularProgress } from "@mui/material";
-import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 
 import { ContainedButton } from "@/app/components/Button/button.styles";
 import { useNotionPage } from "@/app/context/NotionPageContext";

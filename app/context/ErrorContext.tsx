@@ -4,8 +4,8 @@ import { createContext, useContext } from "react";
 import { useState } from "react";
 
 interface ErrorContextType {
-    error: any;
-    setError: (error: any) => void;
+    error: Error | null;
+    setError: (error: Error | null) => void;
 }
 
 export const ErrorContext = createContext<ErrorContextType>({
@@ -14,7 +14,7 @@ export const ErrorContext = createContext<ErrorContextType>({
 });
 
 export function ErrorProvider({ children }: { children: React.ReactNode }) {
-    const [error, setError] = useState<any>(null);
+    const [error, setError] = useState<Error | null>(null);
 
     return (
         <ErrorContext.Provider value={{ error, setError }}>

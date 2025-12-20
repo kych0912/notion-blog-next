@@ -1,8 +1,8 @@
 "use server";
 import { and, desc, eq } from "drizzle-orm";
 
-import { db } from "@/app/db/drizzle";
-import * as schema from "@/app/db/schema";
+import { db } from "@/app/server/db/drizzle";
+import * as schema from "@/app/server/db/schema";
 
 interface Post {
   id: string;

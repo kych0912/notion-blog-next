@@ -1,7 +1,4 @@
-import { Typography, Box } from "@mui/material";
-import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
-
-import notionHelp from "@/public/notion-help.png"
+import { Box } from "@mui/material";
 
 import UnavailableFeaturesBanner from "./UnavailableFeaturesBanner"
 

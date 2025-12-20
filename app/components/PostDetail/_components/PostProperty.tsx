@@ -1,10 +1,6 @@
 import { Box, Typography, Avatar } from "@mui/material"
 import * as types from "notion-types"
 
-import {
-    getNotionImage,
-} from "@/app/utils/NotionApi";
-
 import Option from '../../PostOption/Option'
 
 import CoverImage from "./PostCoverImage"

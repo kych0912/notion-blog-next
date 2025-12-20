@@ -6,10 +6,10 @@ import * as Types from "notion-types";
 import { parsePageId } from "notion-utils";
 
 import { getPage, getNotionPageContent } from "@/app/lib/notion-api";
-import { uploadPost, getPostById } from "@/app/lib/postData/postDB";
+import { uploadPost, getPostById } from "@/app/server/queries/post";
 import { auth } from "@/auth";
 import { getPageBlockContent } from "@/app/utils/NotionApi";
-import { PostType } from "@/app/db/schema";
+
 
 export interface WriteActionState { ok: boolean; message?: string }
 

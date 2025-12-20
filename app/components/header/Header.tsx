@@ -1,6 +1,6 @@
 'use client';
 import * as React from 'react'
-import { Avatar,AppBar,Box,Skeleton, Typography} from "@mui/material";
+import { AppBar,Box, Typography} from "@mui/material";
 import Link from "next/link";
 import { useCallback, useState, useRef, useEffect } from 'react';
 
@@ -19,16 +19,12 @@ export default function Header(){
     const [visible, setVisible] = useState(true);
     const blockRef = useRef<HTMLDivElement>(null);
     const [height, setHeight] = useState(0);
-    const [marginTop, setMarginTop] = useState(0);
     useEffect(() => {
       if (!blockRef.current) return;
       setHeight(blockRef.current.clientHeight);
-      setMarginTop(-1 * blockRef.current.clientHeight);
     }, []);
   
-    const prevScrollTop = useRef(0);
-    const direction = useRef<'UP' | 'DOWN'>('DOWN');
-    const transitionPoint = useRef(0);
+    const prevScrollTop = useRef(0);  
   
     const onScroll = useCallback(() => {
       const scrollTop = getScrollTop();

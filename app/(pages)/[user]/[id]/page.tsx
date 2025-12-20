@@ -1,14 +1,14 @@
-import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 
-import NotionPage from "@/app/components/PostDetail/Post";
-import { getMetadata } from "@/app/components/MetaData/getMetaData";
-import { getPage } from "@/app/lib/notion-api";
-import { getPageBlockContent } from "@/app/utils/NotionApi";
-import { getPage as getNotionPage } from "@/app/lib/notion-api";
-import { getPostDetailServer } from "@/app/services/post/server";
+import NotionPage from '@/app/components/PostDetail/Post';
+import { getMetadata } from '@/app/components/MetaData/getMetaData';
+import { getPage } from '@/app/lib/notion-api';
+import { getPageBlockContent } from '@/app/utils/NotionApi';
+import { getPage as getNotionPage } from '@/app/lib/notion-api';
+import { getPostDetailServer } from '@/app/services/post/server';
 
-interface paramsType {
+interface ParamsType {
   id: string;
   user: string;
 }
@@ -16,26 +16,28 @@ interface paramsType {
 export const generateMetadata = async ({
   params,
 }: {
-  params: Promise<paramsType>;
+  params: Promise<ParamsType>;
 }): Promise<Metadata> => {
   const { id, user } = await params;
 
   const recordMap = await getNotionPage(id);
   const keys = Object.keys(recordMap?.block || {});
+  const blockValue = recordMap?.block?.[keys[0]]?.value;
 
-  const title = recordMap?.block?.[keys[0]].value.properties.title[0][0];
+  if (blockValue?.type !== 'page') {
+    return notFound();
+  }
+
+  const title = blockValue.properties?.title?.[0]?.[0] ?? '';
   const description = getPageBlockContent(recordMap, keys);
   return getMetadata({ title, description, asPath: `/@${user}/${id}` });
 };
 
-async function Page({ params }: { params: Promise<paramsType> }) {
+async function Page({ params }: { params: Promise<ParamsType> }) {
   const { id, user } = await params;
 
   try {
-    const [postDetail, recordMap] = await Promise.all([
-      getPostDetailServer(id, user),
-      getPage(id),
-    ]);
+    const [postDetail, recordMap] = await Promise.all([getPostDetailServer(id, user), getPage(id)]);
 
     if (!postDetail.isSuccess) {
       return notFound();
@@ -45,16 +47,11 @@ async function Page({ params }: { params: Promise<paramsType> }) {
 
     return (
       <>
-        <NotionPage
-          id={id}
-          user={user}
-          postDetail={postDetailData}
-          recordMap={recordMap}
-        />
+        <NotionPage id={id} user={user} postDetail={postDetailData} recordMap={recordMap} />
       </>
     );
   } catch (e: unknown) {
-    if (e instanceof Error && e.message === "NOT_FOUND") {
+    if (e instanceof Error && e.message === 'NOT_FOUND') {
       return notFound();
     }
     throw e;

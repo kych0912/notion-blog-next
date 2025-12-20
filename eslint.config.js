@@ -1,14 +1,13 @@
-import importPlugin from 'eslint-plugin-import'
-import promisePlugin from 'eslint-plugin-promise'
-import typescriptEslint from '@typescript-eslint/eslint-plugin'
-import typescriptParser from '@typescript-eslint/parser'
-import globals from 'globals'
+import importPlugin from 'eslint-plugin-import';
+import promisePlugin from 'eslint-plugin-promise';
+import typescriptEslint from '@typescript-eslint/eslint-plugin';
+import typescriptParser from '@typescript-eslint/parser';
+import globals from 'globals';
 
-const tsFiles = ['**/*.ts', '**/*.tsx']
+const tsFiles = ['**/*.ts', '**/*.tsx'];
 
 const baseRules = {
   'func-style': ['error', 'declaration', { allowArrowFunctions: true }],
-  'no-console': 'error',
   'no-empty-function': 'off',
   'no-implicit-coercion': ['error', { allow: ['!!'] }],
   'no-return-await': 'error',
@@ -34,8 +33,7 @@ const baseRules = {
 
   'promise/catch-or-return': ['error', { allowFinally: true }],
   'promise/prefer-await-to-callbacks': 'error',
-  'promise/prefer-await-to-then': 'error',
-}
+};
 
 export default [
   // Base config for all files
@@ -76,11 +74,6 @@ export default [
     rules: {
       ...typescriptEslint.configs.recommended.rules,
       ...baseRules,
-      'no-use-before-define': 'off',
-      '@typescript-eslint/no-use-before-define': [
-        'error',
-        { functions: false },
-      ],
 
       'no-unused-vars': 'off',
       '@typescript-eslint/no-unused-vars': [
@@ -108,6 +101,7 @@ export default [
     },
   },
 
+  // 타입 관련 규칙
   {
     files: tsFiles,
     plugins: {
@@ -126,4 +120,4 @@ export default [
       '@typescript-eslint/no-misused-promises': ['error', { checksVoidReturn: false }],
     },
   },
-]
+];

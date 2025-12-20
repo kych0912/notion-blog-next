@@ -2,7 +2,7 @@ import { Metadata } from "next";
 
 import { META } from "@/app/constants/metadata";
 
-  export interface generateMetadataProps {
+  export interface GenerateMetadataProps {
     title?: string;
     description?: string;
     asPath?: string;
@@ -10,7 +10,7 @@ import { META } from "@/app/constants/metadata";
   }
 
 
-export const getMetadata = (metadataProps?: generateMetadataProps) => {
+export const getMetadata = (metadataProps?: GenerateMetadataProps) => {
     const { title, description, asPath, ogImage } = metadataProps || {};
   
     const TITLE = title ? `${title} - NextBlog` : META.title;

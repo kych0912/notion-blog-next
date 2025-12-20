@@ -1,10 +1,10 @@
 "use server";
 
-import { getPostDetail as getPostDetailFromDB } from "@/app/lib/postData/postDB";
+import { getPostDetail as getPostDetailFromDB } from "@/app/server/queries/post";
 import { isDescendantOfStoredPage } from "@/app/lib/notion-api";
 import { auth } from "@/auth";
-import { AuthError, BaseServerResposne } from "@/app/types/base";
-import { PostType } from "@/app/db/schema";
+import { BaseServerResposne } from "@/app/types/base";
+import { PostType } from "@/app/server/db/schema";
 
 export interface GetPostDetailResponse {
   id: string;

@@ -22,7 +22,7 @@ export const post = pgTable(
     description: text(),
     id: text().primaryKey().notNull(),
   },
-  (table) => [
+  () => [
     pgPolicy("Enable insert for authenticated users only", {
       as: "permissive",
       for: "insert",

@@ -1,15 +1,13 @@
 import {Box, Typography, Avatar} from "@mui/material";
-import { Skeleton } from "@mui/material";
-import Image from "next/image";
 
 import PostCardLoading from "./PostCardLoading";
 
 function dateFormat(date:Date) {
-    var year = date.getFullYear();
-    var month = ('0' + (date.getMonth() + 1)).slice(-2);
-    var day = ('0' + date.getDate()).slice(-2);
+    const year = date.getFullYear();
+    const month = ('0' + (date.getMonth() + 1)).slice(-2);
+    const day = ('0' + date.getDate()).slice(-2);
     
-    var dateString = year + '-' + month  + '-' + day;
+    const dateString = year + '-' + month  + '-' + day;
 	return dateString;
 }
 
@@ -67,7 +65,7 @@ export default function PostCard({id,user,caption,date,title,image,avatar,isLoad
                             </Typography>
                             <Box>
                                 <Typography 
-                                    style={{WebkitLineClamp:3,WebkitBoxOrient:'vertical'} as any}
+                                    style={{WebkitLineClamp:3,WebkitBoxOrient:'vertical'} as React.CSSProperties}
                                     sx={{
                                         fontSize:'0.875rem',
                                         display: '-webkit-box',
