@@ -6,7 +6,7 @@ import { getMetadata } from '@/app/components/MetaData/getMetaData';
 import { getPage } from '@/app/lib/notion-api';
 import { getPageBlockContent } from '@/app/utils/NotionApi';
 import { getPage as getNotionPage } from '@/app/lib/notion-api';
-import { getPostDetailServer } from '@/app/server/actions/post';
+import { getPostDetailAction } from '@/app/server/actions/post';
 
 interface ParamsType {
   id: string;
@@ -37,7 +37,7 @@ async function Page({ params }: { params: Promise<ParamsType> }) {
   const { id, user } = await params;
 
   try {
-    const [postDetail, recordMap] = await Promise.all([getPostDetailServer(id, user), getPage(id)]);
+    const [postDetail, recordMap] = await Promise.all([getPostDetailAction(id, user), getPage(id)]);
 
     if (!postDetail.isSuccess) {
       return notFound();

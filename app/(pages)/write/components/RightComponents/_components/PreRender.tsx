@@ -1,6 +1,6 @@
 'use client';
 
-import { useSuspenseQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 
 import NotionPage from '@/app/components/Renderer/NotionPageRenderer';
 import { getRecordMapOptions } from '@/app/react-query/options/notion';
@@ -11,12 +11,9 @@ import PreRenderHeader from './PreRenderHeader';
 
 export default function PreRender() {
   const { pageId: inputPageId } = usePageId();
-  console.log(inputPageId);
-  const { data: recordMap } = useSuspenseQuery(getRecordMapOptions(inputPageId));
+  const { data: recordMap } = useQuery(getRecordMapOptions(inputPageId));
 
-  if (!recordMap) {
-    return null;
-  }
+  if (!recordMap) return null;
 
   return (
     <>
