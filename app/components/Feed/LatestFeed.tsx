@@ -3,6 +3,7 @@ import { Suspense } from 'react';
 import FeedLayout from './_components/FeedLayout';
 import FeedItem from './_components/FeedItem';
 import Latest from './_components/Latest';
+import PrefetchFeed from './_components/PrefetchFeed';
 
 export default function LatestFeed() {
   return (
@@ -16,7 +17,9 @@ export default function LatestFeed() {
           </>
         }
       >
-        <Latest />
+        <PrefetchFeed>
+          <Latest />
+        </PrefetchFeed>
       </Suspense>
     </FeedLayout>
   );

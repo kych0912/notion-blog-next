@@ -1,7 +1,7 @@
 'use client';
 
 import { useInView } from 'react-intersection-observer';
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
 
 import { getPostOptions } from '@/app/react-query/post';
@@ -9,7 +9,7 @@ import { getPostOptions } from '@/app/react-query/post';
 import FeedItem from './FeedItem';
 
 export default function Latest() {
-  const { data: posts, fetchNextPage } = useInfiniteQuery(getPostOptions.getLatestPosts);
+  const { data: posts, fetchNextPage } = useSuspenseInfiniteQuery(getPostOptions.getLatestPosts);
   const { ref, inView } = useInView();
 
   useEffect(() => {
