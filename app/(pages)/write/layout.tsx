@@ -1,3 +1,5 @@
+import WritePostLayout from '@/app/components/Layout/WritePostLayout';
+
 import Providers from './providers';
 
 export default function RootLayout({
@@ -5,5 +7,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <Providers>{children}</Providers>;
+  return (
+    <Providers>
+      <WritePostLayout>{children}</WritePostLayout>
+    </Providers>
+  );
 }

@@ -1,17 +1,16 @@
 'use client';
 
 import { useInView } from 'react-intersection-observer';
+import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
 
-import { useLatestPostsInfinite } from '@/app/react-query/post/queries';
+import { getPostOptions } from '@/app/react-query/post';
 
 import FeedItem from './FeedItem';
 
 export default function Latest() {
-  const { data: posts, isLoading, fetchNextPage, error } = useLatestPostsInfinite();
+  const { data: posts, fetchNextPage } = useSuspenseInfiniteQuery(getPostOptions.getLatestPosts);
   const { ref, inView } = useInView();
-
-  if (error) throw error;
 
   useEffect(() => {
     if (inView) {
@@ -19,19 +18,8 @@ export default function Latest() {
     }
   }, [inView, fetchNextPage]);
 
-  // posts가 없을 때 로딩 UI
-  if (isLoading || !posts) {
-    return (
-      <>
-        {Array.from({ length: 10 }).map((_, index) => (
-          <FeedItem key={`skeleton-${index}`} isLoading={true} />
-        ))}
-      </>
-    );
-  }
-
   // 모든 페이지의 포스트를 하나의 배열로 합침
-  const allPosts = posts.pages.flat();
+  const allPosts = posts?.pages.flatMap((page) => page.posts) ?? [];
 
   return (
     <>

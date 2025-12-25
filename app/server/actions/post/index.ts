@@ -1,6 +1,11 @@
 'use server';
 
-import { getPostDetail as getPostDetailFromDB } from '@/app/server/queries/post';
+import { redirect } from 'next/navigation';
+
+import {
+  getPostDetail as getPostDetailFromDB,
+  getLatestPosts as getLatestPostsFromDB,
+} from '@/app/server/queries/post';
 import { isDescendantOfStoredPage } from '@/app/lib/notion-api';
 import { auth } from '@/auth';
 import { BaseServerResposne } from '@/app/types/base';
@@ -16,7 +21,7 @@ export interface GetPostDetailResponse {
   data: PostType | null;
 }
 
-export async function getPostDetailServer(
+export async function getPostDetailAction(
   id: string,
   user: string,
 ): Promise<BaseServerResposne<GetPostDetailResponse>> {
@@ -57,13 +62,19 @@ export async function deletePostAction(
 ): Promise<ActionState<string>> {
   try {
     const id = formData.get('id') as string;
+
     const post = await getPostById(id);
     if (!post) {
       return { error: true, message: 'Post not found' };
     }
     await deletePost(id);
-    return { success: true, message: 'Post deleted successfully' };
   } catch {
     return { error: true, message: 'Failed to delete post' };
   }
+  redirect('/');
+}
+
+export async function getLatestPostsAction(pageParam: number = 1) {
+  const posts = await getLatestPostsFromDB(pageParam);
+  return { posts };
 }

@@ -1,6 +1,6 @@
 'use client';
 import { useActionState } from 'react';
-import { Box, Modal, Typography } from '@mui/material';
+import { Box, Button, CircularProgress, Modal, Typography } from '@mui/material';
 
 import ErrorHandler from '@/app/components/Error/ErrorHandler';
 import { deletePostAction } from '@/app/server/actions/post';
@@ -14,7 +14,11 @@ export default function DeleteModal({
   open: boolean;
   handleOpen: () => void;
 }) {
-  const [state, formAction] = useActionState(deletePostAction, { success: false, message: '' });
+  const [state, formAction, pending] = useActionState(deletePostAction, {
+    success: false,
+    message: '',
+  });
+
   const style = {
     position: 'absolute',
     top: '50%',
@@ -30,15 +34,15 @@ export default function DeleteModal({
 
   return (
     <>
-      <form action={formAction}>
-        <Modal
-          open={open}
-          onClose={handleOpen}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-          sx={{ '& .Mui-focused': { outline: 'none' } }}
-        >
-          <Box sx={style}>
+      <Modal
+        open={open}
+        onClose={handleOpen}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+        sx={{ '& .Mui-focused': { outline: 'none' } }}
+      >
+        <Box sx={style}>
+          <form action={formAction}>
             <input type="hidden" name="id" value={id} />
             <Typography id="modal-modal-title" variant="h6" sx={{ fontWeight: 700 }}>
               잠시만요, 확인해주세요!
@@ -52,7 +56,8 @@ export default function DeleteModal({
             <Box
               sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 1 }}
             >
-              <Box
+              <Button
+                type="button"
                 onClick={handleOpen}
                 sx={{
                   backgroundColor: '#D9D9D9',
@@ -65,9 +70,11 @@ export default function DeleteModal({
                 }}
               >
                 <Typography sx={{ color: 'black', fontWeight: 600 }}>취소</Typography>
-              </Box>
+              </Button>
 
-              <Box
+              <Button
+                type="submit"
+                disabled={pending}
                 sx={{
                   backgroundColor: 'primary.main',
                   width: '140px',
@@ -78,12 +85,14 @@ export default function DeleteModal({
                   justifyContent: 'center',
                 }}
               >
-                <Typography sx={{ color: 'white', fontWeight: 600 }}>삭제</Typography>
-              </Box>
+                <Typography sx={{ color: 'white', fontWeight: 600 }}>
+                  {pending ? <CircularProgress size={16} color="inherit" /> : '삭제'}
+                </Typography>
+              </Button>
             </Box>
-          </Box>
-        </Modal>
-      </form>
+          </form>
+        </Box>
+      </Modal>
 
       {state.error && (
         <ErrorHandler message={state.message} type="snackbar" resetError={() => {}} />
