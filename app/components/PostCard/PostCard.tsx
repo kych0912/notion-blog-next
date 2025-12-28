@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 import PostCardLoading from './PostCardLoading';
 
 function dateFormat(date: Date) {
@@ -33,7 +35,7 @@ export default function PostCard({
       {isLoading ? (
         <PostCardLoading />
       ) : (
-        <a href={`/${user}/${id}`} className="no-underline">
+        <Link href={`/${user}/${id}`} className="no-underline">
           <div className="w-full">
             <img className="feedImg" src={image ? image : '/Default_Image.jpeg'} alt={title} />
           </div>
@@ -68,7 +70,7 @@ export default function PostCard({
               <div className="ml-1.5 truncate text-xs text-black">{user}</div>
             </div>
           </div>
-        </a>
+        </Link>
       )}
     </div>
   );

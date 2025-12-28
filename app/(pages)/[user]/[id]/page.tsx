@@ -5,7 +5,6 @@ import NotionPage from '@/app/components/PostDetail/Post';
 import { getMetadata } from '@/app/components/MetaData/getMetaData';
 import { getPage } from '@/app/lib/notion-api';
 import { getPageBlockContent } from '@/app/utils/NotionApi';
-import { getPage as getNotionPage } from '@/app/lib/notion-api';
 import { getPostDetailAction } from '@/app/server/actions/post';
 
 interface ParamsType {
@@ -20,7 +19,7 @@ export const generateMetadata = async ({
 }): Promise<Metadata> => {
   const { id, user } = await params;
 
-  const recordMap = await getNotionPage(id);
+  const recordMap = await getPage(id);
   const keys = Object.keys(recordMap?.block || {});
   const blockValue = recordMap?.block?.[keys[0]]?.value;
 
