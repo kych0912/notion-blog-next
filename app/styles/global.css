@@ -1,19 +1,21 @@
-:root{
-    --background-color-0: #f8f9fa;
-    --background-color-1: #ebebeb;
+@import 'tailwindcss';
+
+:root {
+  --background-color-0: #f8f9fa;
+  --background-color-1: #ebebeb;
 }
 
-.feedImg{
-    width: 100%;
-    height: auto;
-    height:12rem;
-    object-fit: cover;
-    object-position: center;
-    border-top-left-radius: 0.5rem;
-    border-top-right-radius: 0.5rem;
+.feedImg {
+  width: 100%;
+  height: auto;
+  height: 12rem;
+  object-fit: cover;
+  object-position: center;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
 }
 
-.tab.active{
-    background-color:#000000;
-    border-color:#000000;
+.tab.active {
+  background-color: #000000;
+  border-color: #000000;
 }

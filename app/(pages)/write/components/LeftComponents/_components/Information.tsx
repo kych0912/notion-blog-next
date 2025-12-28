@@ -1,13 +1,9 @@
-import { Box } from "@mui/material";
+import UnavailableFeaturesBanner from './UnavailableFeaturesBanner';
 
-import UnavailableFeaturesBanner from "./UnavailableFeaturesBanner"
-
-export default function Information(){
-    return(
-        <Box sx={{
-            mt:2
-        }}>
-            <UnavailableFeaturesBanner />
-        </Box>
-    )
+export default function Information() {
+  return (
+    <div className="mt-2">
+      <UnavailableFeaturesBanner />
+    </div>
+  );
 }

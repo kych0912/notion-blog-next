@@ -1,25 +1,28 @@
-'use client'
+'use client';
+import { useEffect } from 'react';
+import { toast } from 'sonner';
 
-import ErrorHandler from "@/app/components/Error/ErrorHandler";
-import RefetchPage from "@/app/components/Error/_components/RefetchPage/RefetchPage";
+import RefetchPage from '@/app/components/Error/_components/RefetchPage/RefetchPage';
 
 export default function Error({
   error,
   reset,
 }: {
-  error: Error & { digest?: string; response?: { status?: number } }
-  reset: () => void
+  error: Error & { digest?: string; response?: { status?: number } };
+  reset: () => void;
 }) {
-    const errorStatus = error?.response?.status || 500;
+  const errorStatus = error?.response?.status || 500;
 
-    switch (errorStatus) {
+  useEffect(() => {
+    toast.error('서버 에러가 발생했습니다');
+  }, []);
 
-        default:
-            return (
-                <>
-                    <RefetchPage message="서버 에러가 발생했습니다" refetch={reset}/>
-                    <ErrorHandler message="서버 에러가 발생했습니다" type="snackbar"/>
-                </>
-            );
-    }
-} 
+  switch (errorStatus) {
+    default:
+      return (
+        <>
+          <RefetchPage message="서버 에러가 발생했습니다" refetch={reset} />
+        </>
+      );
+  }
+}

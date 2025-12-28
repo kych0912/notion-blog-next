@@ -1,85 +1,64 @@
 'use client';
-import * as React from 'react'
-import { AppBar,Box, Typography} from "@mui/material";
-import Link from "next/link";
+import * as React from 'react';
+import Link from 'next/link';
 import { useCallback, useState, useRef, useEffect } from 'react';
 
 import HeaderRight from './_components/HeaderRight';
 
 const getScrollTop = () => {
-    if (!document.body) return 0;
-    const scrollTop = document.documentElement
-      ? document.documentElement.scrollTop || document.body.scrollTop
-      : document.body.scrollTop;
-    return scrollTop;
-  };
-  
+  if (!document.body) return 0;
+  const scrollTop = document.documentElement
+    ? document.documentElement.scrollTop || document.body.scrollTop
+    : document.body.scrollTop;
+  return scrollTop;
+};
 
-export default function Header(){
-    const [visible, setVisible] = useState(true);
-    const blockRef = useRef<HTMLDivElement>(null);
-    const [height, setHeight] = useState(0);
-    useEffect(() => {
-      if (!blockRef.current) return;
-      setHeight(blockRef.current.clientHeight);
-    }, []);
-  
-    const prevScrollTop = useRef(0);  
-  
-    const onScroll = useCallback(() => {
-      const scrollTop = getScrollTop();
-      const nextDirection = prevScrollTop.current > scrollTop ? 'UP' : 'DOWN';
-  
-      if (nextDirection === 'UP') {
-        setVisible(true);
-      } else if (nextDirection === 'DOWN') {
-        setVisible(false);
-      }
-  
-      prevScrollTop.current = scrollTop;
-    }, []);
-  
-    useEffect(() => {
-      document.addEventListener('scroll', onScroll);
-      return () => {
-        document.removeEventListener('scroll', onScroll);
-      };
-    }, [onScroll]);
+export default function Header() {
+  const [visible, setVisible] = useState(true);
+  const blockRef = useRef<HTMLDivElement>(null);
+  const [height, setHeight] = useState(0);
+  useEffect(() => {
+    if (!blockRef.current) return;
+    setHeight(blockRef.current.clientHeight);
+  }, []);
 
-    return (
-            <AppBar component="header" position="sticky" 
-            style={{
-                transform: visible ? 'translateY(0)' : `translateY(-${height}px)`,
-                transition: 'transform 0.3s ease-in-out',
-            }}
-            sx={{
-                boxShadow:'none',
-                backdropFilter:"blur(30px)",
-                backgroundColor:"transparent",
-                py:'12px',
-                width:"100%",
-                zIndex:299,
-                }} 
-                ref = {blockRef}
-                >    
-                    <Box sx={{
-                        maxWidth:{md:'900px',lg:"1200px"},
-                        margin:'auto',                
-                        display:'flex',
-                        flexDirection:"row",
-                        justifyContent:"space-between", 
-                        alignItems:"center",
-                        width:"100%",
-                        px:2,
-                        height:'40px'
-                    }}>
+  const prevScrollTop = useRef(0);
 
-                        <Link href="/"  style={{ textDecoration: "none"}}>
-                            <Typography sx={{fontSize:"21px",color:"black",fontWeight:700}}>NextBlog</Typography>
-                        </Link>
+  const onScroll = useCallback(() => {
+    const scrollTop = getScrollTop();
+    const nextDirection = prevScrollTop.current > scrollTop ? 'UP' : 'DOWN';
 
-                        <HeaderRight/>
-                    </Box>
-            </AppBar>
-    )
+    if (nextDirection === 'UP') {
+      setVisible(true);
+    } else if (nextDirection === 'DOWN') {
+      setVisible(false);
+    }
+
+    prevScrollTop.current = scrollTop;
+  }, []);
+
+  useEffect(() => {
+    document.addEventListener('scroll', onScroll);
+    return () => {
+      document.removeEventListener('scroll', onScroll);
+    };
+  }, [onScroll]);
+
+  return (
+    <header
+      ref={blockRef}
+      className="sticky top-0 z-[299] w-full py-3 backdrop-blur-2xl"
+      style={{
+        transform: visible ? 'translateY(0)' : `translateY(-${height}px)`,
+        transition: 'transform 0.3s ease-in-out',
+      }}
+    >
+      <div className="mx-auto flex h-10 w-full items-center justify-between px-2 md:max-w-[900px] lg:max-w-[1200px]">
+        <Link href="/" className="text-[21px] font-bold text-black no-underline">
+          NextBlog
+        </Link>
+        <HeaderRight />
+      </div>
+    </header>
+  );
 }

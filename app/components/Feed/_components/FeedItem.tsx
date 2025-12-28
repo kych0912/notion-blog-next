@@ -1,39 +1,40 @@
 import { forwardRef } from 'react';
-import { Grid } from "@mui/material";
 
-import PostCard from "../../PostCard/PostCard";
+import PostCard from '../../PostCard/PostCard';
 
 const initialPost = {
-    id:"",
-    author:"",
-    description:"",
-    date:new Date(),
-    title:"",
-    image:`null`,
-    avatar:""
-}
+  id: '',
+  author: '',
+  description: '',
+  date: new Date(),
+  title: '',
+  image: `null`,
+  avatar: '',
+};
 
 interface IFeedItemProps {
-    post?: Iposts
-    isLoading?: boolean
+  post?: Iposts;
+  isLoading?: boolean;
 }
 
-const FeedItem = forwardRef<HTMLDivElement, IFeedItemProps>(({ post = initialPost, isLoading = false }, ref) => {
+const FeedItem = forwardRef<HTMLDivElement, IFeedItemProps>(
+  ({ post = initialPost, isLoading = false }, ref) => {
     return (
-        <Grid ref={ref} item xs={16} md={8} lg={4} sx={{ width: "100%" }}>
-            <PostCard
-                id={post.id}
-                user={post.author}
-                caption={post.description}
-                date={post.date}
-                title={post.title}
-                image={post.image}
-                avatar={post.avatar}
-                isLoading={isLoading}
-            />
-        </Grid>
+      <div ref={ref} className="w-full">
+        <PostCard
+          id={post.id}
+          user={post.author}
+          caption={post.description}
+          date={post.date}
+          title={post.title}
+          image={post.image}
+          avatar={post.avatar}
+          isLoading={isLoading}
+        />
+      </div>
     );
-});
+  },
+);
 
 FeedItem.displayName = 'FeedItem';
 

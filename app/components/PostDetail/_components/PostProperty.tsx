@@ -1,43 +1,51 @@
-import { Box, Typography, Avatar } from "@mui/material"
-import * as types from "notion-types"
+import * as types from 'notion-types';
+import Link from 'next/link';
 
-import Option from '../../PostOption/Option'
+import Option from '../../PostOption/Option';
 
-import CoverImage from "./PostCoverImage"
+import CoverImage from './PostCoverImage';
 
-export default function PostProperty({recordMap,user,isAuthor,id,avatar,image}: {
-    recordMap: types.ExtendedRecordMap,
-    user:string,
-    isAuthor:boolean,
-    id:string,
-    avatar:string,
-    isChild:boolean,
-    image:string
-}){
-    const keys = Object.keys(recordMap?.block || {});
-    const block = recordMap?.block?.[keys[0]]?.value;
+export default function PostProperty({
+  recordMap,
+  user,
+  isAuthor,
+  id,
+  avatar,
+  image,
+}: {
+  recordMap: types.ExtendedRecordMap;
+  user: string;
+  isAuthor: boolean;
+  id: string;
+  avatar: string;
+  isChild: boolean;
+  image: string;
+}) {
+  const keys = Object.keys(recordMap?.block || {});
+  const block = recordMap?.block?.[keys[0]]?.value;
 
-    const publishedTime = new Date(block?.created_time).toLocaleDateString();
+  const publishedTime = new Date(block?.created_time).toLocaleDateString();
 
-    return( 
-        <>
-            <Box sx={{display:"flex",pt:1,justifyContent:'space-between',pb:2}}>
-                <Box sx={{display:"flex"}}>
-                    <a href={`/${user}`} style={{display:"flex",textDecoration:"none"}}>
-                        <Avatar alt={user} src={avatar?avatar:''} sx={{width:"1.5rem",height:"1.5rem",mr:1}}/>
-                        <Typography sx={{color:"#6f6f6f"}}>{decodeURIComponent(user)}</Typography>
-                    </a>
-                    <Typography sx={{color:"#6f6f6f",mx:1}}>|</Typography>
-                    <Typography sx={{color:"#6f6f6f"}}>{publishedTime}</Typography>
-                </Box>
-                
-                {
-                    isAuthor &&
-                    <Option id={id}/>
-                }
+  return (
+    <>
+      <div className="flex justify-between pt-2 pb-4">
+        <div className="flex items-center">
+          <Link href={`/${user}`} className="flex items-center no-underline">
+            <img
+              alt={user}
+              src={avatar ? avatar : ''}
+              className="mr-2 h-6 w-6 rounded-full bg-gray-200 object-cover"
+              referrerPolicy="no-referrer"
+            />
+            <span className="text-sm text-[#6f6f6f]">{decodeURIComponent(user)}</span>
+          </Link>
+          <span className="mx-2 text-sm text-[#6f6f6f]">|</span>
+          <span className="text-sm text-[#6f6f6f]">{publishedTime}</span>
+        </div>
 
-            </Box>
-            <CoverImage coverImg={image}/>
-        </>
-    )
+        {isAuthor && <Option id={id} />}
+      </div>
+      <CoverImage coverImg={image} />
+    </>
+  );
 }

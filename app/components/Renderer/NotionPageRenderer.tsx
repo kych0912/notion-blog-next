@@ -2,7 +2,6 @@
 
 import * as React from 'react';
 import dynamic from 'next/dynamic';
-import { Box } from '@mui/material';
 import { ExtendedRecordMap } from 'notion-types';
 import { useRouter } from 'next/navigation';
 import { useTransition } from 'react';
@@ -93,18 +92,7 @@ export default function NotionPageRenderer({
   };
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        margin: '0 auto',
-        maxWidth: '720px',
-        width: '100%',
-        mb: 10,
-      }}
-    >
+    <div className="mx-auto mb-10 flex w-full max-w-[720px] flex-col items-center justify-center">
       <NotionRenderer
         recordMap={recordMap}
         mapPageUrl={mapPageUrl}
@@ -120,6 +108,6 @@ export default function NotionPageRenderer({
         darkMode={false}
       />
       {isPending && <Loading />}
-    </Box>
+    </div>
   );
 }

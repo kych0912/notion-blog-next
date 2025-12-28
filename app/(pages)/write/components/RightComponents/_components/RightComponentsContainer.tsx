@@ -1,20 +1,9 @@
-import { Box } from "@mui/material";
+import { WriteFunnelContainer } from '../../../write.styles';
 
-import { WriteFunnelContainer } from "../../../write.styles";
-
-
-export default function RightComponentsContainer({children}:{children:React.ReactNode}){
-    return(
-        <WriteFunnelContainer>  
-        <Box sx={{
-            width:"100%",   
-            height:"100%",
-            overflowY:"auto",
-            pb:"6rem"
-            }}>
-                {children}
-            </Box>
-        </WriteFunnelContainer> 
-    )
+export default function RightComponentsContainer({ children }: { children: React.ReactNode }) {
+  return (
+    <WriteFunnelContainer>
+      <div className="h-full w-full overflow-y-auto pb-24">{children}</div>
+    </WriteFunnelContainer>
+  );
 }
-

@@ -1,4 +1,3 @@
-import { Box } from '@mui/material';
 import { notFound } from 'next/navigation';
 
 import { getUserInfoAndPostByName } from '@/app/server/queries/user';
@@ -26,19 +25,12 @@ const Post = async ({ params }: { params: Promise<{ user: string }> }) => {
   }
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
+    <div className="flex flex-col items-center justify-center">
       <CoverImage src={'/Default_Image.jpeg'} />
       <User avatar={avatar} name={name} />
 
       <Feed posts={posts} />
-    </Box>
+    </div>
   );
 };
 

@@ -1,18 +1,13 @@
 import React from 'react';
-import {CircularProgress,Box} from '@mui/material';
+
+import { Spinner } from '@/app/components/shared/spinner';
 
 const LoadingPage: React.FC = () => {
-    return (
-        <Box sx={{
-            height:"100%",
-            width:"100%",
-            display:"flex",
-            justifyContent:"center",
-            alignItems:"center",
-        }}>
-            <CircularProgress />
-        </Box>
-    );
+  return (
+    <div className="flex h-full w-full items-center justify-center">
+      <Spinner className="h-8 w-8 text-[#96C2F7]" />
+    </div>
+  );
 };
 
 export default LoadingPage;

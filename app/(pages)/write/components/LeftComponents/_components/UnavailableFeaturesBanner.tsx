@@ -1,13 +1,4 @@
 import React from 'react';
-import {
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
-  Box,
-  Typography,
-  Paper,
-} from '@mui/material';
-import { ExpandMore as ExpandMoreIcon } from '@mui/icons-material';
 
 const UnavailableFeaturesBanner = () => {
   const unavailableFeatures = [
@@ -26,93 +17,25 @@ const UnavailableFeaturesBanner = () => {
   ];
 
   return (
-    <Paper
-      elevation={0}
-      sx={{
-        mb: 2,
-        border: '1px solid',
-        borderColor: 'warning.light',
-        backgroundColor: 'warning.50',
-        borderRadius: 2,
-        overflow: 'hidden',
-      }}
-    >
-      <Box sx={{ p: 2 }}>
-        <Accordion
-          sx={{
-            backgroundColor: 'transparent',
-            boxShadow: 'none',
-            '&:before': { display: 'none' },
-            '& .MuiAccordionSummary-root': {
-              minHeight: 'auto',
-              padding: 0,
-            },
-            '& .MuiAccordionSummary-content': {
-              margin: '0 !important',
-            },
-            '& .MuiAccordionDetails-root': {
-              padding: '12px 0 0 0',
-            },
-          }}
-        >
-          <AccordionSummary
-            expandIcon={
-              <ExpandMoreIcon
-                sx={{
-                  fontSize: 20,
-                  color: 'warning.main',
-                }}
-              />
-            }
-          >
-            <Typography
-              sx={{
-                flex: 1,
-                color: 'warning.dark',
-                fontWeight: 400,
-                fontSize: '0.75rem',
-              }}
-            >
-              일부 기능을 사용할 수 없어요.
-            </Typography>
-          </AccordionSummary>
+    <div className="mb-2 overflow-hidden rounded-lg border border-amber-200 bg-amber-50">
+      <div className="p-4">
+        <details>
+          <summary className="flex cursor-pointer items-center justify-between text-xs font-medium text-amber-900">
+            <span>일부 기능을 사용할 수 없어요.</span>
+            <span className="text-amber-700">펼치기</span>
+          </summary>
 
-          <AccordionDetails>
+          <div className="mt-3 space-y-3">
             {unavailableFeatures.map((feature, index) => (
-              <Box
-                key={index}
-                sx={{
-                  mb: index !== unavailableFeatures.length - 1 ? 2 : 0,
-                  backgroundColor: 'warning.100',
-                  borderRadius: 1,
-                }}
-              >
-                <Typography
-                  variant="body2"
-                  sx={{
-                    color: 'warning.dark',
-                    fontWeight: 500,
-                    mb: 0.5,
-                  }}
-                >
-                  {feature.name}
-                </Typography>
-                <Typography
-                  variant="caption"
-                  sx={{
-                    color: 'warning.dark',
-                    opacity: 0.8,
-                    mb: 0.5,
-                  }}
-                >
-                  {feature.reason}
-                </Typography>
-              </Box>
+              <div key={index} className="rounded-md bg-amber-100 p-3">
+                <div className="mb-1 text-sm font-semibold text-amber-900">{feature.name}</div>
+                <div className="text-xs text-amber-900/80">{feature.reason}</div>
+              </div>
             ))}
-          </AccordionDetails>
-        </Accordion>
-      </Box>
-    </Paper>
+          </div>
+        </details>
+      </div>
+    </div>
   );
 };
 

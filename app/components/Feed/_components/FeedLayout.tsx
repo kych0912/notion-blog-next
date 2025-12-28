@@ -1,9 +1,3 @@
-import { Grid } from "@mui/material";
-
 export default function FeedLayout({ children }: { children: React.ReactNode }) {
-    return (
-      <Grid container spacing={'16px'} columns={16}>
-        {children}
-      </Grid>
-    );
-  }
+  return <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">{children}</div>;
+}

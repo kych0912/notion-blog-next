@@ -1,32 +1,41 @@
 'use client';
 import React, { useState } from 'react';
-import { Box,Typography } from '@mui/material';
 
-const title = [
-    "Home",
-]
+const title = ['Home'];
 
 const HomeTab: React.FC = () => {
-    const [selectedTab, setSelectedTab] = useState(0);
+  const [selectedTab, setSelectedTab] = useState(0);
 
-    const handleTabChange = (newValue: number) => {
-        setSelectedTab(newValue);
-    };
+  const handleTabChange = (newValue: number) => {
+    setSelectedTab(newValue);
+  };
 
-    return (
-        <Box sx={{display:"flex",py:2,width:"100%"}}>
-            <Box sx={{display:"flex"}}>
-                {
-                    title.map((tab, index) => (
-                        <Box key={index} className={`tab ${selectedTab === index ? 'active' : ''}`} onClick={() => handleTabChange(index)} 
-                            sx={{transition:".5s",borderRadius:'8px',border:1,borderColor:'gray',mr:1}}>
-                            <Typography color={selectedTab === index?'white':'black'} sx={{fontSize:'1rem',px:1,py:0.5}}>{tab}</Typography>
-                        </Box>
-                    ))
-                }
-            </Box>
-        </Box>
-    );
+  return (
+    <div className="flex w-full py-2">
+      <div className="flex">
+        {title.map((tab, index) => (
+          <button
+            key={index}
+            type="button"
+            className={[
+              'tab mr-1 rounded-lg border border-gray-400 transition duration-500',
+              selectedTab === index ? 'active' : '',
+            ].join(' ')}
+            onClick={() => handleTabChange(index)}
+          >
+            <span
+              className={[
+                'block px-2 py-1 text-base',
+                selectedTab === index ? 'text-white' : 'text-black',
+              ].join(' ')}
+            >
+              {tab}
+            </span>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export default HomeTab;
