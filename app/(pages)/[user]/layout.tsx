@@ -1,15 +1,17 @@
-import WithHeader from "@/app/components/Layout/WithHeaderLayout";
+import { Suspense, type ReactNode } from 'react';
+
+import WithHeader from '@/app/components/Layout/WithHeaderLayout';
+
+import UserPageSkeleton from './_components/UserPageSkeleton';
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: ReactNode;
 }>) {
-
-
   return (
     <WithHeader>
-            {children}
+      <Suspense fallback={<UserPageSkeleton />}>{children}</Suspense>
     </WithHeader>
   );
 }

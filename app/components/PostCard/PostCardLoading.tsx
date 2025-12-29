@@ -1,35 +1,23 @@
-import { Box, Skeleton } from "@mui/material";
-
 export default function PostCardLoading() {
-    return (
-        <Box sx={{width: "100%"}}>
-            {/* 이미지 스켈레톤 */}
-            <Skeleton 
-                variant="rectangular" 
-                width="100%" 
-                height={200} 
-                sx={{borderRadius: '0.5rem 0.5rem 0 0'}}
-            />
-            
-            <Box sx={{p: '1rem'}}>
-                {/* 제목 스켈레톤 */}
-                <Skeleton variant="text" width="80%" height={24} />
-                
-                {/* 본문 스켈레톤 */}
-                <Box sx={{mt: 1}}>
-                    <Skeleton variant="text" width="100%" />
-                    <Skeleton variant="text" width="100%" />
-                </Box>
-                
-                {/* 날짜 스켈레톤 */}
-                <Skeleton variant="text" width="30%" sx={{mt: 1}} />
-                
-                {/* 유저 정보 스켈레톤 */}
-                <Box sx={{display: 'flex', alignItems: 'center', pt: 1}}>
-                    <Skeleton variant="circular" width={24} height={24} />
-                    <Skeleton variant="text" width={100} sx={{ml: 1.5}} />
-                </Box>
-            </Box>
-        </Box>
-    );
+  return (
+    <div className="w-full">
+      <div className="h-[200px] w-full animate-pulse rounded-t-lg bg-gray-200" />
+
+      <div className="p-4">
+        <div className="h-6 w-4/5 animate-pulse rounded bg-gray-200" />
+
+        <div className="mt-3 space-y-2">
+          <div className="h-4 w-full animate-pulse rounded bg-gray-200" />
+          <div className="h-4 w-full animate-pulse rounded bg-gray-200" />
+        </div>
+
+        <div className="mt-3 h-4 w-1/3 animate-pulse rounded bg-gray-200" />
+
+        <div className="mt-3 flex items-center gap-3">
+          <div className="h-6 w-6 animate-pulse rounded-full bg-gray-200" />
+          <div className="h-4 w-24 animate-pulse rounded bg-gray-200" />
+        </div>
+      </div>
+    </div>
+  );
 }

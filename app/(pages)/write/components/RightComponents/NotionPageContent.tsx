@@ -1,4 +1,3 @@
-import { Box } from '@mui/material';
 import { Suspense } from 'react';
 
 import LoadingPage from '@/app/components/LoadingPage';
@@ -10,18 +9,11 @@ import PreRender from './_components/PreRender';
 export default function NotionPageContent() {
   return (
     <WriteFunnelContainer>
-      <Box
-        sx={{
-          width: '100%',
-          height: '100%',
-          overflowY: 'auto',
-          pb: '6rem',
-        }}
-      >
+      <div className="h-full w-full overflow-y-auto pb-24">
         <Suspense fallback={<LoadingPage />}>
           <PreRender />
         </Suspense>
-      </Box>
+      </div>
     </WriteFunnelContainer>
   );
 }

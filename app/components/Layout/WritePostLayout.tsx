@@ -1,28 +1,14 @@
-import { Box } from "@mui/material";
-
-import Header from "@/app/components/header/Header";
+import Header from '@/app/components/header/Header';
 
 export default function WritePostLayout({
-    children,
+  children,
 }: Readonly<{
-    children: React.ReactNode;
+  children: React.ReactNode;
 }>) {
-    return (
-        <Box sx={{
-            width: "100vw",
-            height: "100vh",
-            overflow: "hidden",
-            display: "flex",
-            flexDirection: "column"
-        }}>
-            <Header/>
-            <Box sx={{
-                display: "flex",
-                height:"100%",
-                flex: 1,
-            }}>
-                {children}
-            </Box>
-        </Box>
-    );
+  return (
+    <div className="flex h-screen w-screen flex-col overflow-hidden">
+      <Header />
+      <div className="flex h-full flex-1">{children}</div>
+    </div>
+  );
 }

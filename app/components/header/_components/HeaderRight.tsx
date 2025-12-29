@@ -1,4 +1,3 @@
-import { Skeleton, Box } from '@mui/material';
 import { useSession } from 'next-auth/react';
 
 import LoggedIn from './LoggedIn';
@@ -10,9 +9,9 @@ export default function HeaderRight() {
   switch (status) {
     case 'loading':
       return (
-        <Box sx={{ display: 'flex', gap: 2 }}>
-          <Skeleton variant="rounded" width={100} height={40} />
-        </Box>
+        <div className="flex gap-2">
+          <div className="h-10 w-[100px] animate-pulse rounded-lg bg-gray-200" />
+        </div>
       );
     case 'authenticated':
       if (session && session.user) {

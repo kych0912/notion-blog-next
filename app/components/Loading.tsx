@@ -1,29 +1,8 @@
-'use client'
-import { Box, CircularProgress } from '@mui/material';
+'use client';
+import { Spinner } from '@/app/components/shared/spinner';
 
 export const Loading = () => (
-  <Box
-    sx={{
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: 'rgba(255, 255, 255, 0.9)',
-    }}
-  >
-    <CircularProgress 
-      sx={{
-        color: 'primary.main',
-        // 선택적: 크기 조절
-        '& .MuiCircularProgress-svg': {
-          width: 40,
-          height: 40
-        }
-      }}
-    />
-  </Box>
+  <div className="fixed inset-0 flex items-center justify-center bg-white/90">
+    <Spinner className="h-10 w-10 text-[#96C2F7]" />
+  </div>
 );

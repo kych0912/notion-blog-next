@@ -1,94 +1,77 @@
-import {Box, Typography, Avatar} from "@mui/material";
+import Link from 'next/link';
 
-import PostCardLoading from "./PostCardLoading";
+import PostCardLoading from './PostCardLoading';
 
-function dateFormat(date:Date) {
-    const year = date.getFullYear();
-    const month = ('0' + (date.getMonth() + 1)).slice(-2);
-    const day = ('0' + date.getDate()).slice(-2);
-    
-    const dateString = year + '-' + month  + '-' + day;
-	return dateString;
+function dateFormat(date: Date) {
+  const year = date.getFullYear();
+  const month = ('0' + (date.getMonth() + 1)).slice(-2);
+  const day = ('0' + date.getDate()).slice(-2);
+
+  const dateString = year + '-' + month + '-' + day;
+  return dateString;
 }
 
-export default function PostCard({id,user,caption,date,title,image,avatar,isLoading = false}:{
-    id:string,
-    user:string,
-    caption:string,
-    date:Date,
-    title:string,
-    image:string,
-    avatar:string,
-    isLoading?:boolean
-}){
-
-    return (
-        <Box sx={{
-            display:"flex",
-            flexDirection:"column",
-            width:"100%",
-            borderRadius:'0.5rem',
-            backgroundColor:"#fff",
-            boxShadow: 'none',
-            transition: 'transform 0.3s ease-in-out',
-            '&:hover': {
-            transform: 'scale(1.05)', 
-            boxShadow: 3,
-            },
-        }}
-        >
-            {
-                isLoading?
-                <PostCardLoading/>
-                :
-                <a href={`/${user}/${id}`} style={{ textDecoration: "none"}}>
-                    <Box sx={{width:"100%"}}>
-                        <img 
-                            className="feedImg" 
-                            src={image? image : "/Default_Image.jpeg"} 
-                            alt={title}
-                        />
-                    </Box>
-                    <Box sx={{p:'1rem',width:"100%"}}>
-                        <Box sx={{}}>
-                            <Typography sx={{
-                                    fontSize:'1rem',
-                                    fontWeight:700,
-                                    color:"black",
-                                    overflow: 'hidden',
-                                    textOverflow: 'ellipsis',
-                                    display: '-webkit-box',
-                                    WebkitLineClamp:1,
-                                    WebkitBoxOrient:'vertical'
-                                }}>
-                                    {title}
-                            </Typography>
-                            <Box>
-                                <Typography 
-                                    style={{WebkitLineClamp:3,WebkitBoxOrient:'vertical'} as React.CSSProperties}
-                                    sx={{
-                                        fontSize:'0.875rem',
-                                        display: '-webkit-box',
-                                        overflow: 'hidden',
-                                        textOverflow: 'ellipsis',
-                                        height:'4rem',
-                                        wordWrap:"break-word",
-                                        wordBreak:"break-word",
-                                        color:"black",
-                                        mt:1
-                                    }}>
-                                    {caption}
-                                </Typography>
-                            </Box>
-                            <Typography sx={{fontSize:"0.75rem",color:"black"}}>{dateFormat(new Date(date))}</Typography>
-                        </Box>
-                        <Box sx={{display:'flex',alignItems:"center",pt:1}}>
-                            <Avatar src={avatar?avatar:""} sx={{width:"1.5rem",height:"1.5rem"}}/>
-                            <Typography sx={{fontSize:"0.75rem",ml:1.5,color:"black",overflow:'hidden',textOverflow:'ellipsis'}}>{user}</Typography>
-                        </Box>
-                    </Box>
-                </a>
-            }
-        </Box>
-    )
+export default function PostCard({
+  id,
+  user,
+  caption,
+  date,
+  title,
+  image,
+  avatar,
+  isLoading = false,
+}: {
+  id: string;
+  user: string;
+  caption: string;
+  date: Date;
+  title: string;
+  image: string;
+  avatar: string;
+  isLoading?: boolean;
+}) {
+  return (
+    <div className="flex w-full flex-col rounded-lg bg-white shadow-none transition-transform duration-300 hover:scale-[1.05] hover:shadow-md">
+      {isLoading ? (
+        <PostCardLoading />
+      ) : (
+        <Link href={`/${user}/${id}`} className="no-underline">
+          <div className="w-full">
+            <img className="feedImg" src={image ? image : '/Default_Image.jpeg'} alt={title} />
+          </div>
+          <div className="w-full p-4">
+            <div>
+              <div className="truncate text-base font-bold text-black">{title}</div>
+              <div>
+                <p
+                  className="mt-2 h-16 overflow-hidden text-sm text-black"
+                  style={
+                    {
+                      display: '-webkit-box',
+                      WebkitLineClamp: 3,
+                      WebkitBoxOrient: 'vertical',
+                      wordWrap: 'break-word',
+                      wordBreak: 'break-word',
+                    } as React.CSSProperties
+                  }
+                >
+                  {caption}
+                </p>
+              </div>
+              <div className="text-xs text-black">{dateFormat(new Date(date))}</div>
+            </div>
+            <div className="flex items-center pt-2">
+              <img
+                src={avatar ? avatar : ''}
+                alt={user}
+                className="h-6 w-6 rounded-full bg-gray-200 object-cover"
+                referrerPolicy="no-referrer"
+              />
+              <div className="ml-1.5 truncate text-xs text-black">{user}</div>
+            </div>
+          </div>
+        </Link>
+      )}
+    </div>
+  );
 }

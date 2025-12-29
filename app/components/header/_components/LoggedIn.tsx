@@ -1,9 +1,6 @@
 'use client';
-import { Box, Avatar } from '@mui/material';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import Link from 'next/link';
 import React from 'react';
-import useMediaQuery from '@mui/material/useMediaQuery';
 import { DefaultSession } from 'next-auth';
 import { signOut } from 'next-auth/react';
 
@@ -11,16 +8,37 @@ import { HoverButton } from '../../Button/button.styles';
 
 import UserMenu from './UserMenu';
 
+function ChevronDownIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <path
+        d="M6 9l6 6 6-6"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
 export default function LoggedIn({ user }: { user: DefaultSession }) {
   const [open, setOpen] = React.useState(false);
   const [ishover, setIshover] = React.useState(false);
+  const containerRef = React.useRef<HTMLDivElement | null>(null);
 
   const handleLogout = () => {
     localStorage.removeItem('currentUser');
     signOut();
   };
-
-  const isSmallScreen = useMediaQuery('(max-width:600px)');
 
   const MenuOption = [
     {
@@ -31,7 +49,8 @@ export default function LoggedIn({ user }: { user: DefaultSession }) {
     {
       title: '새 글 쓰기',
       link: '/write',
-      isVisible: isSmallScreen,
+      isVisible: true,
+      className: 'sm:hidden',
     },
     {
       title: '로그아웃',
@@ -48,37 +67,38 @@ export default function LoggedIn({ user }: { user: DefaultSession }) {
   const handleHover = (bool: boolean) => {
     setIshover(bool);
   };
+
+  React.useEffect(() => {
+    if (!open) return;
+
+    const handlePointerDown = (event: MouseEvent | TouchEvent) => {
+      const targetNode = event.target as Node | null;
+      if (!targetNode) return;
+      if (!containerRef.current?.contains(targetNode)) {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handlePointerDown);
+    document.addEventListener('touchstart', handlePointerDown);
+    return () => {
+      document.removeEventListener('mousedown', handlePointerDown);
+      document.removeEventListener('touchstart', handlePointerDown);
+    };
+  }, [open]);
+
   return (
     <>
-      {open && (
-        <Box
-          onClick={() => {
-            handleMenu();
-          }}
-          sx={{
-            position: 'fixed',
-            inset: 0,
-            backgroundColor: 'transparent',
-            height: '100vh',
-            zIndex: -1,
-          }}
-        />
-      )}
-
-      <Box sx={{ display: 'flex', position: 'relative', alignItems: 'center' }}>
-        <Box sx={{ pr: 3, display: { xs: 'none', sm: 'flex' } }}>
+      <div ref={containerRef} className="relative flex items-center">
+        <div className="hidden pr-3 sm:flex">
           <Link href="/write" passHref>
             <HoverButton>새 글 쓰기</HoverButton>
           </Link>
-        </Box>
+        </div>
 
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            cursor: 'pointer',
-            position: 'relative',
-          }}
+        <button
+          type="button"
+          className="relative flex cursor-pointer items-center"
           onMouseEnter={() => {
             handleHover(true);
           }}
@@ -89,19 +109,28 @@ export default function LoggedIn({ user }: { user: DefaultSession }) {
             handleMenu();
           }}
         >
-          <Avatar
-            src={`${user.user?.image}`}
-            alt="Remy Sharp"
-            sx={{ width: '40px', height: '40px' }}
-            component="div"
+          <img
+            src={user.user?.image ?? ''}
+            alt="user avatar"
+            className="h-10 w-10 rounded-full bg-gray-200 object-cover"
+            referrerPolicy="no-referrer"
           />
-          {open && <UserMenu MenuOption={MenuOption} />}
-          <ArrowDropDownIcon
-            color={ishover ? 'primary' : 'disabled'}
-            sx={{ transition: 'all .25s ease-in' }}
+          <ChevronDownIcon
+            className={[
+              'ml-1 transition-colors duration-200',
+              ishover ? 'text-[#96C2F7]' : 'text-gray-400',
+            ].join(' ')}
           />
-        </Box>
-      </Box>
+        </button>
+        {open && (
+          <UserMenu
+            MenuOption={MenuOption}
+            onClose={() => {
+              setOpen(false);
+            }}
+          />
+        )}
+      </div>
     </>
   );
 }

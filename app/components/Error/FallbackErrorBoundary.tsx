@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import { AxiosError } from 'axios';
 
 import RefetchPage from './_components/RefetchPage/RefetchPage';
 
@@ -45,14 +44,7 @@ class FallbackErrorBoundary extends React.Component<IErrorProps, IErrorState> {
     this.state = { hasError: false, shouldHandleError: false, errorStatus: 0 };
   }
 
-  protected static getDerivedStateFromError(error: unknown) {
-    if (error instanceof AxiosError) {
-      return {
-        hasError: true,
-        shouldHandleError: true,
-        errorStatus: error.response?.status || 500,
-      };
-    }
+  protected static getDerivedStateFromError() {
     return { hasError: true, shouldHandleError: true, errorStatus: 500 };
   }
 

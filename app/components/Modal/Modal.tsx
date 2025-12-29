@@ -1,9 +1,9 @@
 'use client';
-import { useActionState } from 'react';
-import { Box, Button, CircularProgress, Modal, Typography } from '@mui/material';
+import { useActionState, useEffect } from 'react';
+import { toast } from 'sonner';
 
-import ErrorHandler from '@/app/components/Error/ErrorHandler';
 import { deletePostAction } from '@/app/server/actions/post';
+import { Spinner } from '@/app/components/shared/spinner';
 
 export default function DeleteModal({
   id,
@@ -19,84 +19,54 @@ export default function DeleteModal({
     message: '',
   });
 
-  const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 350,
-    bgcolor: 'background.paper',
-    boxShadow: 24,
-    borderRadius: '7px',
-    p: 3,
-    outline: 'none',
-  };
+  useEffect(() => {
+    if (state.error) {
+      toast.error(state.message);
+    }
+  }, [state.error, state.message]);
 
   return (
     <>
-      <Modal
-        open={open}
-        onClose={handleOpen}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-        sx={{ '& .Mui-focused': { outline: 'none' } }}
-      >
-        <Box sx={style}>
-          <form action={formAction}>
-            <input type="hidden" name="id" value={id} />
-            <Typography id="modal-modal-title" variant="h6" sx={{ fontWeight: 700 }}>
-              잠시만요, 확인해주세요!
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 0.5, fontWeight: 500 }}>
-              {'작성하신 게시글이 삭제돼요.'}
-              <br />
-              {'확실하신가요?'}
-            </Typography>
+      {open ? (
+        <div className="fixed inset-0 z-[9999]">
+          <button
+            type="button"
+            aria-label="close"
+            onClick={handleOpen}
+            className="absolute inset-0 bg-black/40"
+          />
 
-            <Box
-              sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 1 }}
-            >
-              <Button
-                type="button"
-                onClick={handleOpen}
-                sx={{
-                  backgroundColor: '#D9D9D9',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  width: '140px',
-                  borderRadius: '7px',
-                  height: '40px',
-                }}
-              >
-                <Typography sx={{ color: 'black', fontWeight: 600 }}>취소</Typography>
-              </Button>
+          <div className="absolute left-1/2 top-1/2 w-[350px] -translate-x-1/2 -translate-y-1/2 rounded-lg bg-white p-3 shadow-xl outline-none">
+            <form action={formAction}>
+              <input type="hidden" name="id" value={id} />
+              <div className="text-lg font-bold text-black">잠시만요, 확인해주세요!</div>
+              <div className="mt-1 text-sm font-medium text-black">
+                작성하신 게시글이 삭제돼요.
+                <br />
+                확실하신가요?
+              </div>
 
-              <Button
-                type="submit"
-                disabled={pending}
-                sx={{
-                  backgroundColor: 'primary.main',
-                  width: '140px',
-                  borderRadius: '7px',
-                  height: '40px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                <Typography sx={{ color: 'white', fontWeight: 600 }}>
-                  {pending ? <CircularProgress size={16} color="inherit" /> : '삭제'}
-                </Typography>
-              </Button>
-            </Box>
-          </form>
-        </Box>
-      </Modal>
+              <div className="mt-3 flex items-center justify-between">
+                <button
+                  type="button"
+                  onClick={handleOpen}
+                  className="flex h-10 w-[140px] items-center justify-center rounded-lg bg-[#D9D9D9] font-semibold text-black"
+                >
+                  취소
+                </button>
 
-      {state.error && (
-        <ErrorHandler message={state.message} type="snackbar" resetError={() => {}} />
-      )}
+                <button
+                  type="submit"
+                  disabled={pending}
+                  className="flex h-10 w-[140px] items-center justify-center rounded-lg bg-[#96C2F7] font-semibold text-white disabled:opacity-60"
+                >
+                  {pending ? <Spinner className="h-4 w-4 text-white" /> : '삭제'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      ) : null}
     </>
   );
 }

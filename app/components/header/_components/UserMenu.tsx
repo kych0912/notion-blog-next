@@ -1,60 +1,56 @@
-import { Box, Typography } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import Link from 'next/link';
-
-const MenuItem = styled(Box)({
-  '&:hover': {
-    borderLeft: '4px solid #96C2F7',
-    backgroundColor: '#f9f9f9',
-  },
-});
 
 const UserMenu = ({
   MenuOption,
+  onClose,
 }: {
   MenuOption: {
     title: string;
     link: string;
     handleClick?: () => void;
     isVisible?: boolean;
+    className?: string;
   }[];
+  onClose?: () => void;
 }) => {
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        position: 'absolute',
-        top: '100%',
-        right: '0px',
-        mt: 1,
-      }}
-    >
-      <Box
-        sx={{
-          width: '12rem',
-          backgroundColor: '#fff',
-        }}
-      >
-        {MenuOption.filter((item) => item.isVisible === true).map((item, index) => (
-          <Link key={index} href={item.link} style={{ textDecoration: 'none' }}>
-            <MenuItem onClick={item?.handleClick}>
-              <Typography
-                variant="body1"
-                sx={{
-                  color: '#000',
-                  p: '.75rem 1rem',
-                  fontWeight: 500,
-                  cursor: 'pointer',
+    <div className="absolute top-full right-0 mt-1 flex flex-col">
+      <div className="w-48 overflow-hidden rounded-md border border-gray-100 bg-white shadow-lg">
+        {MenuOption.filter((item) => item.isVisible === true).map((item, index) => {
+          const baseItemClass =
+            'block w-full px-4 py-3 text-left text-sm font-medium text-black hover:bg-[#f9f9f9] hover:border-l-4 hover:border-[#96C2F7]';
+
+          if (item.handleClick) {
+            return (
+              <button
+                key={index}
+                type="button"
+                onClick={() => {
+                  item.handleClick?.();
+                  onClose?.();
                 }}
+                className={[baseItemClass, item.className].filter(Boolean).join(' ')}
               >
                 {item.title}
-              </Typography>
-            </MenuItem>
-          </Link>
-        ))}
-      </Box>
-    </Box>
+              </button>
+            );
+          }
+
+          return (
+            <Link
+              key={index}
+              href={item.link}
+              onClick={() => {
+                onClose?.();
+              }}
+              className={[baseItemClass, item.className].filter(Boolean).join(' ')}
+            >
+              {item.title}
+            </Link>
+          );
+        })}
+      </div>
+    </div>
   );
 };
 

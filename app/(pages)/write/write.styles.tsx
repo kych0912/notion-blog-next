@@ -1,74 +1,84 @@
-'use client'
-import styled from '@mui/material/styles/styled';
+'use client';
 
-export const WriteFunnelContainer = styled('div')(({ theme }) => ({
-    display:"flex",
-    flexDirection:"column",
-    alignItems:"start", 
-    position:"relative",
-    [theme.breakpoints.down('lg')]: {
-        display: 'none',
-    },
-    height:"100vh",
-    flex:'2 1 0%',
-    width:"50%",
-    overflowY:"auto",
-}))
+import * as React from 'react';
 
-export const FunnelContainer = styled('div')({
-    display:"flex",
-    flexDirection:"column",
-    alignItems:"start", 
-    position:"sticky",
-    flex:'1 1 0%',
-    width:"100%",
-    height:"calc(100vh - 64px)",
-})
+import { cn } from '@/lib/utils';
 
-export const ContentContainer = styled('div')({
-    display:"flex",
-    flexDirection:"column",
-    alignItems:"start",
-    justifyContent:"start",
-    width:"100%",
-    padding:'2rem',
-    boxSizing:"border-box",
-    height:'100%',
-    position:"relative",
-})
+type ContainerProps = {
+  children: React.ReactNode;
+  className?: string;
+} & React.HTMLAttributes<HTMLDivElement>;
 
-export const InputContainer = styled('div')({
-    display:"flex",
-    flexDirection:"column",
-    alignItems:"start",
-    justifyContent:"center",    
-    width:"100%",
-})
+export function WriteFunnelContainer({ children, className, ...props }: ContainerProps) {
+  return (
+    <div
+      className={cn(
+        'relative hidden h-screen w-1/2 flex-[2_1_0%] flex-col items-start overflow-y-auto lg:flex',
+        className,
+      )}
+      {...props}
+    >
+      {children}
+    </div>
+  );
+}
 
-export const PostActionBarContainer = styled('nav')(({ theme }) => ({
-    display:"flex",
-    alignSelf:"center",
-    width:"100%",
-    position:"fixed",
-    [theme.breakpoints.up('lg')]: {
-        position:"absolute",
-    },
-    bottom:"0",
-}))
+export function FunnelContainer({ children, className, ...props }: ContainerProps) {
+  return (
+    <div
+      className={cn(
+        'sticky top-0 flex h-[calc(100vh-64px)] w-full flex-[1_1_0%] flex-col items-start',
+        className,
+      )}
+      {...props}
+    >
+      {children}
+    </div>
+  );
+}
 
-export const PostActionBarWrapper = styled('div')({
-    display:"flex",
-    alignItems:"center",
-    justifyContent:"space-between",
-    height:"100%",
-    width:"100%",
-    padding:"1rem",
-})
+export function ContentContainer({ children, className, ...props }: ContainerProps) {
+  return (
+    <div
+      className={cn(
+        'relative flex h-full w-full flex-col items-start justify-start p-8 box-border',
+        className,
+      )}
+      {...props}
+    >
+      {children}
+    </div>
+  );
+}
 
-export const PostActionBarButtonContainer = styled('div')({
-    display:"flex",
-    alignItems:"center",
-    justifyContent:"center",
-    height:"100%",
-    cursor:"pointer",
-})
+export function InputContainer({ children, className }: ContainerProps) {
+  return (
+    <div className={cn('flex w-full flex-col items-start justify-center', className)}>
+      {children}
+    </div>
+  );
+}
+
+export function PostActionBarContainer({ children, className }: ContainerProps) {
+  return (
+    <nav className={cn('fixed bottom-0 left-0 flex w-full self-center lg:absolute', className)}>
+      {children}
+    </nav>
+  );
+}
+
+export function PostActionBarWrapper({ children, className }: ContainerProps) {
+  return (
+    <div className={cn('flex h-full w-full items-center justify-between p-4', className)}>
+      {children}
+    </div>
+  );
+}
+
+export function PostActionBarButtonContainer({ children, className, ...props }: ContainerProps) {
+  return (
+    <div className={cn('flex cursor-pointer items-center justify-center', className)} {...props}>
+      {children}
+    </div>
+  );
+}

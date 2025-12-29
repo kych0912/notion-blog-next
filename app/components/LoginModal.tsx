@@ -1,40 +1,25 @@
-"use client";
-import { Box, Modal, Typography, Button, styled } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
-import React from "react";
-import Image from "next/image";
-import { signIn } from "next-auth/react";
+'use client';
+import React from 'react';
+import Image from 'next/image';
+import { signIn } from 'next-auth/react';
 
-import GithubIcon from "../assets/github_logo_icon_147285.svg";
+import GithubIcon from '../assets/github_logo_icon_147285.svg';
 
-const ModalStyled = {
-  position: "absolute" as const,
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  bgcolor: "background.paper",
-  border: "0px",
-  width: { sm: "500px", xs: "100%" },
-  height: { sm: "200px", xs: "100%" },
-  boxShadow: 24,
-  borderRadius: { sm: "1rem", xs: "0px" },
-  p: 4,
-};
-
-export const CustomButton = styled(Button)({
-  color: "white",
-  height: "3rem",
-  borderRadius: "50px",
-  width: "100%",
-  fontWeight: 700,
-  fontSize: "1rem",
-  boxShadow: "none",
-  backgroundColor: "#171515",
-  ":hover": {
-    boxShadow: "none",
-    backgroundColor: "#171515",
-  },
-});
+function CloseIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+    </svg>
+  );
+}
 
 export default function LoginModal({
   open,
@@ -44,7 +29,7 @@ export default function LoginModal({
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const fetchAuthCode = () => {
-    signIn("github");
+    signIn('github');
     //window.location.assign(AUTHORIZATION_CODE_URL);
   };
 
@@ -54,64 +39,48 @@ export default function LoginModal({
 
   return (
     <>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        sx={{ "& .Mui-focused": { outline: "none" } }}
-      >
-        <Box sx={ModalStyled}>
-          <Box
-            sx={{
-              width: "100%",
-              height: "100%",
-              display: "flex",
-              flexDirection: "column",
-              gap: "1rem",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <Box
-              sx={{ display: "flex", flexDirection: "column", width: "100%" }}
-            >
-              <Box
-                sx={{ width: "100%", display: "flex", justifyContent: "end" }}
-              >
-                <CloseIcon onClick={handleClose} sx={{ cursor: "pointer" }} />
-              </Box>
+      {open ? (
+        <div className="fixed inset-0 z-[9999]">
+          <button
+            type="button"
+            aria-label="close"
+            onClick={handleClose}
+            className="absolute inset-0 bg-black/40"
+          />
 
-              <Typography sx={{ fontSize: "1.25rem", fontWeight: 700 }}>
-                로그인
-              </Typography>
-            </Box>
+          <div className="absolute left-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2 bg-white p-6 sm:h-[200px] sm:w-[500px] sm:rounded-2xl sm:p-8">
+            <div className="flex h-full flex-col justify-between gap-4">
+              <div className="flex flex-col">
+                <div className="flex w-full justify-end">
+                  <button
+                    type="button"
+                    onClick={handleClose}
+                    className="rounded-md p-1 hover:bg-gray-100"
+                  >
+                    <CloseIcon className="text-gray-700" />
+                  </button>
+                </div>
+                <div className="text-xl font-bold text-black">로그인</div>
+              </div>
 
-            <CustomButton
-              onClick={fetchAuthCode}
-              type="submit"
-              variant="contained"
-            >
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  px: 4,
-                  width: "100%",
-                }}
+              <button
+                type="button"
+                onClick={fetchAuthCode}
+                className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-[#171515] text-base font-bold text-white shadow-none hover:bg-[#171515]"
               >
                 <Image
                   src={GithubIcon as unknown as string}
                   alt="github"
-                  style={{ width: "1rem", height: "1rem", marginRight: "10px" }}
+                  width={16}
+                  height={16}
+                  className="h-4 w-4"
                 />
                 깃허브로 로그인
-              </Box>
-            </CustomButton>
-          </Box>
-
-
-        </Box>
-      </Modal>
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </>
   );
 }

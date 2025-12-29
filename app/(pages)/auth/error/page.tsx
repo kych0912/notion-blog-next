@@ -1,25 +1,14 @@
-import { Suspense } from 'react'
-import { Box, Typography } from '@mui/material'
+import { Suspense } from 'react';
 
-import ErrorPage from './_components/Error'
+import ErrorPage from './_components/Error';
 
 export default function Page() {
-
-    return (  
-      <Box sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        minHeight: '60vh',
-        padding: 3
-    }}>
-        <Typography variant="h5" sx={{ mb: 2 }}>
-            로그인 오류
-        </Typography>
-        <Suspense fallback={<div>Loading...</div>}> 
-            <ErrorPage />
-        </Suspense>
-    </Box>
-    )
+  return (
+    <div className="flex min-h-[60vh] flex-col items-center justify-center p-6">
+      <div className="mb-2 text-xl font-bold">로그인 오류</div>
+      <Suspense fallback={<div>Loading...</div>}>
+        <ErrorPage />
+      </Suspense>
+    </div>
+  );
 }

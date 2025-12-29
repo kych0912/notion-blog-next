@@ -1,42 +1,23 @@
-import { Grid, Divider, Typography } from '@mui/material';
-import { Box } from '@mui/material';
-
 import type { PostType } from '@/app/server/db/schema';
 
 import PostCard from '../../../components/PostCard/PostCard';
 
 export default function Feed({ posts }: { posts: PostType[] }) {
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'start',
-        justifyContent: 'center',
-        px: 'calc(min(16px, 8vw))',
-        margin: '0 auto',
-        width: '100%',
-        maxWidth: '720px',
-      }}
-    >
-      <Typography sx={{ fontWeight: 700, mt: 2, fontSize: '1.25em' }}>모든 포스트</Typography>
+    <div className="mx-auto flex w-full max-w-[720px] flex-col items-start justify-center px-[calc(min(16px,8vw))]">
+      <div className="mt-2 text-xl font-bold">모든 포스트</div>
 
-      <Divider sx={{ width: '100%', mt: 1, mb: 3 }} />
+      <hr className="mt-1 mb-3 w-full border-gray-200" />
 
       {posts.length === 0 ? (
-        <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+        <div className="flex w-full justify-center">
           <h1>No posts found</h1>
-        </Box>
+        </div>
       ) : (
-        <Grid container spacing={'16px'} columns={16}>
+        <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-2">
           {posts.map((item, index) => {
             return (
-              <Grid
-                item
-                xs={16}
-                md={8} // posts가 하나일 때는 전체 너비
-                key={index}
-              >
+              <div key={index}>
                 <PostCard
                   id={item.id}
                   user={item.author}
@@ -46,11 +27,11 @@ export default function Feed({ posts }: { posts: PostType[] }) {
                   title={item.title ?? ''}
                   avatar={item.avatar ?? ''}
                 />
-              </Grid>
+              </div>
             );
           })}
-        </Grid>
+        </div>
       )}
-    </Box>
+    </div>
   );
 }

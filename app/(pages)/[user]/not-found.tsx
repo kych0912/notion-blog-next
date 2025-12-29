@@ -1,16 +1,18 @@
-'use client'
+'use client';
 
-import ErrorHandler from "@/app/components/Error/ErrorHandler";
-import RefetchPage from "@/app/components/Error/_components/RefetchPage/RefetchPage";
+import { useEffect } from 'react';
+import { toast } from 'sonner';
+
+import RefetchPage from '@/app/components/Error/_components/RefetchPage/RefetchPage';
 
 export default function NotFound() {
+  useEffect(() => {
+    toast.error('존재하지 않는 유저입니다.');
+  }, []);
 
-    return (
-        <>
-            <RefetchPage 
-                message="존재하지 않는 유저입니다."
-                refetch={() => window.location.reload()}/>
-            <ErrorHandler message="존재하지 않는 유저입니다." type="snackbar"/>
-        </>
-    );
-} 
+  return (
+    <>
+      <RefetchPage message="존재하지 않는 유저입니다." refetch={() => window.location.reload()} />
+    </>
+  );
+}
