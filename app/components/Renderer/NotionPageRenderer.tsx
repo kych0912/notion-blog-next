@@ -6,9 +6,10 @@ import { ExtendedRecordMap } from 'notion-types';
 import { useRouter } from 'next/navigation';
 import { useTransition } from 'react';
 
+import { useTheme } from '@/app/context/ThemeContext';
+
 import '../../styles/notion.css';
 import { Loading } from '../Loading';
-
 // -----------------------------------------------------------------------------
 // dynamic imports for optional components
 // -----------------------------------------------------------------------------
@@ -50,6 +51,7 @@ export default function NotionPageRenderer({
 }) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
+  const { theme } = useTheme();
 
   if (!recordMap) {
     return null;
@@ -105,7 +107,7 @@ export default function NotionPageRenderer({
           Equation,
           Pdf,
         }}
-        darkMode={false}
+        darkMode={theme === 'dark'}
       />
       {isPending && <Loading />}
     </div>

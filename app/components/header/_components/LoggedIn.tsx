@@ -118,7 +118,7 @@ export default function LoggedIn({ user }: { user: DefaultSession }) {
           <ChevronDownIcon
             className={[
               'ml-1 transition-colors duration-200',
-              ishover ? 'text-[#96C2F7]' : 'text-gray-400',
+              ishover ? 'text-primary' : 'text-muted-foreground',
             ].join(' ')}
           />
         </button>

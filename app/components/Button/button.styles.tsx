@@ -8,7 +8,7 @@ const buttonVariants = cva(
     // shadcn button 기반
     'inline-flex items-center justify-center whitespace-nowrap font-medium',
     'transition-all duration-300',
-    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#96C2F7]',
+    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background',
     'disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed',
   ].join(' '),
   {
@@ -17,20 +17,20 @@ const buttonVariants = cva(
         base: 'bg-transparent text-inherit',
         hover: [
           'border-2 bg-transparent',
-          'border-[#96C2F7] text-[#96C2F7]',
-          'hover:bg-[#96C2F7] hover:text-white',
-          'disabled:hover:bg-transparent disabled:hover:text-inherit',
+          'border-primary text-primary',
+          'hover:bg-primary hover:text-primary-foreground hover:brightness-95',
+          'disabled:hover:bg-transparent disabled:hover:text-inherit disabled:hover:brightness-100',
         ].join(' '),
         contained: [
-          'border-2 text-white',
-          'border-[#96C2F7] bg-[#96C2F7]',
-          'hover:border-[#6FAAF1] hover:bg-[#6FAAF1]',
+          'border-2',
+          'border-primary bg-primary text-primary-foreground',
+          'hover:brightness-95',
         ].join(' '),
       },
       size: {
-        small: 'px-3 py-1.5 text-sm rounded-xl',
-        medium: 'px-4 py-2 text-base rounded-2xl',
-        large: 'px-6 py-3 text-lg rounded-[1.25rem]',
+        small: 'px-3 py-1.5 text-sm rounded-sm',
+        medium: 'px-4 py-2 text-base rounded-sm',
+        large: 'px-6 py-3 text-lg rounded-sm',
       },
     },
     defaultVariants: {
