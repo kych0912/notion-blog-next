@@ -1,5 +1,29 @@
-.notion{
-  font-family:var(--font-pretendard);
+.notion {
+  font-family: var(--font-pretendard);
+
+  /* 기본 텍스트/배경 */
+  --bg-color: var(--background);
+  /* Notion 기본값의 "회색 틴트(약 0.15)" 느낌에 가깝게 */
+  --bg-color-0: color-mix(in oklab, var(--foreground) 15%, transparent);
+  /* Notion의 rgb(247, 246, 243) 같은 아주 옅은 배경 */
+  --bg-color-1: color-mix(in oklab, var(--background) 96%, var(--foreground) 4%);
+  --bg-color-2: color-mix(in oklab, var(--foreground) 15%, transparent);
+
+  --fg-color: var(--foreground);
+  /* Notion 기본 알파 비율(0.09/0.16/0.4/0.6/0.8/0.5 등)에 맞춘 값들 */
+  --fg-color-0: color-mix(in oklab, var(--foreground) 9%, transparent);
+  --fg-color-1: color-mix(in oklab, var(--foreground) 16%, transparent);
+  --fg-color-2: color-mix(in oklab, var(--foreground) 40%, transparent);
+  --fg-color-3: color-mix(in oklab, var(--foreground) 60%, transparent);
+  /* Notion의 #000 역할(가장 강한 전경색) */
+  --fg-color-4: var(--foreground);
+  --fg-color-5: color-mix(in oklab, var(--foreground) 2.4%, transparent);
+  --fg-color-6: color-mix(in oklab, var(--foreground) 80%, transparent);
+  --fg-color-7: color-mix(in oklab, var(--foreground) 50%, transparent);
+  --fg-color-icon: var(--fg-color);
+
+  /* 링크/액션 컬러 */
+  --link-color: var(--primary);
 }
 
 .breadcrumbs {

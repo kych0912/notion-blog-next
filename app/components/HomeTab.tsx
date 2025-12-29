@@ -1,6 +1,8 @@
 'use client';
 import React, { useState } from 'react';
 
+import { cn } from '@/lib/utils';
+
 const title = ['Home'];
 
 const HomeTab: React.FC = () => {
@@ -17,17 +19,17 @@ const HomeTab: React.FC = () => {
           <button
             key={index}
             type="button"
-            className={[
-              'tab mr-1 rounded-lg border border-gray-400 transition duration-500',
-              selectedTab === index ? 'active' : '',
-            ].join(' ')}
+            className={cn(
+              'mr-1 rounded-lg border transition duration-500',
+              selectedTab === index ? 'bg-primary border-primary' : 'bg-transparent border-border',
+            )}
             onClick={() => handleTabChange(index)}
           >
             <span
-              className={[
+              className={cn(
                 'block px-2 py-1 text-base',
-                selectedTab === index ? 'text-white' : 'text-black',
-              ].join(' ')}
+                selectedTab === index ? 'text-primary-foreground' : 'text-foreground',
+              )}
             >
               {tab}
             </span>

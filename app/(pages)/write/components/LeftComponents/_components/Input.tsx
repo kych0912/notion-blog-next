@@ -33,10 +33,10 @@ export default function Input({
           placeholder="https://www.notion.so/..."
           value={url}
           className={[
-            'h-12 w-full rounded-xl border bg-white px-4 pr-[110px] text-sm outline-none',
+            'h-12 w-full rounded-xl border border-input bg-background px-4 pr-[110px] text-sm outline-none',
             isError
               ? 'border-red-500 focus:ring-2 focus:ring-red-200'
-              : 'border-gray-300 focus:ring-2 focus:ring-[#96C2F7]/30 focus:border-[#96C2F7]',
+              : 'focus:ring-2 focus:ring-ring/30 focus:border-ring',
           ].join(' ')}
         />
 

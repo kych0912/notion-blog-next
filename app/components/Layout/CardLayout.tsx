@@ -6,7 +6,9 @@ export default function CardLayout({
   return (
     <div className="h-full">
       <div className="p-2">
-        <div className="mx-auto max-w-[56rem] bg-white px-4 pt-12 pb-6">{children}</div>
+        <div className="mx-auto max-w-[56rem] bg-card text-card-foreground px-4 pt-12 pb-6">
+          {children}
+        </div>
       </div>
     </div>
   );

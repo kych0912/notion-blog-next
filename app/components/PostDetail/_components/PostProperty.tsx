@@ -37,10 +37,10 @@ export default function PostProperty({
               className="mr-2 h-6 w-6 rounded-full bg-gray-200 object-cover"
               referrerPolicy="no-referrer"
             />
-            <span className="text-sm text-[#6f6f6f]">{decodeURIComponent(user)}</span>
+            <span className="text-sm text-muted-foreground">{decodeURIComponent(user)}</span>
           </Link>
-          <span className="mx-2 text-sm text-[#6f6f6f]">|</span>
-          <span className="text-sm text-[#6f6f6f]">{publishedTime}</span>
+          <span className="mx-2 text-sm text-muted-foreground">|</span>
+          <span className="text-sm text-muted-foreground">{publishedTime}</span>
         </div>
 
         {isAuthor && <Option id={id} />}

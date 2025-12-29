@@ -2,10 +2,19 @@ import { useSession } from 'next-auth/react';
 
 import LoggedIn from './LoggedIn';
 import NotLoggedIn from './NotLoggedIn';
+import ThemeToggle from './ThemeToggle';
 
 export default function HeaderRight() {
-  const { data: session, status } = useSession();
+  return (
+    <div className="flex items-center gap-2">
+      <RightContent />
+      <ThemeToggle />
+    </div>
+  );
+}
 
+function RightContent() {
+  const { data: session, status } = useSession();
   switch (status) {
     case 'loading':
       return (

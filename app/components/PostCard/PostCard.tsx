@@ -31,7 +31,7 @@ export default function PostCard({
   isLoading?: boolean;
 }) {
   return (
-    <div className="flex w-full flex-col rounded-lg bg-white shadow-none transition-transform duration-300 hover:scale-[1.05] hover:shadow-md">
+    <div className="flex w-full flex-col rounded-lg bg-card text-card-foreground shadow-none transition-transform duration-300 hover:scale-[1.05] hover:shadow-md">
       {isLoading ? (
         <PostCardLoading />
       ) : (
@@ -41,10 +41,10 @@ export default function PostCard({
           </div>
           <div className="w-full p-4">
             <div>
-              <div className="truncate text-base font-bold text-black">{title}</div>
+              <div className="truncate text-base font-bold">{title}</div>
               <div>
                 <p
-                  className="mt-2 h-16 overflow-hidden text-sm text-black"
+                  className="mt-2 h-16 overflow-hidden text-sm text-muted-foreground"
                   style={
                     {
                       display: '-webkit-box',
@@ -58,7 +58,7 @@ export default function PostCard({
                   {caption}
                 </p>
               </div>
-              <div className="text-xs text-black">{dateFormat(new Date(date))}</div>
+              <div className="text-xs text-muted-foreground">{dateFormat(new Date(date))}</div>
             </div>
             <div className="flex items-center pt-2">
               <img
@@ -67,7 +67,7 @@ export default function PostCard({
                 className="h-6 w-6 rounded-full bg-gray-200 object-cover"
                 referrerPolicy="no-referrer"
               />
-              <div className="ml-1.5 truncate text-xs text-black">{user}</div>
+              <div className="ml-1.5 truncate text-xs text-muted-foreground">{user}</div>
             </div>
           </div>
         </Link>
