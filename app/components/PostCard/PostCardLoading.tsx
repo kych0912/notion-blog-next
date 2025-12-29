@@ -1,7 +1,7 @@
 export default function PostCardLoading() {
   return (
     <div className="w-full">
-      <div className="h-[200px] w-full animate-pulse rounded-t-lg bg-gray-200" />
+      <div className="h-[12rem] w-full animate-pulse rounded-t-sm bg-gray-200" />
 
       <div className="p-4">
         <div className="h-6 w-4/5 animate-pulse rounded bg-gray-200" />

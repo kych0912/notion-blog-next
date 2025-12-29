@@ -31,13 +31,17 @@ export default function PostCard({
   isLoading?: boolean;
 }) {
   return (
-    <div className="flex w-full flex-col rounded-lg bg-card text-card-foreground shadow-none transition-transform duration-300 hover:scale-[1.05] hover:shadow-md">
+    <div className="flex w-full flex-col rounded-sm bg-card text-card-foreground shadow-none transition-transform duration-300 hover:scale-[1.05] hover:shadow-md">
       {isLoading ? (
         <PostCardLoading />
       ) : (
         <Link href={`/${user}/${id}`} className="no-underline">
           <div className="w-full">
-            <img className="feedImg" src={image ? image : '/Default_Image.jpeg'} alt={title} />
+            <img
+              className="h-[12rem] w-full object-cover object-center rounded-t-sm"
+              src={image ? image : '/Default_Image.jpeg'}
+              alt={title}
+            />
           </div>
           <div className="w-full p-4">
             <div>

@@ -28,9 +28,9 @@ const buttonVariants = cva(
         ].join(' '),
       },
       size: {
-        small: 'px-3 py-1.5 text-sm rounded-xl',
-        medium: 'px-4 py-2 text-base rounded-2xl',
-        large: 'px-6 py-3 text-lg rounded-[1.25rem]',
+        small: 'px-3 py-1.5 text-sm rounded-sm',
+        medium: 'px-4 py-2 text-base rounded-sm',
+        large: 'px-6 py-3 text-lg rounded-sm',
       },
     },
     defaultVariants: {

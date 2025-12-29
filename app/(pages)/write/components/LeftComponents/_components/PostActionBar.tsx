@@ -61,8 +61,8 @@ export default function PostActionBar() {
             router.push('/');
           }}
         >
-          <ArrowLeftIcon className="mr-1 text-gray-800" />
-          <span className="text-sm font-medium text-gray-800">뒤로가기</span>
+          <ArrowLeftIcon className="mr-1 text-color-foreground" />
+          <span className="text-sm font-medium text-color-foreground">뒤로가기</span>
         </PostActionBarButtonContainer>
 
         <form action={formAction}>

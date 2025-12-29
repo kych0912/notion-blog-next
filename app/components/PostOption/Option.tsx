@@ -14,7 +14,7 @@ export default function Option({ id }: { id: string }) {
       <button
         type="button"
         onClick={handleMenu}
-        className="rounded-md p-0 text-sm font-semibold text-red-600 hover:bg-red-50"
+        className="rounded-sm p-0 text-sm font-semibold text-destructive hover:bg-destructive/10"
       >
         삭제
       </button>

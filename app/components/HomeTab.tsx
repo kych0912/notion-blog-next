@@ -20,7 +20,7 @@ const HomeTab: React.FC = () => {
             key={index}
             type="button"
             className={cn(
-              'mr-1 rounded-lg border transition duration-500',
+              'mr-1 rounded-sm border transition duration-500',
               selectedTab === index ? 'bg-primary border-primary' : 'bg-transparent border-border',
             )}
             onClick={() => handleTabChange(index)}
