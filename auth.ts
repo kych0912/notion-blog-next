@@ -2,7 +2,6 @@ import NextAuth from 'next-auth';
 import { User } from 'next-auth';
 import { AdapterUser } from 'next-auth/adapters';
 import GitHub from 'next-auth/providers/github';
-import { AxiosError } from 'axios';
 
 import { updateUser, getUserInfoById } from '@/app/server/queries/user';
 
@@ -31,8 +30,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         }
       } catch (err: unknown) {
         console.error(err);
-        if (err instanceof AxiosError && err.response?.status === 404) {
-        }
       }
 
       try {
