@@ -1,11 +1,6 @@
 @import 'tailwindcss';
 
 :root {
-  --background-color-0: #f8f9fa;
-  --background-color-1: #ebebeb;
-}
-
-:root {
   --background: oklch(1 0 0);
   --foreground: oklch(0.1884 0.0128 248.5103);
   --card: oklch(0.9784 0.0011 197.1387);
