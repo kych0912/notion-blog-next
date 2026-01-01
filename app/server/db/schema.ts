@@ -1,3 +1,4 @@
+import { relations } from 'drizzle-orm';
 import { pgTable, timestamp, varchar, text, unique } from 'drizzle-orm/pg-core';
 import { uuid } from 'drizzle-orm/pg-core';
 
@@ -30,6 +31,29 @@ export const Category = pgTable('category', {
   createdAt: timestamp({ withTimezone: true, mode: 'string' }).defaultNow().notNull(),
   updatedAt: timestamp({ withTimezone: true, mode: 'string' }).defaultNow().notNull(),
 });
+
+export const postRelations = relations(post, ({ one }) => ({
+  category: one(Category, {
+    fields: [post.category],
+    references: [Category.id],
+  }),
+  user: one(user, {
+    fields: [post.author],
+    references: [user.name],
+  }),
+}));
+
+export const userRelations = relations(user, ({ many }) => ({
+  posts: many(post, {
+    relationName: 'posts',
+  }),
+}));
+
+export const categoryRelations = relations(Category, ({ many }) => ({
+  posts: many(post, {
+    relationName: 'posts',
+  }),
+}));
 
 export type PostType = typeof post.$inferSelect;
 export type UserType = typeof user.$inferSelect;
