@@ -3,7 +3,7 @@ import { User } from 'next-auth';
 import { AdapterUser } from 'next-auth/adapters';
 import GitHub from 'next-auth/providers/github';
 
-import { updateUser, getUserInfoById } from '@/app/server/queries/user';
+import { updateUser, getUserInfoById, createUser } from '@/app/server/queries/user';
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [GitHub],
@@ -33,9 +33,19 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
 
       try {
-        await updateUser(id, name, image, email);
+        const data = await updateUser(id, name, image, email);
+
+        if (data.length === 0) {
+          const data = await createUser(name, image, email);
+
+          if (data.length === 0) {
+            return '/auth/error?error=DatabaseError'; // DB 생성 실패 시
+          }
+        }
+
         return true;
-      } catch {
+      } catch (err: unknown) {
+        console.error(err);
         return '/auth/error?error=DatabaseError'; // DB 업데이트 실패 시
       }
     },
