@@ -1,20 +1,11 @@
-"use server";
-import { and, desc, eq } from "drizzle-orm";
+'use server';
+import { and, desc, eq } from 'drizzle-orm';
 
-import { db } from "@/app/server/db/drizzle";
-import * as schema from "@/app/server/db/schema";
+import { db } from '@/app/server/db/drizzle';
+import * as schema from '@/app/server/db/schema';
+import type { PostType } from '@/app/server/db/schema';
 
-interface Post {
-  id: string;
-  author: string;
-  date: Date;
-  image: string;
-  title: string;
-  avatar: string;
-  description: string;
-}
-
-export async function uploadPost(Post: Post) {
+export async function uploadPost(Post: PostType) {
   const postData = {
     id: Post.id,
     author: Post.author,
@@ -31,10 +22,7 @@ export async function uploadPost(Post: Post) {
 }
 
 export async function getPostById(id: string) {
-  const data = await db
-    .select()
-    .from(schema.post)
-    .where(eq(schema.post.id, id));
+  const data = await db.select().from(schema.post).where(eq(schema.post.id, id));
 
   return data;
 }
@@ -72,10 +60,7 @@ export async function getPostDetail(id: string, user: string) {
 }
 
 export async function deletePost(id: string) {
-  const data = await db
-    .delete(schema.post)
-    .where(eq(schema.post.id, id))
-    .returning();
+  const data = await db.delete(schema.post).where(eq(schema.post.id, id)).returning();
 
   return data;
 }
