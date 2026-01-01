@@ -25,9 +25,9 @@ export async function getUserInfoAndPostByName(name: string): Promise<UserType |
   return data[0];
 }
 
-export async function getUserInfoById(id: string) {
+export async function getUserInfoByEmail(email: string) {
   try {
-    const data = await db.select().from(schema.user).where(eq(schema.user.id, id));
+    const data = await db.select().from(schema.user).where(eq(schema.user.email, email));
 
     return data;
   } catch (err: unknown) {

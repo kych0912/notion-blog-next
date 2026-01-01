@@ -3,7 +3,7 @@ import { User } from 'next-auth';
 import { AdapterUser } from 'next-auth/adapters';
 import GitHub from 'next-auth/providers/github';
 
-import { updateUser, getUserInfoById, createUser } from '@/app/server/queries/user';
+import { updateUser, createUser, getUserInfoByEmail } from '@/app/server/queries/user';
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [GitHub],
@@ -23,7 +23,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         return '/auth/error?error=InvalidProfile'; // 이름이나 이미지가 없을 경우
       }
       try {
-        const _UserInfo = await getUserInfoById(id);
+        const _UserInfo = await getUserInfoByEmail(email);
 
         if (Array.isArray(_UserInfo) && _UserInfo.length > 0) {
           return true;
