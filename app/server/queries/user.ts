@@ -1,4 +1,5 @@
 'use server';
+import { v4 as uuidv4 } from 'uuid';
 import { eq } from 'drizzle-orm';
 
 import * as schema from '@/app/server/db/schema';
@@ -44,6 +45,19 @@ export async function updateUser(id: string, name: string, avatar: string, email
 
     return data;
   } catch (err: unknown) {
+    throw err;
+  }
+}
+
+export async function createUser(name: string, avatar: string, email: string) {
+  try {
+    const data = await db
+      .insert(schema.user)
+      .values({ name, avatar, email, id: uuidv4() })
+      .returning();
+    return data;
+  } catch (err: unknown) {
+    console.error(err);
     throw err;
   }
 }
