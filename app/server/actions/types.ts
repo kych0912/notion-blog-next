@@ -1,5 +1,4 @@
 export interface ActionState<T> {
-  error?: boolean;
+  ok: boolean;
   message: T;
-  success?: boolean;
 }
