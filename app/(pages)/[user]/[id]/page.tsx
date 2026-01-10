@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
 import { HydrationBoundary, dehydrate } from '@tanstack/react-query';
 
@@ -13,7 +12,6 @@ import { getQueryClient } from '@/app/utils/utils';
 
 import Header from './_components/PostHeader';
 import PostContextProvider from './_providers/PostContextProvider';
-import PostPageSkeleton from './_components/PostPageSkeleton';
 
 interface ParamsType {
   id: string;
@@ -46,17 +44,16 @@ async function Page({ params }: { params: Promise<ParamsType> }) {
   try {
     const queryClient = getQueryClient();
 
-    queryClient.prefetchQuery(getPostCategoryOptions(id));
-    queryClient.prefetchQuery(getPostDetailOptions(id, user));
-
-    const recordMap = await getPage(id);
+    const [, , recordMap] = await Promise.all([
+      queryClient.prefetchQuery(getPostCategoryOptions(id)),
+      queryClient.prefetchQuery(getPostDetailOptions(id, user)),
+      getPage(id),
+    ]);
 
     return (
       <HydrationBoundary state={dehydrate(queryClient)}>
         <PostContextProvider user={user} id={id} recordMap={recordMap}>
-          <Suspense fallback={<PostPageSkeleton />}>
-            <Header />
-          </Suspense>
+          <Header />
           <NotionPageRenderer recordMap={recordMap} user={user} />
         </PostContextProvider>
       </HydrationBoundary>
