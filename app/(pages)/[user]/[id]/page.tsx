@@ -44,10 +44,11 @@ async function Page({ params }: { params: Promise<ParamsType> }) {
   try {
     const queryClient = getQueryClient();
 
-    queryClient.prefetchQuery(getPostCategoryOptions(id));
-    queryClient.prefetchQuery(getPostDetailOptions(id, user));
-
-    const recordMap = await getPage(id);
+    const [, , recordMap] = await Promise.all([
+      queryClient.prefetchQuery(getPostCategoryOptions(id)),
+      queryClient.prefetchQuery(getPostDetailOptions(id, user)),
+      getPage(id),
+    ]);
 
     return (
       <HydrationBoundary state={dehydrate(queryClient)}>
