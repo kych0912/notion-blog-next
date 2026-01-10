@@ -4,7 +4,7 @@ import {
   Button as SharedButton,
   type ButtonProps as SharedButtonProps,
 } from '@/app/components/shared/button';
-import { cn } from '@/lib/utils';
+import { cn } from '@/app/utils/utils';
 
 type LegacyVariant = 'base' | 'hover' | 'contained';
 type LegacySize = 'small' | 'medium' | 'large';
