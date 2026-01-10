@@ -49,11 +49,27 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         return '/auth/error?error=DatabaseError'; // DB 업데이트 실패 시
       }
     },
-    jwt: ({ token, account }) => {
+    jwt: async ({ token, account }) => {
       if (account && account.access_token) {
         token.accessToken = account.access_token;
       }
+      if (token?.email) {
+        const rows = await getUserInfoByEmail(String(token.email));
+        const dbUserId = rows?.[0]?.id;
+        if (dbUserId) {
+          token.dbUserId = dbUserId;
+        }
+      }
       return token;
+    },
+    session: ({ session, token }) => {
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          id: token.dbUserId as string,
+        },
+      };
     },
   },
 });

@@ -26,9 +26,10 @@ export async function writePostAction(
   const session = await auth();
   if (!session?.user) return { ok: false, message: 'Token Not Found' };
 
-  const userId = session.user.name;
+  const userId = session.user.id;
+  const userName = session.user.name;
   const avatar = session.user.image;
-  if (!userId || !avatar) return { ok: false, message: 'Invalid Token' };
+  if (!userId || !userName || !avatar) return { ok: false, message: 'Invalid Token' };
 
   let recordMap: Types.ExtendedRecordMap;
   try {
@@ -47,7 +48,8 @@ export async function writePostAction(
 
   await uploadPost({
     id,
-    author: userId,
+    author: userName,
+    authorId: userId,
     date,
     image: notionContent.image,
     title: notionContent.title,
