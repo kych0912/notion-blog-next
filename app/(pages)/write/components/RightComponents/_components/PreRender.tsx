@@ -17,7 +17,7 @@ export default function PreRender() {
 
   return (
     <>
-      <PreRenderHeader recordMap={recordMap.data} />
+      <PreRenderHeader />
 
       <NotionPage user={'none'} recordMap={recordMap.data} isPreview={true} />
     </>
