@@ -28,7 +28,11 @@ export function usePostProperty(): PostPropertyType | null {
   const keys = Object.keys(recordMap?.block || {});
   const block = recordMap?.block?.[keys[0]]?.value;
 
-  const publishedTime = new Date(block?.created_time).toLocaleDateString();
+  const publishedTime = new Date(block?.created_time).toLocaleDateString('ko-KR', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
 
   return {
     isAuthor,
