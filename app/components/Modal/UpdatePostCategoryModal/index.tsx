@@ -13,7 +13,7 @@ import { Button } from '@/app/components/shared/button';
 import { Spinner } from '@/app/components/shared/spinner';
 import { CategorySelector } from '@/app/components/Modal/UpdatePostCategoryModal/_components/CategorySelector';
 
-import { useUpdatePostCategoryModal } from './_hooks/useUpdatePostCategoryModal';
+import { useAttachPostCategoryModal } from './_hooks/useUpdatePostCategoryModal';
 
 export function UpdatePostCategoryModal({
   open,
@@ -26,8 +26,8 @@ export function UpdatePostCategoryModal({
 }) {
   const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(null);
 
-  const { allCategoriesQuery, handleUpdatePostCategory, isUpdatingPostCategory } =
-    useUpdatePostCategoryModal({
+  const { allCategoriesQuery, handleAttachPostCategory, isAttachingPostCategory } =
+    useAttachPostCategoryModal({
       postId: id,
       onClose: () => onOpenChange(false),
     });
@@ -63,11 +63,11 @@ export function UpdatePostCategoryModal({
 
               <Button
                 type="button"
-                disabled={isUpdatingPostCategory}
+                disabled={isAttachingPostCategory || !selectedCategoryId}
                 className="flex-1"
-                onClick={() => handleUpdatePostCategory(selectedCategoryId)}
+                onClick={() => handleAttachPostCategory(selectedCategoryId)}
               >
-                {isUpdatingPostCategory ? <Spinner className="text-primary-foreground" /> : '저장'}
+                {isAttachingPostCategory ? <Spinner className="text-primary-foreground" /> : '저장'}
               </Button>
             </div>
           </>

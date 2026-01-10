@@ -6,9 +6,9 @@ import {
   getPostCategoryOptions,
 } from '@/app/react-query/options/category';
 
-import { useUpdatePostCategory } from './_internal/useUpdatePostCategory';
+import { useAddPostCategory } from './_internal/useAddPostCategory';
 
-export function useUpdatePostCategoryModal({
+export function useAttachPostCategoryModal({
   postId,
   onClose,
 }: {
@@ -17,26 +17,26 @@ export function useUpdatePostCategoryModal({
 }) {
   const queryClient = useQueryClient();
   const allCategoriesQuery = useQuery(getAllCategoriesOptions());
-  const { mutate: updatePostCategory, isPending: isUpdatingPostCategory } = useUpdatePostCategory({
+  const { mutate: attachPostCategory, isPending: isAttachingPostCategory } = useAddPostCategory({
     postId,
     onSuccess: onClose,
   });
 
-  const handleUpdatePostCategory = useCallback(
+  const handleAttachPostCategory = useCallback(
     (categoryId: string | null) => {
-      updatePostCategory(categoryId, {
+      attachPostCategory(categoryId, {
         onSuccess: () => {
           onClose();
           queryClient.invalidateQueries({ queryKey: getPostCategoryOptions(postId).queryKey });
         },
       });
     },
-    [updatePostCategory, onClose, queryClient, postId],
+    [attachPostCategory, onClose, queryClient, postId],
   );
 
   return {
     allCategoriesQuery,
-    handleUpdatePostCategory,
-    isUpdatingPostCategory,
+    handleAttachPostCategory,
+    isAttachingPostCategory,
   };
 }

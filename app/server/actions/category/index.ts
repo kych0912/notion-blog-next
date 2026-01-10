@@ -7,9 +7,10 @@ import {
   getUserPostCategories as getUserPostCategoriesQuery,
   getPostCategories as getPostCategoriesQuery,
   getCategories,
-  updatePostCategory,
+  attachPostCategory,
   deleteCategoryAndUnsetPostsCategory,
   getPostsByCategoryId as getPostsByCategoryIdQuery,
+  removePostCategory as removePostCategoryQuery,
 } from '@/app/server/queries/category';
 
 export async function getUserPostCategoriesAction(userName: string) {
@@ -26,8 +27,16 @@ export async function getAllCategoriesAction() {
   return getCategories();
 }
 
+export async function removePostCategoryAction(postId: string): Promise<ActionState<string>> {
+  try {
+    await removePostCategoryQuery(postId);
+    return { ok: true, message: '카테고리가 게시글에서 제거되었습니다.' };
+  } catch {
+    return { ok: false, message: '카테고리 제거 중 오류가 발생했습니다.' };
+  }
+}
+
 export async function getPostsByCategoryIdAction(categoryId: string) {
-  await new Promise((resolve) => setTimeout(resolve, 5000));
   return getPostsByCategoryIdQuery(categoryId);
 }
 
@@ -40,7 +49,7 @@ export async function deleteCategoryAction(id: string): Promise<ActionState<stri
   }
 }
 
-export async function updatePostCategoryAction(
+export async function addPostCategoryAction(
   postId: string,
   categoryId: string | null,
 ): Promise<ActionState<string>> {
@@ -50,11 +59,11 @@ export async function updatePostCategoryAction(
       return { ok: false, message: '로그인이 필요합니다.' };
     }
 
-    await updatePostCategory(postId, categoryId);
+    await attachPostCategory(postId, categoryId);
 
-    return { ok: true, message: '카테고리가 변경되었습니다.' };
+    return { ok: true, message: '카테고리가 게시글에 설정되었습니다.' };
   } catch {
-    return { ok: false, message: '카테고리 변경 중 오류가 발생했습니다.' };
+    return { ok: false, message: '카테고리 설정 중 오류가 발생했습니다.' };
   }
 }
 

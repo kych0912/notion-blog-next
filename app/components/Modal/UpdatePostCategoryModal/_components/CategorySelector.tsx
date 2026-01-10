@@ -27,6 +27,7 @@ export function CategorySelector({
   const {
     createMutation,
     handleDeleteCategory,
+    handleRemovePostCategory,
     postCategoriesQuery,
     filteredCategories,
     showCreateNew,
@@ -54,7 +55,9 @@ export function CategorySelector({
       {currentCategory && (
         <div className="rounded-md bg-muted p-3">
           <p className="text-sm font-medium text-muted-foreground mb-1">현재 카테고리</p>
-          <Badge variant="default">{currentCategory.category.name}</Badge>
+          <Badge onClick={handleRemovePostCategory} variant="default">
+            {currentCategory.category.name}
+          </Badge>
         </div>
       )}
 
@@ -111,7 +114,13 @@ export function CategorySelector({
                 <button
                   key={category.id}
                   type="button"
-                  onClick={() => onCategorySelect(category.id)}
+                  onClick={() => {
+                    if (selectedCategoryId === category.id) {
+                      onCategorySelect(null);
+                    } else {
+                      onCategorySelect(category.id);
+                    }
+                  }}
                   className={cn(
                     'w-full flex items-center justify-between p-3 rounded-md text-left transition-colors',
                     'hover:bg-accent',

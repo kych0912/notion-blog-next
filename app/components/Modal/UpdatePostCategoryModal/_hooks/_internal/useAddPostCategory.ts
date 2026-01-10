@@ -5,9 +5,9 @@ import {
   getAllCategoriesOptions,
   getPostCategoryOptions,
 } from '@/app/react-query/options/category';
-import { updatePostCategoryAction } from '@/app/server/actions/category';
+import { addPostCategoryAction } from '@/app/server/actions/category';
 
-export function useUpdatePostCategory({
+export function useAddPostCategory({
   postId,
   onSuccess,
 }: {
@@ -16,8 +16,8 @@ export function useUpdatePostCategory({
 }) {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (categoryId: string | null) => {
-      return updatePostCategoryAction(postId, categoryId);
+    mutationFn: (categoryId: string | null) => {
+      return addPostCategoryAction(postId, categoryId);
     },
     onSuccess: (result) => {
       if (result.ok) {

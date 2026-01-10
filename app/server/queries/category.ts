@@ -14,6 +14,14 @@ export async function getPostsByCategoryId(categoryId: string) {
   return data;
 }
 
+export async function removePostCategory(postId: string) {
+  const data = await db
+    .update(schema.post)
+    .set({ category: null })
+    .where(eq(schema.post.id, postId));
+  return data;
+}
+
 export async function getPostCategory(postId: string) {
   const data = await db
     .select({
@@ -62,7 +70,7 @@ export async function createCategory(name: string) {
   return data[0] ?? null;
 }
 
-export async function updatePostCategory(postId: string, categoryId: string | null) {
+export async function attachPostCategory(postId: string, categoryId: string | null) {
   const data = await db
     .update(schema.post)
     .set({ category: categoryId })
