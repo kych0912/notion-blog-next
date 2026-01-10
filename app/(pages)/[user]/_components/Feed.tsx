@@ -4,7 +4,7 @@ import PostCard from '../../../components/PostCard/PostCard';
 
 export default function Feed({ posts }: { posts: PostType[] }) {
   return (
-    <div className="mx-auto flex w-full max-w-[720px] flex-col items-start justify-center px-[calc(min(16px,8vw))]">
+    <div className="flex w-full flex-col items-start justify-center px-[calc(min(32px,8vw))]">
       <div className="mt-2 text-xl font-bold">모든 포스트</div>
 
       <hr className="mt-1 mb-3 w-full border-gray-200" />

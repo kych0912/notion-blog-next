@@ -1,5 +1,6 @@
 'use server';
 
+import { eq } from 'drizzle-orm';
 import { redirect } from 'next/navigation';
 
 import {
@@ -8,11 +9,12 @@ import {
 } from '@/app/server/queries/post';
 import { isDescendantOfStoredPage } from '@/app/lib/notion-api';
 import { auth } from '@/auth';
-import { BaseServerResposne } from '@/app/types/base';
 import { PostType } from '@/app/server/db/schema';
+import { db } from '@/app/server/db/drizzle';
+import * as schema from '@/app/server/db/schema';
 
 import { deletePost, getPostById } from '../../queries/post';
-import { ActionState } from '../types';
+import { ActionState, BaseServerResposne } from '../types';
 
 export interface GetPostDetailResponse {
   id: string;
@@ -26,14 +28,17 @@ export async function getPostDetailAction(
   user: string,
 ): Promise<BaseServerResposne<GetPostDetailResponse>> {
   const session = await auth();
-  const viewerName = session?.user?.name;
+  const viewerId = session?.user?.id;
 
-  const decodedViewerName = decodeURIComponent(viewerName ?? '');
   const decodedUserName = decodeURIComponent(user ?? '');
-  let isAuthor = false;
-  if (decodedViewerName && decodedViewerName === decodedUserName) {
-    isAuthor = true;
-  }
+  const userRow = await db
+    .select({ id: schema.user.id })
+    .from(schema.user)
+    .where(eq(schema.user.name, decodedUserName))
+    .limit(1);
+
+  const pageOwnerId = userRow[0]?.id;
+  const isAuthor = Boolean(viewerId && pageOwnerId && viewerId === pageOwnerId);
   const res = await getPostDetailFromDB(id, decodedUserName);
   const postData = res[0];
 
@@ -65,11 +70,11 @@ export async function deletePostAction(
 
     const post = await getPostById(id);
     if (!post) {
-      return { error: true, message: 'Post not found' };
+      return { ok: false, message: 'Post not found' };
     }
     await deletePost(id);
   } catch {
-    return { error: true, message: 'Failed to delete post' };
+    return { ok: false, message: 'Failed to delete post' };
   }
   redirect('/');
 }

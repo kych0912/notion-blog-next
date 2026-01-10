@@ -5,6 +5,7 @@ import { uuid } from 'drizzle-orm/pg-core';
 export const post = pgTable('post', {
   date: timestamp({ withTimezone: true, mode: 'string' }).defaultNow().notNull(),
   author: varchar().notNull(),
+  authorId: varchar().references(() => user.id),
   title: varchar(),
   image: text(),
   avatar: text(),
@@ -38,8 +39,8 @@ export const postRelations = relations(post, ({ one }) => ({
     references: [Category.id],
   }),
   user: one(user, {
-    fields: [post.author],
-    references: [user.name],
+    fields: [post.authorId],
+    references: [user.id],
   }),
 }));
 

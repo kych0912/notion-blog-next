@@ -4,69 +4,66 @@ import { toast } from 'sonner';
 
 import { deletePostAction } from '@/app/server/actions/post';
 import { Spinner } from '@/app/components/shared/spinner';
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+} from '@/app/components/shared/dialog';
 
-export default function DeleteModal({
+export function DeleteModal({
   id,
   open,
-  handleOpen,
+  onOpenChange,
 }: {
   id: string;
   open: boolean;
-  handleOpen: () => void;
+  onOpenChange: (open: boolean) => void;
 }) {
   const [state, formAction, pending] = useActionState(deletePostAction, {
-    success: false,
+    ok: false,
     message: '',
   });
 
   useEffect(() => {
-    if (state.error) {
+    if (state.ok) {
       toast.error(state.message);
     }
-  }, [state.error, state.message]);
+  }, [state.ok, state.message]);
 
   return (
-    <>
-      {open ? (
-        <div className="fixed inset-0 z-[9999]">
-          <button
-            type="button"
-            aria-label="close"
-            onClick={handleOpen}
-            className="absolute inset-0 bg-black/40"
-          />
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="w-[350px] p-3">
+        <form action={formAction}>
+          <input type="hidden" name="id" value={id} />
+          <DialogTitle className="text-lg font-bold">잠시만요, 확인해주세요!</DialogTitle>
+          <DialogDescription className="mt-1 text-sm font-medium text-card-foreground">
+            작성하신 게시글이 삭제돼요.
+            <br />
+            확실하신가요?
+          </DialogDescription>
 
-          <div className="absolute left-1/2 top-1/2 w-[350px] -translate-x-1/2 -translate-y-1/2 rounded-lg bg-card p-3 text-card-foreground shadow-xl outline-none">
-            <form action={formAction}>
-              <input type="hidden" name="id" value={id} />
-              <div className="text-lg font-bold">잠시만요, 확인해주세요!</div>
-              <div className="mt-1 text-sm font-medium">
-                작성하신 게시글이 삭제돼요.
-                <br />
-                확실하신가요?
-              </div>
+          <div className="mt-3 flex items-center justify-between">
+            <DialogClose asChild>
+              <button
+                type="button"
+                className="flex h-10 w-[140px] items-center justify-center rounded-lg bg-secondary font-semibold text-secondary-foreground hover:brightness-95"
+              >
+                취소
+              </button>
+            </DialogClose>
 
-              <div className="mt-3 flex items-center justify-between">
-                <button
-                  type="button"
-                  onClick={handleOpen}
-                  className="flex h-10 w-[140px] items-center justify-center rounded-lg bg-secondary font-semibold text-secondary-foreground hover:brightness-95"
-                >
-                  취소
-                </button>
-
-                <button
-                  type="submit"
-                  disabled={pending}
-                  className="flex h-10 w-[140px] items-center justify-center rounded-lg bg-primary font-semibold text-primary-foreground hover:brightness-95 disabled:opacity-60"
-                >
-                  {pending ? <Spinner className="h-4 w-4 text-primary-foreground" /> : '삭제'}
-                </button>
-              </div>
-            </form>
+            <button
+              type="submit"
+              disabled={pending}
+              className="flex h-10 w-[140px] items-center justify-center rounded-lg bg-primary font-semibold text-primary-foreground hover:brightness-95 disabled:opacity-60"
+            >
+              {pending ? <Spinner className="h-4 w-4 text-primary-foreground" /> : '삭제'}
+            </button>
           </div>
-        </div>
-      ) : null}
-    </>
+        </form>
+      </DialogContent>
+    </Dialog>
   );
 }

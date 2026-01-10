@@ -1,12 +1,15 @@
 import { notFound } from 'next/navigation';
+import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query';
 
 import { getUserInfoAndPostByName } from '@/app/server/queries/user';
 import { getUserPosts } from '@/app/server/queries/post';
 import type { UserType, PostType } from '@/app/server/db/schema';
+import { getUserPostCategoriesOptions } from '@/app/react-query/options/category';
 
 import User from './_components/User';
 import Feed from './_components/Feed';
 import CoverImage from './_components/CoverImage';
+import Category from './_components/Category/Category';
 
 const Post = async ({ params }: { params: Promise<{ user: string }> }) => {
   const { user } = await params;
@@ -24,13 +27,22 @@ const Post = async ({ params }: { params: Promise<{ user: string }> }) => {
     return notFound();
   }
 
-  return (
-    <div className="flex flex-col items-center justify-center">
-      <CoverImage src={'/Default_Image.jpeg'} />
-      <User avatar={avatar} name={name} />
+  const queryClient = new QueryClient();
 
-      <Feed posts={posts} />
-    </div>
+  queryClient.prefetchQuery(getUserPostCategoriesOptions(decodedUser));
+
+  return (
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <div className="flex flex-col items-center justify-center">
+        <CoverImage src={'/Default_Image.jpeg'} />
+        <User avatar={avatar} name={name} />
+
+        <div className="flex w-full justify-center items-start pb-10 max-w-[960px]">
+          <Feed posts={posts} />
+          <Category userName={decodedUser} />
+        </div>
+      </div>
+    </HydrationBoundary>
   );
 };
 
