@@ -10,8 +10,14 @@ import { type ActionState } from '@/app/server/actions/types';
 
 export function useCreateCategory({
   postId,
+  onSuccess,
   ...options
-}: { postId: string } & MutationOptions<ActionState<string>, Error, string, unknown>) {
+}: { postId: string; onSuccess?: () => void } & MutationOptions<
+  ActionState<string>,
+  Error,
+  string,
+  unknown
+>) {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -23,6 +29,7 @@ export function useCreateCategory({
         queryClient.invalidateQueries({ queryKey: getAllCategoriesOptions().queryKey });
         queryClient.invalidateQueries({ queryKey: getPostCategoryOptions(postId).queryKey });
         toast.success(result.message);
+        onSuccess?.();
       } else {
         toast.error(result.message);
       }

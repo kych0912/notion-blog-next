@@ -26,7 +26,7 @@ export function UpdatePostCategoryModal({
 }) {
   const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(null);
 
-  const { allCategoriesQuery, updatePostCategory, isUpdatingPostCategory } =
+  const { allCategoriesQuery, handleUpdatePostCategory, isUpdatingPostCategory } =
     useUpdatePostCategoryModal({
       postId: id,
       onClose: () => onOpenChange(false),
@@ -65,7 +65,7 @@ export function UpdatePostCategoryModal({
                 type="button"
                 disabled={isUpdatingPostCategory}
                 className="flex-1"
-                onClick={() => updatePostCategory(selectedCategoryId)}
+                onClick={() => handleUpdatePostCategory(selectedCategoryId)}
               >
                 {isUpdatingPostCategory ? <Spinner className="text-primary-foreground" /> : '저장'}
               </Button>

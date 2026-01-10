@@ -1,5 +1,5 @@
 import { useState, type ChangeEvent } from 'react';
-import { Check, Plus, Search } from 'lucide-react';
+import { Check, Plus, Search, X } from 'lucide-react';
 
 import { Input } from '@/app/components/shared/input';
 import { Button } from '@/app/components/shared/button';
@@ -24,12 +24,17 @@ export function CategorySelector({
   onCategorySelect,
 }: CategorySelectorProps) {
   const [search, setSearch] = useState('');
-  const { createMutation, postCategoriesQuery, filteredCategories, showCreateNew } =
-    useCategorySelector({
-      postId: id,
-      categories,
-      search,
-    });
+  const {
+    createMutation,
+    handleDeleteCategory,
+    postCategoriesQuery,
+    filteredCategories,
+    showCreateNew,
+  } = useCategorySelector({
+    postId: id,
+    categories,
+    search,
+  });
 
   const { mutate: createCategory, isPending: isCreatingCategory } = createMutation;
   const { data: currentCategory, isLoading: isLoadingCurrentCategory } = postCategoriesQuery;
@@ -44,7 +49,7 @@ export function CategorySelector({
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 max-w-full">
       {/* Current Category Display */}
       {currentCategory && (
         <div className="rounded-md bg-muted p-3">
@@ -53,15 +58,15 @@ export function CategorySelector({
         </div>
       )}
 
-      <div>
+      <div className="max-w-full min-w-0">
         {/* Search Input */}
-        <div className="relative">
+        <div className="relative w-full">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
             placeholder="카테고리 검색 또는 새로 만들기..."
             value={search}
             onChange={(e: ChangeEvent<HTMLInputElement>) => setSearch(e.target.value)}
-            className="pl-9"
+            className="pl-9 truncate"
           />
         </div>
 
@@ -70,7 +75,7 @@ export function CategorySelector({
           <Button
             type="button"
             variant="outline"
-            className="w-full mt-2"
+            className="w-full mt-2 min-w-0 justify-start text-left"
             disabled={isCreatingCategory}
             onClick={() => {
               createCategory(search.trim());
@@ -82,9 +87,11 @@ export function CategorySelector({
                 생성 중...
               </>
             ) : (
-              <>
-                <Plus className="mr-2 h-4 w-4" />"{search}" 카테고리 만들기
-              </>
+              <div className="flex items-center gap-2">
+                <Plus className="h-4 w-4 shrink-0" />
+                <span className="truncate block max-w-[200px]">"{search}"</span>
+                <span className="truncate block">카테고리 만들기</span>
+              </div>
             )}
           </Button>
         )}
@@ -112,7 +119,16 @@ export function CategorySelector({
                       'bg-primary text-primary-foreground hover:bg-primary/90',
                   )}
                 >
-                  <span className="font-medium">{category.name}</span>
+                  <X
+                    className="h-4 w-4"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleDeleteCategory(category.id);
+                    }}
+                  />
+                  <span className="font-medium max-w-[200px] text-ellipsis overflow-hidden whitespace-nowrap">
+                    {category.name}
+                  </span>
                   {selectedCategoryId === category.id && <Check className="h-4 w-4" />}
                 </button>
               ))

@@ -65,3 +65,20 @@ export async function updatePostCategory(postId: string, categoryId: string | nu
     .returning();
   return data[0] ?? null;
 }
+
+export async function deleteCategory(id: string) {
+  return db.delete(schema.Category).where(eq(schema.Category.id, id));
+}
+
+export async function deleteCategoryAndUnsetPostsCategory(categoryId: string) {
+  return db.transaction(async (tx) => {
+    // 카테고리 삭제 시 해당 카테고리를 사용하는 모든 게시물의 카테고리를 초기화
+    await tx
+      .update(schema.post)
+      .set({ category: null })
+      .where(eq(schema.post.category, categoryId));
+
+    // 카테고리 삭제
+    return tx.delete(schema.Category).where(eq(schema.Category.id, categoryId));
+  });
+}

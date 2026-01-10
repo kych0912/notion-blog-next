@@ -8,6 +8,7 @@ import {
   getPostCategories as getPostCategoriesQuery,
   getCategories,
   updatePostCategory,
+  deleteCategoryAndUnsetPostsCategory,
 } from '@/app/server/queries/category';
 
 export async function getUserPostCategoriesAction(userName: string) {
@@ -22,6 +23,15 @@ export async function getPostCategoriesAction(id: string) {
 
 export async function getAllCategoriesAction() {
   return getCategories();
+}
+
+export async function deleteCategoryAction(id: string): Promise<ActionState<string>> {
+  try {
+    await deleteCategoryAndUnsetPostsCategory(id);
+    return { ok: true, message: '카테고리가 삭제되었습니다.' };
+  } catch {
+    return { ok: false, message: '카테고리 삭제 중 오류가 발생했습니다.' };
+  }
 }
 
 export async function updatePostCategoryAction(
