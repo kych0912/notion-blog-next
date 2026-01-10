@@ -1,30 +1,24 @@
-import * as types from 'notion-types';
+'use client';
+
 import Link from 'next/link';
 
-import Option from '../../PostOption/Option';
+import { Badge } from '@/app/components/shared/badge';
 
+import { usePostContext } from '../_contexts/usePostContext';
+import { usePostProperty } from '../_hooks/usePostProperty';
+import { usePostCategory } from '../_hooks/usePostCategory';
+
+import Option from './PostOption';
 import CoverImage from './PostCoverImage';
 
-export default function PostProperty({
-  recordMap,
-  user,
-  isAuthor,
-  id,
-  avatar,
-  image,
-}: {
-  recordMap: types.ExtendedRecordMap;
-  user: string;
-  isAuthor: boolean;
-  id: string;
-  avatar: string;
-  isChild: boolean;
-  image: string;
-}) {
-  const keys = Object.keys(recordMap?.block || {});
-  const block = recordMap?.block?.[keys[0]]?.value;
+export default function PostProperty() {
+  const { user, id } = usePostContext();
+  const postProperty = usePostProperty();
 
-  const publishedTime = new Date(block?.created_time).toLocaleDateString();
+  if (!postProperty) return null;
+
+  const { isAuthor, avatar, image, publishedTime } = postProperty;
+  const { categoryName } = usePostCategory();
 
   return (
     <>
@@ -41,6 +35,14 @@ export default function PostProperty({
           </Link>
           <span className="mx-2 text-sm text-muted-foreground">|</span>
           <span className="text-sm text-muted-foreground">{publishedTime}</span>
+          {categoryName && (
+            <>
+              <span className="mx-2 text-sm text-muted-foreground">|</span>
+              <Badge variant="default" className="h-5 px-2 py-0 text-[11px] font-medium">
+                {categoryName}
+              </Badge>
+            </>
+          )}
         </div>
 
         {isAuthor && <Option id={id} />}

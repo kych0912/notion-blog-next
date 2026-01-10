@@ -46,7 +46,7 @@ export default function Header() {
   return (
     <header
       ref={blockRef}
-      className="sticky top-0 z-[299] w-full py-3 backdrop-blur-2xl"
+      className="sticky top-0 z-[50] w-full py-3 backdrop-blur-2xl"
       style={{
         transform: visible ? 'translateY(0)' : `translateY(-${height}px)`,
         transition: 'transform 0.3s ease-in-out',

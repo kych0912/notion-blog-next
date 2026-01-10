@@ -13,13 +13,13 @@ export default function PreRender() {
   const { pageId: inputPageId } = usePageId();
   const { data: recordMap } = useQuery(getRecordMapOptions(inputPageId));
 
-  if (!recordMap) return null;
+  if (!recordMap?.isSuccess || !recordMap.data) return null;
 
   return (
     <>
-      <PreRenderHeader recordMap={recordMap} />
+      <PreRenderHeader recordMap={recordMap.data} />
 
-      <NotionPage user={'none'} recordMap={recordMap} isPreview={true} />
+      <NotionPage user={'none'} recordMap={recordMap.data} isPreview={true} />
     </>
   );
 }

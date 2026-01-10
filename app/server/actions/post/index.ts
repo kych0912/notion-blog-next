@@ -9,13 +9,12 @@ import {
 } from '@/app/server/queries/post';
 import { isDescendantOfStoredPage } from '@/app/lib/notion-api';
 import { auth } from '@/auth';
-import { BaseServerResposne } from '@/app/types/base';
 import { PostType } from '@/app/server/db/schema';
 import { db } from '@/app/server/db/drizzle';
 import * as schema from '@/app/server/db/schema';
 
 import { deletePost, getPostById } from '../../queries/post';
-import { ActionState } from '../types';
+import { ActionState, BaseServerResposne } from '../types';
 
 export interface GetPostDetailResponse {
   id: string;

@@ -1,6 +1,6 @@
 import { ExtendedRecordMap } from 'notion-types';
 
-import PostTitle from '@/app/components/PostDetail/_components/PostTitle';
+import PostTitle from '@/app/(pages)/[user]/[id]/_components/PostTitle';
 
 export default function PreRenderHeader({ recordMap }: { recordMap: ExtendedRecordMap }) {
   return (

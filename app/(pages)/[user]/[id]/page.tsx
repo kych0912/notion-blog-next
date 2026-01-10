@@ -1,11 +1,16 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query';
 
-import NotionPage from '@/app/components/PostDetail/Post';
 import { getMetadata } from '@/app/components/MetaData/getMetaData';
 import { getPage } from '@/app/lib/notion-api';
 import { getPageBlockContent } from '@/app/utils/NotionApi';
-import { getPostDetailAction } from '@/app/server/actions/post';
+import { getPostCategoryOptions } from '@/app/react-query/options/category';
+import { getPostDetailOptions } from '@/app/react-query/options/post';
+import NotionPageRenderer from '@/app/components/Renderer/NotionPageRenderer';
+
+import Header from './_components/PostHeader';
+import PostContextProvider from './_providers/PostContextProvider';
 
 interface ParamsType {
   id: string;
@@ -36,18 +41,20 @@ async function Page({ params }: { params: Promise<ParamsType> }) {
   const { id, user } = await params;
 
   try {
-    const [postDetail, recordMap] = await Promise.all([getPostDetailAction(id, user), getPage(id)]);
+    const queryClient = new QueryClient();
 
-    if (!postDetail.isSuccess) {
-      return notFound();
-    }
+    queryClient.prefetchQuery(getPostCategoryOptions(id));
+    queryClient.prefetchQuery(getPostDetailOptions(id, user));
 
-    const postDetailData = postDetail.data;
+    const recordMap = await getPage(id);
 
     return (
-      <>
-        <NotionPage id={id} user={user} postDetail={postDetailData} recordMap={recordMap} />
-      </>
+      <HydrationBoundary state={dehydrate(queryClient)}>
+        <PostContextProvider user={user} id={id} recordMap={recordMap}>
+          <Header />
+          <NotionPageRenderer recordMap={recordMap} user={user} />
+        </PostContextProvider>
+      </HydrationBoundary>
     );
   } catch (e: unknown) {
     if (e instanceof Error && e.message === 'NOT_FOUND') {
