@@ -1,10 +1,11 @@
 import { notFound } from 'next/navigation';
-import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query';
+import { HydrationBoundary, dehydrate } from '@tanstack/react-query';
 
 import { getUserInfoAndPostByName } from '@/app/server/queries/user';
 import { getUserPosts } from '@/app/server/queries/post';
 import type { UserType, PostType } from '@/app/server/db/schema';
 import { getUserPostCategoriesOptions } from '@/app/react-query/options/category';
+import { getQueryClient } from '@/app/utils/utils';
 
 import User from './_components/User';
 import Feed from './_components/Feed';
@@ -27,7 +28,7 @@ const Post = async ({ params }: { params: Promise<{ user: string }> }) => {
     return notFound();
   }
 
-  const queryClient = new QueryClient();
+  const queryClient = getQueryClient();
 
   queryClient.prefetchQuery(getUserPostCategoriesOptions(decodedUser));
 
