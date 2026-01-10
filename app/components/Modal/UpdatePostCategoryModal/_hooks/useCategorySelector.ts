@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 
-import { getPostCategoriesOptions } from '@/app/react-query/options/category';
+import { getPostCategoryOptions } from '@/app/react-query/options/category';
 
 import { useCreateCategory } from './useCreateCategory';
 
@@ -20,7 +20,7 @@ export function useCategorySelector({
   search: string;
 }) {
   const createMutation = useCreateCategory({ postId });
-  const postCategoriesQuery = useQuery(getPostCategoriesOptions(postId));
+  const postCategoriesQuery = useQuery(getPostCategoryOptions(postId));
 
   const filteredCategories = useMemo(() => {
     if (!search.trim()) return categories;

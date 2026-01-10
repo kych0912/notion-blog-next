@@ -20,13 +20,6 @@ export const getPostCategoryOptions = (id: string) => {
   });
 };
 
-export const getPostCategoriesOptions = (id: string) => {
-  return queryOptions({
-    queryKey: ['post-categories', id],
-    queryFn: () => getPostCategoriesAction(id),
-  });
-};
-
 export const getAllCategoriesOptions = () => {
   return queryOptions({
     queryKey: ['all-categories'],

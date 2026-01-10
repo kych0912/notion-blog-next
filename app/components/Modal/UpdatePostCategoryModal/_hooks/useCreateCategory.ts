@@ -3,7 +3,7 @@ import { toast } from 'sonner';
 
 import {
   getAllCategoriesOptions,
-  getPostCategoriesOptions,
+  getPostCategoryOptions,
 } from '@/app/react-query/options/category';
 import { createCategoryAction } from '@/app/server/actions/category';
 import { type ActionState } from '@/app/server/actions/types';
@@ -21,7 +21,7 @@ export function useCreateCategory({
     onSuccess: (result) => {
       if (result.ok) {
         queryClient.invalidateQueries({ queryKey: getAllCategoriesOptions().queryKey });
-        queryClient.invalidateQueries({ queryKey: getPostCategoriesOptions(postId).queryKey });
+        queryClient.invalidateQueries({ queryKey: getPostCategoryOptions(postId).queryKey });
         toast.success(result.message);
       } else {
         toast.error(result.message);
