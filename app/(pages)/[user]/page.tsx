@@ -1,5 +1,4 @@
 import { notFound } from 'next/navigation';
-import { Suspense } from 'react';
 import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query';
 
 import { getUserInfoAndPostByName } from '@/app/server/queries/user';
@@ -10,7 +9,7 @@ import { getUserPostCategoriesOptions } from '@/app/react-query/options/category
 import User from './_components/User';
 import Feed from './_components/Feed';
 import CoverImage from './_components/CoverImage';
-import { CollapsibleDemo } from './_components/Category/Category';
+import Category from './_components/Category/Category';
 
 const Post = async ({ params }: { params: Promise<{ user: string }> }) => {
   const { user } = await params;
@@ -40,9 +39,7 @@ const Post = async ({ params }: { params: Promise<{ user: string }> }) => {
 
         <div className="flex w-full justify-center items-start pb-10 max-w-[960px]">
           <Feed posts={posts} />
-          <Suspense fallback={<div>Loading...</div>}>
-            <CollapsibleDemo userName={decodedUser} />
-          </Suspense>
+          <Category userName={decodedUser} />
         </div>
       </div>
     </HydrationBoundary>

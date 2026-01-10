@@ -9,6 +9,7 @@ import {
   getCategories,
   updatePostCategory,
   deleteCategoryAndUnsetPostsCategory,
+  getPostsByCategoryId as getPostsByCategoryIdQuery,
 } from '@/app/server/queries/category';
 
 export async function getUserPostCategoriesAction(userName: string) {
@@ -23,6 +24,11 @@ export async function getPostCategoriesAction(id: string) {
 
 export async function getAllCategoriesAction() {
   return getCategories();
+}
+
+export async function getPostsByCategoryIdAction(categoryId: string) {
+  await new Promise((resolve) => setTimeout(resolve, 5000));
+  return getPostsByCategoryIdQuery(categoryId);
 }
 
 export async function deleteCategoryAction(id: string): Promise<ActionState<string>> {

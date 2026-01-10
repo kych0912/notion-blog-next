@@ -9,6 +9,11 @@ export async function getCategories() {
   return data;
 }
 
+export async function getPostsByCategoryId(categoryId: string) {
+  const data = await db.select().from(schema.post).where(eq(schema.post.category, categoryId));
+  return data;
+}
+
 export async function getPostCategory(postId: string) {
   const data = await db
     .select({

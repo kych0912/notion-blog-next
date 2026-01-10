@@ -4,6 +4,7 @@ import {
   getUserPostCategoriesAction,
   getPostCategoriesAction,
   getAllCategoriesAction,
+  getPostsByCategoryIdAction,
 } from '@/app/server/actions/category';
 
 export const getUserPostCategoriesOptions = (userName: string) => {
@@ -24,5 +25,12 @@ export const getAllCategoriesOptions = () => {
   return queryOptions({
     queryKey: ['all-categories'],
     queryFn: () => getAllCategoriesAction(),
+  });
+};
+
+export const getPostsByCategoryIdOptions = (categoryId: string) => {
+  return queryOptions({
+    queryKey: ['posts-by-category-id', categoryId],
+    queryFn: () => getPostsByCategoryIdAction(categoryId),
   });
 };

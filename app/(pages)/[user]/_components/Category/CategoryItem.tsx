@@ -7,27 +7,13 @@ import {
   CollapsibleTrigger,
 } from '@/app/components/shared/collapsible';
 import { Button } from '@/app/components/shared/button';
+import type { CategoryType } from '@/app/server/db/schema';
 
-import { CategoryPost } from './CategoryPost';
+import { CategoryPostList } from './CategoryPost';
 
-const categoryPosts = [
-  {
-    id: '1',
-    title: 'Post 1',
-  },
-  {
-    id: '2',
-    title:
-      '너무길게하면어떻게되는지확인용너무길게하면어떻게되는지확인용너무길게하면어떻게되는지확인용너무길게하면어떻게되는지확인용',
-  },
-  {
-    id: '3',
-    title: 'Post 3',
-  },
-];
-
-export function CategoryItem({ name }: { name: string }) {
+export function CategoryItem({ category }: { category: CategoryType }) {
   const [isOpen, setIsOpen] = useState(false);
+  const { name } = category;
 
   return (
     <Collapsible open={isOpen} onOpenChange={setIsOpen} className="flex flex-col gap-2 w-full">
@@ -43,9 +29,7 @@ export function CategoryItem({ name }: { name: string }) {
         </div>
       </CollapsibleTrigger>
       <CollapsibleContent className="flex flex-col gap-2">
-        {categoryPosts.map((post) => (
-          <CategoryPost key={post.id} title={post.title} />
-        ))}
+        <CategoryPostList categoryId={category.id} />
       </CollapsibleContent>
     </Collapsible>
   );
