@@ -4,7 +4,23 @@ import { asc, eq } from 'drizzle-orm';
 import { db } from '@/app/server/db/drizzle';
 import * as schema from '@/app/server/db/schema';
 
-export async function getCategories() {
+// 유저가 생성한 카테고리 목록을 반환
+export async function getUserCreatedCategories(userName: string) {
+  return db
+    .select({
+      id: schema.Category.id,
+      name: schema.Category.name,
+      authorId: schema.Category.authorId,
+      createdAt: schema.Category.createdAt,
+      updatedAt: schema.Category.updatedAt,
+    })
+    .from(schema.user)
+    .innerJoin(schema.Category, eq(schema.Category.authorId, schema.user.id))
+    .where(eq(schema.user.name, userName))
+    .orderBy(asc(schema.Category.name));
+}
+
+export async function getAllCategories() {
   const data = await db.select().from(schema.Category).orderBy(asc(schema.Category.name));
   return data;
 }
@@ -44,11 +60,13 @@ export async function getPostCategories(id: string) {
   return data[0] ?? null;
 }
 
+// 유저가 작성한 게시글에 연결된 카테고리 목록을 반환
 export async function getUserPostCategories(userName: string) {
   return db
     .select({
       id: schema.Category.id,
       name: schema.Category.name,
+      authorId: schema.Category.authorId,
       createdAt: schema.Category.createdAt,
       updatedAt: schema.Category.updatedAt,
     })
@@ -65,8 +83,11 @@ export async function getUserPostCategories(userName: string) {
     .orderBy(asc(schema.Category.name));
 }
 
-export async function createCategory(name: string) {
-  const data = await db.insert(schema.Category).values({ id: uuidv4(), name }).returning();
+export async function createCategory(name: string, authorId: string) {
+  const data = await db
+    .insert(schema.Category)
+    .values({ id: uuidv4(), name, authorId })
+    .returning();
   return data[0] ?? null;
 }
 

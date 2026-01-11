@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useSession } from 'next-auth/react';
 
 import {
   getAllCategoriesOptions,
@@ -16,7 +17,12 @@ export function useAttachPostCategoryModal({
   onClose: () => void;
 }) {
   const queryClient = useQueryClient();
-  const allCategoriesQuery = useQuery(getAllCategoriesOptions());
+  const { data: session, status } = useSession();
+  const userName = session?.user?.name || undefined;
+  const allCategoriesQuery = useQuery({
+    ...getAllCategoriesOptions(userName),
+    enabled: status === 'authenticated' && !!session?.user?.name,
+  });
   const { mutate: attachPostCategory, isPending: isAttachingPostCategory } = useAddPostCategory({
     postId,
     onSuccess: onClose,

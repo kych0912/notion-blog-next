@@ -21,10 +21,10 @@ export const getPostCategoryOptions = (id: string) => {
   });
 };
 
-export const getAllCategoriesOptions = () => {
+export const getAllCategoriesOptions = (userName: string | undefined) => {
   return queryOptions({
-    queryKey: ['all-categories'],
-    queryFn: () => getAllCategoriesAction(),
+    queryKey: ['all-categories', userName],
+    queryFn: () => getAllCategoriesAction(userName),
   });
 };
 
