@@ -42,6 +42,7 @@ const UserMenu = ({
             <Link
               key={index}
               href={item.link}
+              prefetch={false}
               onClick={() => {
                 onClose?.();
               }}

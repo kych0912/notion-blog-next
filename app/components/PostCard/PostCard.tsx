@@ -35,7 +35,7 @@ export default function PostCard({
       {isLoading ? (
         <PostCardLoading />
       ) : (
-        <Link href={`/${user}/${id}`} className="no-underline">
+        <Link href={`/${encodeURIComponent(user)}/${id}`} prefetch={false} className="no-underline">
           <div className="w-full">
             <img
               className="h-[12rem] w-full object-cover object-center rounded-t-sm"
