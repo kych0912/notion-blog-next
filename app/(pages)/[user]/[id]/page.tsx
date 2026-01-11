@@ -8,10 +8,8 @@ import { getPageBlockContent } from '@/app/utils/NotionApi';
 import { getPostCategoryOptions } from '@/app/react-query/options/category';
 import { getPostDetailOptions } from '@/app/react-query/options/post';
 import NotionPageRenderer from '@/app/components/Renderer/NotionPageRenderer';
+import PostHeaderFactory from '@/app/components/Post/Header/PostHeaderFactory';
 import { getQueryClient } from '@/app/utils/utils';
-
-import Header from './_components/PostHeader';
-import PostContextProvider from './_providers/PostContextProvider';
 
 interface ParamsType {
   id: string;
@@ -52,10 +50,8 @@ async function Page({ params }: { params: Promise<ParamsType> }) {
 
     return (
       <HydrationBoundary state={dehydrate(queryClient)}>
-        <PostContextProvider user={user} id={id} recordMap={recordMap}>
-          <Header />
-          <NotionPageRenderer recordMap={recordMap} user={user} />
-        </PostContextProvider>
+        <PostHeaderFactory type="post" user={user} id={id} recordMap={recordMap} />
+        <NotionPageRenderer recordMap={recordMap} user={user} />
       </HydrationBoundary>
     );
   } catch (e: unknown) {

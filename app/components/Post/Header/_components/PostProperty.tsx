@@ -4,9 +4,9 @@ import Link from 'next/link';
 
 import { Badge } from '@/app/components/shared/badge';
 
-import { usePostContext } from '../_contexts/usePostContext';
+import { usePostContext } from '../../../../(pages)/[user]/[id]/_contexts/usePostContext';
 import { usePostProperty } from '../_hooks/usePostProperty';
-import { usePostCategory } from '../_hooks/usePostCategory';
+import { usePostCategory } from '../../../../(pages)/[user]/[id]/_hooks/usePostCategory';
 
 import Option from './PostOption';
 import CoverImage from './PostCoverImage';

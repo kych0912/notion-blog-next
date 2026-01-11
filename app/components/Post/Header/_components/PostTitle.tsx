@@ -1,11 +1,9 @@
 'use client';
 
+import { ExtendedRecordMap } from 'notion-types';
 import { getPageTitle } from 'notion-utils';
 
-import { usePostContext } from '../_contexts/usePostContext';
-
-export default function PostTitle() {
-  const { recordMap } = usePostContext();
+export default function PostTitle({ recordMap }: { recordMap: ExtendedRecordMap }) {
   const title = getPageTitle(recordMap);
 
   return <h1 className="text-[1.875rem] font-bold">{title}</h1>;

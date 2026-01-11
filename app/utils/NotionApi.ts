@@ -59,6 +59,6 @@ export function getPageBlockContent(recordMap: types.RecordMap, keys: string[]) 
     const title = properties.title[0];
     description.push(title[0]);
   }
-
+  console.log(description);
   return getDescriotion(description);
 }

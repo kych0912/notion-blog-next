@@ -3,7 +3,7 @@
 import type { ReactNode } from 'react';
 import { type ExtendedRecordMap } from 'notion-types';
 
-import { PostContext } from '../_contexts/usePostContext';
+import { PostContext } from '../../../../(pages)/[user]/[id]/_contexts/usePostContext';
 
 export default function PostContextProvider({
   user,
