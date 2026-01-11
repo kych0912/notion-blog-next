@@ -5,7 +5,7 @@ import { getPostsByCategoryIdOptions } from '@/app/react-query/options/category'
 
 function CategoryPost({ title, id, user }: { title: string; id: string; user: string }) {
   return (
-    <Link href={`/${encodeURIComponent(user)}/${id}`} className="no-underline">
+    <Link href={`/${encodeURIComponent(user)}/${id}`} prefetch={false} className="no-underline">
       <div
         className="group rounded-md flex items-center gap-2 bg-background/40 px-3 py-2 text-sm text-foreground shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground"
         title={title}

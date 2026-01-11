@@ -91,7 +91,7 @@ export default function LoggedIn({ user }: { user: DefaultSession }) {
     <>
       <div ref={containerRef} className="relative flex items-center">
         <div className="hidden pr-3 sm:flex">
-          <Link href="/write" passHref>
+          <Link href="/write" prefetch={false} passHref>
             <HoverButton>새 글 쓰기</HoverButton>
           </Link>
         </div>

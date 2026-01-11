@@ -53,7 +53,11 @@ export default function Header() {
       }}
     >
       <div className="mx-auto flex h-10 w-full items-center justify-between px-2 md:max-w-[900px] lg:max-w-[1200px]">
-        <Link href="/" className="text-[21px] font-bold text-foreground no-underline">
+        <Link
+          href="/"
+          prefetch={false}
+          className="text-[21px] font-bold text-foreground no-underline"
+        >
           NextBlog
         </Link>
         <HeaderRight />
