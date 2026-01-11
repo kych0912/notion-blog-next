@@ -50,7 +50,7 @@ export function UpdatePostCategoryModal({
           <>
             <CategorySelector
               id={id}
-              categories={allCategories ?? []}
+              categories={allCategories?.data ?? []}
               selectedCategoryId={selectedCategoryId}
               onCategorySelect={setSelectedCategoryId}
             />

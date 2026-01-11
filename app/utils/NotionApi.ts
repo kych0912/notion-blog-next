@@ -1,4 +1,5 @@
 import * as types from 'notion-types';
+import { getBlockTitle } from 'notion-utils';
 
 export function getNotionImage(url: string, keys: string[], block: types.Block) {
   if (!url) {
@@ -31,34 +32,21 @@ export function getNotionImage(url: string, keys: string[], block: types.Block) 
   return notionImageUrl.toString();
 }
 
-const getDescriotion = (blocks: string[]): string => {
-  let description: string[] = [];
+export function getPageBlockContent(recordMap: types.ExtendedRecordMap, keys: string[]) {
+  const description: string[] = [];
 
-  for (let i = 0; i < blocks.length; i++) {
-    for (let j = 0; j < blocks[i].length; j++) {
-      description.push(blocks[i][j]);
-    }
-  }
-
-  return description.find((block) => block.length > 50 && block.length < 150) ?? '';
-};
-
-export function getPageBlockContent(recordMap: types.RecordMap, keys: string[]) {
-  let description: string[] = [];
-
-  for (let i = 1; i < keys.length; i++) {
+  for (let i = 0; i < keys.length; i++) {
     const blockValue = recordMap?.block?.[keys[i]]?.value;
+
     if (!blockValue) continue;
-
     // 타입 page
-    if (blockValue.type !== 'page') continue;
+    if (blockValue.type !== 'text') continue;
 
-    const properties = blockValue.properties;
-    if (!properties?.title?.[0]) continue;
+    const blockTitle = getBlockTitle(blockValue, recordMap);
 
-    const title = properties.title[0];
-    description.push(title[0]);
+    if (description.join('').length > 150) break;
+
+    description.push(blockTitle);
   }
-
-  return getDescriotion(description);
+  return description.join(' ');
 }

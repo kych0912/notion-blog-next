@@ -29,6 +29,7 @@ export const user = pgTable(
 export const Category = pgTable('category', {
   id: uuid().primaryKey().notNull(),
   name: text().notNull(),
+  authorId: varchar().references(() => user.id),
   createdAt: timestamp({ withTimezone: true, mode: 'string' }).defaultNow().notNull(),
   updatedAt: timestamp({ withTimezone: true, mode: 'string' }).defaultNow().notNull(),
 });
@@ -50,9 +51,13 @@ export const userRelations = relations(user, ({ many }) => ({
   }),
 }));
 
-export const categoryRelations = relations(Category, ({ many }) => ({
+export const categoryRelations = relations(Category, ({ many, one }) => ({
   posts: many(post, {
     relationName: 'posts',
+  }),
+  author: one(user, {
+    fields: [Category.authorId],
+    references: [user.id],
   }),
 }));
 

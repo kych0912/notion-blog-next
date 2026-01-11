@@ -6,7 +6,8 @@ import {
   createCategory,
   getUserPostCategories as getUserPostCategoriesQuery,
   getPostCategories as getPostCategoriesQuery,
-  getCategories,
+  getUserCreatedCategories,
+  getAllCategories,
   attachPostCategory,
   deleteCategoryAndUnsetPostsCategory,
   getPostsByCategoryId as getPostsByCategoryIdQuery,
@@ -23,8 +24,18 @@ export async function getPostCategoriesAction(id: string) {
   return getPostCategoriesQuery(id);
 }
 
-export async function getAllCategoriesAction() {
-  return getCategories();
+export async function getAllCategoriesAction(userName: string | undefined) {
+  if (!userName) {
+    return { ok: false, message: '유저 이름이 필요합니다.' };
+  }
+
+  const decodedUserName = decodeURIComponent(userName);
+  return { ok: true, data: await getUserCreatedCategories(decodedUserName) };
+}
+
+// (관리자/디버깅 등) 전체 카테고리 조회
+export async function getAllCategoriesUnscopedAction() {
+  return getAllCategories();
 }
 
 export async function removePostCategoryAction(postId: string): Promise<ActionState<string>> {
@@ -73,6 +84,9 @@ export async function createCategoryAction(name: string): Promise<ActionState<st
     if (!session?.user) {
       return { ok: false, message: '로그인이 필요합니다.' };
     }
+    if (!session.user.id) {
+      return { ok: false, message: '유저 정보가 올바르지 않습니다.' };
+    }
 
     if (!name || name.trim().length < 2) {
       return { ok: false, message: '카테고리 이름은 2자 이상이어야 합니다.' };
@@ -82,7 +96,7 @@ export async function createCategoryAction(name: string): Promise<ActionState<st
       return { ok: false, message: '카테고리 이름은 50자 이하여야 합니다.' };
     }
 
-    const created = await createCategory(name.trim());
+    const created = await createCategory(name.trim(), session.user.id);
     if (!created) {
       return { ok: false, message: '카테고리 생성에 실패했습니다.' };
     }

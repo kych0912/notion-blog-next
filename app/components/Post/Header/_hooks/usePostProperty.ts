@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { getPostDetailOptions } from '@/app/react-query/options/post';
 
-import { usePostContext } from '../_contexts/usePostContext';
+import { usePostContext } from '../../../../(pages)/[user]/[id]/_contexts/usePostContext';
 
 interface PostPropertyType {
   isAuthor: boolean;

@@ -2,14 +2,14 @@
 import React from 'react';
 import { MoreVertical } from 'lucide-react';
 
-import { DeleteModal } from '../../../../components/Modal/Modal';
-import { UpdatePostCategoryModal } from '../../../../components/Modal/UpdatePostCategoryModal';
+import { DeleteModal } from '../../../Modal/Modal';
+import { UpdatePostCategoryModal } from '../../../Modal/UpdatePostCategoryModal';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '../../../../components/shared/dropdown-menu';
+} from '../../../shared/dropdown-menu';
 
 export default function PostOption({ id }: { id: string }) {
   const [deleteOpen, setDeleteOpen] = React.useState(false);

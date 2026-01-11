@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useSession } from 'next-auth/react';
 import { toast } from 'sonner';
 
 import { deleteCategoryAction } from '@/app/server/actions/category';
@@ -8,17 +9,20 @@ import { Category } from '../useCategorySelector';
 
 export function useDeleteCategory() {
   const queryClient = useQueryClient();
+  const { data: session } = useSession();
+  const userName = session?.user?.name || undefined;
+
   return useMutation({
     mutationFn: async (categoryId: string) => {
       return deleteCategoryAction(categoryId);
     },
     onMutate: async (categoryId: string) => {
-      await queryClient.cancelQueries({ queryKey: getAllCategoriesOptions().queryKey });
+      await queryClient.cancelQueries({ queryKey: getAllCategoriesOptions(userName).queryKey });
       const previousCategories = queryClient.getQueryData<Category[]>(
-        getAllCategoriesOptions().queryKey,
+        getAllCategoriesOptions(userName).queryKey,
       );
 
-      queryClient.setQueryData<Category[]>(getAllCategoriesOptions().queryKey, (old) => {
+      queryClient.setQueryData<Category[]>(getAllCategoriesOptions(userName).queryKey, (old) => {
         if (!Array.isArray(old)) return old;
         return old.filter((c) => c.id !== categoryId);
       });
@@ -26,7 +30,7 @@ export function useDeleteCategory() {
     },
     onSuccess: (result) => {
       if (result.ok) {
-        queryClient.invalidateQueries({ queryKey: getAllCategoriesOptions().queryKey });
+        queryClient.invalidateQueries({ queryKey: getAllCategoriesOptions(userName).queryKey });
         toast.success(result.message);
       } else {
         toast.error(result.message);
@@ -35,7 +39,7 @@ export function useDeleteCategory() {
     onError: (_err, _categoryId, context) => {
       if (context?.previousCategories) {
         queryClient.setQueryData<Category[]>(
-          getAllCategoriesOptions().queryKey,
+          getAllCategoriesOptions(userName).queryKey,
           context.previousCategories,
         );
       }

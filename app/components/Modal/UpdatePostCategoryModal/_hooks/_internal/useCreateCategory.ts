@@ -1,4 +1,5 @@
 import { type MutationOptions, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useSession } from 'next-auth/react';
 import { toast } from 'sonner';
 
 import {
@@ -19,6 +20,8 @@ export function useCreateCategory({
   unknown
 >) {
   const queryClient = useQueryClient();
+  const { data: session } = useSession();
+  const userName = session?.user?.name || undefined;
 
   return useMutation({
     mutationFn: async (name: string) => {
@@ -26,7 +29,7 @@ export function useCreateCategory({
     },
     onSuccess: (result) => {
       if (result.ok) {
-        queryClient.invalidateQueries({ queryKey: getAllCategoriesOptions().queryKey });
+        queryClient.invalidateQueries({ queryKey: getAllCategoriesOptions(userName).queryKey });
         queryClient.invalidateQueries({ queryKey: getPostCategoryOptions(postId).queryKey });
         toast.success(result.message);
         onSuccess?.();
