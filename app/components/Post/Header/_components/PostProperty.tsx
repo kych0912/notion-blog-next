@@ -24,7 +24,7 @@ export default function PostProperty() {
     <>
       <div className="flex justify-between pt-2 pb-4">
         <div className="flex items-center">
-          <Link href={`/${user}`} className="flex items-center no-underline">
+          <Link href={`/${user}`} prefetch={false} className="flex items-center no-underline">
             <img
               alt={user}
               src={avatar ? avatar : ''}
