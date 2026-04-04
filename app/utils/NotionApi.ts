@@ -36,7 +36,12 @@ export function getPageBlockContent(recordMap: types.ExtendedRecordMap, keys: st
   const description: string[] = [];
 
   for (let i = 0; i < keys.length; i++) {
-    const blockValue = recordMap?.block?.[keys[i]]?.value;
+    const rawValue = recordMap?.block?.[keys[i]]?.value;
+    const blockValue = rawValue
+      ? 'type' in rawValue
+        ? rawValue
+        : (rawValue as unknown as { value: types.Block }).value
+      : undefined;
 
     if (!blockValue) continue;
     // 타입 page

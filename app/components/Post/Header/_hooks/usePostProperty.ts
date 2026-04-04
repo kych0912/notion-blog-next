@@ -26,9 +26,13 @@ export function usePostProperty(): PostPropertyType | null {
   const image = postDetailData.data?.image ?? '';
 
   const keys = Object.keys(recordMap?.block || {});
-  const block = recordMap?.block?.[keys[0]]?.value;
+  const rawValue = recordMap?.block?.[keys[0]]?.value;
+  const createdTime =
+    rawValue && 'created_time' in rawValue
+      ? (rawValue as unknown as { created_time: string }).created_time
+      : '';
 
-  const publishedTime = new Date(block?.created_time).toLocaleDateString();
+  const publishedTime = new Date(createdTime).toLocaleDateString();
 
   return {
     isAuthor,

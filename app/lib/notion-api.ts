@@ -32,11 +32,14 @@ export async function getNotionPageContent(id: string): Promise<{
   const recordMap: types.ExtendedRecordMap = await getPage(id);
 
   const keys = Object.keys(recordMap?.block || {});
-  const block = recordMap?.block?.[keys[0]]?.value;
+  const rawValue = recordMap?.block?.[keys[0]]?.value;
+  const blockValue = rawValue
+    ? 'type' in rawValue
+      ? rawValue
+      : (rawValue as unknown as { value: types.Block }).value
+    : undefined;
 
-  let blockValue = recordMap?.block[keys[0]].value;
-
-  if (blockValue.type !== 'page') {
+  if (!blockValue || blockValue.type !== 'page') {
     return {
       image: '',
       title: '',
@@ -45,7 +48,7 @@ export async function getNotionPageContent(id: string): Promise<{
 
   const coverImg = blockValue.format?.page_cover ?? process.env.DEFAULT_IMAGE ?? '';
 
-  const notionImage = getNotionImage(coverImg, keys, block);
+  const notionImage = getNotionImage(coverImg, keys, blockValue);
 
   const title = getPageTitle(recordMap);
 
@@ -92,10 +95,15 @@ export async function isDescendantOfStoredPage(
 
     // 해당 페이지 정보 추출
     const recordMap = await getPage(id);
-    const block = recordMap.block[Object.keys(recordMap.block)[0]].value;
+    const rawBlock = recordMap.block[Object.keys(recordMap.block)[0]]?.value;
+    const block = rawBlock
+      ? 'type' in rawBlock
+        ? rawBlock
+        : (rawBlock as unknown as { value: types.Block }).value
+      : undefined;
 
     // 부모 페이지 추출
-    const parentPage = getBlockParentPage(block, recordMap);
+    const parentPage = block ? getBlockParentPage(block, recordMap) : null;
 
     // 부모 페이지가 없으면 (루트 페이지) false 반환
     if (!parentPage) {
