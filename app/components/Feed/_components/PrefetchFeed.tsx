@@ -1,11 +1,15 @@
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 
-import { getPostOptions } from '@/app/react-query/post';
+import { getLatestPosts } from '@/app/server/queries/post';
 
 export default async function PrefetchFeed({ children }: { children: React.ReactNode }) {
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchInfiniteQuery(getPostOptions.getLatestPosts);
+  const posts = await getLatestPosts(1);
+  queryClient.setQueryData(['latest-posts'], {
+    pages: [{ posts }],
+    pageParams: [1],
+  });
 
-  return <HydrationBoundary state={dehydrate(queryClient)}> {children} </HydrationBoundary>;
+  return <HydrationBoundary state={dehydrate(queryClient)}>{children}</HydrationBoundary>;
 }

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { HydrationBoundary, dehydrate } from '@tanstack/react-query';
+import type { Block } from 'notion-types';
 
 import { getMetadata } from '@/app/components/MetaData/getMetaData';
 import { getPage } from '@/app/lib/notion-api';
@@ -25,9 +26,14 @@ export const generateMetadata = async ({
 
   const recordMap = await getPage(id);
   const keys = Object.keys(recordMap?.block || {});
-  const blockValue = recordMap?.block?.[keys[0]]?.value;
+  const rawValue = recordMap?.block?.[keys[0]]?.value;
+  // NotionMapBox<Block>.value는 Block 또는 { role, value: Block } 두 케이스가 존재
+  const blockValue =
+    rawValue && 'value' in rawValue
+      ? (rawValue as unknown as { role: string; value: Block }).value
+      : rawValue;
 
-  if (blockValue?.type !== 'page') {
+  if (!blockValue || blockValue.type !== 'page') {
     return notFound();
   }
 
@@ -55,6 +61,7 @@ async function Page({ params }: { params: Promise<ParamsType> }) {
       </HydrationBoundary>
     );
   } catch (e: unknown) {
+    console.error('Error in Page:', e);
     if (e instanceof Error && e.message === 'NOT_FOUND') {
       return notFound();
     }
