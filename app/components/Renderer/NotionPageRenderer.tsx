@@ -18,9 +18,8 @@ import { Loading } from '../Loading';
 // dynamic imports for optional components
 // -----------------------------------------------------------------------------
 
-const Code = dynamic(() => import('react-notion-x/third-party/code').then((m) => m.Code), {
-  ssr: false,
-});
+// Keep technical content in the HTML that readers and search crawlers receive.
+const Code = dynamic(() => import('react-notion-x/third-party/code').then((m) => m.Code));
 
 const Collection = dynamic(
   () => import('react-notion-x/third-party/collection').then((m) => m.Collection),
@@ -29,12 +28,7 @@ const Collection = dynamic(
   },
 );
 
-const Equation = dynamic(
-  () => import('react-notion-x/third-party/equation').then((m) => m.Equation),
-  {
-    ssr: false,
-  },
-);
+const Equation = dynamic(() => import('./NotionEquation'));
 const Pdf = dynamic(() => import('react-notion-x/third-party/pdf').then((m) => m.Pdf), {
   ssr: false,
 });

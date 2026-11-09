@@ -14,6 +14,7 @@ import {
 import JsonLd from '@/app/components/MetaData/JsonLd';
 import { META } from '@/app/constants/metadata';
 import { getPage } from '@/app/lib/notion-api';
+import { getArticleDates } from '@/app/lib/article-dates';
 import {
   getNotionImage,
   getPageBlockContent,
@@ -54,10 +55,7 @@ const getPostPage = cache(async (id: string, user: string) => {
     );
     const coverImage = getNotionImage(block.format?.page_cover || '', block);
     const image = coverImage ? normalizeNotionImageUrl(coverImage) : undefined;
-    const publishedTime = new Date(post?.date || block.created_time).toISOString();
-    const modifiedTime = new Date(
-      Math.max(block.last_edited_time, Date.parse(publishedTime)),
-    ).toISOString();
+    const { publishedTime, modifiedTime } = getArticleDates(block, post?.date);
 
     return {
       recordMap,
@@ -136,7 +134,7 @@ async function Page({ params }: { params: Promise<ParamsType> }) {
               description: page.description,
               url,
               mainEntityOfPage: { '@type': 'WebPage', '@id': url },
-              author: { '@type': 'Person', ...page.author },
+              author: { '@type': 'Person', '@id': `${page.author.url}#person`, ...page.author },
               datePublished: page.publishedTime,
               dateModified: page.modifiedTime,
               image: page.image ? [new URL(page.image, META.url).toString()] : undefined,

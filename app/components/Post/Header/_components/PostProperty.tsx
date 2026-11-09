@@ -10,6 +10,7 @@ import { usePostCategory } from '../../../../(pages)/[user]/[id]/_hooks/usePostC
 
 import Option from './PostOption';
 import CoverImage from './PostCoverImage';
+import PostDates from './PostDates';
 
 export default function PostProperty() {
   const { user, id } = usePostContext();
@@ -18,12 +19,12 @@ export default function PostProperty() {
 
   if (!postProperty) return null;
 
-  const { isAuthor, avatar, image, publishedTime } = postProperty;
+  const { isAuthor, avatar, image, publishedTime, modifiedTime } = postProperty;
 
   return (
     <>
       <div className="flex justify-between pt-2 pb-4">
-        <div className="flex items-center">
+        <div className="flex flex-wrap items-center gap-y-2">
           <Link href={`/${user}`} prefetch={false} className="flex items-center no-underline">
             <img
               alt={user}
@@ -34,7 +35,7 @@ export default function PostProperty() {
             <span className="text-sm text-muted-foreground">{decodeURIComponent(user)}</span>
           </Link>
           <span className="mx-2 text-sm text-muted-foreground">|</span>
-          <span className="text-sm text-muted-foreground">{publishedTime}</span>
+          <PostDates publishedTime={publishedTime} modifiedTime={modifiedTime} />
           {categoryName && (
             <>
               <span className="mx-2 text-sm text-muted-foreground">|</span>

@@ -84,6 +84,7 @@ it('renders article structured data with the same canonical, author, and content
     url: metadata.alternates?.canonical,
     author: {
       '@type': 'Person',
+      '@id': 'https://www.nextblog.me/%EA%B9%80%20%EA%B0%9C%EB%B0%9C%EC%9E%90#person',
       name: '김 개발자',
       url: 'https://www.nextblog.me/%EA%B9%80%20%EA%B0%9C%EB%B0%9C%EC%9E%90',
     },

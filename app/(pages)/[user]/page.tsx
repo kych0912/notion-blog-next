@@ -9,6 +9,8 @@ import type { UserType, PostType } from '@/app/server/db/schema';
 import { getUserPostCategoriesOptions } from '@/app/react-query/options/category';
 import { getQueryClient } from '@/app/utils/utils';
 import { getMetadata, getUserPath } from '@/app/components/MetaData/getMetaData';
+import JsonLd from '@/app/components/MetaData/JsonLd';
+import { META } from '@/app/constants/metadata';
 
 import User from './_components/User';
 import Feed from './_components/Feed';
@@ -53,9 +55,25 @@ const Post = async ({ params }: { params: Promise<{ user: string }> }) => {
   const queryClient = getQueryClient();
 
   await queryClient.prefetchQuery(getUserPostCategoriesOptions(decodedUser));
+  const profileUrl = new URL(getUserPath(name), META.url).toString();
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
+      <JsonLd
+        data={{
+          '@context': 'https://schema.org',
+          '@type': 'ProfilePage',
+          '@id': profileUrl,
+          url: profileUrl,
+          mainEntity: {
+            '@type': 'Person',
+            '@id': `${profileUrl}#person`,
+            name,
+            url: profileUrl,
+            image: avatar || undefined,
+          },
+        }}
+      />
       <div className="profile-page site-container">
         <User avatar={avatar} name={name} userId={userInfo.id} />
         <div className="profile-body">

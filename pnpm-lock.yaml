@@ -35,6 +35,9 @@ importers:
       drizzle-orm:
         specifier: ^0.44.7
         version: 0.44.7(mysql2@3.14.3)(postgres@3.4.7)
+      katex:
+        specifier: 0.18.4
+        version: 0.18.4
       lucide-react:
         specifier: ^0.562.0
         version: 0.562.0(react@19.2.4)
