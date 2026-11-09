@@ -1,0 +1,83 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html,
+body {
+  overflow-x: clip;
+}
+html {
+  scrollbar-color: var(--muted-foreground) var(--background);
+  scroll-padding-top: var(--space-3xl);
+}
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body);
+  font-size: var(--text-md);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  caret-color: var(--primary);
+}
+::selection {
+  background: var(--accent);
+  color: var(--accent-foreground);
+}
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: var(--space-2xs);
+}
+a {
+  color: inherit;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+a,
+button {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: var(--accent);
+}
+button:not(:disabled),
+[role='button']:not([aria-disabled='true']) {
+  cursor: pointer;
+}
+button:disabled {
+  cursor: not-allowed;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  min-width: 0;
+  overflow-wrap: break-word;
+  scroll-margin-top: var(--space-3xl);
+  font-family: var(--font-display);
+  text-wrap: balance;
+}
+p {
+  text-wrap: pretty;
+}
+img,
+video {
+  max-width: 100%;
+  height: auto;
+}
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}

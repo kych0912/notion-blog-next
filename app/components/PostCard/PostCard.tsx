@@ -4,14 +4,14 @@ import { normalizeNotionImageUrl } from '@/app/utils/NotionApi';
 
 import PostCardLoading from './PostCardLoading';
 
-function dateFormat(date: Date) {
-  const year = date.getFullYear();
-  const month = ('0' + (date.getMonth() + 1)).slice(-2);
-  const day = ('0' + date.getDate()).slice(-2);
+const dateFormatter = new Intl.DateTimeFormat('ko-KR', {
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+  timeZone: 'Asia/Seoul',
+});
 
-  const dateString = year + '-' + month + '-' + day;
-  return dateString;
-}
+export type PostCardVariant = 'card' | 'featured' | 'row';
 
 export default function PostCard({
   id,
@@ -22,62 +22,72 @@ export default function PostCard({
   image,
   avatar,
   isLoading = false,
+  variant = 'card',
 }: {
   id: string;
   user: string;
+  authorSlug?: string | null;
   caption: string;
   date: Date;
   title: string;
   image: string;
   avatar: string;
   isLoading?: boolean;
+  variant?: PostCardVariant;
 }) {
+  const excerptLength = variant === 'row' ? 90 : 110;
+  const excerpt =
+    caption.length > excerptLength ? `${caption.slice(0, excerptLength).trimEnd()}…` : caption;
+
   return (
-    <div className="flex w-full flex-col rounded-sm bg-card text-card-foreground shadow-none transition-transform duration-300 hover:scale-[1.05] hover:shadow-md">
+    <article className={`post-card post-card--${variant}`} aria-busy={isLoading || undefined}>
       {isLoading ? (
         <PostCardLoading />
       ) : (
-        <Link href={`/${encodeURIComponent(user)}/${id}`} prefetch={false} className="no-underline">
-          <div className="w-full">
+        <Link href={`/${encodeURIComponent(user)}/${encodeURIComponent(id)}`} prefetch={false} className="post-card__link">
+          <div className="post-card__media">
             <img
-              className="h-[12rem] w-full object-cover object-center rounded-t-sm"
+              className="post-card__image"
               src={image ? normalizeNotionImageUrl(image) : '/Default_Image.jpeg'}
-              alt={title}
+              alt=""
+              width={640}
+              height={480}
+              loading={variant === 'featured' ? 'eager' : 'lazy'}
+              fetchPriority={variant === 'featured' ? 'high' : 'auto'}
+              decoding="async"
             />
           </div>
-          <div className="w-full p-4">
-            <div>
-              <div className="truncate text-base font-bold">{title}</div>
-              <div>
-                <p
-                  className="mt-2 h-16 overflow-hidden text-sm text-muted-foreground"
-                  style={
-                    {
-                      display: '-webkit-box',
-                      WebkitLineClamp: 3,
-                      WebkitBoxOrient: 'vertical',
-                      wordWrap: 'break-word',
-                      wordBreak: 'break-word',
-                    } as React.CSSProperties
-                  }
-                >
-                  {caption}
-                </p>
-              </div>
-              <div className="text-xs text-muted-foreground">{dateFormat(new Date(date))}</div>
-            </div>
-            <div className="flex items-center pt-2">
-              <img
-                src={avatar ? avatar : ''}
-                alt={user}
-                className="h-6 w-6 rounded-full bg-gray-200 object-cover"
-                referrerPolicy="no-referrer"
-              />
-              <div className="ml-1.5 truncate text-xs text-muted-foreground">{user}</div>
+          <div className="post-card__content">
+            <h2 className="post-card__title">{title || '제목 없는 글'}</h2>
+            {caption ? (
+              <p className="post-card__summary" title={caption}>
+                {excerpt}
+              </p>
+            ) : null}
+            <div className="post-card__meta">
+              <span className="post-card__author">
+                {avatar ? (
+                  <img
+                    src={avatar}
+                    alt=""
+                    width={24}
+                    height={24}
+                    loading="lazy"
+                    decoding="async"
+                    referrerPolicy="no-referrer"
+                  />
+                ) : (
+                  <span className="post-card__avatar-fallback" aria-hidden="true">
+                    {user.slice(0, 1)}
+                  </span>
+                )}
+                <span>{user}</span>
+              </span>
+              <time dateTime={date.toISOString()}>{dateFormatter.format(date)}</time>
             </div>
           </div>
         </Link>
       )}
-    </div>
+    </article>
   );
 }

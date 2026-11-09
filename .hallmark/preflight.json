@@ -1,0 +1,39 @@
+{
+  "scanned": "2026-11-09",
+  "status": "Implemented and verified; UI release prepared for main",
+  "findings": {
+    "fonts": "Local Pretendard Variable, app/styles/fonts/fonts.ts:3",
+    "palette": "Role tokens in app/styles/tokens.css; existing blue hue retained with accessible text pairings",
+    "motion": "Interaction states only; global reduced-motion fallback in app/styles/base.css",
+    "framework": "Next.js 16.1.1, React 19.2.4 and Tailwind 4.1.18 on production main",
+    "product": "https://www.nextblog.me/; local previews use public article fixtures in an isolated database"
+  },
+  "preserve": [
+    "NextBlog name, local Pretendard, blue hue and dual themes",
+    "Existing content, authentication provider, publishing controls and archive links",
+    "Production database schema and existing server query contract"
+  ],
+  "introduce": [
+    "A featured latest article followed by a chronological reading index",
+    "Full technical headlines, uncropped covers, explicit image dimensions and stable Korean dates",
+    "Responsive, keyboard-accessible login dialog and visible focus states",
+    "Initial article HTML available without JavaScript"
+  ],
+  "scope": {
+    "pages": [
+      "/"
+    ],
+    "shared": [
+      "Header",
+      "Post card",
+      "Login dialog",
+      "Design tokens"
+    ],
+    "deletedFiles": []
+  },
+  "material": {
+    "pictures": "Existing published article covers and author avatars",
+    "newSlots": [],
+    "additionalMaterialRequired": false
+  }
+}

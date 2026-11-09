@@ -1,0 +1,115 @@
+/* NextBlog design tokens: shared by the site and Notion surfaces. */
+:root {
+  --background: oklch(0.985 0.006 245);
+  --foreground: oklch(0.23 0.018 245);
+  --card: oklch(0.993 0.006 245);
+  --card-foreground: var(--foreground);
+  --popover: var(--card);
+  --popover-foreground: var(--foreground);
+  --primary: oklch(0.52 0.145 245);
+  --primary-foreground: oklch(0.99 0.006 245);
+  --secondary: oklch(0.25 0.018 245);
+  --secondary-foreground: oklch(0.99 0.006 245);
+  --muted: oklch(0.955 0.008 245);
+  --muted-foreground: oklch(0.48 0.017 245);
+  --accent: oklch(0.94 0.018 245);
+  --accent-foreground: var(--primary);
+  --destructive: oklch(0.53 0.2 25);
+  --destructive-foreground: var(--primary-foreground);
+  --border: oklch(0.86 0.01 245);
+  --input: oklch(0.65 0.016 245);
+  --ring: var(--primary);
+  --skeleton: oklch(0.9 0.012 245);
+  --image-background: oklch(0.965 0.006 245);
+  --overlay: oklch(0.18 0.02 245 / 0.55);
+  --provider-icon-filter: brightness(0) invert(1);
+  --chart-1: var(--primary);
+  --chart-2: oklch(0.53 0.12 160);
+  --chart-3: oklch(0.64 0.13 83);
+  --chart-4: oklch(0.54 0.14 152);
+  --chart-5: oklch(0.54 0.18 11);
+  --sidebar: var(--muted);
+  --sidebar-foreground: var(--foreground);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+  --sidebar-accent: var(--accent);
+  --sidebar-accent-foreground: var(--accent-foreground);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--ring);
+  --font-display: var(--font-pretendard), sans-serif;
+  --font-body: var(--font-pretendard), sans-serif;
+  --font-sans: var(--font-body);
+  --font-serif: Georgia, serif;
+  --font-mono: Menlo, monospace;
+  --text-xs: 0.8125rem;
+  --text-sm: 0.875rem;
+  --text-md: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-title: 1.5rem;
+  --text-featured: clamp(1.875rem, 3.1vw, 2.75rem);
+  --text-home: clamp(1.5rem, 2.3vw, 2rem);
+  --tracking-display: -0.035em;
+  --space-3xs: 2px;
+  --space-2xs: 4px;
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 40px;
+  --space-2xl: 64px;
+  --space-3xl: 96px;
+  --space-4xl: 144px;
+  --container: 1200px;
+  --gutter: var(--space-lg);
+  --gap-columns: var(--space-xl);
+  --radius: 0.25rem;
+  --radius-card: var(--radius);
+  --radius-pill: var(--radius);
+  --rule-hair: 1px;
+  --rule-heavy: 2px;
+  --shadow-card: none;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-micro: 120ms;
+  --dur-short: 220ms;
+  --dur-long: 420ms;
+  --z-base: 1;
+  --z-raised: 10;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-sticky-nav: 300;
+  --z-modal: 400;
+  --z-toast: 500;
+  --z-tooltip: 600;
+}
+
+:root.dark {
+  --background: oklch(0.17 0.014 245);
+  --foreground: oklch(0.94 0.008 245);
+  --card: oklch(0.2 0.014 245);
+  --primary: oklch(0.75 0.12 245);
+  --primary-foreground: oklch(0.17 0.014 245);
+  --secondary: oklch(0.93 0.008 245);
+  --secondary-foreground: oklch(0.2 0.014 245);
+  --muted: oklch(0.23 0.014 245);
+  --muted-foreground: oklch(0.73 0.016 245);
+  --accent: oklch(0.28 0.03 245);
+  --destructive: oklch(0.75 0.14 25);
+  --border: oklch(0.34 0.015 245);
+  --input: oklch(0.57 0.017 245);
+  --skeleton: oklch(0.3 0.014 245);
+  --image-background: oklch(0.23 0.014 245);
+  --overlay: oklch(0.1 0.014 245 / 0.72);
+  --provider-icon-filter: brightness(0);
+}
+
+@media (max-width: 40rem) {
+  :root {
+    --gutter: var(--space-md);
+    --gap-columns: var(--space-lg);
+  }
+}

@@ -37,31 +37,31 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
-    document.addEventListener('scroll', onScroll);
+    document.addEventListener('scroll', onScroll, { passive: true });
     return () => {
       document.removeEventListener('scroll', onScroll);
     };
   }, [onScroll]);
 
   return (
-    <header
-      ref={blockRef}
-      className="sticky top-0 z-[50] w-full py-3 backdrop-blur-2xl"
-      style={{
-        transform: visible ? 'translateY(0)' : `translateY(-${height}px)`,
-        transition: 'transform 0.3s ease-in-out',
-      }}
-    >
-      <div className="mx-auto flex h-10 w-full items-center justify-between px-2 md:max-w-[900px] lg:max-w-[1200px]">
-        <Link
-          href="/"
-          prefetch={false}
-          className="text-[21px] font-bold text-foreground no-underline"
-        >
-          NextBlog
-        </Link>
-        <HeaderRight />
-      </div>
-    </header>
+    <>
+      <a className="skip-link" href="#main-content">
+        본문으로 건너뛰기
+      </a>
+      <header
+        ref={blockRef}
+        className="site-header"
+        style={{
+          transform: visible ? 'translateY(0)' : `translateY(-${height}px)`,
+        }}
+      >
+        <div className="site-header__inner site-container">
+          <Link href="/" prefetch={false} className="site-wordmark">
+            NextBlog
+          </Link>
+          <HeaderRight />
+        </div>
+      </header>
+    </>
   );
 }

@@ -19,12 +19,11 @@ function RightContent() {
     case 'loading':
       return (
         <div className="flex gap-2">
-          <div className="h-10 w-[100px] animate-pulse rounded-lg bg-gray-200" />
+          <div className="header-loading skeleton" aria-hidden="true" />
         </div>
       );
     case 'authenticated':
       if (session && session.user) {
-        window.localStorage.setItem('currentUser', JSON.stringify(session.user));
         return <LoggedIn user={session} />;
       }
       return <NotLoggedIn />;

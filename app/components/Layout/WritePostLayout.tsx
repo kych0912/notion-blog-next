@@ -6,9 +6,11 @@ export default function WritePostLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="flex h-screen w-screen flex-col overflow-hidden">
+    <div className="flex h-dvh w-full flex-col overflow-clip">
       <Header />
-      <div className="flex h-full flex-1">{children}</div>
+      <main id="main-content" className="flex min-h-0 flex-1">
+        {children}
+      </main>
     </div>
   );
 }

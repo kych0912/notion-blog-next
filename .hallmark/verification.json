@@ -1,0 +1,56 @@
+{
+  "date": "2026-11-09",
+  "releaseScope": "UI only; separate backend migration commits remain on review/code-improvements-20261109",
+  "validation": {
+    "typecheck": "passed",
+    "changedFileLint": "passed",
+    "build": "passed",
+    "tests": 20,
+    "runtimeErrors": 0,
+    "viewportWidths": [
+      320,
+      375,
+      768,
+      1280,
+      1920
+    ],
+    "lightAndDarkTextContrastMinimum": 5.21,
+    "dialog": [
+      "Accessible name",
+      "Focus trap",
+      "Escape close",
+      "Focus restoration"
+    ],
+    "themePersistence": "passed",
+    "reducedMotion": "passed",
+    "javascriptDisabledReading": "passed"
+  },
+  "hallmark": {
+    "floorFailures": 0,
+    "openReflexFindings": 0,
+    "waived": [
+      {
+        "gate": "79",
+        "reason": "Compact masthead above a populated article feed is misread as empty hero space"
+      }
+    ],
+    "dismissed": [
+      {
+        "gate": "77",
+        "reason": "A continuous article archive keeps its existing content anatomy"
+      }
+    ],
+    "heroReview": "in-thread: ship",
+    "finishReview": "in-thread: ship"
+  },
+  "contentNotes": [
+    "Home becomes the existing site title and metadata description",
+    "Published titles, covers and provider actions are preserved",
+    "Summaries display excerpts; full descriptions remain in the title attribute",
+    "Legacy modal event routing moves to Radix without changing close behavior"
+  ],
+  "releasePrerequisites": {
+    "databaseMigrationRequiredForThisUIRelease": false,
+    "productionDatabaseWritesPerformed": false
+  }
+}

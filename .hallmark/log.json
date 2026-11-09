@@ -1,0 +1,28 @@
+[
+ {
+  "mode": "redesign",
+  "depth": "full",
+  "scope": "page",
+  "shape": "Index-First",
+  "theme": "brand",
+  "axes": "light/grotesk-sans/cool",
+  "hero": "Index",
+  "nav": "edge-aligned",
+  "footer": "kept",
+  "imagery": "existing published article covers",
+  "photos": [],
+  "entry": "latest article",
+  "fingerprint": "Left-aligned|Rows|Hairline|Solid|Contained|None",
+  "sections": [
+   "Existing site introduction",
+   "Featured latest article",
+   "Chronological article index"
+  ],
+  "signature": "Full technical headlines beside uncropped article diagrams",
+  "waived": [
+   "79"
+  ],
+  "prompt": "NextBlog readers browse and read real developer articles; retain the production queries, links and publishing workflow",
+  "date": "2026-11-09"
+ }
+]

@@ -5,15 +5,24 @@ import { Moon, Sun } from 'lucide-react';
 import { useTheme } from '@/app/context/ThemeContext';
 
 export default function DarkModeToggle() {
-  const { handleSetTheme } = useTheme();
+  const { theme, handleSetTheme } = useTheme();
   const toggleTheme = () => {
     handleSetTheme();
   };
 
   return (
-    <button onClick={toggleTheme} className="">
-      <Sun size={24} className="hidden dark:block" />
-      <Moon size={24} className="block dark:hidden" />
+    <button
+      type="button"
+      onClick={toggleTheme}
+      className="theme-toggle"
+      aria-label={theme === 'dark' ? '라이트 모드로 전환' : '다크 모드로 전환'}
+      aria-pressed={theme === 'dark'}
+    >
+      {theme === 'dark' ? (
+        <Sun size={20} aria-hidden="true" />
+      ) : (
+        <Moon size={20} aria-hidden="true" />
+      )}
     </button>
   );
 }
