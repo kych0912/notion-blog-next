@@ -23,6 +23,7 @@ export default function PostCard({
   avatar,
   isLoading = false,
   variant = 'card',
+  headingLevel: Heading = 'h2',
 }: {
   id: string;
   user: string;
@@ -34,6 +35,7 @@ export default function PostCard({
   avatar: string;
   isLoading?: boolean;
   variant?: PostCardVariant;
+  headingLevel?: 'h2' | 'h3';
 }) {
   const excerptLength = variant === 'row' ? 90 : 110;
   const excerpt =
@@ -44,7 +46,11 @@ export default function PostCard({
       {isLoading ? (
         <PostCardLoading />
       ) : (
-        <Link href={`/${encodeURIComponent(user)}/${encodeURIComponent(id)}`} prefetch={false} className="post-card__link">
+        <Link
+          href={`/${encodeURIComponent(user)}/${encodeURIComponent(id)}`}
+          prefetch={false}
+          className="post-card__link"
+        >
           <div className="post-card__media">
             <img
               className="post-card__image"
@@ -58,7 +64,7 @@ export default function PostCard({
             />
           </div>
           <div className="post-card__content">
-            <h2 className="post-card__title">{title || '제목 없는 글'}</h2>
+            <Heading className="post-card__title">{title || '제목 없는 글'}</Heading>
             {caption ? (
               <p className="post-card__summary" title={caption}>
                 {excerpt}

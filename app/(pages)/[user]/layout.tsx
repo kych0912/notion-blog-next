@@ -1,3 +1,5 @@
+import '@/app/styles/mypage.css';
+
 import type { ReactNode } from 'react';
 
 import WithHeader from '@/app/components/Layout/WithHeaderLayout';

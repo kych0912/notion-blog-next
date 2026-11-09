@@ -17,23 +17,37 @@
     "A featured latest article followed by a chronological reading index",
     "Full technical headlines, uncropped covers, explicit image dimensions and stable Korean dates",
     "Responsive, keyboard-accessible login dialog and visible focus states",
-    "Initial article HTML available without JavaScript"
+    "Initial article HTML available without JavaScript",
+    "Left-aligned author identity and headline-first profile archive",
+    "Responsive category disclosure with keyboard controls, empty/loading/error states and retry",
+    "Owner-only link to the existing writing flow using the authenticated database user ID"
   ],
   "scope": {
     "pages": [
-      "/"
+      "/",
+      "/[user]"
     ],
     "shared": [
       "Header",
       "Post card",
       "Login dialog",
-      "Design tokens"
+      "Design tokens",
+      "Post card heading level"
     ],
-    "deletedFiles": []
+    "deletedFiles": [
+      "app/(pages)/[user]/loading.tsx — remove automatic Suspense wrapping so initial HTML stays readable; public routes and UserPageSkeleton are retained"
+    ]
   },
   "material": {
     "pictures": "Existing published article covers and author avatars",
     "newSlots": [],
     "additionalMaterialRequired": false
+  },
+  "profile": {
+    "scanned": "2026-11-09",
+    "system": "DESIGN.md; shared role tokens in app/styles/tokens.css:3; profile styles in app/styles/mypage.css:1",
+    "material": "Existing public author names, avatars, published covers, titles, summaries and categories",
+    "baseline": "Production /YoungCheon%20Kim captured before changes; public fixtures loaded into an isolated local database",
+    "writes": "No production database changes"
   }
 }

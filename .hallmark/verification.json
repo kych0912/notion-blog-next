@@ -52,5 +52,72 @@
   "releasePrerequisites": {
     "databaseMigrationRequiredForThisUIRelease": false,
     "productionDatabaseWritesPerformed": false
+  },
+  "profile": {
+    "date": "2026-11-09",
+    "scope": "/[user]; shared PostCard default behavior preserved",
+    "validation": {
+      "build": "passed",
+      "typecheck": "passed",
+      "changedFileLint": "passed",
+      "tests": 20,
+      "viewportWidths": [
+        320,
+        375,
+        768,
+        1280,
+        1920
+      ],
+      "publicArticleLinks": "8/8 profile article links preserved",
+      "ownerPublishing": "Only the matching authenticated user ID sees the /write action; existing writing page opens",
+      "categories": [
+        "desktop sidebar",
+        "mobile disclosure",
+        "keyboard toggle",
+        "44px hit targets",
+        "loading",
+        "empty",
+        "error and retry recovery"
+      ],
+      "longContent": "Long unbroken names and titles wrap; missing avatar uses initial fallback",
+      "darkModeAndReducedMotion": "passed",
+      "minimumTextAndFocusContrast": 5.17,
+      "javascriptDisabledReading": "All 8 profile articles and category names visible",
+      "browserRuntimeErrors": 0,
+      "homepageRegression": "Responsive feed, dialog keyboard behavior, themes, contrast and reading without JavaScript passed"
+    },
+    "hallmark": {
+      "floorFailures": 0,
+      "openReflexFindings": 0,
+      "warnings": 2,
+      "finishReview": "in-thread: ship after containing focus rings within the category scroll region",
+      "reviewNotes": [
+        "The former large gradient cover is removed from rendering; CoverImage.tsx is retained",
+        "Existing desktop cover imagery was larger; the new rows prioritize scanning full titles and retain uncropped covers",
+        "Profile hierarchy uses h1, h2 and h3; category controls use native buttons",
+        "Automatic route loading boundary removed to preserve initial HTML visibility; the skeleton component remains available"
+      ],
+      "confirmedWarnings": [
+        {
+          "gate": "kept headings",
+          "reason": "The three category names retain their text as native disclosure buttons. Only their former h4 heading roles are removed to correct the heading hierarchy."
+        },
+        {
+          "gate": "kept images",
+          "reason": "The baseline identifier image is the removed decorative default profile cover. Real avatars and article covers remain."
+        }
+      ],
+      "kept": {
+        "links": "10/10",
+        "headings": "8/11; three category labels become controls with their text retained",
+        "figures": "2/2",
+        "sourceUrlMapping": "The production baseline URL is mapped to localhost:3111 for comparison of the same route; all baseline content and counts are unchanged."
+      },
+      "openWarnings": 0
+    },
+    "releasePrerequisites": {
+      "databaseMigrationRequired": false,
+      "productionDatabaseWritesPerformed": false
+    }
   }
 }

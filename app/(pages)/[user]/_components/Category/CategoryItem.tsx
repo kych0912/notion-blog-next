@@ -6,7 +6,6 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from '@/app/components/shared/collapsible';
-import { Button } from '@/app/components/shared/button';
 import type { CategoryType } from '@/app/server/db/schema';
 
 import { CategoryPostList } from './CategoryPost';
@@ -16,19 +15,16 @@ export function CategoryItem({ category }: { category: CategoryType }) {
   const { name } = category;
 
   return (
-    <Collapsible open={isOpen} onOpenChange={setIsOpen} className="flex flex-col gap-2 w-full">
+    <Collapsible open={isOpen} onOpenChange={setIsOpen} className="profile-category-item">
       <CollapsibleTrigger asChild>
-        <div className="flex items-center justify-between gap-4">
-          <h4 className="text-sm font-semibold overflow-hidden text-ellipsis whitespace-nowrap">
-            {name}
-          </h4>
-          <Button variant="ghost" size="icon" className="size-8">
-            {isOpen ? <ChevronUp /> : <ChevronDown />}
-            <span className="sr-only">Toggle</span>
-          </Button>
-        </div>
+        <button type="button" className="profile-category-trigger">
+          <span className="profile-category-name">{name}</span>
+          <span className="profile-category-icon" aria-hidden="true">
+            {isOpen ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+          </span>
+        </button>
       </CollapsibleTrigger>
-      <CollapsibleContent className="flex flex-col gap-2">
+      <CollapsibleContent className="profile-category-posts">
         <CategoryPostList categoryId={category.id} />
       </CollapsibleContent>
     </Collapsible>

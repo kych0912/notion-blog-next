@@ -9,13 +9,13 @@ import { getQueryClient } from '@/app/utils/utils';
 
 import User from './_components/User';
 import Feed from './_components/Feed';
-import CoverImage from './_components/CoverImage';
 import Category from './_components/Category/Category';
 
 const Post = async ({ params }: { params: Promise<{ user: string }> }) => {
   const { user } = await params;
   const decodedUser = decodeURIComponent(user);
 
+  // Resolve the archive before sending HTML so the articles remain readable without JavaScript.
   const [userInfo, posts]: [UserType | null, PostType[]] = await Promise.all([
     getUserInfoAndPostByName(decodedUser),
     getUserPosts(decodedUser),
@@ -30,17 +30,15 @@ const Post = async ({ params }: { params: Promise<{ user: string }> }) => {
 
   const queryClient = getQueryClient();
 
-  queryClient.prefetchQuery(getUserPostCategoriesOptions(decodedUser));
+  await queryClient.prefetchQuery(getUserPostCategoriesOptions(decodedUser));
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <div className="flex flex-col items-center justify-center">
-        <CoverImage src={'/Default_Image.jpeg'} />
-        <User avatar={avatar} name={name} />
-
-        <div className="flex w-full justify-center items-start pb-10 max-w-[960px]">
-          <Feed posts={posts} />
+      <div className="profile-page site-container">
+        <User avatar={avatar} name={name} userId={userInfo.id} />
+        <div className="profile-body">
           <Category userName={decodedUser} />
+          <Feed posts={posts} />
         </div>
       </div>
     </HydrationBoundary>
