@@ -6,7 +6,7 @@ import GitHub from 'next-auth/providers/github';
 import { updateUser, createUser, getUserInfoByEmail } from '@/app/server/queries/user';
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  providers: [GitHub],
+  providers: [GitHub({ issuer: 'https://github.com/login/oauth' })],
   secret: process.env.NEXTAUTH_SECRET,
   pages: {
     error: '/auth/error',
