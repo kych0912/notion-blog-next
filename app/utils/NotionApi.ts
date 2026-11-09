@@ -1,47 +1,22 @@
-import * as types from 'notion-types';
-import { getBlockTitle } from 'notion-utils';
+import type * as types from 'notion-types';
+import { defaultMapImageUrl, getBlockTitle, getBlockValue } from 'notion-utils';
 
-export function getNotionImage(url: string, keys: string[], block: types.Block) {
-  if (!url) {
-    return null;
-  }
+export function getNotionImage(url: string, block: types.Block) {
+  return url ? defaultMapImageUrl(url, block) : null;
+}
 
-  const baseUrl = 'https://www.notion.so';
-  const isImagePath = url.startsWith('/image');
-  const encodedUrl = encodeURIComponent(url);
-
-  if (url.startsWith('/')) {
-    url = `${baseUrl}${isImagePath ? url : `/image/${encodedUrl}`}`;
-    return url;
-  } else {
-    url = `${baseUrl}${isImagePath ? url : `/image/${encodedUrl}`}`;
-  }
-
-  // URL 객체 생성 및 검색 매개변수 설정
-  const notionImageUrl = new URL(url);
-  let table = block.parent_table === 'space' ? 'block' : block.parent_table;
-
-  if (table === 'collection' || table === 'team') {
-    table = 'block';
-  }
-
-  notionImageUrl.searchParams.set('table', table);
-  notionImageUrl.searchParams.set('id', keys[0]);
-  notionImageUrl.searchParams.set('cache', 'v2');
-
-  return notionImageUrl.toString();
+export function normalizeNotionImageUrl(url: string) {
+  return url.replace(
+    /^https:\/\/(?:www\.)?notion\.so\/(images?)\//,
+    'https://app.notion.com/$1/',
+  );
 }
 
 export function getPageBlockContent(recordMap: types.ExtendedRecordMap, keys: string[]) {
   const description: string[] = [];
 
   for (let i = 0; i < keys.length; i++) {
-    const rawValue = recordMap?.block?.[keys[i]]?.value;
-    const blockValue = rawValue
-      ? 'type' in rawValue
-        ? rawValue
-        : (rawValue as unknown as { value: types.Block }).value
-      : undefined;
+    const blockValue = getBlockValue(recordMap.block[keys[i]]);
 
     if (!blockValue) continue;
     // 타입 page

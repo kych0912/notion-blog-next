@@ -2,7 +2,8 @@
 
 import * as React from 'react';
 import dynamic from 'next/dynamic';
-import { ExtendedRecordMap } from 'notion-types';
+import type { ExtendedRecordMap } from 'notion-types';
+import { NotionRenderer } from 'react-notion-x';
 import { useRouter } from 'next/navigation';
 import { useTransition } from 'react';
 
@@ -14,29 +15,24 @@ import { Loading } from '../Loading';
 // dynamic imports for optional components
 // -----------------------------------------------------------------------------
 
-// NotionRenderer를 SSR 없이 동적으로 로드
-const NotionRenderer = dynamic(() => import('react-notion-x').then((m) => m.NotionRenderer), {
-  ssr: false,
-});
-
-const Code = dynamic(() => import('react-notion-x/build/third-party/code').then((m) => m.Code), {
+const Code = dynamic(() => import('react-notion-x/third-party/code').then((m) => m.Code), {
   ssr: false,
 });
 
 const Collection = dynamic(
-  () => import('react-notion-x/build/third-party/collection').then((m) => m.Collection),
+  () => import('react-notion-x/third-party/collection').then((m) => m.Collection),
   {
     ssr: false,
   },
 );
 
 const Equation = dynamic(
-  () => import('react-notion-x/build/third-party/equation').then((m) => m.Equation),
+  () => import('react-notion-x/third-party/equation').then((m) => m.Equation),
   {
     ssr: false,
   },
 );
-const Pdf = dynamic(() => import('react-notion-x/build/third-party/pdf').then((m) => m.Pdf), {
+const Pdf = dynamic(() => import('react-notion-x/third-party/pdf').then((m) => m.Pdf), {
   ssr: false,
 });
 

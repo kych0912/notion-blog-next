@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { HydrationBoundary, dehydrate } from '@tanstack/react-query';
-import type { Block } from 'notion-types';
+import { getBlockValue } from 'notion-utils';
 
 import { getMetadata } from '@/app/components/MetaData/getMetaData';
 import { getPage } from '@/app/lib/notion-api';
@@ -26,12 +26,7 @@ export const generateMetadata = async ({
 
   const recordMap = await getPage(id);
   const keys = Object.keys(recordMap?.block || {});
-  const rawValue = recordMap?.block?.[keys[0]]?.value;
-  // NotionMapBox<Block>.value는 Block 또는 { role, value: Block } 두 케이스가 존재
-  const blockValue =
-    rawValue && 'value' in rawValue
-      ? (rawValue as unknown as { role: string; value: Block }).value
-      : rawValue;
+  const blockValue = getBlockValue(recordMap.block[keys[0]]);
 
   if (!blockValue || blockValue.type !== 'page') {
     return notFound();

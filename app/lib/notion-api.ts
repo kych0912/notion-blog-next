@@ -1,6 +1,6 @@
 import { NotionAPI } from 'notion-client';
-import * as types from 'notion-types';
-import { getPageTitle, getBlockParentPage } from 'notion-utils';
+import type * as types from 'notion-types';
+import { getPageTitle, getBlockParentPage, getBlockValue } from 'notion-utils';
 
 import { getNotionImage } from '@/app/utils/NotionApi';
 
@@ -32,12 +32,7 @@ export async function getNotionPageContent(id: string): Promise<{
   const recordMap: types.ExtendedRecordMap = await getPage(id);
 
   const keys = Object.keys(recordMap?.block || {});
-  const rawValue = recordMap?.block?.[keys[0]]?.value;
-  const blockValue = rawValue
-    ? 'type' in rawValue
-      ? rawValue
-      : (rawValue as unknown as { value: types.Block }).value
-    : undefined;
+  const blockValue = getBlockValue(recordMap.block[keys[0]]);
 
   if (!blockValue || blockValue.type !== 'page') {
     return {
@@ -48,7 +43,7 @@ export async function getNotionPageContent(id: string): Promise<{
 
   const coverImg = blockValue.format?.page_cover ?? process.env.DEFAULT_IMAGE ?? '';
 
-  const notionImage = getNotionImage(coverImg, keys, blockValue);
+  const notionImage = getNotionImage(coverImg, blockValue);
 
   const title = getPageTitle(recordMap);
 
@@ -95,12 +90,7 @@ export async function isDescendantOfStoredPage(
 
     // 해당 페이지 정보 추출
     const recordMap = await getPage(id);
-    const rawBlock = recordMap.block[Object.keys(recordMap.block)[0]]?.value;
-    const block = rawBlock
-      ? 'type' in rawBlock
-        ? rawBlock
-        : (rawBlock as unknown as { value: types.Block }).value
-      : undefined;
+    const block = getBlockValue(recordMap.block[Object.keys(recordMap.block)[0]]);
 
     // 부모 페이지 추출
     const parentPage = block ? getBlockParentPage(block, recordMap) : null;

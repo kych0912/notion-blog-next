@@ -4,6 +4,7 @@ const nextConfig = {
   poweredByHeader: false,
   images: {
     domains: [
+      'app.notion.com',
       'www.notion.so',
       'transitivebullsh.it',
       'www.notion.so',

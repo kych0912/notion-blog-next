@@ -1,5 +1,7 @@
 import Link from 'next/link';
 
+import { normalizeNotionImageUrl } from '@/app/utils/NotionApi';
+
 import PostCardLoading from './PostCardLoading';
 
 function dateFormat(date: Date) {
@@ -39,7 +41,7 @@ export default function PostCard({
           <div className="w-full">
             <img
               className="h-[12rem] w-full object-cover object-center rounded-t-sm"
-              src={image ? image : '/Default_Image.jpeg'}
+              src={image ? normalizeNotionImageUrl(image) : '/Default_Image.jpeg'}
               alt={title}
             />
           </div>

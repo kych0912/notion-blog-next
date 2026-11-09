@@ -1,17 +1,17 @@
 'use server';
-import { NotionAPI } from 'notion-client';
+import type { ExtendedRecordMap } from 'notion-types';
 
+import { getPage } from '@/app/lib/notion-api';
 import { BaseServerResposne } from '@/app/server/actions/types';
 
 export async function getRecordMap(
   pageId: string | null,
-): Promise<BaseServerResposne<Awaited<ReturnType<NotionAPI['getPage']>> | null>> {
+): Promise<BaseServerResposne<ExtendedRecordMap | null>> {
   try {
     if (!pageId) {
       return { isSuccess: true, data: null };
     }
-    const notion = new NotionAPI();
-    const recordMap = await notion.getPage(pageId);
+    const recordMap = await getPage(pageId);
     return { isSuccess: true, data: recordMap };
   } catch {
     return {

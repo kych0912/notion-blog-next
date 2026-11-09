@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+import { getBlockValue } from 'notion-utils';
 
 import { getPostDetailOptions } from '@/app/react-query/options/post';
 
@@ -26,13 +27,8 @@ export function usePostProperty(): PostPropertyType | null {
   const image = postDetailData.data?.image ?? '';
 
   const keys = Object.keys(recordMap?.block || {});
-  const rawValue = recordMap?.block?.[keys[0]]?.value;
-  const createdTime =
-    rawValue && 'created_time' in rawValue
-      ? (rawValue as unknown as { created_time: string }).created_time
-      : '';
-
-  const publishedTime = new Date(createdTime).toLocaleDateString();
+  const block = getBlockValue(recordMap.block[keys[0]]);
+  const publishedTime = block ? new Date(block.created_time).toLocaleDateString() : '';
 
   return {
     isAuthor,

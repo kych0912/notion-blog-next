@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Toaster } from 'sonner';
 import { cookies } from 'next/headers';
 
-import 'react-notion-x/src/styles.css';
+import 'react-notion-x/styles.css';
 import 'prismjs/themes/prism-tomorrow.css';
 
 import AuthProvider from './lib/next-auth/provider';
