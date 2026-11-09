@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
-import { cache } from 'react';
+import { cache, Suspense } from 'react';
 import { notFound } from 'next/navigation';
 import { HydrationBoundary, dehydrate } from '@tanstack/react-query';
 import { getBlockTitle, getBlockValue, parsePageId } from 'notion-utils';
+import { after } from 'next/server';
 
 import {
   getDescription,
@@ -24,6 +25,8 @@ import { getPostDetailOptions } from '@/app/react-query/options/post';
 import NotionPageRenderer from '@/app/components/Renderer/NotionPageRenderer';
 import PostHeaderFactory from '@/app/components/Post/Header/PostHeaderFactory';
 import { getQueryClient } from '@/app/utils/utils';
+import { syncPostMetadata } from '@/app/server/services/post-sync';
+import RelatedPosts from '@/app/components/Post/RelatedPosts';
 
 interface ParamsType {
   id: string;
@@ -112,6 +115,14 @@ async function Page({ params }: { params: Promise<ParamsType> }) {
     const { recordMap, postDetail: detail } = page;
     queryClient.setQueryData(getPostDetailOptions(id, user).queryKey, detail);
 
+    if (detail.isSuccess && detail.data.data) {
+      const post = detail.data.data;
+      after(async () => {
+        try { await syncPostMetadata(post, recordMap); }
+        catch (error) { console.error('Post metadata sync failed:', error); }
+      });
+    }
+
     const url = new URL(page.path, META.url).toString();
 
     return (
@@ -133,6 +144,9 @@ async function Page({ params }: { params: Promise<ParamsType> }) {
           />
           <PostHeaderFactory type="post" user={user} id={id} recordMap={recordMap} />
           <NotionPageRenderer recordMap={recordMap} user={page.author.name} />
+          {detail.isSuccess && detail.data.data ? (
+            <Suspense fallback={null}><RelatedPosts post={detail.data.data} /></Suspense>
+          ) : null}
         </article>
       </HydrationBoundary>
     );

@@ -7,6 +7,7 @@ import 'prismjs/themes/prism-tomorrow.css';
 
 import AuthProvider from './lib/next-auth/provider';
 import './styles/globals.css';
+import './styles/features.css';
 import Analytics from './components/GA/Analytics';
 import ReactQueryProvider from './utils/Provier';
 import { ErrorProvider } from './context/ErrorContext';
@@ -31,6 +32,7 @@ export default async function RootLayout({
       style={{ colorScheme: isDark ? 'dark' : 'light' }}
     >
       <head>
+        <link rel="alternate" type="application/rss+xml" title="NextBlog RSS" href="/rss.xml" />
         <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8839634347934414"

@@ -5,10 +5,10 @@ import { redirect } from 'next/navigation';
 import * as Types from 'notion-types';
 import { parsePageId } from 'notion-utils';
 
-import { getPage, getNotionPageContent } from '@/app/lib/notion-api';
+import { getPage } from '@/app/lib/notion-api';
+import { extractNotionMetadata } from '@/app/lib/notion-metadata';
 import { uploadPost, getPostById } from '@/app/server/queries/post';
 import { auth } from '@/auth';
-import { getPageBlockContent } from '@/app/utils/NotionApi';
 
 export interface WriteActionState {
   ok: boolean;
@@ -42,9 +42,7 @@ export async function writePostAction(
   if (post.length !== 0) return { ok: false, message: 'Post Already Exists' };
 
   const date = new Date().toISOString();
-  const notionContent = await getNotionPageContent(id);
-  const keys = Object.keys(recordMap?.block || {});
-  const description = getPageBlockContent(recordMap, keys);
+  const notionContent = extractNotionMetadata(recordMap, id, process.env.DEFAULT_IMAGE ?? '');
 
   await uploadPost({
     id,
@@ -54,7 +52,7 @@ export async function writePostAction(
     image: notionContent.image,
     title: notionContent.title,
     avatar,
-    description,
+    description: notionContent.description,
     category: null,
   });
 

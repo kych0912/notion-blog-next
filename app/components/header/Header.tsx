@@ -1,6 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { useCallback, useState, useRef, useEffect } from 'react';
+import { Search, Rss } from 'lucide-react';
 
 import HeaderRight from './_components/HeaderRight';
 
@@ -59,7 +60,17 @@ export default function Header() {
           <Link href="/" prefetch={false} className="site-wordmark">
             NextBlog
           </Link>
-          <HeaderRight />
+          <div className="site-tools">
+            <nav aria-label="블로그 메뉴" className="site-tools">
+              <Link href="/search" className="site-tool" aria-label="글 검색" title="글 검색">
+                <Search size={20} />
+              </Link>
+              <a href="/rss.xml" className="site-tool" aria-label="RSS 구독" title="RSS 구독">
+                <Rss size={20} />
+              </a>
+            </nav>
+            <HeaderRight />
+          </div>
         </div>
       </header>
     </>

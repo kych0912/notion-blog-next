@@ -14,11 +14,11 @@ import CoverImage from './PostCoverImage';
 export default function PostProperty() {
   const { user, id } = usePostContext();
   const postProperty = usePostProperty();
+  const { categoryName } = usePostCategory();
 
   if (!postProperty) return null;
 
   const { isAuthor, avatar, image, publishedTime } = postProperty;
-  const { categoryName } = usePostCategory();
 
   return (
     <>

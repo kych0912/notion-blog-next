@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getBlockValue } from 'notion-utils';
 
 import { getPostDetailOptions } from '@/app/react-query/options/post';
+import { getNotionImage } from '@/app/utils/NotionApi';
 
 import { usePostContext } from '../../../../(pages)/[user]/[id]/_contexts/usePostContext';
 
@@ -24,11 +25,18 @@ export function usePostProperty(): PostPropertyType | null {
 
   const isAuthor = postDetailData.isAuthor;
   const avatar = postDetailData.data?.avatar ?? '';
-  const image = postDetailData.data?.image ?? '';
 
   const keys = Object.keys(recordMap?.block || {});
   const block = getBlockValue(recordMap.block[keys[0]]);
-  const publishedTime = block ? new Date(block.created_time).toLocaleDateString() : '';
+  const image =
+    block?.type === 'page'
+      ? (getNotionImage(block.format?.page_cover ?? '', block) ?? '')
+      : (postDetailData.data?.image ?? '');
+  const publishedTime = block
+    ? new Date(block.created_time).toLocaleDateString('ko-KR', {
+        timeZone: 'Asia/Seoul',
+      })
+    : '';
 
   return {
     isAuthor,

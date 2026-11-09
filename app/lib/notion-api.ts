@@ -1,4 +1,5 @@
 import { NotionAPI } from 'notion-client';
+import { cache } from 'react';
 import type * as types from 'notion-types';
 import { getPageTitle, getBlockParentPage, getBlockValue } from 'notion-utils';
 
@@ -6,7 +7,9 @@ import { getNotionImage } from '@/app/utils/NotionApi';
 
 import { getPostById } from '../server/queries/post';
 
-export async function getPage(id: string): Promise<types.ExtendedRecordMap> {
+export const getPage = cache(fetchNotionPage);
+
+async function fetchNotionPage(id: string): Promise<types.ExtendedRecordMap> {
   try {
     const notion = new NotionAPI();
 

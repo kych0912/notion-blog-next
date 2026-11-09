@@ -1,12 +1,17 @@
+import Link from 'next/link';
+
 import type { PostType } from '@/app/server/db/schema';
 
 import PostCard from '../../../components/PostCard/PostCard';
 
-export default function Feed({ posts }: { posts: PostType[] }) {
+export default function Feed({ posts, user }: { posts: PostType[]; user: string }) {
   return (
     <section className="profile-feed" aria-labelledby="profile-posts-title">
       <div className="profile-section-heading">
         <h2 id="profile-posts-title">모든 포스트</h2>
+        <Link className="text-link" href={`/search?user=${encodeURIComponent(user)}`}>
+          글 검색
+        </Link>
       </div>
       {posts.length === 0 ? (
         <div className="profile-empty">

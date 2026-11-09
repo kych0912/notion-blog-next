@@ -11,11 +11,14 @@ import Page, { generateMetadata } from './page';
 
 vi.mock('@/app/lib/notion-api', () => ({ getPage: vi.fn() }));
 vi.mock('@/app/server/actions/post', () => ({ getPostDetailAction: vi.fn() }));
+vi.mock('@/app/server/services/post-sync', () => ({ syncPostMetadata: vi.fn() }));
+vi.mock('next/server', () => ({ after: vi.fn() }));
 vi.mock('@/app/react-query/options/category', () => ({
   getPostCategoryOptions: () => ({ queryKey: ['category'], queryFn: () => Promise.resolve([]) }),
 }));
 vi.mock('@/app/components/Post/Header/PostHeaderFactory', () => ({ default: () => null }));
 vi.mock('@/app/components/Renderer/NotionPageRenderer', () => ({ default: () => null }));
+vi.mock('@/app/components/Post/RelatedPosts', () => ({ default: () => null }));
 
 const params = Promise.resolve({ id: fixturePageId, user: '김 개발자' });
 

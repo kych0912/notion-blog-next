@@ -9,7 +9,9 @@ import { useRouter } from 'next/navigation';
 import { useTransition } from 'react';
 
 import { useTheme } from '@/app/context/ThemeContext';
+import { getArticleHeadings } from '@/app/lib/reading';
 
+import ArticleNavigation from '../Post/ArticleNavigation';
 import '../../styles/notion.css';
 import { Loading } from '../Loading';
 // -----------------------------------------------------------------------------
@@ -49,6 +51,7 @@ export default function NotionPageRenderer({
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const { theme } = useTheme();
+  const headings = React.useMemo(() => recordMap ? getArticleHeadings(recordMap) : [], [recordMap]);
 
   if (!recordMap) {
     return null;
@@ -88,6 +91,8 @@ export default function NotionPageRenderer({
 
   return (
     <div className="mx-auto mb-10 flex w-full max-w-[720px] flex-col items-center justify-center">
+      {!isPreview ? <ArticleNavigation headings={headings} contentId="article-body" /> : null}
+      <div id={isPreview ? undefined : 'article-body'} className="article-body">
       <NotionRenderer
         recordMap={recordMap}
         mapPageUrl={mapPageUrl}
@@ -102,6 +107,7 @@ export default function NotionPageRenderer({
         }}
         darkMode={theme === 'dark'}
       />
+      </div>
       {isPending && <Loading />}
     </div>
   );

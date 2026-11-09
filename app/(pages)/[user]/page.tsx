@@ -60,7 +60,7 @@ const Post = async ({ params }: { params: Promise<{ user: string }> }) => {
         <User avatar={avatar} name={name} userId={userInfo.id} />
         <div className="profile-body">
           <Category userName={decodedUser} />
-          <Feed posts={posts} />
+          <Feed posts={posts} user={decodedUser} />
         </div>
       </div>
     </HydrationBoundary>
