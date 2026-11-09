@@ -33,6 +33,7 @@ interface ParamsType {
 // Share reads between metadata and the rendered article for this request.
 const getPostPage = cache(async (id: string, user: string) => {
   try {
+    const authorName = decodeURIComponent(user);
     const [recordMap, postDetail] = await Promise.all([
       getPage(id),
       getPostDetailAction(id, user),
@@ -63,8 +64,8 @@ const getPostPage = cache(async (id: string, user: string) => {
       image,
       publishedTime,
       modifiedTime,
-      path: getPostPath(user, id),
-      author: { name: user, url: new URL(getUserPath(user), META.url).toString() },
+      path: getPostPath(authorName, id),
+      author: { name: authorName, url: new URL(getUserPath(authorName), META.url).toString() },
     };
   } catch (error) {
     if (
@@ -131,7 +132,7 @@ async function Page({ params }: { params: Promise<ParamsType> }) {
             }}
           />
           <PostHeaderFactory type="post" user={user} id={id} recordMap={recordMap} />
-          <NotionPageRenderer recordMap={recordMap} user={user} />
+          <NotionPageRenderer recordMap={recordMap} user={page.author.name} />
         </article>
       </HydrationBoundary>
     );

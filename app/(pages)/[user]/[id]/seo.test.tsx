@@ -88,6 +88,19 @@ it('renders article structured data with the same canonical, author, and content
   });
 });
 
+it('decodes encoded route parameters once before generating canonical URLs and author names', async () => {
+  const encodedParams = Promise.resolve({ id: fixturePageId, user: encodeURIComponent('김 개발자') });
+  const metadata = await generateMetadata({ params: encodedParams });
+
+  expect(metadata.alternates?.canonical).toBe(
+    `https://www.nextblog.me/%EA%B9%80%20%EA%B0%9C%EB%B0%9C%EC%9E%90/${fixturePageId}`,
+  );
+  expect(metadata.authors).toEqual([{
+    name: '김 개발자',
+    url: 'https://www.nextblog.me/%EA%B9%80%20%EA%B0%9C%EB%B0%9C%EC%9E%90',
+  }]);
+});
+
 it('returns not-found instead of indexable metadata for an unregistered page', async () => {
   vi.mocked(getPostDetailAction).mockRejectedValue(new Error('NOT_FOUND'));
   await expect(generateMetadata({ params })).rejects.toThrow('NEXT_HTTP_ERROR_FALLBACK;404');
