@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import dynamic from 'next/dynamic';
+import Link from 'next/link';
 import type { ExtendedRecordMap } from 'notion-types';
 import { NotionRenderer } from 'react-notion-x';
 import { useRouter } from 'next/navigation';
@@ -58,34 +59,30 @@ export default function NotionPageRenderer({
       return `/write?pageId=${pageId}`;
     }
 
-    return `/${user}/${pageId}`;
+    return `/${encodeURIComponent(user)}/${encodeURIComponent(pageId)}`;
   };
 
   const PageLink = ({
     href,
     children,
     ...props
-  }: {
-    href: string;
-    children: React.ReactNode;
-    props: React.HTMLAttributes<HTMLDivElement>;
-  }) => {
+  }: React.ComponentProps<typeof Link>) => {
     return (
-      <div
-        onClick={() => {
-          if (isPreview) {
-            router.push(href);
-          } else {
+      <Link
+        {...props}
+        href={href}
+        prefetch={false}
+        onNavigate={(event) => {
+          if (!isPreview && typeof href === 'string') {
+            event.preventDefault();
             startTransition(() => {
               router.push(href);
             });
           }
         }}
-        style={{ cursor: 'pointer' }}
-        {...props}
       >
         {children}
-      </div>
+      </Link>
     );
   };
 

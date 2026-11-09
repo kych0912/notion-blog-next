@@ -1,6 +1,12 @@
+import type { Metadata } from 'next';
 import { Suspense } from 'react';
 
 import ErrorPage from './_components/Error';
+
+export const metadata: Metadata = {
+  title: '로그인 오류 - NextBlog',
+  robots: { index: false, follow: false },
+};
 
 export default function Page() {
   return (

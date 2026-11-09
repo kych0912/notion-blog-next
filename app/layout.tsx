@@ -14,9 +14,7 @@ import { pretendard } from './styles/fonts/fonts';
 import { getMetadata } from './components/MetaData/getMetaData';
 import { ThemeProvider } from './context/ThemeContext';
 
-export const generateMetadata = (): Metadata => {
-  return getMetadata();
-};
+export const metadata: Metadata = getMetadata();
 
 export default async function RootLayout({
   children,

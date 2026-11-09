@@ -1,11 +1,24 @@
 import type { Metadata } from 'next';
+import { cache } from 'react';
 import { notFound } from 'next/navigation';
 import { HydrationBoundary, dehydrate } from '@tanstack/react-query';
-import { getBlockValue } from 'notion-utils';
+import { getBlockTitle, getBlockValue, parsePageId } from 'notion-utils';
 
-import { getMetadata } from '@/app/components/MetaData/getMetaData';
+import {
+  getDescription,
+  getMetadata,
+  getPostPath,
+  getUserPath,
+} from '@/app/components/MetaData/getMetaData';
+import JsonLd from '@/app/components/MetaData/JsonLd';
+import { META } from '@/app/constants/metadata';
 import { getPage } from '@/app/lib/notion-api';
-import { getPageBlockContent } from '@/app/utils/NotionApi';
+import {
+  getNotionImage,
+  getPageBlockContent,
+  normalizeNotionImageUrl,
+} from '@/app/utils/NotionApi';
+import { getPostDetailAction } from '@/app/server/actions/post';
 import { getPostCategoryOptions } from '@/app/react-query/options/category';
 import { getPostDetailOptions } from '@/app/react-query/options/post';
 import NotionPageRenderer from '@/app/components/Renderer/NotionPageRenderer';
@@ -17,6 +30,53 @@ interface ParamsType {
   user: string;
 }
 
+// Share reads between metadata and the rendered article for this request.
+const getPostPage = cache(async (id: string, user: string) => {
+  try {
+    const [recordMap, postDetail] = await Promise.all([
+      getPage(id),
+      getPostDetailAction(id, user),
+    ]);
+    const pageId = parsePageId(id);
+    const block = pageId ? getBlockValue(recordMap.block[pageId]) : undefined;
+
+    if (!block || block.type !== 'page') notFound();
+    if (!postDetail.isSuccess) throw new Error(postDetail.error.message);
+
+    const post = postDetail.data.data;
+    const title = getBlockTitle(block, recordMap) || post?.title || '제목 없는 글';
+    const description = getDescription(
+      getPageBlockContent(recordMap, Object.keys(recordMap.block)) || post?.description || title,
+    );
+    const coverImage = getNotionImage(block.format?.page_cover || '', block);
+    const image = coverImage ? normalizeNotionImageUrl(coverImage) : undefined;
+    const publishedTime = new Date(post?.date || block.created_time).toISOString();
+    const modifiedTime = new Date(
+      Math.max(block.last_edited_time, Date.parse(publishedTime)),
+    ).toISOString();
+
+    return {
+      recordMap,
+      postDetail,
+      title,
+      description,
+      image,
+      publishedTime,
+      modifiedTime,
+      path: getPostPath(user, id),
+      author: { name: user, url: new URL(getUserPath(user), META.url).toString() },
+    };
+  } catch (error) {
+    if (
+      error instanceof Error &&
+      (error.message === 'NOT_FOUND' || error.message === 'invalid notion pageId')
+    ) {
+      notFound();
+    }
+    throw error;
+  }
+});
+
 export const generateMetadata = async ({
   params,
 }: {
@@ -24,17 +84,18 @@ export const generateMetadata = async ({
 }): Promise<Metadata> => {
   const { id, user } = await params;
 
-  const recordMap = await getPage(id);
-  const keys = Object.keys(recordMap?.block || {});
-  const blockValue = getBlockValue(recordMap.block[keys[0]]);
+  const post = await getPostPage(id, user);
 
-  if (!blockValue || blockValue.type !== 'page') {
-    return notFound();
-  }
-
-  const title = blockValue.properties?.title?.[0]?.[0] ?? '';
-  const description = getPageBlockContent(recordMap, keys);
-  return getMetadata({ title, description, asPath: `/@${user}/${id}` });
+  return getMetadata({
+    title: post.title,
+    description: post.description,
+    asPath: post.path,
+    ogImage: post.image,
+    type: 'article',
+    author: post.author,
+    publishedTime: post.publishedTime,
+    modifiedTime: post.modifiedTime,
+  });
 };
 
 async function Page({ params }: { params: Promise<ParamsType> }) {
@@ -43,16 +104,35 @@ async function Page({ params }: { params: Promise<ParamsType> }) {
   try {
     const queryClient = getQueryClient();
 
-    const [, , recordMap] = await Promise.all([
+    const [page] = await Promise.all([
+      getPostPage(id, user),
       queryClient.prefetchQuery(getPostCategoryOptions(id)),
-      queryClient.prefetchQuery(getPostDetailOptions(id, user)),
-      getPage(id),
     ]);
+    const { recordMap, postDetail: detail } = page;
+    queryClient.setQueryData(getPostDetailOptions(id, user).queryKey, detail);
+
+    const url = new URL(page.path, META.url).toString();
 
     return (
       <HydrationBoundary state={dehydrate(queryClient)}>
-        <PostHeaderFactory type="post" user={user} id={id} recordMap={recordMap} />
-        <NotionPageRenderer recordMap={recordMap} user={user} />
+        <article>
+          <JsonLd
+            data={{
+              '@context': 'https://schema.org',
+              '@type': 'BlogPosting',
+              headline: page.title,
+              description: page.description,
+              url,
+              mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+              author: { '@type': 'Person', ...page.author },
+              datePublished: page.publishedTime,
+              dateModified: page.modifiedTime,
+              image: page.image ? [new URL(page.image, META.url).toString()] : undefined,
+            }}
+          />
+          <PostHeaderFactory type="post" user={user} id={id} recordMap={recordMap} />
+          <NotionPageRenderer recordMap={recordMap} user={user} />
+        </article>
       </HydrationBoundary>
     );
   } catch (e: unknown) {
