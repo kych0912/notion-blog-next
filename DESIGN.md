@@ -1,6 +1,6 @@
 # NextBlog design system
 
-The homepage and profile pages share the tokens in `app/styles/tokens.css`.
+The homepage, profile pages and writing workspace share the tokens in `app/styles/tokens.css`.
 
 ## System
 
@@ -31,6 +31,10 @@ The homepage and profile pages share the tokens in `app/styles/tokens.css`.
 - Category focus rings sit inside the scroll region so they remain visible.
 - Owner-only publishing links reuse `/write` and the existing authenticated user ID.
 - Profile articles are sent in the initial HTML; category sublists load when opened.
+- The writing workspace pairs the Notion source with its real document preview; both remain available on phones.
+- The publishing bar stays visible while reading a long preview and uses the existing server action.
+- Publishing becomes available after a successful import. Editing to a different source clears the previous preview and publishing readiness.
+- Preserve the existing Notion limitations and show loading, empty, error and retry states inline.
 
 ## Motion and material
 

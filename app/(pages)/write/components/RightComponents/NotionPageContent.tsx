@@ -1,7 +1,3 @@
-import { Suspense } from 'react';
-
-import LoadingPage from '@/app/components/LoadingPage';
-
 import { WriteFunnelContainer } from '../../write.styles';
 
 import PreRender from './_components/PreRender';
@@ -9,11 +5,14 @@ import PreRender from './_components/PreRender';
 export default function NotionPageContent() {
   return (
     <WriteFunnelContainer>
-      <div className="h-full w-full overflow-y-auto pb-24">
-        <Suspense fallback={<LoadingPage />}>
+      <section className="write-preview" aria-labelledby="write-preview-title">
+        <div className="write-section-heading">
+          <h2 id="write-preview-title">미리보기</h2>
+        </div>
+        <div className="write-preview-body">
           <PreRender />
-        </Suspense>
-      </div>
+        </div>
+      </section>
     </WriteFunnelContainer>
   );
 }

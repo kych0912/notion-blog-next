@@ -10,13 +10,10 @@ import Information from './Information';
 const NotionUrlSection = React.memo(function NotionUrlSection() {
   const { url, setUrl, isError, handleSubmit } = useNotionUrlValidation();
   return (
-    <>
-      <div className="w-full">
-        <Input url={url} setUrl={setUrl} isError={isError} handleSubmit={handleSubmit} />
-        {isError && <div className="text-red-500">유효하지 않은 Notion URL입니다.</div>}
-        <Information />
-      </div>
-    </>
+    <div className="write-source-content">
+      <Input url={url} setUrl={setUrl} isError={isError} handleSubmit={handleSubmit} />
+      <Information />
+    </div>
   );
 });
 

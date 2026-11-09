@@ -1,9 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { parsePageId } from 'notion-utils';
 
 import { getRecordMapOptions } from '@/app/react-query/options/notion';
-import { ContainedButton } from '@/app/components/Button/button.styles';
-import { Spinner } from '@/app/components/shared/spinner';
 
 import { usePageId } from '../../../hooks/usePageIdContext';
 import { InputContainer } from '../../../write.styles';
@@ -15,44 +12,58 @@ export default function Input({
   isError,
 }: {
   url: string;
-  setUrl: React.Dispatch<React.SetStateAction<string>>;
+  setUrl: (url: string) => void;
   handleSubmit: () => void;
   isError: boolean;
 }) {
-  const { pageId, setPageId } = usePageId();
-  const { isLoading } = useQuery(getRecordMapOptions(pageId));
+  const { pageId } = usePageId();
+  const { isFetching } = useQuery({ ...getRecordMapOptions(pageId), throwOnError: false });
 
   return (
     <InputContainer>
-      <div className="text-2xl font-bold">{'Notion 페이지 주소를'}</div>
-      <div className="text-2xl font-bold">{'입력해주세요.'}</div>
-
-      <div className="relative w-full pt-4">
-        <input
-          onChange={(e) => setUrl(e.target.value)}
-          placeholder="https://www.notion.so/..."
-          value={url}
-          className={[
-            'h-12 w-full rounded-sm border border-input bg-background px-4 pr-[110px] text-sm outline-none',
-            isError
-              ? 'border-red-500 focus:ring-2 focus:ring-red-200'
-              : 'focus:ring-2 focus:ring-ring/30 focus:border-ring',
-          ].join(' ')}
-        />
-
-        <div className="absolute right-2.5 bottom-1.5">
-          <ContainedButton
-            onClick={() => {
-              handleSubmit();
-              setPageId(parsePageId(url) ?? null);
-            }}
-            disabled={!url?.length || isError || isLoading}
-            size="small"
+      <form
+        id="notion-source"
+        className="write-url-form"
+        onSubmit={(event) => {
+          event.preventDefault();
+          handleSubmit();
+        }}
+      >
+        <label htmlFor="notion-url">Notion 페이지 주소</label>
+        <div className="write-url-controls">
+          <input
+            id="notion-url"
+            name="notionUrl"
+            type="text"
+            inputMode="url"
+            autoComplete="off"
+            spellCheck={false}
+            onChange={(event) => setUrl(event.target.value)}
+            placeholder="https://www.notion.so/..."
+            value={url}
+            aria-invalid={isError || undefined}
+            aria-describedby="notion-url-feedback"
+            className="write-url-input"
+          />
+          <button
+            type="submit"
+            className="write-button write-button--secondary"
+            disabled={!url.trim() || isFetching}
+            aria-busy={isFetching || undefined}
           >
-            {isLoading ? <Spinner className="h-4 w-4 text-white" /> : '불러오기'}
-          </ContainedButton>
+            {isFetching ? '불러오는 중' : '불러오기'}
+          </button>
         </div>
-      </div>
+        <p
+          id="notion-url-feedback"
+          className={`write-feedback${isError ? ' write-feedback--error' : ''}`}
+          aria-live="polite"
+        >
+          {isError
+            ? '유효하지 않은 Notion URL입니다.'
+            : '웹에 게시된 Notion 페이지 주소를 입력해 주세요.'}
+        </p>
+      </form>
     </InputContainer>
   );
 }

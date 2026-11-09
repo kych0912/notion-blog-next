@@ -1,3 +1,5 @@
+import '@/app/styles/write.css';
+
 import WritePostLayout from '@/app/components/Layout/WritePostLayout';
 
 import Providers from './providers';

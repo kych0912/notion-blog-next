@@ -2,7 +2,7 @@ import UnavailableFeaturesBanner from './UnavailableFeaturesBanner';
 
 export default function Information() {
   return (
-    <div className="mt-2">
+    <div className="write-information">
       <UnavailableFeaturesBanner />
     </div>
   );

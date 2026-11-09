@@ -20,12 +20,16 @@
     "Initial article HTML available without JavaScript",
     "Left-aligned author identity and headline-first profile archive",
     "Responsive category disclosure with keyboard controls, empty/loading/error states and retry",
-    "Owner-only link to the existing writing flow using the authenticated database user ID"
+    "Owner-only link to the existing writing flow using the authenticated database user ID",
+    "Responsive Notion source and document preview workspace",
+    "Persistent publish bar and publishing readiness tied to the successful current preview",
+    "Associated field label, keyboard URL submit and inline import/publishing errors"
   ],
   "scope": {
     "pages": [
       "/",
-      "/[user]"
+      "/[user]",
+      "/write"
     ],
     "shared": [
       "Header",
@@ -49,5 +53,20 @@
     "material": "Existing public author names, avatars, published covers, titles, summaries and categories",
     "baseline": "Production /YoungCheon%20Kim captured before changes; public fixtures loaded into an isolated local database",
     "writes": "No production database changes"
+  },
+  "writer": {
+    "scanned": "2026-11-09",
+    "system": "DESIGN.md; existing local Pretendard and role tokens",
+    "material": "Existing input, supported-feature notes and actual public Notion document rendering",
+    "baseline": "Authenticated local preview of production main; one sticky-header collision found",
+    "preserve": [
+      "/write and pageId search parameter",
+      "Existing writePostAction and authentication",
+      "Original Notion feature limitation copy",
+      "Existing document renderer and query cache"
+    ],
+    "newStyles": "app/styles/write.css",
+    "deletedFiles": [],
+    "fixtureIsolation": "Public author/article fixtures and a QA identity in a temporary local database; no production writes"
   }
 }

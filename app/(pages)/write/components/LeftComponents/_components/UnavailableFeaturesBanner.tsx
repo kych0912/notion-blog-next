@@ -1,4 +1,5 @@
 import React from 'react';
+import { ChevronDown } from 'lucide-react';
 
 const UnavailableFeaturesBanner = () => {
   const unavailableFeatures = [
@@ -17,25 +18,20 @@ const UnavailableFeaturesBanner = () => {
   ];
 
   return (
-    <div className="mb-2 overflow-hidden rounded-lg border border-amber-200 bg-amber-50">
-      <div className="p-4">
-        <details>
-          <summary className="flex cursor-pointer items-center justify-between text-xs font-medium text-amber-900">
-            <span>일부 기능을 사용할 수 없어요.</span>
-            <span className="text-amber-700">펼치기</span>
-          </summary>
-
-          <div className="mt-3 space-y-3">
-            {unavailableFeatures.map((feature, index) => (
-              <div key={index} className="rounded-md bg-amber-100 p-3">
-                <div className="mb-1 text-sm font-semibold text-amber-900">{feature.name}</div>
-                <div className="text-xs text-amber-900/80">{feature.reason}</div>
-              </div>
-            ))}
+    <details className="write-limitations">
+      <summary>
+        <span>일부 기능을 사용할 수 없어요.</span>
+        <ChevronDown size={20} aria-hidden="true" />
+      </summary>
+      <dl>
+        {unavailableFeatures.map((feature) => (
+          <div key={feature.name}>
+            <dt>{feature.name}</dt>
+            <dd>{feature.reason}</dd>
           </div>
-        </details>
-      </div>
-    </div>
+        ))}
+      </dl>
+    </details>
   );
 };
 

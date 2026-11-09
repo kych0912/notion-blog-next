@@ -119,5 +119,70 @@
       "databaseMigrationRequired": false,
       "productionDatabaseWritesPerformed": false
     }
+  },
+  "writer": {
+    "date": "2026-11-09",
+    "scope": "/write and its dedicated layout; publishing action and schema unchanged",
+    "validation": {
+      "build": "passed",
+      "typecheck": "passed",
+      "changedFileLint": "passed",
+      "tests": 20,
+      "viewportWidths": [
+        320,
+        375,
+        768,
+        1280,
+        1920
+      ],
+      "publicNotionPreview": "Actual published title and body imported, including diagrams and code blocks",
+      "importStates": [
+        "empty",
+        "loading",
+        "invalid URL",
+        "network failure",
+        "retry recovery",
+        "success"
+      ],
+      "publishStates": [
+        "disabled before successful import",
+        "pending",
+        "Korean duplicate error",
+        "old-page readiness cleared when source changes"
+      ],
+      "publishEndToEnd": "Existing writePostAction inserted the public fixture into an isolated local database and redirected to home; the local fixture was restored afterward",
+      "keyboard": "Associated URL label, Enter submit, visible focus and native feature disclosure",
+      "deepLinkPrefill": "passed",
+      "persistentActions": "Publishing remains visible while scrolling a long mobile preview",
+      "darkModePersistence": "passed",
+      "reducedMotion": "passed",
+      "minimumLightAndDarkContrast": 5.17,
+      "withoutJavaScript": "Initial form and explicit scripting requirement are visible",
+      "runtimeErrors": 0,
+      "anonymousAccess": "Redirects to sign-in",
+      "existingHomeAndProfile": "passed"
+    },
+    "hallmark": {
+      "beforeFloorFailures": 1,
+      "floorFailures": 0,
+      "openReflexFindings": 0,
+      "warnings": 0,
+      "kept": {
+        "links": "3/3",
+        "fields": "6/6"
+      },
+      "baselineNormalization": "Only the generated React $ACTION_KEY value and Next.js $ACTION_1:0 reference value are excluded from exact equality between development and production builds. Field names, POST method, bound initial state, pageId and controls are retained. The original baseline is before/original-record.json; an actual local publish verifies the action binding.",
+      "finishReview": "in-thread: ship",
+      "reviewNotes": [
+        "Split source and document preview share the existing system; the phone now receives the complete preview",
+        "The former persistent publishing controls are retained as a sticky bottom bar",
+        "Initial form visibility no longer depends on the broad Suspense wrapper; import loading has its own skeleton",
+        "No fake editor, illustrative dashboard or invented preview content was added"
+      ]
+    },
+    "releasePrerequisites": {
+      "databaseMigrationRequired": false,
+      "productionDatabaseWritesPerformed": false
+    }
   }
 }
