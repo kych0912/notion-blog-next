@@ -1,8 +1,16 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { ChevronDown } from 'lucide-react';
 
-import { readingProgress, type ArticleHeading } from '@/app/lib/reading';
+import {
+  getHeadingGroupId,
+  groupArticleHeadings,
+  readingProgress,
+  updateActiveHeading,
+  type ArticleHeading,
+  type ArticleNavigationState,
+} from '@/app/lib/reading';
 
 export default function ArticleNavigation({
   headings,
@@ -13,7 +21,12 @@ export default function ArticleNavigation({
 }) {
   const bar = useRef<HTMLDivElement>(null);
   const fill = useRef<HTMLDivElement>(null);
-  const [activeId, setActiveId] = useState('');
+  const [navigation, setNavigation] = useState<ArticleNavigationState>({ activeId: '' });
+  const { activeId } = navigation;
+  const groups = useMemo(() => groupArticleHeadings(headings), [headings]);
+  const activeGroupId = getHeadingGroupId(groups, activeId);
+  const expandedId =
+    navigation.expandedGroupId === undefined ? activeGroupId : navigation.expandedGroupId;
 
   useEffect(() => {
     const content = document.getElementById(contentId);
@@ -26,14 +39,14 @@ export default function ArticleNavigation({
       frame = 0;
       const rect = content.getBoundingClientRect();
       const progress = readingProgress(rect.top, rect.height, window.innerHeight);
-      if (fill.current) fill.current.style.transform = `scaleX(${progress / 100})`;
-      bar.current?.setAttribute('aria-valuenow', String(Math.round(progress)));
       let active = targets[0]?.id ?? '';
       for (const target of targets) {
         if (target.getBoundingClientRect().top > 140) break;
         active = target.id;
       }
-      setActiveId(active);
+      if (fill.current) fill.current.style.transform = `scaleX(${progress / 100})`;
+      bar.current?.setAttribute('aria-valuenow', String(Math.round(progress)));
+      setNavigation((previous) => updateActiveHeading(previous, active, groups));
     };
     const schedule = () => {
       if (!frame) frame = requestAnimationFrame(update);
@@ -49,17 +62,68 @@ export default function ArticleNavigation({
       window.removeEventListener('resize', schedule);
       cancelAnimationFrame(frame);
     };
-  }, [contentId, headings]);
+  }, [contentId, headings, groups]);
 
-  const list = (
+  const renderList = (prefix: string) => (
     <ol className="article-toc__list">
-      {headings.map(({ id, title, level }) => (
-        <li key={id} style={{ paddingInlineStart: `${Math.min(level, 3) * 12}px` }}>
-          <a href={`#${id}`} aria-current={activeId === id ? 'location' : undefined}>
-            {title}
-          </a>
-        </li>
-      ))}
+      {groups.map(({ heading, children }) => {
+        const open = expandedId === heading.id;
+        const childrenId = `${prefix}-${heading.id}-children`;
+        return (
+          <li
+            key={heading.id}
+            className="article-toc__group"
+            data-active={activeGroupId === heading.id || undefined}
+          >
+            <div className="article-toc__row">
+              <a
+                href={`#${heading.id}`}
+                title={heading.title}
+                aria-current={activeId === heading.id ? 'location' : undefined}
+              >
+                {heading.title}
+              </a>
+              {children.length ? (
+                <button
+                  type="button"
+                  className="article-toc__toggle"
+                  aria-label={`${heading.title} 하위 목차`}
+                  aria-expanded={open}
+                  aria-controls={childrenId}
+                  onClick={() =>
+                    setNavigation((previous) => ({
+                      ...previous,
+                      expandedGroupId: open ? null : heading.id,
+                    }))
+                  }
+                >
+                  <ChevronDown size={16} aria-hidden="true" />
+                </button>
+              ) : null}
+            </div>
+            {children.length ? (
+              <ol id={childrenId} className="article-toc__children" hidden={!open}>
+                {children.map(({ id, title, level }) => (
+                  <li
+                    key={id}
+                    style={{
+                      paddingInlineStart: `${Math.max(0, level - heading.level - 1) * 12}px`,
+                    }}
+                  >
+                    <a
+                      href={`#${id}`}
+                      title={title}
+                      aria-current={activeId === id ? 'location' : undefined}
+                    >
+                      {title}
+                    </a>
+                  </li>
+                ))}
+              </ol>
+            ) : null}
+          </li>
+        );
+      })}
     </ol>
   );
 
@@ -81,14 +145,17 @@ export default function ArticleNavigation({
           <aside className="article-toc article-toc--desktop">
             <nav aria-label="목차">
               <h2>이 글의 목차</h2>
-              {list}
+              {renderList('desktop-toc')}
             </nav>
           </aside>
           <details className="article-toc article-toc--mobile">
             <summary>
-              이 글의 목차 <span>{headings.length}</span>
+              <span>
+                이 글의 목차 <span className="article-toc__count">{headings.length}</span>
+              </span>
+              <ChevronDown className="article-toc__summary-icon" size={16} aria-hidden="true" />
             </summary>
-            <nav aria-label="목차">{list}</nav>
+            <nav aria-label="목차">{renderList('mobile-toc')}</nav>
           </details>
         </>
       ) : null}

@@ -1,6 +1,8 @@
 import Link from 'next/link';
 
 import { normalizeNotionImageUrl } from '@/app/utils/NotionApi';
+import { searchExcerpt } from '@/app/lib/search';
+import HighlightedText from '@/app/components/Search/HighlightedText';
 
 import PostCardLoading from './PostCardLoading';
 
@@ -24,6 +26,8 @@ export default function PostCard({
   isLoading = false,
   variant = 'card',
   headingLevel: Heading = 'h2',
+  categoryName,
+  highlightQuery,
 }: {
   id: string;
   user: string;
@@ -36,10 +40,11 @@ export default function PostCard({
   isLoading?: boolean;
   variant?: PostCardVariant;
   headingLevel?: 'h2' | 'h3';
+  categoryName?: string | null;
+  highlightQuery?: string;
 }) {
   const excerptLength = variant === 'row' ? 90 : 110;
-  const excerpt =
-    caption.length > excerptLength ? `${caption.slice(0, excerptLength).trimEnd()}…` : caption;
+  const excerpt = searchExcerpt(caption, highlightQuery, excerptLength);
 
   return (
     <article className={`post-card post-card--${variant}`} aria-busy={isLoading || undefined}>
@@ -64,10 +69,17 @@ export default function PostCard({
             />
           </div>
           <div className="post-card__content">
-            <Heading className="post-card__title">{title || '제목 없는 글'}</Heading>
+            {categoryName ? (
+              <span className="post-card__category">
+                <HighlightedText text={categoryName} query={highlightQuery} />
+              </span>
+            ) : null}
+            <Heading className="post-card__title">
+              <HighlightedText text={title || '제목 없는 글'} query={highlightQuery} />
+            </Heading>
             {caption ? (
               <p className="post-card__summary" title={caption}>
-                {excerpt}
+                <HighlightedText text={excerpt} query={highlightQuery} />
               </p>
             ) : null}
             <div className="post-card__meta">

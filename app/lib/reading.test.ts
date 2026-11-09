@@ -5,7 +5,12 @@ import { expect, it } from 'vitest';
 
 import { createNotionFixture } from '@/app/test/fixtures/notion';
 
-import { getArticleHeadings, readingProgress } from './reading';
+import {
+  getArticleHeadings,
+  groupArticleHeadings,
+  readingProgress,
+  updateActiveHeading,
+} from './reading';
 
 it('builds table-of-contents links that target actual rendered Notion anchors', () => {
   const recordMap = createNotionFixture();
@@ -27,4 +32,54 @@ it('tracks only the article body and clamps progress at either end', () => {
   expect(readingProgress(-2200, 3000, 800)).toBe(100);
   expect(readingProgress(-5000, 3000, 800)).toBe(100);
   expect(readingProgress(100, 400, 800)).toBe(100);
+});
+
+it('groups nested sections under their nearest top-level heading', () => {
+  const headings = [
+    { id: 'intro', title: '시작', level: 0 },
+    { id: 'setup', title: '설정', level: 1 },
+    { id: 'detail', title: '세부 설정', level: 2 },
+    { id: 'next', title: '다음', level: 0 },
+  ];
+  expect(groupArticleHeadings(headings)).toEqual([
+    { heading: headings[0], children: [headings[1], headings[2]] },
+    { heading: headings[3], children: [] },
+  ]);
+});
+
+it('retains every section when an article starts at a deeper heading level', () => {
+  const headings = [
+    { id: 'a', title: 'A', level: 1 },
+    { id: 'b', title: 'B', level: 2 },
+  ];
+  expect(groupArticleHeadings(headings)).toEqual([
+    { heading: headings[0], children: [headings[1]] },
+  ]);
+  expect(groupArticleHeadings([])).toEqual([]);
+});
+
+it('does not revive a stale manual expansion after reading another section and returning', () => {
+  const groups = groupArticleHeadings([
+    { id: 'a', title: 'A', level: 0 },
+    { id: 'b', title: 'B', level: 0 },
+    { id: 'b-child', title: 'B child', level: 1 },
+  ]);
+  const afterReadingB = updateActiveHeading(
+    { activeId: 'a', expandedGroupId: 'b' },
+    'b-child',
+    groups,
+  );
+  expect(afterReadingB).toEqual({ activeId: 'b-child', expandedGroupId: undefined });
+  expect(updateActiveHeading(afterReadingB, 'a', groups).expandedGroupId).toBeUndefined();
+});
+
+it('respects a manual collapse while reading within the same section', () => {
+  const groups = groupArticleHeadings([
+    { id: 'a', title: 'A', level: 0 },
+    { id: 'child', title: 'Child', level: 1 },
+  ]);
+  expect(updateActiveHeading({ activeId: 'a', expandedGroupId: null }, 'child', groups)).toEqual({
+    activeId: 'child',
+    expandedGroupId: null,
+  });
 });

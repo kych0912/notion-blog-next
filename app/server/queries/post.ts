@@ -111,6 +111,7 @@ export async function searchPosts(query: string, page = 1, author = '') {
     .select({
       ...getTableColumns(schema.post),
       author: sql<string>`coalesce(${schema.user.name}, ${schema.post.author})`,
+      categoryName: schema.Category.name,
     })
     .from(schema.post)
     .leftJoin(schema.Category, eq(schema.Category.id, schema.post.category))

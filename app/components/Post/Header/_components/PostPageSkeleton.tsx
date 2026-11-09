@@ -18,7 +18,7 @@ export default function PostPageSkeleton() {
           </div>
 
           {/* Cover image */}
-          <div className="relative h-[20rem] w-full rounded-[1rem] bg-gray-200" />
+          <div className="post-cover skeleton" />
         </div>
       </div>
 

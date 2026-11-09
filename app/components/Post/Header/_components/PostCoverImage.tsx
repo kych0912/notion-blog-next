@@ -6,16 +6,15 @@ export default function PostCoverImage({ coverImg }: { coverImg: string }) {
   const imageSrc = coverImg ? normalizeNotionImageUrl(coverImg) : '/Default_Image.jpeg';
 
   return (
-    <div className="relative h-[20rem] w-full">
+    <div className="post-cover">
       <Image
         src={imageSrc}
-        alt="coverImg"
+        alt=""
         fill
-        style={{
-          objectFit: 'cover',
-          objectPosition: 'center',
-          borderRadius: '1rem',
-        }}
+        sizes="(max-width: 720px) calc(100vw - 32px), 688px"
+        loading="eager"
+        fetchPriority="high"
+        className="post-cover__image"
       />
     </div>
   );

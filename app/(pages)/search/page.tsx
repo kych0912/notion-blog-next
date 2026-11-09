@@ -60,6 +60,8 @@ export default async function SearchPage({
                     date={new Date(post.date)}
                     variant="row"
                     headingLevel="h3"
+                    categoryName={post.categoryName}
+                    highlightQuery={query}
                   />
                 ))
               ) : (
